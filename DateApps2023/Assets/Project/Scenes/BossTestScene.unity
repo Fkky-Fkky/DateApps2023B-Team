@@ -2080,6 +2080,8 @@ GameObject:
   - component: {fileID: 1299321617}
   - component: {fileID: 1299321616}
   - component: {fileID: 1299321621}
+  - component: {fileID: 1299321622}
+  - component: {fileID: 1299321623}
   - component: {fileID: 1299321620}
   m_Layer: 0
   m_Name: Boss
@@ -2194,13 +2196,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e6744090faeb0459472457f08c3f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 1299321615}
-  knockBackFlag: 0
   target: {fileID: 27058311}
   BossDistanceTMP: {fileID: 1564637347}
-  moveSpeed: 1
-  knockBackPower: 200
   sceneName: GameoverScene
+--- !u!114 &1299321622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299321615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d8cc92c29a0b84faa73b36b8d3d196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+--- !u!114 &1299321623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299321615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 1299321615}
+  knockBackFlag: 0
+  knockBackPower: 300
   stopTime: 5
 --- !u!1 &1318891614
 GameObject:
