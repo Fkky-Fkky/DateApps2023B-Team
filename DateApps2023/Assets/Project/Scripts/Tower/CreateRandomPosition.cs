@@ -92,7 +92,7 @@ public class CreateRandomPosition : MonoBehaviour
             ||u==1 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true)
         {
             CubePrefabs[3].SetActive(true);
-            boss.GetComponent<BossController>().KnockbackTrue();
+            boss.GetComponent<BossDamage>().KnockbackTrue();
 
             time += Time.deltaTime;
             a = 0;
@@ -108,7 +108,7 @@ public class CreateRandomPosition : MonoBehaviour
             tower_bild_flag = 0;
             tower_flag = 1;
             time = 0;
-            boss.GetComponent<BossController>().KnockbackFalse();
+            boss.GetComponent<BossDamage>().KnockbackFalse();
 
             CubePrefabs[0].SetActive(false);
             CubePrefabs[1].SetActive(false);
