@@ -1364,6 +1364,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6203629942683841511, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 27058311}
+    - target: {fileID: 6203629942683841511, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
+      propertyPath: BossDistanceTMP
+      value: 
+      objectReference: {fileID: 1564637347}
     - target: {fileID: 6203629942683841533, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
       propertyPath: m_Name
       value: Boss
