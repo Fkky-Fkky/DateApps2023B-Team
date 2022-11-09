@@ -9,14 +9,14 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     private GameObject boss;
 
-    [SerializeField]
-    private bool knockBackFlag = false;
+    public bool knockBackFlag { get; private set; }
 
     [SerializeField]
     [Tooltip("m換算？")]
     private float knockBackPower = 300.0f;
 
     [SerializeField]
+    [Tooltip("ノックバック後硬直時間")]
     private float stopTime = 5.0f;
 
     float time = 0;
@@ -25,7 +25,7 @@ public class BossDamage : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        knockBackFlag = false;
     }
 
     // Update is called once per frame
