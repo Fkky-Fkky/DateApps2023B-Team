@@ -9,7 +9,8 @@ public class hantei : MonoBehaviour
     //CreateRandomPosition CR;
     public CreateRandomPosition createrandomposition;
 
-   
+
+
     //public CreateRandomPosition CreateRandomPosition;
 
     // Start is called before the first frame update
