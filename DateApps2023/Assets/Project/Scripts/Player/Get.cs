@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Get : MonoBehaviour
 {
     Rigidbody rb;
-    public bool item_flag = false;
+    public GameObject[] item;
+    private bool item_flag = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,10 @@ public class Get : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Keyboard.current.enterKey.isPressed)
+        { 
+            item_flag = false;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -31,7 +34,6 @@ public class Get : MonoBehaviour
         {
             item_flag = true;
             collision.gameObject.transform.SetParent(transform);
-            
         }
     }
     private void OnCollisionExit(Collision collision)
