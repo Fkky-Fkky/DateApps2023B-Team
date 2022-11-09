@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FailedLine
+  - hantei
+  - item4
+  - item2
+  - item
+  - item3
+  - CloneSabotageItem
   layers:
   - Default
   - TransparentFX
@@ -11,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - SabotageItem
   - 
   - 
   - 
