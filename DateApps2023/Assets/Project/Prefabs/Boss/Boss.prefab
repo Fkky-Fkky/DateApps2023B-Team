@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 6203629942683841533}
-  knockBackFlag: 0
   knockBackPower: 300
   stopTime: 5
 --- !u!114 &8859030882214931292
@@ -174,12 +173,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 0}
+  boss: {fileID: 6203629942683841533}
+  bossDamage: {fileID: 6203629942683841509}
   intervalTime: 15
   attackTime: 5
   sabotageTime: 30
-  rangeA: {fileID: 0}
-  rangeB: {fileID: 0}
+  rangeA: {fileID: 8443617149660249088, guid: a7d1577eba7e1de48a0adc8e920c4544, type: 3}
+  rangeB: {fileID: 7667770115285439318, guid: df4813e687ded0d4e938cadb5838e202, type: 3}
+  instancePosY: 100
   sabotageItem:
   - {fileID: 2944399583157852937, guid: 58c3d218d34418547b3d410cb187a87e, type: 3}
   - {fileID: 2944399583157852937, guid: 58c3d218d34418547b3d410cb187a87e, type: 3}
@@ -187,4 +188,4 @@ MonoBehaviour:
   LayerMask:
     serializedVersion: 2
     m_Bits: 0
-  halfExtents: {x: 14, y: 5, z: 14}
+  halfExtents: {x: 30, y: 100, z: 30}
