@@ -7,7 +7,7 @@ public class hantei : MonoBehaviour
 {
     //GameObject ObjectB;
     //CreateRandomPosition CR;
-    public CreateRandomPosition createrandomposition;
+    //public CreateRandomPosition createrandomposition;
 
    
     //public CreateRandomPosition CreateRandomPosition;
@@ -20,8 +20,8 @@ public class hantei : MonoBehaviour
         
 
        
-        GameObject obj = GameObject.Find("tower"); //Playerっていうオブジェクトを探す
-        createrandomposition = obj.GetComponent<CreateRandomPosition>();　//付いているスクリプトを取得
+        //GameObject obj = GameObject.Find("tower"); //Playerっていうオブジェクトを探す
+        //createrandomposition = obj.GetComponent<CreateRandomPosition>();　//付いているスクリプトを取得
 
 
         //CreateRandomPosition createrandomposition=GetComponent<CreateRandomPosition>();
@@ -38,7 +38,7 @@ public class hantei : MonoBehaviour
     {
         if (other.gameObject.CompareTag("hantei"))
         {
-            Destroy(gameObject, 0);
+            Destroy(gameObject);
             //createrandomposition.Settower_bild_flag();
         }
     }

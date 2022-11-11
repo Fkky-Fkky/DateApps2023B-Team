@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UIElements;
 
 
 public class PlayerMove : MonoBehaviour
@@ -10,10 +12,12 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField]
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
-    private float moveSpeed = 3.0f;
+    private float moveSpeed = 2000.0f;
 
     [SerializeField]
     int playerNo;
+
+
 
     Rigidbody rb;
 
@@ -28,14 +32,14 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         
     }
 
     private void FixedUpdate()
     {
-        var leftStickValue = Gamepad.all[playerNo-1].leftStick.ReadValue();
-        Debug.Log(leftStickValue);
+
+        var leftStickValue = Gamepad.all[playerNo - 1].leftStick.ReadValue();
+        //Debug.Log(leftStickValue);
 
         Vector3 vec = new Vector3(0, 0, 0);
         if (leftStickValue.x != 0.0f)
@@ -47,5 +51,7 @@ public class PlayerMove : MonoBehaviour
             vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
         }
         rb.velocity = vec;
+
+
     }
 }
