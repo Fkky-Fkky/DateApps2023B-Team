@@ -57,7 +57,7 @@ public class CreateRandomPosition : MonoBehaviour
             float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
            
-            Instantiate(item[number], new Vector3(x, 50, z), CubePrefabs[number].transform.rotation);
+            Instantiate(item[number], new Vector3(x, 55, z), CubePrefabs[number].transform.rotation);
                 number += 1;
                 // GameObject‚ğã‹L‚ÅŒˆ‚Ü‚Á‚½ƒ‰ƒ“ƒ_ƒ€‚ÈêŠ‚É¶¬
                 //Instantiate(createPrefab, new Vector3(x, 1, z), createPrefab.transform.rotation);
