@@ -119,13 +119,15 @@ MonoBehaviour:
   - {fileID: 2267128522633656386}
   - {fileID: 2267128522133567803}
   - {fileID: 2267128524044420886}
-  rangeA: {fileID: 8443617149660249088, guid: a7d1577eba7e1de48a0adc8e920c4544, type: 3}
-  rangeB: {fileID: 7667770115285439318, guid: df4813e687ded0d4e938cadb5838e202, type: 3}
+  rangeA: {fileID: 0}
+  rangeB: {fileID: 0}
   item:
-  - {fileID: 5342593903358291196, guid: 9f046e25551f5cf4dbc1abba7870a7ba, type: 3}
-  - {fileID: 6221192736847804621, guid: e7150ac2c6b75f046a9f43e89b107829, type: 3}
-  - {fileID: 7457647884818573497, guid: fc27febcd9614ce4eaa69184c0bb65c3, type: 3}
-  - {fileID: 4408742656896223919, guid: 235d730ada3132a4dabddddc114ddda9, type: 3}
+  - {fileID: 2818120208879017832, guid: 5edbe977134593141ad310d2f7fb337a, type: 3}
+  - {fileID: 7484291627636912238, guid: bb10878548d05f14397bfe67a954c340, type: 3}
+  - {fileID: 621161155724401996, guid: 6b350095bdb479d4ea61712aec0dcbaa, type: 3}
+  - {fileID: 6557001461365451521, guid: f87119e2f0b3c4a4bab0b4ef083a755e, type: 3}
+  tower_bild_flag: 0
+  boss: {fileID: 0}
 --- !u!1001 &2475138628435283385
 PrefabInstance:
   m_ObjectHideFlags: 0
