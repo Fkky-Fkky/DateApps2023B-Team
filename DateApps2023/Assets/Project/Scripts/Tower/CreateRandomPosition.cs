@@ -33,7 +33,6 @@ public class CreateRandomPosition : MonoBehaviour
     int a = 0;
     int i = 0;
     int u = 0;
-    int e = 0;
 
     public GameObject boss;
 
@@ -98,7 +97,6 @@ public class CreateRandomPosition : MonoBehaviour
             a = 0;
             i = 0;
             u = 0;
-            e = 0;
 
         }
         else if (tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == false && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false)
