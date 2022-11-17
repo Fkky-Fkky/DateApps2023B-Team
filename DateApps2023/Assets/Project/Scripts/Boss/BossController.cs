@@ -29,7 +29,6 @@ public class BossController : MonoBehaviour
     {
         targetRange = gameObject.transform.position.z - target.position.z;
         BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
-
     }
 
     private void OnCollisionEnter(Collision collision)

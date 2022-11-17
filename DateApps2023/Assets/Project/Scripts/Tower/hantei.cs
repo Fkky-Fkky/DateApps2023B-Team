@@ -1,30 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class hantei : MonoBehaviour
 {
-    //GameObject ObjectB;
-    //CreateRandomPosition CR;
-    //public CreateRandomPosition createrandomposition;
+    public GameObject[] myGrabPoint = null;
+    public PlayerCarryDown[] playerCarryDowns = null;
+    private PlayerController playercontroller;
+    int number = 0;
+    public int groupNumber = 1;
+    private bool InGroup = false;
 
-   
-    //public CreateRandomPosition CreateRandomPosition;
+    BoxCollider boxCol;
+    private Vector3 sizeCount;
+
+    [SerializeField]
+    private Vector3 afterSizeCount = new Vector3(4, 1, 4);
 
     // Start is called before the first frame update
     void Start()
     {
-        //ObjectB = GameObject.Find("ObjectB");
-        //CR = ObjectB.GetComponent();
-        
-
-       
-        //GameObject obj = GameObject.Find("tower"); //Playerっていうオブジェクトを探す
-        //createrandomposition = obj.GetComponent<CreateRandomPosition>();　//付いているスクリプトを取得
-
-
-        //CreateRandomPosition createrandomposition=GetComponent<CreateRandomPosition>();
+        boxCol = GetComponent<BoxCollider>();
     }
 
 
@@ -34,14 +34,78 @@ public class hantei : MonoBehaviour
         
         
     }
-    void OnTriggerEnter(Collider other)
+
+    public void GetGrabPoint(GameObject thisGrabPoint)
     {
-        if (other.gameObject.CompareTag("hantei"))
+        Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+        myGrabPoint[number] = thisGrabPoint;
+        playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
+        number++;
+
+        while (!InGroup)
         {
-            Destroy(gameObject);
-            //createrandomposition.Settower_bild_flag();
+            GameObject group = GameObject.Find("Group" + groupNumber);
+            if (group.transform.childCount <= 0)
+            {
+                gameObject.transform.SetParent(group.gameObject.transform);
+                playercontroller = group.GetComponent<PlayerController>();
+
+                InGroup = true;
+            }
+            else
+            {
+                groupNumber += 1;
+                if (groupNumber > 4)
+                {
+                    groupNumber = 1;
+                }
+            }
         }
+
+        sizeCount = boxCol.size;
+        //boxCol.size = afterSizeCount;
     }
 
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        boxCol.size = sizeCount;
+    //    }
+    //}
+
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        boxCol.size = afterSizeCount;
+    //    }
+    //}
+
+    public void OutGroup()
+    {
+        InGroup = false;
+        gameObject.transform.parent = null;
+        boxCol.size = sizeCount;
+
+    }
+
+    public void DestroyMe()
+    {
+        playercontroller.ReleaseChild();
+
+        DoHanteiEnter();
+        Destroy(gameObject);
+    }
+
+    public void DoHanteiEnter()
+    {
+        for (int i = 0; i < myGrabPoint.Length; i++)
+        {
+            playerCarryDowns[i].HanteiEnter();
+        }
+    }
     
+
 }

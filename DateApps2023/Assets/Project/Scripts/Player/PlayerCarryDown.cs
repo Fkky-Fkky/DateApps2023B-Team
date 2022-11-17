@@ -5,46 +5,73 @@ using UnityEngine.InputSystem;
 
 public class PlayerCarryDown : MonoBehaviour
 {
-    // Start is called before the first frame update
+    #region
+
     private bool isCarry = false;
-    private Collision carryItem = null;
+    private GameObject carryItem = null;
+
+    private Rigidbody rb;
+    private BoxCollider myCol;
 
     private bool canUsed = false;
 
+    private int myPlayerNo = 5;
+
+    private PlayerMove playermove = null;
+    private hantei hanteiItem;
+
+    private int myGroupNo = 1;
+
+    #endregion
 
     void Start()
     {
+        rb = GetComponentInParent<Rigidbody>();
+        playermove = GetComponentInParent<PlayerMove>();
 
+        myCol = GetComponent<BoxCollider>();
     }
     void Update()
     {
-        if (Gamepad.current.bButton.wasPressedThisFrame ||
-            Keyboard.current.enterKey.wasPressedThisFrame)
+        if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
         {
+            Debug.Log("you push button");
+
             if (isCarry)
             {
-                for (int i = 0; i < gameObject.transform.childCount; i++)
-                {
-                    GameObject child = transform.GetChild(i).gameObject;
-                    child.transform.parent = null;
-                }
-                canUsed = false;
-                isCarry = false;
+                Debug.Log("you release item");
+
+                HanteiEnter();
             }
             else
             {
                 if (canUsed)
                 {
-                    carryItem.transform.SetParent(transform);
+                    Debug.Log("you get item");
                     isCarry = true;
                     canUsed = false;
+                    //rb = null;
+                    hanteiItem = carryItem.GetComponent<hantei>();
+                    hanteiItem.GetGrabPoint(this.gameObject);
+                    myGroupNo = hanteiItem.groupNumber;
+                    playermove.GetItem(myGroupNo);
                 }
             }
+        }
 
+        if (isCarry)
+        {
+            myCol.enabled = false;
+        }
+        if (carryItem == null)
+        {
+            isCarry = false;
+            canUsed = false;
+            myCol.enabled = true;
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerStay(Collider collision)
     {
         if (!isCarry)
         {
@@ -55,13 +82,15 @@ public class PlayerCarryDown : MonoBehaviour
             )
             {
                 canUsed = true;
-                carryItem = collision;
+                carryItem = collision.gameObject;
+                Debug.Log("OnTriggerStay");
             }
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
     {
+        Debug.Log("OnTriggerExit");
         if (!isCarry)
         {
             if (collision.gameObject.CompareTag("item")
@@ -71,17 +100,25 @@ public class PlayerCarryDown : MonoBehaviour
             )
             {
                 canUsed = false;
-                //collision.gameObject.transform.parent = null;
+                carryItem = null;
             }
         }
+    }
 
-    }
-    void OnTriggerEnter(Collider other)
+    public void HanteiEnter()
     {
-        if (other.gameObject.CompareTag("hantei"))
-        {
-            isCarry = false;
-            canUsed = false;
-        }
+        playermove.RemoveItem(myGroupNo);
+        rb = GetComponentInParent<Rigidbody>();
+
+        isCarry = false;
+        canUsed = false;
+        carryItem = null;
+        myCol.enabled = true;
     }
+
+    public void GetPlayerNo(int parentNumber)
+    {
+        myPlayerNo = parentNumber;
+    }
+
 }

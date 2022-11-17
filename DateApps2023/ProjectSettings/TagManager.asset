@@ -11,6 +11,7 @@ TagManager:
   - item
   - item3
   - CloneSabotageItem
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Water
   - UI
   - SabotageItem
-  - 
+  - Player
   - 
   - 
   - 
