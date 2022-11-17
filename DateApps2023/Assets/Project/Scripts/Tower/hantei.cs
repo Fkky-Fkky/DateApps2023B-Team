@@ -45,11 +45,11 @@ public class hantei : MonoBehaviour
 
         while (!InGroup)
         {
-            GameObject kariGroup = GameObject.Find("KariGroup" + groupNumber);
-            if (kariGroup.transform.childCount <= 0)
+            GameObject group = GameObject.Find("Group" + groupNumber);
+            if (group.transform.childCount <= 0)
             {
-                gameObject.transform.SetParent(kariGroup.gameObject.transform);
-                playercontroller = kariGroup.GetComponent<PlayerController>();
+                gameObject.transform.SetParent(group.gameObject.transform);
+                playercontroller = group.GetComponent<PlayerController>();
 
                 InGroup = true;
             }

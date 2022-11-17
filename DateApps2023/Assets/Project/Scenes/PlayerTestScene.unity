@@ -1718,7 +1718,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
-      value: KariGroup3
+      value: Group3
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264574, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_RootOrder
@@ -2037,7 +2037,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
-      value: KariGroup4
+      value: Group4
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264574, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_RootOrder
@@ -2465,7 +2465,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
-      value: KariGroup2
+      value: Group2
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264574, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_RootOrder
@@ -2894,7 +2894,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
-      value: KariGroup1
+      value: Group1
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264574, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_RootOrder

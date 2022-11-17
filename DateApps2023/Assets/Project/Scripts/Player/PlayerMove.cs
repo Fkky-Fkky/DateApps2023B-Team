@@ -156,9 +156,9 @@ public class PlayerMove : MonoBehaviour
 
     public void GetItem(int groupNo)
     {
-        GameObject kariGroup = GameObject.Find("KariGroup" + groupNo);
-        gameObject.transform.SetParent(kariGroup.gameObject.transform);
-        kariGroup.GetComponent<PlayerController>().GetMyNo(playerNo);
+        GameObject group = GameObject.Find("Group" + groupNo);
+        gameObject.transform.SetParent(group.gameObject.transform);
+        group.GetComponent<PlayerController>().GetMyNo(playerNo);
 
         InGroup = true;
         //rb.isKinematic = true;
@@ -171,9 +171,9 @@ public class PlayerMove : MonoBehaviour
 
     public void RemoveItem(int groupNo)
     {
-        GameObject kariGroup = GameObject.Find("KariGroup" + groupNo);
+        GameObject group = GameObject.Find("Group" + groupNo);
         gameObject.transform.parent = null;
-        PlayerController playerController = kariGroup.GetComponent<PlayerController>();
+        PlayerController playerController = group.GetComponent<PlayerController>();
         int sentNumber = playerNo;
         playerController.OutGroup(sentNumber);
 
