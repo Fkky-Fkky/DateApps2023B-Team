@@ -36,9 +36,20 @@ public class CreateRandomPosition : MonoBehaviour
 
     public GameObject boss;
 
+    /// <ここから>
+    public BossCamera bosscamera;
+    ///
+    ///steat
+    ///
+    ///
+    ///Update
+    //
+    /// <ここまで>
     void Start()
     {
         boss = GameObject.Find("Boss");
+        GameObject obj = GameObject.Find("BossCamera"); //BossCameraっていうオブジェクトを探す
+        bosscamera = obj.GetComponent<BossCamera>(); //付いているスクリプトを取得
     }
 
     // Update is called once per frame
@@ -112,6 +123,9 @@ public class CreateRandomPosition : MonoBehaviour
             CubePrefabs[1].SetActive(false);
             CubePrefabs[2].SetActive(false);
             CubePrefabs[3].SetActive(false);
+
+            bosscamera.Camerachenge();
+
         }
 
         if (CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true && CubePrefabs[3].activeSelf == true)
