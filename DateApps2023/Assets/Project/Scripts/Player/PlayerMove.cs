@@ -18,11 +18,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
     private float moveSpeed = 2000.0f;
+    private float tempMoveSpeed = 0;
+    [SerializeField]
+    private float slowMoveSpeed = 150.0f;
 
     private int playerNo;
 
     Rigidbody rb;
-    private BoxCollider myBoxCol;
 
     [SerializeField] private float maxAngularSpeed = Mathf.Infinity;
     [SerializeField] private float smoothTime = 0.01f;
@@ -51,13 +53,13 @@ public class PlayerMove : MonoBehaviour
 
     PlayerCarryDown carryDown;
 
+
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        myBoxCol = GetComponent<BoxCollider>();
 
         myTransform = transform;
         prevPosition = myTransform.position;
@@ -85,6 +87,7 @@ public class PlayerMove : MonoBehaviour
         carryDown = GetComponentInChildren<PlayerCarryDown>();
         carryDown.GetPlayerNo(playerNo);
 
+        tempMoveSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -94,6 +97,8 @@ public class PlayerMove : MonoBehaviour
         {
             if (!EnterItem)
             {
+                moveSpeed = tempMoveSpeed;
+
                 var position = myTransform.position;
                 var delta = position - prevPosition;
                 prevPosition = position;
@@ -121,8 +126,13 @@ public class PlayerMove : MonoBehaviour
 
                 myTransform.rotation = nextRot;
             }
+            else
+            {
+                moveSpeed = slowMoveSpeed;
+            }
         }
-        
+        Debug.Log(moveSpeed);
+
     }
 
     private void FixedUpdate()
@@ -140,6 +150,16 @@ public class PlayerMove : MonoBehaviour
         {
             EnterItem = true;
         }
+        
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Group"))
+        {
+            EnterItem = true;
+            //moveSpeed = collision.gameObject.GetComponent<PlayerController>().sentSpeed;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -152,7 +172,13 @@ public class PlayerMove : MonoBehaviour
         {
             EnterItem = false;
         }
+        if (collision.gameObject.CompareTag("Group"))
+        {
+            EnterItem = false;
+        }
     }
+
+    
 
     public void GetItem(int groupNo)
     {
@@ -161,12 +187,9 @@ public class PlayerMove : MonoBehaviour
         group.GetComponent<PlayerController>().GetMyNo(playerNo);
 
         InGroup = true;
-        //rb.isKinematic = true;
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         Destroy(rigidbody);
         rb = GetComponentInParent<Rigidbody>();
-        
-        //myBoxCol.enabled = false;
     }
 
     public void RemoveItem(int groupNo)
@@ -177,11 +200,13 @@ public class PlayerMove : MonoBehaviour
         int sentNumber = playerNo;
         playerController.OutGroup(sentNumber);
 
-        //myBoxCol.enabled = true;
         EnterItem = false;
-        //rb.isKinematic = false;
+
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
+
+        myTransform.rotation= Quaternion.identity;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         InGroup = false;
     }
@@ -191,8 +216,8 @@ public class PlayerMove : MonoBehaviour
         if (!InGroup)
         {
             var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
-
             Vector3 vec = new Vector3(0, 0, 0);
+
             if (leftStickValue.x != 0.0f)
             {
                 vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
@@ -202,6 +227,7 @@ public class PlayerMove : MonoBehaviour
                 vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
             }
             rb.velocity = vec;
+
         }
     }
 }

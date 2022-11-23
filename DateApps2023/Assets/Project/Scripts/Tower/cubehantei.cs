@@ -17,11 +17,6 @@ public class cubehantei : MonoBehaviour
         createrandomposition = obj_tower.GetComponent<CreateRandomPosition>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("item"))
