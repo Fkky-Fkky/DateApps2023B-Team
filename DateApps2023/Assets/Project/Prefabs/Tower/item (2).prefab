@@ -113,7 +113,4 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
-  FindName:
-  - item
-  - item (1)
-  - item (3)
+  myItemSize: 1
