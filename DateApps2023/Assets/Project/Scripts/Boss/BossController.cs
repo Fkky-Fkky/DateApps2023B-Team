@@ -4,9 +4,14 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
+//
+// 
+//
 public class BossController : MonoBehaviour
 {
+    public Slider slider;
 
     [SerializeField]
     private Transform target;
@@ -21,7 +26,7 @@ public class BossController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        slider.value = 3;
     }
 
     // Update is called once per frame
@@ -29,14 +34,15 @@ public class BossController : MonoBehaviour
     {
         targetRange = gameObject.transform.position.z - target.position.z;
         BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
+        slider.value = targetRange / 1000;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "FailedLine")
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-    }
+    private void OnTriggerEnter(Collider other)
+  {
+      if(other.gameObject.tag == "FailedLine")
+      {
+          SceneManager.LoadScene(sceneName);
+      }
+  }
 
 }
