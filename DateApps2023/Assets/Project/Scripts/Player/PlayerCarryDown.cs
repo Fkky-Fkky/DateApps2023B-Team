@@ -33,24 +33,19 @@ public class PlayerCarryDown : MonoBehaviour
     }
     void Update()
     {
+        
         if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
         {
-            Debug.Log("you push button");
-
             if (isCarry)
             {
-                Debug.Log("you release item");
-
                 HanteiEnter();
             }
             else
             {
                 if (canUsed)
                 {
-                    Debug.Log("you get item");
                     isCarry = true;
                     canUsed = false;
-                    //rb = null;
                     hanteiItem = carryItem.GetComponent<hantei>();
                     hanteiItem.GetGrabPoint(this.gameObject);
                     myGroupNo = hanteiItem.groupNumber;
@@ -83,14 +78,12 @@ public class PlayerCarryDown : MonoBehaviour
             {
                 canUsed = true;
                 carryItem = collision.gameObject;
-                Debug.Log("OnTriggerStay");
             }
         }
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        Debug.Log("OnTriggerExit");
         if (!isCarry)
         {
             if (collision.gameObject.CompareTag("item")

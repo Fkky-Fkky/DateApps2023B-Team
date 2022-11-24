@@ -12,6 +12,7 @@ TagManager:
   - item3
   - CloneSabotageItem
   - Wall
+  - Group
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - SabotageItem
   - Player
-  - 
+  - Group
   - 
   - 
   - 

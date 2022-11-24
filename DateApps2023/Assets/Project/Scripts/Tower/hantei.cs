@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using UnityEngine;
+using static PlayerMove;
 using static UnityEditor.PlayerSettings;
 
 public class hantei : MonoBehaviour
 {
+    #region
     public GameObject[] myGrabPoint = null;
     public PlayerCarryDown[] playerCarryDowns = null;
     private PlayerController playercontroller;
@@ -16,23 +18,39 @@ public class hantei : MonoBehaviour
     private bool InGroup = false;
 
     BoxCollider boxCol;
+    BoxCollider childBoxCol;
     private Vector3 sizeCount;
 
+    enum ItemSize
+    {
+        Small,
+        Medium,
+        Large
+    }
+
     [SerializeField]
-    private Vector3 afterSizeCount = new Vector3(4, 1, 4);
+    ItemSize myItemSize = ItemSize.Small;
+    private int itemSizeCount = 0;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
-    }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
+        switch (myItemSize)
+        {
+            case ItemSize.Small:
+                itemSizeCount = (int)ItemSize.Small;
+                break;
+            case ItemSize.Medium:
+                itemSizeCount = (int)ItemSize.Medium;
+                break;
+            case ItemSize.Large:
+                itemSizeCount = (int)ItemSize.Large;
+                break;
+        }
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)
@@ -50,7 +68,7 @@ public class hantei : MonoBehaviour
             {
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-
+                playercontroller.GetItemSize(itemSizeCount);
                 InGroup = true;
             }
             else
@@ -64,24 +82,7 @@ public class hantei : MonoBehaviour
         }
 
         sizeCount = boxCol.size;
-        //boxCol.size = afterSizeCount;
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        boxCol.size = sizeCount;
-    //    }
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        boxCol.size = afterSizeCount;
-    //    }
-    //}
 
     public void OutGroup()
     {

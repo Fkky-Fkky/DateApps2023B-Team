@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -10,12 +12,19 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
-    private float moveSpeed = 2000.0f;
+    private float moveSpeed = 1000.0f;
 
     private Rigidbody rb;
 
     private bool controlFrag = false;
     private bool[] gamepadFrag = { false, false, false, false };
+
+    private int itemSizeCount = 0;
+    private int playerCount = 0;
+    private float mySpeed = 1.0f;
+    public float sentSpeed = 1.0f;
+
+    private Vector3 groupVec = new Vector3(0, 0, 0);
 
 
     // Start is called before the first frame update
@@ -25,85 +34,41 @@ public class PlayerController : MonoBehaviour
         rb.Sleep();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         if (controlFrag)
         {
-            Vector3 vec = new Vector3(0, 0, 0);
-            Vector2 before1 = new Vector2(0, 0);
-            Vector2 before2 = new Vector2(0, 0);
-            Vector2 before3 = new Vector2(0, 0);
-            Vector2 before4 = new Vector2(0, 0);
+            Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-            if (gamepadFrag[0])
+            CheckPlayerCount();
+            sentSpeed = (mySpeed * moveSpeed) / 2;
+            
+            for(int i = 0; i < gamepadFrag.Length; i++)
             {
-                var leftStickValue = Gamepad.all[0].leftStick.ReadValue();
+                if (gamepadFrag[i])
+                {
+                    var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
 
-                if (leftStickValue.x != 0.0f)
-                {
-                    before1.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                }
-                if (leftStickValue.y != 0.0f)
-                {
-                    before1.y = moveSpeed * Time.deltaTime * leftStickValue.y;
-                }
-            }
-            if (gamepadFrag[1])
-            {
-                var leftStickValue = Gamepad.all[1].leftStick.ReadValue();
-
-                if (leftStickValue.x != 0.0f)
-                {
-                    before2.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                }
-                if (leftStickValue.y != 0.0f)
-                {
-                    before2.y = moveSpeed * Time.deltaTime * leftStickValue.y;
-                }
-            }
-            if (gamepadFrag[2])
-            {
-                var leftStickValue = Gamepad.all[2].leftStick.ReadValue();
-
-                if (leftStickValue.x != 0.0f)
-                {
-                    before3.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                }
-                if (leftStickValue.y != 0.0f)
-                {
-                    before3.y = moveSpeed * Time.deltaTime * leftStickValue.y;
-                }
-            }
-            if (gamepadFrag[3])
-            {
-                var leftStickValue = Gamepad.all[3].leftStick.ReadValue();
-
-                if (leftStickValue.x != 0.0f)
-                {
-                    before4.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                }
-                if (leftStickValue.y != 0.0f)
-                {
-                    before4.y = moveSpeed * Time.deltaTime * leftStickValue.y;
+                    if (leftStickValue.x != 0.0f)
+                    {
+                        before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
+                    }
+                    if (leftStickValue.y != 0.0f)
+                    {
+                        before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
+                    }
                 }
             }
 
-            vec.x = before1.x + before2.x + before3.x + before4.x;
-            vec.z = before1.y + before2.y + before3.y + before4.y;
-            rb.velocity = vec;
+            groupVec.x = before[0].x + before[1].x + before[2].x + before[3].x;
+            groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
+            rb.velocity = groupVec;
 
             if (transform.childCount == 1)
             {
                 transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
-                AllFragFalse();
             }
-            else if(transform.childCount < 1)
+            else if(transform.childCount <= 1)
             {
                 AllFragFalse();
             }
@@ -113,8 +78,8 @@ public class PlayerController : MonoBehaviour
     public void GetMyNo(int childNo)
     {
         gamepadFrag[childNo] = true;
+        playerCount++;
         controlFrag = true;
-        
     }
 
     public void ReleaseChild()
@@ -124,13 +89,13 @@ public class PlayerController : MonoBehaviour
             transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
             transform.GetChild(i).gameObject.transform.parent = null;
         }
-
         AllFragFalse();
     }
 
     public void OutGroup(int outChildNo)
     {
         gamepadFrag[outChildNo] = false;
+        playerCount--;
     }
 
     void AllFragFalse()
@@ -140,5 +105,82 @@ public class PlayerController : MonoBehaviour
             gamepadFrag[i] = false;
         }
         controlFrag = false;
+        playerCount = 0;
+    }
+
+    public void GetItemSize(int itemSize)
+    {
+        itemSizeCount = itemSize;
+    }
+
+    void CheckPlayerCount()
+    {
+        if(playerCount < 0)
+        {
+            playerCount = 0;
+        }
+        if (playerCount > 4)
+        {
+            playerCount = 4;
+        }
+
+        if (itemSizeCount == 0)
+        {
+            if(playerCount == 1)
+            {
+                mySpeed = (moveSpeed * 1.0f) / playerCount;
+            }
+            if (playerCount == 2)
+            {
+                mySpeed = (moveSpeed * 1.3f) / playerCount;
+            }
+            if (playerCount == 3)
+            {
+                mySpeed = (moveSpeed * 1.7f) / playerCount;
+            }
+            if (playerCount == 4)
+            {
+                mySpeed = (moveSpeed * 2.3f) / playerCount;
+            }
+        }
+        if (itemSizeCount == 1)
+        {
+            if (playerCount == 1)
+            {
+                mySpeed = (moveSpeed * 0.5f) / playerCount;
+            }
+            if (playerCount == 2)
+            {
+                mySpeed = (moveSpeed * 1.0f) / playerCount;
+            }
+            if (playerCount == 3)
+            {
+                mySpeed = (moveSpeed * 1.5f) / playerCount;
+            }
+            if (playerCount == 4)
+            {
+                mySpeed = (moveSpeed * 2.0f) / playerCount;
+            }
+        }
+        if (itemSizeCount == 2)
+        {
+            //mySpeed = 0.25f;
+            if (playerCount == 1)
+            {
+                mySpeed = (moveSpeed * 0.3f) / playerCount;
+            }
+            if (playerCount == 2)
+            {
+                mySpeed = (moveSpeed * 0.5f) / playerCount;
+            }
+            if (playerCount == 3)
+            {
+                mySpeed = (moveSpeed * 1.0f) / playerCount;
+            }
+            if (playerCount == 4)
+            {
+                mySpeed = (moveSpeed * 2.5f) / playerCount;
+            }
+        }
     }
 }
