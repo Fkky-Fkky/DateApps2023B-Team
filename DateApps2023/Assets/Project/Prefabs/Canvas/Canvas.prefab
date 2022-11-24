@@ -508,3 +508,4 @@ MonoBehaviour:
   minutesCount: 3
   timeCdTMP: {fileID: 3319014652729386306}
   sceneName: ClearScene
+  AnimationImage: {fileID: 0}
