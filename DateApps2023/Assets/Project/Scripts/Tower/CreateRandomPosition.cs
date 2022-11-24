@@ -37,7 +37,8 @@ public class CreateRandomPosition : MonoBehaviour
     public GameObject boss;
 
     /// <ここから>
-    public BossCamera bosscamera;
+    [SerializeField]
+    private BossCamera bosscamera;
     ///
     ///steat
     ///
@@ -47,9 +48,7 @@ public class CreateRandomPosition : MonoBehaviour
     /// <ここまで>
     void Start()
     {
-        boss = GameObject.Find("Boss");
-        GameObject obj = GameObject.Find("BossCamera"); //BossCameraっていうオブジェクトを探す
-        bosscamera = obj.GetComponent<BossCamera>(); //付いているスクリプトを取得
+        boss = GameObject.Find("Boss");        
     }
 
     // Update is called once per frame
