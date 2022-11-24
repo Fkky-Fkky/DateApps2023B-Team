@@ -21,11 +21,14 @@ public class BossDamage : MonoBehaviour
 
     float time = 0;
 
+    [SerializeField] Animator AnimationImage = null;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         knockBackFlag = false;
+        //animationController = transform.GetChild(2).GetComponent<AnimationController>();
     }
 
     // Update is called once per frame
@@ -53,18 +56,33 @@ public class BossDamage : MonoBehaviour
                 boss.transform.position.z + knockBackPower * Time.deltaTime);
 
         }
+
+
+        if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Damege") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f) 
+        {
+            AnimationImage.SetBool("Damage", false);
+        }
     }
 
 
     public void KnockbackTrue()
     {
+        if (knockBackFlag)
+            return;
+
         knockBackFlag = true;
+        //Damege‚ğON‚É‚·‚éˆ—
+        AnimationImage.SetBool("Damage", true);
     }
 
     public void KnockbackFalse()
     {
+        if(!knockBackFlag)
+            return;
 
         knockBackFlag = false;
-
+        //Damege‚ğOFF‚É‚·‚éˆ—
+        AnimationImage.SetBool("Damage", false);
     }
+
 }
