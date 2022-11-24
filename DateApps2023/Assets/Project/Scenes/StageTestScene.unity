@@ -476,30 +476,6 @@ PrefabInstance:
       propertyPath: bossController
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 2267128522594535550, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
-      propertyPath: item.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2267128522594535550, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
-      propertyPath: item.Array.data[0]
-      value: 
-      objectReference: {fileID: 2818120208879017832, guid: 5edbe977134593141ad310d2f7fb337a, type: 3}
-    - target: {fileID: 2267128522594535550, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
-      propertyPath: item.Array.data[1]
-      value: 
-      objectReference: {fileID: 7484291627636912238, guid: bb10878548d05f14397bfe67a954c340, type: 3}
-    - target: {fileID: 2267128522594535550, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
-      propertyPath: item.Array.data[2]
-      value: 
-      objectReference: {fileID: 621161155724401996, guid: 6b350095bdb479d4ea61712aec0dcbaa, type: 3}
-    - target: {fileID: 2267128522594535550, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
-      propertyPath: item.Array.data[3]
-      value: 
-      objectReference: {fileID: 6557001461365451521, guid: f87119e2f0b3c4a4bab0b4ef083a755e, type: 3}
-    - target: {fileID: 2267128522594535550, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
-      propertyPath: CubePrefabs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cafdf531e8e7a934cb28cdbe7a721111, type: 3}
 --- !u!1001 &555778331
@@ -559,105 +535,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
---- !u!1 &558500351
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 558500352}
-  - component: {fileID: 558500355}
-  - component: {fileID: 558500354}
-  - component: {fileID: 558500353}
-  m_Layer: 0
-  m_Name: BossCamera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &558500352
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558500351}
-  m_LocalRotation: {x: 0, y: -0.5, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 1.5, y: -0.1, z: -1.5}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 835335804}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
---- !u!114 &558500353
+--- !u!114 &558500353 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1965128798035386743, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
+  m_PrefabInstance: {fileID: 835335794}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558500351}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a774260656b0e1e43b7f9deea7389251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Maincamera: {fileID: 536031395}
-  Bosscamera: {fileID: 558500351}
---- !u!81 &558500354
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558500351}
-  m_Enabled: 1
---- !u!20 &558500355
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558500351}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0.25
-    y: 0.25
-    width: 0.5
-    height: 0.5
-  near clip plane: 0.3
-  far clip plane: 2000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1001 &567610746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -837,6 +725,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1965128798035386743, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
+      propertyPath: Maincamera
+      value: 
+      objectReference: {fileID: 536031395}
     - target: {fileID: 6203629942683841505, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -943,11 +835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &835335804 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6203629942683841505, guid: 1b3663707962d26449d95ae3409aaaeb, type: 3}
-  m_PrefabInstance: {fileID: 835335794}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &909944083 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8443617149660249088, guid: a7d1577eba7e1de48a0adc8e920c4544, type: 3}
@@ -1562,6 +1449,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2647251862295182072, guid: 1854d30357b42b9428b995bfec890de2, type: 3}
+      propertyPath: playerNumber
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621878054678062722, guid: 1854d30357b42b9428b995bfec890de2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

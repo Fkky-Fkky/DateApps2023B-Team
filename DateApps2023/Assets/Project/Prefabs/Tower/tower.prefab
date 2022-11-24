@@ -128,6 +128,7 @@ MonoBehaviour:
   - {fileID: 6557001461365451521, guid: f87119e2f0b3c4a4bab0b4ef083a755e, type: 3}
   tower_bild_flag: 0
   boss: {fileID: 0}
+  bosscamera: {fileID: 0}
 --- !u!1001 &2475138628435283385
 PrefabInstance:
   m_ObjectHideFlags: 0
