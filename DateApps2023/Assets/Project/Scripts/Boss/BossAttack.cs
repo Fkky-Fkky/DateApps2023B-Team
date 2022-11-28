@@ -57,14 +57,14 @@ public class BossAttack : MonoBehaviour
     #endregion
 
     #region 予測アイテム(仮)用
-    /*    private bool alreadyPredictFlag = false;
-        [SerializeField]
-        private float PredictInstancePosY = 55;
-        [SerializeField]
-        private GameObject[] predictSabotageItem;
-        public Vector3[] predictInstantPos;
-        public Vector3[] instantPos;
-        int number = 0;*/
+    private bool alreadyPredictFlag = false;
+    [SerializeField]
+    private float PredictInstancePosY = 55;
+    [SerializeField]
+    private GameObject[] predictSabotageItem;
+    public Vector3[] predictInstantPos;
+    public Vector3[] instantPos;
+    int number = 0;
     #endregion
 
     // Start is called before the first frame update
@@ -82,15 +82,77 @@ public class BossAttack : MonoBehaviour
             time = 0;
         }
 
+        //if (!sabotageFlag)
+        //{
+        //    time += Time.deltaTime;
+
+        //    if (time > intervalTime)
+        //    {
+        //        time = 0;
+        //        sabotageFlag = true;
+        //        alreadyInstantFlag = false;
+        //    }
+        //}
+        //if (sabotageFlag)
+        //{
+        //    time += Time.deltaTime;
+        //    currentSabotageTime += Time.deltaTime;
+
+        //    if (time < attackTime)
+        //    {
+        //        boss.transform.position = new Vector3(
+        //            0.0f,
+        //            boss.transform.position.y,
+        //            boss.transform.position.z);
+        //        rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        //    }
+        //    else
+        //    {
+        //        if (!alreadyInstantFlag)
+        //        {
+        //            GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
+        //            if (cloneItem.Length >= sabotageItem.Length)
+        //            {
+        //                alreadyInstantFlag = true;
+        //            }
+
+        //            for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
+        //            {
+        //                float x = Random.Range(rangeA.position.x, rangeB.position.x);
+        //                float z = Random.Range(rangeA.position.z, rangeB.position.z);
+        //                Vector3 instantPos = new Vector3(x, instancePosY, z);
+
+        //                int layerMask = 1 << LayerMask;
+        //                layerMask = ~layerMask;
+
+        //                if (!Physics.CheckBox(instantPos, halfExtents, Quaternion.identity, layerMask))
+        //                {
+        //                    Instantiate(sabotageItem[i], instantPos, Quaternion.identity);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    if (currentSabotageTime > sabotageTime)
+        //    {
+        //        AllDestroy();
+        //        time = 0;
+        //        currentSabotageTime = 0;
+        //        sabotageFlag = false;
+        //    }
+        //}
+
+        #region 予測アイテム(仮)用
         if (!sabotageFlag)
         {
             time += Time.deltaTime;
+            number = 0;
 
             if (time > intervalTime)
             {
                 time = 0;
                 sabotageFlag = true;
                 alreadyInstantFlag = false;
+                alreadyPredictFlag = false;
             }
         }
         if (sabotageFlag)
@@ -105,9 +167,40 @@ public class BossAttack : MonoBehaviour
                     boss.transform.position.y,
                     boss.transform.position.z);
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+
+                if (!alreadyPredictFlag)
+                {
+                    GameObject[] clonePredictItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
+                    if (clonePredictItem.Length >= sabotageItem.Length)
+                    {
+                        alreadyPredictFlag = true;
+                        number = 0;
+                    }
+
+                    for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
+                    {
+                        float x = Random.Range(rangeA.position.x, rangeB.position.x);
+                        float z = Random.Range(rangeA.position.z, rangeB.position.z);
+                        predictInstantPos[number] = new Vector3(x, instancePosY, z);
+                        Vector3 checkPos = predictInstantPos[number];
+                        checkPos.y = PredictInstancePosY;
+
+                        int layerMask = 1 << LayerMask;
+                        layerMask = ~layerMask;
+
+                        if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
+                        {
+                            instantPos[number] = predictInstantPos[number];
+                            Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
+                            number++;
+                        }
+                    }
+                }
             }
             else
             {
+                PredictDestroy();
+
                 if (!alreadyInstantFlag)
                 {
                     GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
@@ -118,20 +211,12 @@ public class BossAttack : MonoBehaviour
 
                     for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
                     {
-                        float x = Random.Range(rangeA.position.x, rangeB.position.x);
-                        float z = Random.Range(rangeA.position.z, rangeB.position.z);
-                        Vector3 instantPos = new Vector3(x, instancePosY, z);
-
-                        int layerMask = 1 << LayerMask;
-                        layerMask = ~layerMask;
-
-                        if (!Physics.CheckBox(instantPos, halfExtents, Quaternion.identity, layerMask))
-                        {
-                            Instantiate(sabotageItem[i], instantPos, Quaternion.identity);
-                        }
+                        Instantiate(sabotageItem[i], instantPos[number], Quaternion.identity);
+                        number++;
                     }
                 }
             }
+
             if (currentSabotageTime > sabotageTime)
             {
                 AllDestroy();
@@ -140,90 +225,6 @@ public class BossAttack : MonoBehaviour
                 sabotageFlag = false;
             }
         }
-        #region 予測アイテム(仮)用
-        /*if (!sabotageFlag)
-    {
-        time += Time.deltaTime;
-        number = 0;
-
-        if (time > intervalTime)
-        {
-            time = 0;
-            sabotageFlag = true;
-            alreadyInstantFlag = false;
-            alreadyPredictFlag = false;
-        }
-    }
-    if (sabotageFlag)
-    {
-        time += Time.deltaTime;
-        currentSabotageTime += Time.deltaTime;
-
-        if (time < attackTime)
-        {
-            boss.transform.position = new Vector3(
-                0.0f,
-                boss.transform.position.y,
-                boss.transform.position.z);
-            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-
-            if (!alreadyPredictFlag)
-            {
-                GameObject[] clonePredictItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
-                if (clonePredictItem.Length >= sabotageItem.Length)
-                {
-                    alreadyPredictFlag = true;
-                    number = 0;
-                }
-
-                for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
-                {
-                    float x = Random.Range(rangeA.position.x, rangeB.position.x);
-                    float z = Random.Range(rangeA.position.z, rangeB.position.z);
-                    predictInstantPos[number] = new Vector3(x, instancePosY, z);
-                    Vector3 checkPos = predictInstantPos[number];
-                    checkPos.y = PredictInstancePosY;
-
-                    int layerMask = 1 << LayerMask;
-                    layerMask = ~layerMask;
-
-                    if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
-                    {
-                        instantPos[number] = predictInstantPos[number];
-                        Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
-                        number++;
-                    }
-                }
-            }
-        }
-        else
-        {
-            PredictDestroy();
-
-            if (!alreadyInstantFlag)
-            {
-                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-                if (cloneItem.Length >= sabotageItem.Length)
-                {
-                    alreadyInstantFlag = true;
-                }
-
-                for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
-                {
-                    Instantiate(sabotageItem[i], instantPos[number], Quaternion.identity);
-                    number++;
-                }
-            }
-        }
-
-         if (currentSabotageTime > sabotageTime)
-        {
-            AllDestroy();
-            time = 0;
-            currentSabotageTime = 0;
-            sabotageFlag = false;
-        }
-        }*/
         #endregion
     }
 
@@ -238,7 +239,7 @@ public class BossAttack : MonoBehaviour
     }
 
     #region 予測アイテム(仮)用
-    /*void PredictDestroy()
+    void PredictDestroy()
     {
         GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
 
@@ -246,6 +247,6 @@ public class BossAttack : MonoBehaviour
         {
             Destroy(clone_predictItem);
         }
-    }*/
+    }
     #endregion
 }

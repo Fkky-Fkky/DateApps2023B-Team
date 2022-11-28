@@ -13,6 +13,7 @@ TagManager:
   - CloneSabotageItem
   - Wall
   - Group
+  - ClonePredictItem
   layers:
   - Default
   - TransparentFX
