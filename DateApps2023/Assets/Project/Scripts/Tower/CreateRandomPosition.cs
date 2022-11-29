@@ -101,7 +101,6 @@ public class CreateRandomPosition : MonoBehaviour
             ||u==1 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true)
         {
             CubePrefabs[3].SetActive(true);
-            boss.GetComponent<BossDamage>().KnockbackTrue();
 
             time += Time.deltaTime;
             a = 0;
@@ -111,6 +110,16 @@ public class CreateRandomPosition : MonoBehaviour
         }
         else if (tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == false && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false)
             u = 1;
+        if(time>=0.01)
+        {
+            //bosscamera.StartCoroutine(Camerachenge());
+            bosscamera.swith();
+        }
+        if(time >= 0.5f)
+        {
+            boss.GetComponent<BossDamage>().KnockbackTrue();
+        }
+
         if (time > 2.0f)
         {
             tower_bild_flag = 0;
@@ -122,8 +131,6 @@ public class CreateRandomPosition : MonoBehaviour
             CubePrefabs[1].SetActive(false);
             CubePrefabs[2].SetActive(false);
             CubePrefabs[3].SetActive(false);
-
-            bosscamera.Camerachenge();
 
         }
 
