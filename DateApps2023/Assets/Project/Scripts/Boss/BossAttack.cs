@@ -6,6 +6,17 @@ using UnityEngine;
 public class BossAttack : MonoBehaviour
 {
     #region
+    enum SabotageType
+    {
+        None,
+        Rubble, //瓦礫...今は仕様が分からないので一旦Flameと同処理
+        Flame   //火の粉
+    }
+
+    [SerializeField]
+    SabotageType mySabotageType = SabotageType.None;
+
+
     private Rigidbody rb;
 
     [SerializeField]
@@ -54,6 +65,7 @@ public class BossAttack : MonoBehaviour
 
     float time = 0;
     float currentSabotageTime = 0;
+
     #endregion
 
     #region 予測アイテム(仮)用
@@ -65,83 +77,29 @@ public class BossAttack : MonoBehaviour
     public Vector3[] predictInstantPos;
     public Vector3[] instantPos;
     int number = 0;
+    int countCloneValue = 3;
+    int instantCloneValue = 0;
     #endregion
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         bossDamage = GetComponent<BossDamage>();
+
+        countCloneValue = sabotageItem.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (bossDamage.knockBackFlag)
         {
             time = 0;
         }
-
-        //if (!sabotageFlag)
-        //{
-        //    time += Time.deltaTime;
-
-        //    if (time > intervalTime)
-        //    {
-        //        time = 0;
-        //        sabotageFlag = true;
-        //        alreadyInstantFlag = false;
-        //    }
-        //}
-        //if (sabotageFlag)
-        //{
-        //    time += Time.deltaTime;
-        //    currentSabotageTime += Time.deltaTime;
-
-        //    if (time < attackTime)
-        //    {
-        //        boss.transform.position = new Vector3(
-        //            0.0f,
-        //            boss.transform.position.y,
-        //            boss.transform.position.z);
-        //        rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        //    }
-        //    else
-        //    {
-        //        if (!alreadyInstantFlag)
-        //        {
-        //            GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-        //            if (cloneItem.Length >= sabotageItem.Length)
-        //            {
-        //                alreadyInstantFlag = true;
-        //            }
-
-        //            for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
-        //            {
-        //                float x = Random.Range(rangeA.position.x, rangeB.position.x);
-        //                float z = Random.Range(rangeA.position.z, rangeB.position.z);
-        //                Vector3 instantPos = new Vector3(x, instancePosY, z);
-
-        //                int layerMask = 1 << LayerMask;
-        //                layerMask = ~layerMask;
-
-        //                if (!Physics.CheckBox(instantPos, halfExtents, Quaternion.identity, layerMask))
-        //                {
-        //                    Instantiate(sabotageItem[i], instantPos, Quaternion.identity);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    if (currentSabotageTime > sabotageTime)
-        //    {
-        //        AllDestroy();
-        //        time = 0;
-        //        currentSabotageTime = 0;
-        //        sabotageFlag = false;
-        //    }
-        //}
-
-        #region 予測アイテム(仮)用
         if (!sabotageFlag)
         {
             time += Time.deltaTime;
@@ -204,12 +162,12 @@ public class BossAttack : MonoBehaviour
                 if (!alreadyInstantFlag)
                 {
                     GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-                    if (cloneItem.Length >= sabotageItem.Length)
+                    if (cloneItem.Length >= sabotageItem.Length + instantCloneValue)
                     {
                         alreadyInstantFlag = true;
                     }
 
-                    for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
+                    for (int i = 0; i < sabotageItem.Length + instantCloneValue; i++)
                     {
                         Instantiate(sabotageItem[i], instantPos[number], Quaternion.identity);
                         number++;
@@ -217,15 +175,34 @@ public class BossAttack : MonoBehaviour
                 }
             }
 
-            if (currentSabotageTime > sabotageTime)
+            switch (mySabotageType)
             {
-                AllDestroy();
-                time = 0;
-                currentSabotageTime = 0;
-                sabotageFlag = false;
+                case SabotageType.Rubble:
+                    #region
+                    if (currentSabotageTime > sabotageTime)
+                    {
+                        time = 0;
+                        instantCloneValue += countCloneValue;
+                        currentSabotageTime = 0;
+                        sabotageFlag = false;
+                    }
+                    #endregion
+                    break;
+                case SabotageType.Flame:
+                    #region
+                    if (currentSabotageTime > sabotageTime)
+                    {
+                        AllDestroy();
+                        time = 0;
+                        currentSabotageTime = 0;
+                        sabotageFlag = false;
+                    }
+                    #endregion
+                    break;
             }
+
+            
         }
-        #endregion
     }
 
     void AllDestroy()
@@ -238,7 +215,6 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-    #region 予測アイテム(仮)用
     void PredictDestroy()
     {
         GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
@@ -248,5 +224,4 @@ public class BossAttack : MonoBehaviour
             Destroy(clone_predictItem);
         }
     }
-    #endregion
 }
