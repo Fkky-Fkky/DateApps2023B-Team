@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.Sleep();
+        rb.useGravity = false;
     }
 
     private void FixedUpdate()
@@ -66,7 +67,17 @@ public class PlayerController : MonoBehaviour
 
             if (transform.childCount == 1)
             {
-                transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
+                if (transform.GetChild(0).gameObject.CompareTag("item")
+                    || transform.GetChild(0).gameObject.CompareTag("item2")
+                    || transform.GetChild(0).gameObject.CompareTag("item3")
+                    || transform.GetChild(0).gameObject.CompareTag("item4"))
+                {
+                    transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
+                }
+                else if (transform.GetChild(0).gameObject.CompareTag("CloneSabotageItem"))
+                {
+                    transform.GetChild(0).gameObject.GetComponent<SabotageItem>().OutGroup();
+                }
             }
             else if(transform.childCount <= 1)
             {
@@ -86,7 +97,17 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
+            if(transform.GetChild(i).gameObject.CompareTag("item")
+            || transform.GetChild(i).gameObject.CompareTag("item2")
+            || transform.GetChild(i).gameObject.CompareTag("item3")
+            || transform.GetChild(i).gameObject.CompareTag("item4"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
+            }
+            else if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<SabotageItem>().DoHanteiEnter();
+            }
             transform.GetChild(i).gameObject.transform.parent = null;
         }
         AllFragFalse();
@@ -164,7 +185,6 @@ public class PlayerController : MonoBehaviour
         }
         if (itemSizeCount == 2)
         {
-            //mySpeed = 0.25f;
             if (playerCount == 1)
             {
                 mySpeed = (moveSpeed * 0.3f) / playerCount;

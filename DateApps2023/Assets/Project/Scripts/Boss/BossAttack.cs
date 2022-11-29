@@ -76,9 +76,8 @@ public class BossAttack : MonoBehaviour
     private GameObject[] predictSabotageItem;
     public Vector3[] predictInstantPos;
     public Vector3[] instantPos;
-    int number = 0;
-    int countCloneValue = 3;
-    int instantCloneValue = 0;
+    private int number = 0;
+    public int instantCloneValue = 0;
     #endregion
 
 
@@ -89,13 +88,13 @@ public class BossAttack : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         bossDamage = GetComponent<BossDamage>();
 
-        countCloneValue = sabotageItem.Length;
+        instantCloneValue = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(instantCloneValue);
         if (bossDamage.knockBackFlag)
         {
             time = 0;
@@ -161,16 +160,21 @@ public class BossAttack : MonoBehaviour
 
                 if (!alreadyInstantFlag)
                 {
+                    if(instantCloneValue <= 0)
+                    {
+                        instantCloneValue = 0;
+                    }
+
+                    for (int i = 0; i < sabotageItem.Length; i++)
+                    {
+                        Instantiate(sabotageItem[i], instantPos[i], Quaternion.identity);
+                        number++;
+                    }
+
                     GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
                     if (cloneItem.Length >= sabotageItem.Length + instantCloneValue)
                     {
                         alreadyInstantFlag = true;
-                    }
-
-                    for (int i = 0; i < sabotageItem.Length + instantCloneValue; i++)
-                    {
-                        Instantiate(sabotageItem[i], instantPos[number], Quaternion.identity);
-                        number++;
                     }
                 }
             }
@@ -182,7 +186,7 @@ public class BossAttack : MonoBehaviour
                     if (currentSabotageTime > sabotageTime)
                     {
                         time = 0;
-                        instantCloneValue += countCloneValue;
+                        instantCloneValue += sabotageItem.Length;
                         currentSabotageTime = 0;
                         sabotageFlag = false;
                     }

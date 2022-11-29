@@ -146,6 +146,7 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item2")
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
+           || collision.gameObject.CompareTag("CloneSabotageItem")
            )
         {
             EnterItem = true;
@@ -168,6 +169,7 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item2")
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
+           || collision.gameObject.CompareTag("CloneSabotageItem")
            )
         {
             EnterItem = false;

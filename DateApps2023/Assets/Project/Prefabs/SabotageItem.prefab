@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2944399583157852951}
   - component: {fileID: 5350122241687821739}
   - component: {fileID: 621384970264544484}
+  - component: {fileID: -7137844311643327700}
   m_Layer: 6
   m_Name: SabotageItem
   m_TagString: CloneSabotageItem
@@ -115,3 +116,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &-7137844311643327700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944399583157852937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c161c57a56ff79b40989631ec737c81a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossAttack: {fileID: 1648196746715476575, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  myGrabPoint: []
+  playerCarryDowns: []
+  groupNumber: 1
+  myItemSize: 1
