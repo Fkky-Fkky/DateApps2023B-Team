@@ -23,6 +23,8 @@ public class PlayerCarryDown : MonoBehaviour
 
     private int myGroupNo = 1;
 
+    public bool carryDamage = false;
+
     #endregion
 
     void Start()
@@ -34,35 +36,37 @@ public class PlayerCarryDown : MonoBehaviour
     }
     void Update()
     {
-        
-        if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
+        if (!carryDamage)
         {
-            if (isCarry)
+            if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
             {
-                HanteiEnter();
-            }
-            else
-            {
-                if (canUsed)
+                if (isCarry)
                 {
-                    isCarry = true;
-                    canUsed = false;
-                    if (carryItem.CompareTag("CloneSabotageItem"))
+                    HanteiEnter();
+                }
+                else
+                {
+                    if (canUsed)
                     {
-                        sabotageItem = carryItem.GetComponent<SabotageItem>();
-                        sabotageItem.GetGrabPoint(this.gameObject);
-                        myGroupNo = sabotageItem.groupNumber;
+                        isCarry = true;
+                        canUsed = false;
+                        if (carryItem.CompareTag("CloneSabotageItem"))
+                        {
+                            sabotageItem = carryItem.GetComponent<SabotageItem>();
+                            sabotageItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = sabotageItem.groupNumber;
+                        }
+                        else if (carryItem.CompareTag("item")
+                             || carryItem.CompareTag("item2")
+                             || carryItem.CompareTag("item3")
+                             || carryItem.CompareTag("item4"))
+                        {
+                            hanteiItem = carryItem.GetComponent<hantei>();
+                            hanteiItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = hanteiItem.groupNumber;
+                        }
+                        playermove.GetItem(myGroupNo);
                     }
-                    else if(carryItem.CompareTag("item")
-                         || carryItem.CompareTag("item2")
-                         || carryItem.CompareTag("item3")
-                         || carryItem.CompareTag("item4"))
-                    {
-                        hanteiItem = carryItem.GetComponent<hantei>();
-                        hanteiItem.GetGrabPoint(this.gameObject);
-                        myGroupNo = hanteiItem.groupNumber;
-                    }
-                    playermove.GetItem(myGroupNo);
                 }
             }
         }

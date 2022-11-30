@@ -32,6 +32,8 @@ public class hantei : MonoBehaviour
     ItemSize myItemSize = ItemSize.Small;
     private int itemSizeCount = 0;
 
+    private GameObject sabotageObject;
+
     #endregion
 
     // Start is called before the first frame update
@@ -84,12 +86,19 @@ public class hantei : MonoBehaviour
         sizeCount = boxCol.size;
     }
 
+    public void AvoidSabotageItem()
+    {
+        var heading = this.gameObject.transform.position - sabotageObject.transform.position;
+        this.gameObject.transform.position += new Vector3(heading.x * 1.5f, 0.0f, heading.z * 1.5f);
+
+    }
+
     public void OutGroup()
     {
         InGroup = false;
         gameObject.transform.parent = null;
         boxCol.size = sizeCount;
-
+        DoHanteiEnter();
     }
 
     public void DestroyMe()
@@ -107,6 +116,8 @@ public class hantei : MonoBehaviour
             playerCarryDowns[i].HanteiEnter();
         }
     }
-    
-
+    public void SetSabotageObject(GameObject setObject)
+    {
+        sabotageObject = setObject;
+    }
 }

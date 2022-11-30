@@ -36,8 +36,8 @@ public class PlayerMove : MonoBehaviour
     private Vector3 prevPosition;
     private float currentAngularVelocity;
 
-    private bool InGroup = false;
-    private bool EnterItem = false;
+    public bool InGroup = false;
+    public bool EnterItem = false;
 
     public enum PlayerNumber
     {
@@ -53,7 +53,8 @@ public class PlayerMove : MonoBehaviour
 
     PlayerCarryDown carryDown;
 
-
+    public bool playerMoveDamage = false;
+    private float defaultPosY = 54.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -88,11 +89,15 @@ public class PlayerMove : MonoBehaviour
         carryDown.GetPlayerNo(playerNo);
 
         tempMoveSpeed = moveSpeed;
+
+        defaultPosY = this.gameObject.transform.position.y;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (!InGroup)
         {
             if (!EnterItem)
@@ -123,15 +128,9 @@ public class PlayerMove : MonoBehaviour
                 var lookFrom = Quaternion.LookRotation(projectFrom);
                 var lookTo = Quaternion.LookRotation(projectTo);
                 var nextRot = Quaternion.RotateTowards(lookFrom, lookTo, rotAngle) * offsetRot;
-
                 myTransform.rotation = nextRot;
             }
-            else
-            {
-                moveSpeed = slowMoveSpeed;
-            }
         }
-        Debug.Log(moveSpeed);
 
     }
 
@@ -147,19 +146,27 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
            || collision.gameObject.CompareTag("CloneSabotageItem")
+           || collision.gameObject.CompareTag("Group")
            )
-        {
-            EnterItem = true;
+        { 
+            transform.Rotate(new Vector3(0, 180, 0));
+
         }
-        
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Group"))
+        if (collision.gameObject.CompareTag("item")
+           || collision.gameObject.CompareTag("item2")
+           || collision.gameObject.CompareTag("item3")
+           || collision.gameObject.CompareTag("item4")
+           || collision.gameObject.CompareTag("CloneSabotageItem")
+           || collision.gameObject.CompareTag("Group")
+           )
         {
             EnterItem = true;
-            //moveSpeed = collision.gameObject.GetComponent<PlayerController>().sentSpeed;
+            moveSpeed = slowMoveSpeed;
+
         }
     }
 
@@ -170,17 +177,12 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
            || collision.gameObject.CompareTag("CloneSabotageItem")
+           || collision.gameObject.CompareTag("Group")
            )
         {
             EnterItem = false;
         }
-        if (collision.gameObject.CompareTag("Group"))
-        {
-            EnterItem = false;
-        }
     }
-
-    
 
     public void GetItem(int groupNo)
     {
@@ -200,7 +202,7 @@ public class PlayerMove : MonoBehaviour
         gameObject.transform.parent = null;
         PlayerController playerController = group.GetComponent<PlayerController>();
         int sentNumber = playerNo;
-        playerController.OutGroup(sentNumber);
+        playerController.PlayerOutGroup(sentNumber);
 
         EnterItem = false;
 
@@ -210,26 +212,32 @@ public class PlayerMove : MonoBehaviour
         myTransform.rotation= Quaternion.identity;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
+        this.gameObject.transform.position = new Vector3(
+                   this.gameObject.transform.position.x,
+                   defaultPosY,
+                   this.gameObject.transform.position.z);
         InGroup = false;
     }
 
     void GamepadMove()
     {
-        if (!InGroup)
+        if (!playerMoveDamage)
         {
-            var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
-            Vector3 vec = new Vector3(0, 0, 0);
-
-            if (leftStickValue.x != 0.0f)
+            if (!InGroup)
             {
-                vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-            }
-            if (leftStickValue.y != 0.0f)
-            {
-                vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
-            }
-            rb.velocity = vec;
+                var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
+                Vector3 vec = new Vector3(0, 0, 0);
 
+                if (leftStickValue.x != 0.0f)
+                {
+                    vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
+                }
+                if (leftStickValue.y != 0.0f)
+                {
+                    vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
+                }
+                rb.velocity = vec;
+            }
         }
     }
 }

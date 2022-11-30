@@ -15,6 +15,8 @@ public class SabotageItem : MonoBehaviour
 
     MeshCollider meshCol;
     private Rigidbody rb;
+    public bool AtackTiming = true;
+    public bool AvoidPlayer = true;
 
     enum ItemSize
     {
@@ -26,6 +28,8 @@ public class SabotageItem : MonoBehaviour
     [SerializeField]
     ItemSize myItemSize = ItemSize.Small;
     private int itemSizeCount = 0;
+
+    private float fallY = 56.0f;
 
     #endregion
 
@@ -50,25 +54,79 @@ public class SabotageItem : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(this.gameObject.transform.position.y < fallY)
+        {
+            AvoidPlayer = false;
+            AtackTiming = false;
+
+            this.gameObject.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    fallY,
+                    this.gameObject.transform.position.z);
+        }
+        else if(this.gameObject.transform.position.y > fallY)
+        {
+            AvoidPlayer = true;
+        }
+
+        if (AvoidPlayer)
+        {
+            rb.useGravity = true;
+        }
+        else
+        {
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            Destroy(rigidbody);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.CompareTag("Player")
-        //    || collision.gameObject.CompareTag("item")
-        //    || collision.gameObject.CompareTag("item2")
-        //    || collision.gameObject.CompareTag("item3")
-        //    || collision.gameObject.CompareTag("item4")
-        //    || collision.gameObject.CompareTag("CloneSabotageItem"))
-        //{
+        if (AtackTiming)
+        {
+            if (collision.gameObject.CompareTag("Group"))
+            {
+                Debug.Log("AtackGroup");
+                collision.gameObject.GetComponent<PlayerController>().SetSabotageItem(this.gameObject);
+                collision.gameObject.GetComponent<PlayerController>().DamageChild();
 
-        //}
-        //else
-        //{
-        //    rb.useGravity = false;
-        //    Rigidbody rigidbody = GetComponent<Rigidbody>();
-        //    Destroy(rigidbody);
-        //}
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        Destroy(rigidbody);
+            }
+            else if (collision.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("AtackPlayer");
+                collision.gameObject.GetComponent<PlayerDamage>().CallDamage();
+            }
+            AtackTiming = false;
+        }
+        if (AvoidPlayer)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
+                collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
+            }
+            if (collision.gameObject.CompareTag("item")
+            || collision.gameObject.CompareTag("item2")
+            || collision.gameObject.CompareTag("item3")
+            || collision.gameObject.CompareTag("item4"))
+            {
+                collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
+                collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (AvoidPlayer)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                AvoidPlayer = false;
+            }
+        }
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)
@@ -115,6 +173,8 @@ public class SabotageItem : MonoBehaviour
         InGroup = false;
         gameObject.transform.parent = null;
         meshCol.isTrigger = false;
+        DoHanteiEnter();
+
 
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();

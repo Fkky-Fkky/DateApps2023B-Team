@@ -2297,6 +2297,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 1854d30357b42b9428b995bfec890de2, type: 3}
+      propertyPath: myMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: ca77a9bdd1150a54b923b58dfd5bb91a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1854d30357b42b9428b995bfec890de2, type: 3}
 --- !u!4 &1458695078 stripped
@@ -2689,6 +2693,10 @@ PrefabInstance:
     - target: {fileID: 1648196746715476575, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: instantCloneValue
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648196746715476575, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+      propertyPath: PredictInstancePosY
+      value: 51
       objectReference: {fileID: 0}
     - target: {fileID: 1648196746715476575, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: instantPos.Array.size

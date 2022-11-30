@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public float sentSpeed = 1.0f;
 
     private Vector3 groupVec = new Vector3(0, 0, 0);
-
+    private GameObject sabotageGameObject;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
                 {
                     transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
                 }
-                else if (transform.GetChild(0).gameObject.CompareTag("CloneSabotageItem"))
+                if (transform.GetChild(0).gameObject.CompareTag("CloneSabotageItem"))
                 {
                     transform.GetChild(0).gameObject.GetComponent<SabotageItem>().OutGroup();
                 }
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             {
                 transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
             }
-            else if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+            if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
             {
                 transform.GetChild(i).gameObject.GetComponent<SabotageItem>().DoHanteiEnter();
             }
@@ -113,7 +113,36 @@ public class PlayerController : MonoBehaviour
         AllFragFalse();
     }
 
-    public void OutGroup(int outChildNo)
+    public void DamageChild()
+    {
+        Debug.Log("DamageChild");
+
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.CompareTag("Player"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().SetSabotageObject(sabotageGameObject);
+                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().CallDamage();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("item")
+                    || transform.GetChild(i).gameObject.CompareTag("item2")
+                    || transform.GetChild(i).gameObject.CompareTag("item3")
+                    || transform.GetChild(i).gameObject.CompareTag("item4"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<SabotageItem>().OutGroup();
+            }
+            transform.GetChild(i).gameObject.transform.parent = null;
+        }
+        AllFragFalse();
+
+
+    }
+
+    public void PlayerOutGroup(int outChildNo)
     {
         gamepadFrag[outChildNo] = false;
         playerCount--;
@@ -132,6 +161,11 @@ public class PlayerController : MonoBehaviour
     public void GetItemSize(int itemSize)
     {
         itemSizeCount = itemSize;
+    }
+
+    public void SetSabotageItem(GameObject setGameObject)
+    {
+        sabotageGameObject = setGameObject;
     }
 
     void CheckPlayerCount()
