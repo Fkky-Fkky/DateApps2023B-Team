@@ -128,8 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c161c57a56ff79b40989631ec737c81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossAttack: {fileID: 1648196746715476575, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
+  AtackTiming: 1
+  AvoidPlayer: 1
   myItemSize: 1
+  Multiplier: 2.5

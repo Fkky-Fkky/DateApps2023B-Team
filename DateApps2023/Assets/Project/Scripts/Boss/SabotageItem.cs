@@ -30,7 +30,7 @@ public class SabotageItem : MonoBehaviour
     private int itemSizeCount = 0;
 
     private float fallY = 56.0f;
-
+    public float Multiplier = 1f;
     #endregion
 
     // Start is called before the first frame update
@@ -72,6 +72,8 @@ public class SabotageItem : MonoBehaviour
             rb = this.gameObject.AddComponent<Rigidbody>();
             rb = this.gameObject.GetComponent<Rigidbody>();
             rb.useGravity = true;
+            rb.AddForce((Multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
+
         }
         else
         {

@@ -9,7 +9,7 @@ public class BossAttack : MonoBehaviour
     enum SabotageType
     {
         None,
-        Rubble, //Š¢âI...¡‚Íd—l‚ª•ª‚©‚ç‚È‚¢‚Ì‚Åˆê’UFlame‚Æ“¯ˆ—
+        Rubble, //Š¢âI
         Flame   //‰Î‚Ì•²
     }
 
@@ -66,6 +66,9 @@ public class BossAttack : MonoBehaviour
     float time = 0;
     float currentSabotageTime = 0;
 
+    private bool firstRubble = true; 
+
+
     #endregion
 
     #region —\‘ªƒAƒCƒeƒ€(‰¼)—p
@@ -89,6 +92,22 @@ public class BossAttack : MonoBehaviour
         bossDamage = GetComponent<BossDamage>();
 
         instantCloneValue = 0;
+
+        switch (mySabotageType)
+        {
+            case SabotageType.Rubble:
+                #region
+                time = intervalTime;
+                firstRubble = true;
+                #endregion
+                break;
+            case SabotageType.Flame:
+                #region
+                time = 0;
+                firstRubble = false;
+                #endregion
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -105,7 +124,14 @@ public class BossAttack : MonoBehaviour
 
             if (time > intervalTime)
             {
-                time = 0;
+                if (firstRubble)
+                {
+                    time = attackTime - 0.5f;
+                }
+                else
+                {
+                    time = 0;
+                }
                 sabotageFlag = true;
                 alreadyInstantFlag = false;
                 alreadyPredictFlag = false;
@@ -113,6 +139,7 @@ public class BossAttack : MonoBehaviour
         }
         if (sabotageFlag)
         {
+            
             time += Time.deltaTime;
             currentSabotageTime += Time.deltaTime;
 
@@ -174,6 +201,10 @@ public class BossAttack : MonoBehaviour
                     if (cloneItem.Length >= sabotageItem.Length + instantCloneValue)
                     {
                         alreadyInstantFlag = true;
+                        if (firstRubble)
+                        {
+                            firstRubble = false;
+                        }
                     }
                 }
             }
