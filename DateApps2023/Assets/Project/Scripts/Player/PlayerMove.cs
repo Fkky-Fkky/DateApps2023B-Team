@@ -26,16 +26,6 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody rb;
 
-    [SerializeField] private float maxAngularSpeed = Mathf.Infinity;
-    [SerializeField] private float smoothTime = 0.01f;
-    [SerializeField] private Vector3 _forward = Vector3.forward;
-    [SerializeField] private Vector3 _up = Vector3.up;
-    [SerializeField] private Vector3 _axis = Vector3.up;
-
-    private Transform myTransform;
-    private Vector3 prevPosition;
-    private float currentAngularVelocity;
-
     private bool InGroup = false;
     private bool EnterItem = false;
 
@@ -58,6 +48,16 @@ public class PlayerMove : MonoBehaviour
 
     private Animator AnimationImage;
 
+    [SerializeField]
+    private Vector2 rimitPosX = Vector2.zero;
+    [SerializeField]
+    private Vector2 rimitPosZ = Vector2.zero;
+    [SerializeField]
+    private Vector2 respownPos = Vector2.zero;
+
+    float time = 0;
+    [SerializeField]
+    private float respawnTime = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -65,9 +65,6 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         AnimationImage = GetComponent<Animator>();
-
-        myTransform = transform;
-        prevPosition = myTransform.position;
 
         switch (playerNumber)
         {
@@ -95,8 +92,30 @@ public class PlayerMove : MonoBehaviour
         tempMoveSpeed = moveSpeed;
 
         defaultPosY = this.gameObject.transform.position.y;
-
     }
+
+    void Update()
+    {
+        if(this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
+        {
+            time += Time.deltaTime;
+            if(time > respawnTime)
+            {
+                this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+                time = 0;
+            }
+        }
+        if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
+        {
+            time += Time.deltaTime;
+            if (time > respawnTime)
+            {
+                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
+                time = 0;
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
         GamepadMove();
@@ -163,7 +182,6 @@ public class PlayerMove : MonoBehaviour
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
 
-        myTransform.rotation= Quaternion.identity;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         this.gameObject.transform.position = new Vector3(
