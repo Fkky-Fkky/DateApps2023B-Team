@@ -22,15 +22,16 @@ public class PlayerController : MonoBehaviour
     private int itemSizeCount = 0;
     private int playerCount = 0;
     private float mySpeed = 1.0f;
-    public float sentSpeed = 1.0f;
 
     private Vector3 groupVec = new Vector3(0, 0, 0);
     private GameObject sabotageGameObject;
 
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
-    int number = 0;
 
+    private const string ps_WalkSpeed = "RunSpeed";
+    [SerializeField]
+    private float AnimationSpeed = 0.001f;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +51,6 @@ public class PlayerController : MonoBehaviour
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
             CheckPlayerCount();
-            sentSpeed = (mySpeed * moveSpeed) / 2;
             
             for(int i = 0; i < gamepadFrag.Length; i++)
             {
@@ -68,17 +68,22 @@ public class PlayerController : MonoBehaviour
                         AnimationImage[i].SetBool("CarryMove", true);
                         before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
                     }
+                    
 
                     if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
                     {
                         AnimationImage[i].SetBool("CarryMove", false);
                     }
+
+                    float walkSpeed = mySpeed * AnimationSpeed;
+                    AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
                 }
             }
 
             groupVec.x = before[0].x + before[1].x + before[2].x + before[3].x;
             groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
             rb.velocity = groupVec;
+            
 
             if (transform.childCount == 1)
             {
