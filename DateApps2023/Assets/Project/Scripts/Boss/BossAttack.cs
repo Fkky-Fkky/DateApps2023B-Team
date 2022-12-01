@@ -171,11 +171,23 @@ public class BossAttack : MonoBehaviour
                         int layerMask = 1 << LayerMask;
                         layerMask = ~layerMask;
 
-                        if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
+                        if (!firstRubble)
                         {
-                            instantPos[number] = predictInstantPos[number];
-                            Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
-                            number++;
+                            if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
+                            {
+                                instantPos[number] = predictInstantPos[number];
+                                Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
+                                number++;
+                            }
+                        }
+                        else
+                        {
+                            if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
+                            {
+                                instantPos[number] = predictInstantPos[number];
+                                Instantiate(sabotageItem[i], checkPos, Quaternion.identity);
+                                number++;
+                            }
                         }
                     }
                 }
@@ -190,11 +202,13 @@ public class BossAttack : MonoBehaviour
                     {
                         instantCloneValue = 0;
                     }
-
-                    for (int i = 0; i < sabotageItem.Length; i++)
+                    if (!firstRubble)
                     {
-                        Instantiate(sabotageItem[i], instantPos[i], Quaternion.identity);
-                        number++;
+                        for (int i = 0; i < sabotageItem.Length; i++)
+                        {
+                            Instantiate(sabotageItem[i], instantPos[i], Quaternion.identity);
+                            number++;
+                        }
                     }
 
                     GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
