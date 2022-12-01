@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerDamage : MonoBehaviour
 {
     private Rigidbody rb;
-    private BoxCollider boxCol;
+    //private BoxCollider boxCol;
     private CapsuleCollider capsuleCol;
     float time = 0;
     private bool currentDamage;
@@ -14,9 +14,9 @@ public class PlayerDamage : MonoBehaviour
     [SerializeField]
     private float stanTime = 5.0f;
 
-    private MeshRenderer mesh;
-    private Color defaultMesh;
     private float defaultPosY = 54.0f;
+    private float DamagePosX = 0.0f;
+    private float DamagePosZ = 0.0f;
     private bool doCouroutine = false;
 
     private PlayerMove playerMove;
@@ -25,20 +25,23 @@ public class PlayerDamage : MonoBehaviour
     private GameObject sabotageObject;
     private GameObject player;
 
+    private Animator AnimationImage;
+
+
     private void Start()
     {
-        boxCol = this.gameObject.GetComponent<BoxCollider>();
-        capsuleCol = this.gameObject.GetComponent<CapsuleCollider>();
+        rb = GetComponent<Rigidbody>();
 
-        mesh = this.gameObject.GetComponent<MeshRenderer>();
-        mesh.material.color = mesh.material.color - new Color32(0, 0, 0, 0);
-        defaultMesh = mesh.material.color;
+        capsuleCol = this.gameObject.GetComponent<CapsuleCollider>();
+        AnimationImage = GetComponent<Animator>();
+
         defaultPosY = this.gameObject.transform.position.y;
 
         playerMove = this.gameObject.GetComponent<PlayerMove>();
         playerCarryDown = this.gameObject.GetComponentInChildren<PlayerCarryDown>();
 
         player = this.gameObject;
+
     }
 
     private void Update()
@@ -47,39 +50,32 @@ public class PlayerDamage : MonoBehaviour
         {
             if (!doCouroutine)
             {
-                StartCoroutine("MaterialTransparent");
                 doCouroutine = true;
             }
 
             time += Time.deltaTime;
+            this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
 
-            this.gameObject.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    defaultPosY,
-                    this.gameObject.transform.position.z);
 
             if (time > stanTime)
             {
                 time = 0;
-                rb = this.gameObject.AddComponent<Rigidbody>();
-                rb = this.gameObject.GetComponent<Rigidbody>();
-                //boxCol.enabled = true;
                 capsuleCol.enabled = true;
                 if (doCouroutine)
                 {
-                    StopCoroutine("MaterialTransparent");
-                    mesh.material.color = defaultMesh;
                     this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
                     defaultPosY,
-                    this.gameObject.transform.position.z);
+                    this.gameObject.transform.position.z
+                    );
+                    AnimationImage.SetBool("Damage", false);
+
                     doCouroutine = false;
                 }
                 Debug.Log("EndDamage");
-                playerMove.playerMoveDamage = false;
+        
+                playerMove.NotPlayerDamage();
                 playerCarryDown.carryDamage = false;
-                playerMove.InGroup = false;
-                playerMove.EnterItem = false;
                 currentDamage = false;
 
             }
@@ -89,43 +85,27 @@ public class PlayerDamage : MonoBehaviour
     public void CallDamage()
     {
         Debug.Log("CallDamage");
-        boxCol.enabled = false;
         capsuleCol.enabled = false;
-        playerMove.playerMoveDamage = true;
-        playerMove.InGroup = false;
-        playerMove.EnterItem = false;
+        
+        AnimationImage.SetBool("Carry", false);
+        AnimationImage.SetBool("CarryMove", false);
+        AnimationImage.SetBool("Damage", true);
+
+        playerMove.PlayerDamage();
         playerCarryDown.carryDamage = true;
+
         currentDamage = true;
     }
 
     public void AvoidObject()
     {
         var heading = player.transform.position - sabotageObject.transform.position;
-        this.gameObject.transform.position += new Vector3(heading.x * 1.5f, 0.0f, heading.z * 1.5f);
+        this.gameObject.transform.position += new Vector3(heading.x * 2.0f, 0.0f, heading.z * 2.0f);
+        DamagePosX = this.gameObject.transform.position.x;
+        DamagePosZ = this.gameObject.transform.position.z;
 
     }
 
-    IEnumerator MaterialTransparent()
-    {
-        while (true)
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                mesh.material.color = mesh.material.color - new Color32(0, 0, 0, 1);
-            }
-
-            yield return new WaitForSeconds(0.2f);
-
-            for (int k = 0; k < 100; k++)
-            {
-                mesh.material.color = mesh.material.color + new Color32(0, 0, 0, 1);
-            }
-
-            yield return new WaitForSeconds(0.2f);
-
-        }
-    }
-    
     public void SetSabotageObject(GameObject setObject)
     {
         sabotageObject = setObject;

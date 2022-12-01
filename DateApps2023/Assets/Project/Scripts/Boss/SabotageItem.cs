@@ -66,13 +66,11 @@ public class SabotageItem : MonoBehaviour
                     fallY,
                     this.gameObject.transform.position.z);
         }
-        else if(this.gameObject.transform.position.y > fallY)
-        {
-            AvoidPlayer = true;
-        }
 
         if (AvoidPlayer)
         {
+            rb = this.gameObject.AddComponent<Rigidbody>();
+            rb = this.gameObject.GetComponent<Rigidbody>();
             rb.useGravity = true;
         }
         else
@@ -84,6 +82,26 @@ public class SabotageItem : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (AvoidPlayer)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
+                collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
+            }
+            if (collision.gameObject.CompareTag("item")
+            || collision.gameObject.CompareTag("item2")
+            || collision.gameObject.CompareTag("item3")
+            || collision.gameObject.CompareTag("item4"))
+            {
+                collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
+                collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
+            }
+            if (collision.gameObject.CompareTag("CloneSabotageItem"))
+            {
+                AvoidPlayer = false;
+            }
+        }
         if (AtackTiming)
         {
             if (collision.gameObject.CompareTag("Group"))
@@ -100,34 +118,9 @@ public class SabotageItem : MonoBehaviour
             }
             AtackTiming = false;
         }
-        if (AvoidPlayer)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
-                collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
-            }
-            if (collision.gameObject.CompareTag("item")
-            || collision.gameObject.CompareTag("item2")
-            || collision.gameObject.CompareTag("item3")
-            || collision.gameObject.CompareTag("item4"))
-            {
-                collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
-                collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
-            }
-        }
+        
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (AvoidPlayer)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                AvoidPlayer = false;
-            }
-        }
-    }
 
     public void GetGrabPoint(GameObject thisGrabPoint)
     {

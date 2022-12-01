@@ -36,8 +36,8 @@ public class PlayerMove : MonoBehaviour
     private Vector3 prevPosition;
     private float currentAngularVelocity;
 
-    public bool InGroup = false;
-    public bool EnterItem = false;
+    private bool InGroup = false;
+    private bool EnterItem = false;
 
     public enum PlayerNumber
     {
@@ -53,14 +53,18 @@ public class PlayerMove : MonoBehaviour
 
     PlayerCarryDown carryDown;
 
-    public bool playerMoveDamage = false;
+    private bool playerMoveDamage = false;
     private float defaultPosY = 54.0f;
+
+    private Animator AnimationImage;
+
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        AnimationImage = GetComponent<Animator>();
 
         myTransform = transform;
         prevPosition = myTransform.position;
@@ -93,65 +97,9 @@ public class PlayerMove : MonoBehaviour
         defaultPosY = this.gameObject.transform.position.y;
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        if (!InGroup)
-        {
-            if (!EnterItem)
-            {
-                moveSpeed = tempMoveSpeed;
-
-                var position = myTransform.position;
-                var delta = position - prevPosition;
-                prevPosition = position;
-
-                if (delta == Vector3.zero)
-                {
-                    return;
-                }
-
-                var offsetRot = Quaternion.Inverse(Quaternion.LookRotation(_forward, _up));
-                var forward = myTransform.TransformDirection(_forward);
-                var projectFrom = Vector3.ProjectOnPlane(forward, _axis);
-                var projectTo = Vector3.ProjectOnPlane(delta, _axis);
-                var diffAngle = Vector3.Angle(projectFrom, projectTo);
-                var rotAngle = Mathf.SmoothDampAngle(
-                    0,
-                    diffAngle,
-                    ref currentAngularVelocity,
-                    smoothTime,
-                    maxAngularSpeed
-                );
-                var lookFrom = Quaternion.LookRotation(projectFrom);
-                var lookTo = Quaternion.LookRotation(projectTo);
-                var nextRot = Quaternion.RotateTowards(lookFrom, lookTo, rotAngle) * offsetRot;
-                myTransform.rotation = nextRot;
-            }
-        }
-
-    }
-
     private void FixedUpdate()
     {
         GamepadMove();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("item")
-           || collision.gameObject.CompareTag("item2")
-           || collision.gameObject.CompareTag("item3")
-           || collision.gameObject.CompareTag("item4")
-           || collision.gameObject.CompareTag("CloneSabotageItem")
-           || collision.gameObject.CompareTag("Group")
-           )
-        { 
-            transform.Rotate(new Vector3(0, 180, 0));
-
-        }
     }
 
     private void OnCollisionStay(Collision collision)
@@ -160,13 +108,15 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item2")
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
-           || collision.gameObject.CompareTag("CloneSabotageItem")
            || collision.gameObject.CompareTag("Group")
            )
         {
             EnterItem = true;
             moveSpeed = slowMoveSpeed;
-
+        }
+        if (collision.gameObject.CompareTag("CloneSabotageItem"))
+        {
+            EnterItem = true;
         }
     }
 
@@ -181,6 +131,7 @@ public class PlayerMove : MonoBehaviour
            )
         {
             EnterItem = false;
+            moveSpeed = tempMoveSpeed;
         }
     }
 
@@ -188,9 +139,12 @@ public class PlayerMove : MonoBehaviour
     {
         GameObject group = GameObject.Find("Group" + groupNo);
         gameObject.transform.SetParent(group.gameObject.transform);
-        group.GetComponent<PlayerController>().GetMyNo(playerNo);
+        group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
 
         InGroup = true;
+        AnimationImage.SetBool("Move", false);
+        AnimationImage.SetBool("Carry", true);
+
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         Destroy(rigidbody);
         rb = GetComponentInParent<Rigidbody>();
@@ -216,7 +170,12 @@ public class PlayerMove : MonoBehaviour
                    this.gameObject.transform.position.x,
                    defaultPosY,
                    this.gameObject.transform.position.z);
+
         InGroup = false;
+        AnimationImage.SetBool("Carry", false);
+        AnimationImage.SetBool("CarryMove", false);
+
+
     }
 
     void GamepadMove()
@@ -230,14 +189,48 @@ public class PlayerMove : MonoBehaviour
 
                 if (leftStickValue.x != 0.0f)
                 {
+                    AnimationImage.SetBool("Move", true);
                     vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
                 }
                 if (leftStickValue.y != 0.0f)
                 {
+                    AnimationImage.SetBool("Move", true);
                     vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
                 }
+
+                if(leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+                {
+                    AnimationImage.SetBool("Move", false);
+                }
+
                 rb.velocity = vec;
+
+                if (!EnterItem)
+                {
+                    moveSpeed = tempMoveSpeed;
+                    if (leftStickValue.x != 0 || leftStickValue.y != 0)
+                    {
+                        var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
+                        transform.localRotation = Quaternion.LookRotation(direction);
+                    }
+                }
+                
             }
         }
     }
+
+    public void PlayerDamage()
+    {
+        playerMoveDamage = true;
+        InGroup = false;
+        EnterItem = false;
+    }
+
+    public void NotPlayerDamage()
+    {
+        playerMoveDamage = false;
+        InGroup = false;
+        EnterItem = false;
+    }
+
 }
