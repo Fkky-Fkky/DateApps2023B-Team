@@ -15,8 +15,8 @@ public class PlayerDamage : MonoBehaviour
     private float stanTime = 5.0f;
 
     private float defaultPosY = 54.0f;
-    private float DamagePosX = 0.0f;
-    private float DamagePosZ = 0.0f;
+    //private float DamagePosX = 0.0f;
+    //private float DamagePosZ = 0.0f;
     private bool doCouroutine = false;
 
     private PlayerMove playerMove;
@@ -54,8 +54,12 @@ public class PlayerDamage : MonoBehaviour
             }
 
             time += Time.deltaTime;
-            this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
-
+            //this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
+            this.gameObject.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    defaultPosY,
+                    this.gameObject.transform.position.z
+                    );
 
             if (time > stanTime)
             {
