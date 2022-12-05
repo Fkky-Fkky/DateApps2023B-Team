@@ -89,7 +89,7 @@ public class SabotageItem : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
-                collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
+                //collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
             }
             if (collision.gameObject.CompareTag("item")
             || collision.gameObject.CompareTag("item2")
@@ -97,7 +97,7 @@ public class SabotageItem : MonoBehaviour
             || collision.gameObject.CompareTag("item4"))
             {
                 collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
-                collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
+                //collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
             }
             if (collision.gameObject.CompareTag("CloneSabotageItem"))
             {

@@ -33,16 +33,16 @@ public class hantei : MonoBehaviour
     private int itemSizeCount = 0;
 
     private GameObject sabotageObject;
-    [SerializeField]
-    private Vector2 rimitPosX = Vector2.zero;
-    [SerializeField]
-    private Vector2 rimitPosZ = Vector2.zero;
-    [SerializeField]
-    private Vector2 respownPos = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 rimitPosX = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 rimitPosZ = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 respownPos = Vector2.zero;
 
-    float time = 0;
-    [SerializeField]
-    private float respawnTime = 1.0f;
+    //float time = 0;
+    //[SerializeField]
+    //private float respawnTime = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -64,27 +64,27 @@ public class hantei : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
-        {
-            time += Time.deltaTime;
-            if (time > respawnTime)
-            {
-                this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-                time = 0;
-            }
-        }
-        if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
-        {
-            time += Time.deltaTime;
-            if (time > respawnTime)
-            {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
-                time = 0;
-            }
-        }
-    }
+    //private void Update()
+    //{
+    //    if (this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
+    //    {
+    //        time += Time.deltaTime;
+    //        if (time > respawnTime)
+    //        {
+    //            this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+    //            time = 0;
+    //        }
+    //    }
+    //    if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
+    //    {
+    //        time += Time.deltaTime;
+    //        if (time > respawnTime)
+    //        {
+    //            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
+    //            time = 0;
+    //        }
+    //    }
+    //}
 
     public void GetGrabPoint(GameObject thisGrabPoint)
     {
@@ -117,12 +117,12 @@ public class hantei : MonoBehaviour
         sizeCount = boxCol.size;
     }
 
-    public void AvoidSabotageItem()
-    {
-        var heading = this.gameObject.transform.position - sabotageObject.transform.position;
-        this.gameObject.transform.position += new Vector3(heading.x * 1.5f, 0.0f, heading.z * 1.5f);
+    //public void AvoidSabotageItem()
+    //{
+    //    var heading = this.gameObject.transform.position - sabotageObject.transform.position;
+    //    this.gameObject.transform.position += new Vector3(heading.x * 1.5f, 0.0f, heading.z * 1.5f);
 
-    }
+    //}
 
     public void OutGroup()
     {

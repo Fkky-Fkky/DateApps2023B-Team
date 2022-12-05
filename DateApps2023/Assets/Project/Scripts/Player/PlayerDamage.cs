@@ -97,14 +97,14 @@ public class PlayerDamage : MonoBehaviour
         currentDamage = true;
     }
 
-    public void AvoidObject()
-    {
-        var heading = player.transform.position - sabotageObject.transform.position;
-        this.gameObject.transform.position += new Vector3(heading.x * 2.0f, 0.0f, heading.z * 2.0f);
-        DamagePosX = this.gameObject.transform.position.x;
-        DamagePosZ = this.gameObject.transform.position.z;
+    //public void AvoidObject()
+    //{
+    //    var heading = player.transform.position - sabotageObject.transform.position;
+    //    this.gameObject.transform.position += new Vector3(heading.x * 2.0f, 0.0f, heading.z * 2.0f);
+    //    DamagePosX = this.gameObject.transform.position.x;
+    //    DamagePosZ = this.gameObject.transform.position.z;
 
-    }
+    //}
 
     public void SetSabotageObject(GameObject setObject)
     {

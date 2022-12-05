@@ -48,16 +48,16 @@ public class PlayerMove : MonoBehaviour
 
     private Animator AnimationImage;
 
-    [SerializeField]
-    private Vector2 rimitPosX = Vector2.zero;
-    [SerializeField]
-    private Vector2 rimitPosZ = Vector2.zero;
-    [SerializeField]
-    private Vector2 respownPos = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 rimitPosX = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 rimitPosZ = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 respownPos = Vector2.zero;
 
-    float time = 0;
-    [SerializeField]
-    private float respawnTime = 1.0f;
+    //float time = 0;
+    //[SerializeField]
+    //private float respawnTime = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -94,27 +94,27 @@ public class PlayerMove : MonoBehaviour
         defaultPosY = this.gameObject.transform.position.y;
     }
 
-    void Update()
-    {
-        if(this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
-        {
-            time += Time.deltaTime;
-            if(time > respawnTime)
-            {
-                this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-                time = 0;
-            }
-        }
-        if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
-        {
-            time += Time.deltaTime;
-            if (time > respawnTime)
-            {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
-                time = 0;
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if(this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
+    //    {
+    //        time += Time.deltaTime;
+    //        if(time > respawnTime)
+    //        {
+    //            this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+    //            time = 0;
+    //        }
+    //    }
+    //    if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
+    //    {
+    //        time += Time.deltaTime;
+    //        if (time > respawnTime)
+    //        {
+    //            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
+    //            time = 0;
+    //        }
+    //    }
+    //}
 
     private void FixedUpdate()
     {
