@@ -48,7 +48,7 @@ public class CreateRandomPosition : MonoBehaviour
     /// <ここまで>
     void Start()
     {
-        boss = GameObject.Find("Boss");        
+        boss = GameObject.Find("Boss");       
     }
 
     // Update is called once per frame
@@ -65,7 +65,6 @@ public class CreateRandomPosition : MonoBehaviour
             // rangeAとrangeBのz座標の範囲内でランダムな数値を作成
             float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
-           
             Instantiate(item[number], new Vector3(x, 55, z), CubePrefabs[number].transform.rotation);
                 number += 1;
                 // GameObjectを上記で決まったランダムな場所に生成
@@ -78,7 +77,11 @@ public class CreateRandomPosition : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             if (tower_bild_flag == 0)
+            {
+                Debug.Log("aaaaaaaaaaaaaaaaaa");
                 CubePrefabs[i].SetActive(false);
+            }
+            
         }
 
 
@@ -101,7 +104,6 @@ public class CreateRandomPosition : MonoBehaviour
             ||u==1 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true)
         {
             CubePrefabs[3].SetActive(true);
-            boss.GetComponent<BossDamage>().KnockbackTrue();
 
             time += Time.deltaTime;
             a = 0;
@@ -111,6 +113,16 @@ public class CreateRandomPosition : MonoBehaviour
         }
         else if (tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == false && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false)
             u = 1;
+        if(time>=0.01)
+        {
+            //bosscamera.StartCoroutine(Camerachenge());
+            bosscamera.swith();
+        }
+        if(time >= 0.5f)
+        {
+            boss.GetComponent<BossDamage>().KnockbackTrue();
+        }
+
         if (time > 2.0f)
         {
             tower_bild_flag = 0;
@@ -123,8 +135,6 @@ public class CreateRandomPosition : MonoBehaviour
             CubePrefabs[2].SetActive(false);
             CubePrefabs[3].SetActive(false);
 
-            bosscamera.Camerachenge();
-
         }
 
         if (CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true && CubePrefabs[3].activeSelf == true)
@@ -134,6 +144,7 @@ public class CreateRandomPosition : MonoBehaviour
         if (Keyboard.current.zKey.wasPressedThisFrame)
         {
             tower_bild_flag += 1;
+            //CubePrefabs[1].SetActive(false);
         }
     }
     public void Settower_bild_flag()
