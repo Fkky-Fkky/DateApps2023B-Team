@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float AnimationSpeed = 0.001f;
 
+    private bool HaveItem = false;
+    private bool HaveSabotage = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,20 +87,25 @@ public class PlayerController : MonoBehaviour
             groupVec.x = before[0].x + before[1].x + before[2].x + before[3].x;
             groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
             rb.velocity = groupVec;
-            
 
             if (transform.childCount == 1)
             {
-                if (transform.GetChild(0).gameObject.CompareTag("item")
+                if (HaveSabotage)
+                {
+                    if (transform.GetChild(0).gameObject.CompareTag("CloneSabotageItem"))
+                    {
+                        transform.GetChild(0).gameObject.GetComponent<SabotageItem>().OutGroup();
+                    }
+                }
+                if (HaveItem)
+                {
+                    if (transform.GetChild(0).gameObject.CompareTag("item")
                     || transform.GetChild(0).gameObject.CompareTag("item2")
                     || transform.GetChild(0).gameObject.CompareTag("item3")
                     || transform.GetChild(0).gameObject.CompareTag("item4"))
-                {
-                    transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
-                }
-                if (transform.GetChild(0).gameObject.CompareTag("CloneSabotageItem"))
-                {
-                    transform.GetChild(0).gameObject.GetComponent<SabotageItem>().OutGroup();
+                    {
+                        transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
+                    }
                 }
             }
             else if(transform.childCount <= 1)
@@ -133,7 +142,8 @@ public class PlayerController : MonoBehaviour
             }
             transform.GetChild(i).gameObject.transform.parent = null;
         }
-        for(int i = 0; i < ChildPlayer.Length; i++)
+
+        for (int i = 0; i < ChildPlayer.Length; i++)
         {
             if (ChildPlayer[i] != null || AnimationImage[i] != null)
             {
@@ -147,13 +157,11 @@ public class PlayerController : MonoBehaviour
 
     public void DamageChild()
     {
-        Debug.Log("DamageChild");
-
         for (int i = 0; i < this.transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.CompareTag("Player"))
             {
-                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().SetSabotageObject(sabotageGameObject);
+                //transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().SetSabotageObject(sabotageGameObject);
                 transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().CallDamage();
             }
             if (transform.GetChild(i).gameObject.CompareTag("item")
@@ -179,8 +187,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         AllFragFalse();
-
-
     }
 
     public void PlayerOutGroup(int outChildNo)
@@ -189,6 +195,7 @@ public class PlayerController : MonoBehaviour
         AnimationImage[outChildNo] = null;
         gamepadFrag[outChildNo] = false;
         playerCount--;
+
     }
 
     void AllFragFalse()
@@ -199,11 +206,21 @@ public class PlayerController : MonoBehaviour
         }
         controlFrag = false;
         playerCount = 0;
+        HaveItem = false;
+        HaveSabotage = false;
     }
 
-    public void GetItemSize(int itemSize)
+    public void GetItemSize(int itemSize,int itemType)
     {
         itemSizeCount = itemSize;
+        if(itemType == 1) //ñCë‰ÇÃÉpÅ[Éc
+        {
+            HaveItem = true;
+        }
+        if (itemType == 2) //ñWäQÉAÉCÉeÉÄ
+        {
+            HaveSabotage = true;
+        }
     }
 
     public void SetSabotageItem(GameObject setGameObject)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -66,9 +67,10 @@ public class BossAttack : MonoBehaviour
     float time = 0;
     float currentSabotageTime = 0;
 
-    private bool firstRubble = true; 
+    private bool firstRubble = true;
 
-
+    private float RotateNumber;
+    private Quaternion RotateY;
     #endregion
 
     #region 予測アイテム(仮)用
@@ -80,7 +82,8 @@ public class BossAttack : MonoBehaviour
     public Vector3[] predictInstantPos;
     public Vector3[] instantPos;
     private int number = 0;
-    public int instantCloneValue = 0;
+    private int instantNumber = 0;
+    private int instantCloneValue = 0;
     #endregion
 
 
@@ -92,6 +95,8 @@ public class BossAttack : MonoBehaviour
         bossDamage = GetComponent<BossDamage>();
 
         instantCloneValue = 0;
+
+        
 
         switch (mySabotageType)
         {
@@ -113,6 +118,7 @@ public class BossAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(number);
         if (bossDamage.knockBackFlag)
         {
             time = 0;
@@ -162,8 +168,8 @@ public class BossAttack : MonoBehaviour
 
                     for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
                     {
-                        float x = Random.Range(rangeA.position.x, rangeB.position.x);
-                        float z = Random.Range(rangeA.position.z, rangeB.position.z);
+                        float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
+                        float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
                         predictInstantPos[number] = new Vector3(x, instancePosY, z);
                         Vector3 checkPos = predictInstantPos[number];
                         checkPos.y = PredictInstancePosY;
@@ -171,24 +177,18 @@ public class BossAttack : MonoBehaviour
                         int layerMask = 1 << LayerMask;
                         layerMask = ~layerMask;
 
-                        if (!firstRubble)
+                        if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
                         {
-                            if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
-                            {
-                                instantPos[number] = predictInstantPos[number];
-                                Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
-                                number++;
-                            }
+                            instantPos[number] = predictInstantPos[number];
+                            Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
+                            number++;
                         }
-                        else
+
+                        if (number >= instantPos.Length)
                         {
-                            if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
-                            {
-                                instantPos[number] = predictInstantPos[number];
-                                Instantiate(sabotageItem[i], checkPos, Quaternion.identity);
-                                number++;
-                            }
+                            break;
                         }
+
                     }
                 }
             }
@@ -202,24 +202,36 @@ public class BossAttack : MonoBehaviour
                     {
                         instantCloneValue = 0;
                     }
-                    if (!firstRubble)
+                    
+                    for (int i = 0; i < sabotageItem.Length; i++)
                     {
-                        for (int i = 0; i < sabotageItem.Length; i++)
+                        RotateNumber = UnityEngine.Random.Range(-180f, 180f);
+                        RotateY = Quaternion.Euler(0, RotateNumber, 0);
+                        if (firstRubble)
                         {
-                            Instantiate(sabotageItem[i], instantPos[i], Quaternion.identity);
-                            number++;
+                            instantPos[i].y = PredictInstancePosY;
                         }
+                        Instantiate(sabotageItem[i], instantPos[i], RotateY);
+                        instantNumber++;
                     }
 
-                    GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-                    if (cloneItem.Length >= sabotageItem.Length + instantCloneValue)
+                    if (instantNumber >= sabotageItem.Length)
                     {
-                        alreadyInstantFlag = true;
                         if (firstRubble)
                         {
                             firstRubble = false;
                         }
+                        alreadyInstantFlag = true;
                     }
+                    //GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
+                    //if (cloneItem.Length >= sabotageItem.Length + instantCloneValue)
+                    //{
+                    //    alreadyInstantFlag = true;
+                    //    if (firstRubble)
+                    //    {
+                    //        firstRubble = false;
+                    //    }
+                    //}
                 }
             }
 
@@ -272,4 +284,9 @@ public class BossAttack : MonoBehaviour
             Destroy(clone_predictItem);
         }
     }
+
+    //public void ReduceInstantValue()
+    //{
+    //    instantCloneValue--;
+    //}
 }

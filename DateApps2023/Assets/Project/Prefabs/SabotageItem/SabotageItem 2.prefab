@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2944399583157852950}
   - component: {fileID: 2944399583157852951}
   - component: {fileID: 5350122241687821739}
-  - component: {fileID: 621384970264544484}
   - component: {fileID: -7137844311643327700}
+  - component: {fileID: 8310806021170904350}
   m_Layer: 6
   m_Name: SabotageItem 2
   m_TagString: CloneSabotageItem
@@ -102,20 +102,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!64 &621384970264544484
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2944399583157852937}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300220, guid: 14900d078b25a264198b387843f7688c, type: 3}
 --- !u!114 &-7137844311643327700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,3 +121,16 @@ MonoBehaviour:
   AvoidPlayer: 1
   myItemSize: 0
   Multiplier: 3
+--- !u!65 &8310806021170904350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944399583157852937}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3269041, y: 0.23946808, z: 0.43054947}
+  m_Center: {x: -0.0002690633, y: -0.01979162, z: -0.007266566}

@@ -76,7 +76,6 @@ public class PlayerDamage : MonoBehaviour
 
                     doCouroutine = false;
                 }
-                Debug.Log("EndDamage");
         
                 playerMove.NotPlayerDamage();
                 playerCarryDown.carryDamage = false;
@@ -88,7 +87,6 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallDamage()
     {
-        Debug.Log("CallDamage");
         capsuleCol.enabled = false;
         
         AnimationImage.SetBool("Carry", false);

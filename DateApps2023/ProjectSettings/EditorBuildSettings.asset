@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/StartScene.unity
     guid: 516595733ff0092408f732fba3fc3e76
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Scenes/PlayerTestScene.unity
     guid: 954e55d3ed26b804f9f29f41d1c5045f
+  - enabled: 1
+    path: Assets/Project/Scenes/TempTestScene.unity
+    guid: 615407ea3dfe49241b69798947f0748a
   - enabled: 1
     path: Assets/Project/Scenes/ClearScene.unity
     guid: e862116bf5225514c99857a78ebb94d9

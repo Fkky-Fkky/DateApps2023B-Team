@@ -13,10 +13,11 @@ public class SabotageItem : MonoBehaviour
     public int groupNumber = 1;
     private bool InGroup = false;
 
-    MeshCollider meshCol;
+    //MeshCollider meshCol;
+    BoxCollider boxCol;
     private Rigidbody rb;
-    public bool AtackTiming = true;
-    public bool AvoidPlayer = true;
+    private bool AtackTiming = true;
+    private bool AvoidPlayer = true;
 
     enum ItemSize
     {
@@ -26,19 +27,25 @@ public class SabotageItem : MonoBehaviour
     }
 
     [SerializeField]
-    ItemSize myItemSize = ItemSize.Small;
+    private ItemSize myItemSize = ItemSize.Small;
     private int itemSizeCount = 0;
 
-    private float fallY = 56.0f;
+    private float fallY = 55f;
     public float Multiplier = 1f;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        meshCol = GetComponent<MeshCollider>();
+        //meshCol = GetComponent<MeshCollider>();
+        boxCol = GetComponent<BoxCollider>();
+
+        rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
         rb.useGravity = true;
+
+        AvoidPlayer = true;
+        AtackTiming = true;
 
         switch (myItemSize)
         {
@@ -84,6 +91,19 @@ public class SabotageItem : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (AtackTiming)
+        {
+            if (collision.gameObject.CompareTag("Group"))
+            {
+                //collision.gameObject.GetComponent<PlayerController>().SetSabotageItem(this.gameObject);
+                collision.gameObject.GetComponent<PlayerController>().DamageChild();
+            }
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                collision.gameObject.GetComponent<PlayerDamage>().CallDamage();
+            }
+            AtackTiming = false;
+        }
         if (AvoidPlayer)
         {
             if (collision.gameObject.CompareTag("Player"))
@@ -104,22 +124,7 @@ public class SabotageItem : MonoBehaviour
                 AvoidPlayer = false;
             }
         }
-        if (AtackTiming)
-        {
-            if (collision.gameObject.CompareTag("Group"))
-            {
-                Debug.Log("AtackGroup");
-                collision.gameObject.GetComponent<PlayerController>().SetSabotageItem(this.gameObject);
-                collision.gameObject.GetComponent<PlayerController>().DamageChild();
-
-            }
-            else if (collision.gameObject.CompareTag("Player"))
-            {
-                Debug.Log("AtackPlayer");
-                collision.gameObject.GetComponent<PlayerDamage>().CallDamage();
-            }
-            AtackTiming = false;
-        }
+        
         
     }
 
@@ -139,7 +144,7 @@ public class SabotageItem : MonoBehaviour
             {
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(itemSizeCount);
+                playercontroller.GetItemSize(itemSizeCount, 2);
                 InGroup = true;
             }
             else
@@ -156,20 +161,24 @@ public class SabotageItem : MonoBehaviour
 
         this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
-                    55,
+                    60,
                     this.gameObject.transform.position.z);
         rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-        meshCol.isTrigger = true;
+        boxCol.isTrigger = true;
     }
 
     public void OutGroup()
     {
         InGroup = false;
         gameObject.transform.parent = null;
-        meshCol.isTrigger = false;
+        boxCol.isTrigger = false;
         DoHanteiEnter();
 
+        this.gameObject.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    56,
+                    this.gameObject.transform.position.z);
 
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
@@ -179,11 +188,11 @@ public class SabotageItem : MonoBehaviour
     public void DestroyMe()
     {
         playercontroller.ReleaseChild();
-        GameObject Boss = GameObject.Find("Boss");
-        if (Boss.GetComponent<BossAttack>().instantCloneValue > 0)
-        {
-            Boss.GetComponent<BossAttack>().instantCloneValue--;
-        }
+        //GameObject Boss = GameObject.Find("Boss");
+        //if (Boss.GetComponent<BossAttack>().instantCloneValue > 0)
+        //{
+        //    Boss.GetComponent<BossAttack>().instantCloneValue--;
+        //}
 
         DoHanteiEnter();
         Destroy(gameObject);

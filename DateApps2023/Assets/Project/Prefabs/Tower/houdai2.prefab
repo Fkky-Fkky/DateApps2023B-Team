@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2025038954868542451
+--- !u!1 &762716768448984351
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1680320535511486793}
-  - component: {fileID: 2377453147485101804}
-  - component: {fileID: 511895520406088230}
-  - component: {fileID: 5604678037272419905}
-  - component: {fileID: 2318567164790057596}
+  - component: {fileID: 134657672322674597}
+  - component: {fileID: 3923125544935088128}
+  - component: {fileID: 1267000973458216138}
+  - component: {fileID: 8059906159192892132}
+  - component: {fileID: 5417849462388861245}
   m_Layer: 0
-  m_Name: houdai4
-  m_TagString: item4
+  m_Name: houdai2
+  m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1680320535511486793
+--- !u!4 &134657672322674597
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025038954868542451}
-  m_LocalRotation: {x: -0.6506858, y: 0.27678168, z: -0.27678162, w: 0.65068567}
-  m_LocalPosition: {x: -198.09, y: 100.122, z: -250.9}
+  m_GameObject: {fileID: 762716768448984351}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2377453147485101804
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!33 &3923125544935088128
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025038954868542451}
-  m_Mesh: {fileID: -6088268544109881686, guid: 2df2b9acc968bf04098766b362733050, type: 3}
---- !u!23 &511895520406088230
+  m_GameObject: {fileID: 762716768448984351}
+  m_Mesh: {fileID: -2553031485798200206, guid: d15bed991803e5241b891f799dcdae39, type: 3}
+--- !u!23 &1267000973458216138
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025038954868542451}
+  m_GameObject: {fileID: 762716768448984351}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,13 +85,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5604678037272419905
+--- !u!65 &8059906159192892132
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762716768448984351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.07196578, y: 0.06263917, z: 0.09775489}
+  m_Center: {x: -0.004500662, y: -0.0052500726, z: 0.03401528}
+--- !u!114 &5417849462388861245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025038954868542451}
+  m_GameObject: {fileID: 762716768448984351}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be3e1b08532096045a194076470dbacc, type: 3}
@@ -100,17 +113,4 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
-  myItemSize: 0
---- !u!65 &2318567164790057596
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025038954868542451}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.026541704, y: 0.040859886, z: 0.026541695}
-  m_Center: {x: 2.2033325e-16, y: 0.0022278184, z: -0.0000000047683715}
+  myItemSize: 1

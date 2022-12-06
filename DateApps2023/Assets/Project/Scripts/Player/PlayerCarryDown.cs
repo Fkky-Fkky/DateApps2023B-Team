@@ -39,7 +39,7 @@ public class PlayerCarryDown : MonoBehaviour
         if (!carryDamage)
         {
             if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
-            {
+                {
                 if (isCarry)
                 {
                     HanteiEnter();

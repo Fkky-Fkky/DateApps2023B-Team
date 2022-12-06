@@ -17,9 +17,12 @@ public class hantei : MonoBehaviour
     public int groupNumber = 1;
     private bool InGroup = false;
 
-    BoxCollider boxCol;
-    BoxCollider childBoxCol;
-    private Vector3 sizeCount;
+    [SerializeField]
+    private float defaultPosY = 51;
+
+    [SerializeField]
+    private float carryPosY = 60;
+
 
     enum ItemSize
     {
@@ -48,8 +51,6 @@ public class hantei : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boxCol = GetComponent<BoxCollider>();
-
         switch (myItemSize)
         {
             case ItemSize.Small:
@@ -101,7 +102,7 @@ public class hantei : MonoBehaviour
             {
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(itemSizeCount);
+                playercontroller.GetItemSize(itemSizeCount, 1);
                 InGroup = true;
             }
             else
@@ -114,7 +115,12 @@ public class hantei : MonoBehaviour
             }
         }
 
-        sizeCount = boxCol.size;
+        this.gameObject.transform.position = new Vector3(
+          this.gameObject.transform.position.x,
+          carryPosY,
+          this.gameObject.transform.position.z
+          );
+
     }
 
     //public void AvoidSabotageItem()
@@ -128,8 +134,14 @@ public class hantei : MonoBehaviour
     {
         InGroup = false;
         gameObject.transform.parent = null;
-        boxCol.size = sizeCount;
         DoHanteiEnter();
+
+        this.gameObject.transform.position = new Vector3(
+            this.gameObject.transform.position.x,
+            defaultPosY,
+            this.gameObject.transform.position.z
+            );
+
     }
 
     public void DestroyMe()
@@ -147,6 +159,7 @@ public class hantei : MonoBehaviour
             playerCarryDowns[i].HanteiEnter();
         }
     }
+
     public void SetSabotageObject(GameObject setObject)
     {
         sabotageObject = setObject;

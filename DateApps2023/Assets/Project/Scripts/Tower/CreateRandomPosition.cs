@@ -58,14 +58,14 @@ public class CreateRandomPosition : MonoBehaviour
         if (tower_flag == 1)
         {
             for (int i = 0; i < 4; i++)
-            { 
-            // rangeAとrangeBのx座標の範囲内でランダムな数値を作成
-            float x = Random.Range(rangeA.position.x, rangeB.position.x);
-       
-            // rangeAとrangeBのz座標の範囲内でランダムな数値を作成
-            float z = Random.Range(rangeA.position.z, rangeB.position.z);
+            {
+                // rangeAとrangeBのx座標の範囲内でランダムな数値を作成
+                float x = Random.Range(rangeA.position.x, rangeB.position.x);
 
-            Instantiate(item[number], new Vector3(x, 55, z), CubePrefabs[number].transform.rotation);
+                // rangeAとrangeBのz座標の範囲内でランダムな数値を作成
+                float z = Random.Range(rangeA.position.z, rangeB.position.z);
+
+                Instantiate(item[number], new Vector3(x, 51, z), CubePrefabs[number].transform.rotation);
                 number += 1;
                 // GameObjectを上記で決まったランダムな場所に生成
                 //Instantiate(createPrefab, new Vector3(x, 1, z), createPrefab.transform.rotation);
@@ -78,7 +78,6 @@ public class CreateRandomPosition : MonoBehaviour
         {
             if (tower_bild_flag == 0)
             {
-                Debug.Log("aaaaaaaaaaaaaaaaaa");
                 CubePrefabs[i].SetActive(false);
             }
             

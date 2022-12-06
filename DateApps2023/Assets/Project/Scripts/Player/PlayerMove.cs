@@ -127,15 +127,15 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item2")
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
-           || collision.gameObject.CompareTag("Group")
+           || collision.gameObject.CompareTag("CloneSabotageItem")
            )
         {
             EnterItem = true;
-            moveSpeed = slowMoveSpeed;
         }
-        if (collision.gameObject.CompareTag("CloneSabotageItem"))
+        if (collision.gameObject.CompareTag("Group"))
         {
             EnterItem = true;
+            moveSpeed = slowMoveSpeed;
         }
     }
 
@@ -151,6 +151,10 @@ public class PlayerMove : MonoBehaviour
         {
             EnterItem = false;
             moveSpeed = tempMoveSpeed;
+            this.gameObject.transform.position = new Vector3(
+                  this.gameObject.transform.position.x,
+                  defaultPosY,
+                  this.gameObject.transform.position.z);
         }
     }
 
@@ -178,6 +182,7 @@ public class PlayerMove : MonoBehaviour
         playerController.PlayerOutGroup(sentNumber);
 
         EnterItem = false;
+        InGroup = false;
 
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
@@ -189,10 +194,8 @@ public class PlayerMove : MonoBehaviour
                    defaultPosY,
                    this.gameObject.transform.position.z);
 
-        InGroup = false;
         AnimationImage.SetBool("Carry", false);
         AnimationImage.SetBool("CarryMove", false);
-
 
     }
 
