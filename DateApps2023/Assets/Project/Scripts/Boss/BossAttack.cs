@@ -172,14 +172,16 @@ public class BossAttack : MonoBehaviour
                         predictInstantPos[number] = new Vector3(x, instancePosY, z);
                         Vector3 checkPos = predictInstantPos[number];
                         checkPos.y = PredictInstancePosY;
+                        Quaternion predictRot = Quaternion.identity;
+                        predictRot.y = 180f;
 
                         int layerMask = 1 << LayerMask;
                         layerMask = ~layerMask;
 
-                        if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
+                        if (!Physics.CheckBox(checkPos, halfExtents, predictRot, layerMask))
                         {
                             instantPos[number] = predictInstantPos[number];
-                            Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
+                            Instantiate(predictSabotageItem[i], checkPos, predictRot);
                             number++;
                         }
 

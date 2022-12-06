@@ -23,9 +23,9 @@ public class BossCamera : MonoBehaviour
     [Tooltip("ボスカメラ")]
     private Camera Bosscamera;
 
-    [SerializeField]
-    [Tooltip("モニター")]
-    private GameObject monita;
+    //[SerializeField]
+    //[Tooltip("モニター")]
+    //private GameObject monita;
 
     float time = 0;
 
@@ -40,7 +40,7 @@ public class BossCamera : MonoBehaviour
         //サブカメラを非アクティブにする
        // Bosscamera.GetComponent<Camera>().enabled = false;
         Bosscamera.rect = new Rect(0, 0, 0, 0);
-        monita.SetActive(false);
+        //monita.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class BossCamera : MonoBehaviour
         if (time >= 5)
         {
             Bosscamera.rect = new Rect(0, 0, 0, 0);
-            monita.SetActive(false);
+            //monita.SetActive(false);
             a = 0.05f;
             o = 0.05f;
              y = 0.5f;
@@ -74,7 +74,7 @@ public class BossCamera : MonoBehaviour
         camera_flag = 0;
         time = 0;
         StartCoroutine(Camerachenge());
-        monita.SetActive(true);
+        //monita.SetActive(true);
         
     }
 
@@ -138,7 +138,7 @@ public class BossCamera : MonoBehaviour
                 a = 0.05f;
                 o = 0.05f;
                 y = 0.5f;
-                monita.SetActive(false);
+                //monita.SetActive(false);
             }
         }
         yield return null;

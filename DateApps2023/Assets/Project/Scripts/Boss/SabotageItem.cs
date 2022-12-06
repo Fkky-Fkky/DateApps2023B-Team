@@ -122,10 +122,10 @@ public class SabotageItem : MonoBehaviour
                 collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
                 //collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
             }
-            if (collision.gameObject.CompareTag("CloneSabotageItem"))
-            {
-                AvoidPlayer = false;
-            }
+            //if (collision.gameObject.CompareTag("CloneSabotageItem"))
+            //{
+            //    AvoidPlayer = false;
+            //}
         }
         
         
