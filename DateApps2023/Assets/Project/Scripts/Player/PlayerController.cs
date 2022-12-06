@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-using static Unity.VisualScripting.Metadata;
 
 public class PlayerController : MonoBehaviour
 {
@@ -54,7 +53,6 @@ public class PlayerController : MonoBehaviour
         {
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-            CheckPlayerCount();
             
             for(int i = 0; i < gamepadFrag.Length; i++)
             {
@@ -123,6 +121,23 @@ public class PlayerController : MonoBehaviour
         gamepadFrag[childNo] = true;
         playerCount++;
         controlFrag = true;
+        CheckPlayerCount();
+
+    }
+
+    public void GetItemSize(int itemSize, int itemType)
+    {
+        itemSizeCount = itemSize;
+        if (itemType == 1) //–C‘ä‚Ìƒp[ƒc
+        {
+            HaveItem = true;
+        }
+        if (itemType == 2) //–WŠQƒAƒCƒeƒ€
+        {
+            HaveSabotage = true;
+        }
+        CheckPlayerCount();
+
     }
 
     public void ReleaseChild()
@@ -208,19 +223,6 @@ public class PlayerController : MonoBehaviour
         playerCount = 0;
         HaveItem = false;
         HaveSabotage = false;
-    }
-
-    public void GetItemSize(int itemSize,int itemType)
-    {
-        itemSizeCount = itemSize;
-        if(itemType == 1) //–C‘ä‚Ìƒp[ƒc
-        {
-            HaveItem = true;
-        }
-        if (itemType == 2) //–WŠQƒAƒCƒeƒ€
-        {
-            HaveSabotage = true;
-        }
     }
 
     public void SetSabotageItem(GameObject setGameObject)

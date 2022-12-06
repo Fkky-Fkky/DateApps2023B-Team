@@ -118,7 +118,6 @@ public class BossAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(number);
         if (bossDamage.knockBackFlag)
         {
             time = 0;

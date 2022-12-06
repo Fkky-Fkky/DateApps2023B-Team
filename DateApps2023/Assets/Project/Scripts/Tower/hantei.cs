@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using UnityEngine;
 using static PlayerMove;
-using static UnityEditor.PlayerSettings;
 
 public class hantei : MonoBehaviour
 {
@@ -33,7 +32,7 @@ public class hantei : MonoBehaviour
 
     [SerializeField]
     ItemSize myItemSize = ItemSize.Small;
-    private int itemSizeCount = 0;
+    private int myItemSizeCount = 0;
 
     private GameObject sabotageObject;
     //[SerializeField]
@@ -54,13 +53,13 @@ public class hantei : MonoBehaviour
         switch (myItemSize)
         {
             case ItemSize.Small:
-                itemSizeCount = (int)ItemSize.Small;
+                myItemSizeCount = (int)ItemSize.Small;
                 break;
             case ItemSize.Medium:
-                itemSizeCount = (int)ItemSize.Medium;
+                myItemSizeCount = (int)ItemSize.Medium;
                 break;
             case ItemSize.Large:
-                itemSizeCount = (int)ItemSize.Large;
+                myItemSizeCount = (int)ItemSize.Large;
                 break;
         }
     }
@@ -102,7 +101,7 @@ public class hantei : MonoBehaviour
             {
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(itemSizeCount, 1);
+                playercontroller.GetItemSize(myItemSizeCount, 1);
                 InGroup = true;
             }
             else

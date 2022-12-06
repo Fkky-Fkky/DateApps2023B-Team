@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
@@ -121,6 +119,14 @@ public class PlayerMove : MonoBehaviour
         GamepadMove();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Group"))
+        {
+            moveSpeed = slowMoveSpeed;
+        }
+    }
+
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("item")
@@ -150,7 +156,11 @@ public class PlayerMove : MonoBehaviour
            )
         {
             EnterItem = false;
-            moveSpeed = tempMoveSpeed;
+        }
+
+        if (collision.gameObject.CompareTag("Group"))
+        {
+            EnterItem = false;
             this.gameObject.transform.position = new Vector3(
                   this.gameObject.transform.position.x,
                   defaultPosY,
