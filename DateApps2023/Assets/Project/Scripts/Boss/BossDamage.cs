@@ -23,6 +23,14 @@ public class BossDamage : MonoBehaviour
 
     [SerializeField] Animator AnimationImage = null;
 
+    [SerializeField]
+    private Transform damagePoint = null;
+
+    [SerializeField]
+    private GameObject explosionEffect = null;
+
+    private bool damageFlag = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,10 +65,17 @@ public class BossDamage : MonoBehaviour
 
         }
 
+        if (damageFlag)
+        {
+            Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
+            damageFlag = false;
+        }
 
         if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Damege") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f) 
         {
             AnimationImage.SetBool("Damage", false);
+            damageFlag = false;
+            Destroy(explosionEffect);
         }
     }
 
@@ -71,6 +86,7 @@ public class BossDamage : MonoBehaviour
             return;
 
         knockBackFlag = true;
+        damageFlag = true;
         //Damege‚ğON‚É‚·‚éˆ—
         AnimationImage.SetBool("Damage", true);
     }
