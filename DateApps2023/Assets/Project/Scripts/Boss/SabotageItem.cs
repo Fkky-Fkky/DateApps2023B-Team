@@ -13,11 +13,12 @@ public class SabotageItem : MonoBehaviour
     public int groupNumber = 1;
     private bool InGroup = false;
 
-    //MeshCollider meshCol;
     BoxCollider boxCol;
     private Rigidbody rb;
     private bool AtackTiming = true;
     private bool AvoidPlayer = true;
+
+    private MeshRenderer mesh;
 
     enum ItemSize
     {
@@ -37,8 +38,10 @@ public class SabotageItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //meshCol = GetComponent<MeshCollider>();
         boxCol = GetComponent<BoxCollider>();
+
+        mesh = GetComponent<MeshRenderer>();
+        mesh.material.color = mesh.material.color - new Color(0, 0, 0, 0);
 
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
@@ -188,14 +191,10 @@ public class SabotageItem : MonoBehaviour
     public void DestroyMe()
     {
         playercontroller.ReleaseChild();
-        //GameObject Boss = GameObject.Find("Boss");
-        //if (Boss.GetComponent<BossAttack>().instantCloneValue > 0)
-        //{
-        //    Boss.GetComponent<BossAttack>().instantCloneValue--;
-        //}
 
         DoHanteiEnter();
-        Destroy(gameObject);
+        StartCoroutine("Transparent");
+        Destroy(gameObject, 2);
     }
 
     public void DoHanteiEnter()
@@ -204,6 +203,26 @@ public class SabotageItem : MonoBehaviour
         {
             playerCarryDowns[i].HanteiEnter();
         }
+    }
+
+    IEnumerator Transparent()
+    {
+        while (true)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                mesh.material.color = mesh.material.color - new Color32(0, 0, 0, 1);
+            }
+            yield return new WaitForSeconds(0.2f);
+
+            for (int j = 0; j < 100; j++)
+            {
+                mesh.material.color = mesh.material.color + new Color32(0, 0, 0, 1);
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+
+
     }
 
 }
