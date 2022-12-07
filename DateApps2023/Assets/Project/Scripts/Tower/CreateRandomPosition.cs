@@ -36,16 +36,18 @@ public class CreateRandomPosition : MonoBehaviour
 
     public GameObject boss;
 
-    /// <‚±‚±‚©‚ç>
     [SerializeField]
     private BossCamera bosscamera;
-    ///
-    ///steat
-    ///
-    ///
-    ///Update
-    //
-    /// <‚±‚±‚Ü‚Å>
+
+    [SerializeField]
+    private Transform smokePoint = null;
+
+    [SerializeField]
+    private GameObject smokeEffect = null;
+
+    private bool BlastFlag = false;
+
+
     void Start()
     {
         boss = GameObject.Find("Boss");       
@@ -66,6 +68,7 @@ public class CreateRandomPosition : MonoBehaviour
                 float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
                 Instantiate(item[number], new Vector3(x, 51, z), CubePrefabs[number].transform.rotation);
+                
                 number += 1;
                 // GameObject‚ðã‹L‚ÅŒˆ‚Ü‚Á‚½ƒ‰ƒ“ƒ_ƒ€‚ÈêŠ‚É¶¬
                 //Instantiate(createPrefab, new Vector3(x, 1, z), createPrefab.transform.rotation);
@@ -79,8 +82,16 @@ public class CreateRandomPosition : MonoBehaviour
             if (tower_bild_flag == 0)
             {
                 CubePrefabs[i].SetActive(false);
+                if (BlastFlag)
+                {
+                    GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("SmokeEffect");
+                    foreach (GameObject clone_smokeEffect in cloneItem)
+                    {
+                        Destroy(clone_smokeEffect);
+                    }
+                    BlastFlag = false;
+                }
             }
-            
         }
 
 
@@ -116,8 +127,14 @@ public class CreateRandomPosition : MonoBehaviour
         {
             //bosscamera.StartCoroutine(Camerachenge());
             //bosscamera.swith();
+            if (!BlastFlag)
+            {
+                Instantiate(smokeEffect, smokePoint.position, Quaternion.identity);
+                BlastFlag = true;
+            }
+
         }
-        if(time >= 0.5f)
+        if (time >= 0.5f)
         {
             bosscamera.swith();
             boss.GetComponent<BossDamage>().KnockbackTrue();

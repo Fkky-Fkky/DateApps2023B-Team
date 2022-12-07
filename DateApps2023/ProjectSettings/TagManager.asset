@@ -15,6 +15,7 @@ TagManager:
   - Group
   - ClonePredictItem
   - BoomEffect
+  - SmokeEffect
   layers:
   - Default
   - TransparentFX

@@ -365,6 +365,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8985b02583ad8bc439b901658b00843e, type: 3}
+--- !u!1 &268648513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 268648514}
+  m_Layer: 0
+  m_Name: SmokePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &268648514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268648513}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 26.4, z: -25.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1858907749}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &356730298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -933,7 +964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6642304097403980633, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6642304097403980633, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_LocalScale.x
@@ -1461,7 +1492,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1342934107
 PrefabInstance:
@@ -1627,7 +1658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6642304097403980633, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6642304097403980633, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_LocalScale.x
@@ -2153,6 +2184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecde31b6b8c5c74f9a5f9af0f5d3e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1858907749 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5773730434467325644, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
+  m_PrefabInstance: {fileID: 2113282200562772643}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2015036413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2470,6 +2506,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 565172885}
     - target: {fileID: 2113282198848111815, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
+      propertyPath: smokePoint
+      value: 
+      objectReference: {fileID: 268648514}
+    - target: {fileID: 2113282198848111815, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
+      propertyPath: smokeEffect
+      value: 
+      objectReference: {fileID: 1636802288112176355, guid: d7f65607152ed9947951f1f99e8146cb, type: 3}
+    - target: {fileID: 2113282198848111815, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
       propertyPath: item.Array.data[0]
       value: 
       objectReference: {fileID: 762716768448984351, guid: c16f30f364564904691e1e0efdea2465, type: 3}
@@ -2507,15 +2551,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5773730434467325644, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5773730434467325644, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 51.41162
+      value: 51
       objectReference: {fileID: 0}
     - target: {fileID: 5773730434467325644, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 72.76388
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 5773730434467325644, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
       propertyPath: m_LocalRotation.w
