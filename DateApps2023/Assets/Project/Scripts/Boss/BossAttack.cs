@@ -81,7 +81,7 @@ public class BossAttack : MonoBehaviour
     private GameObject[] predictSabotageItem;
     public Vector3[] predictInstantPos;
     public Vector3[] instantPos;
-    private int number = 0;
+    private int predictNumber = 0;
     private int instantNumber = 0;
     private int instantCloneValue = 0;
     #endregion
@@ -95,8 +95,7 @@ public class BossAttack : MonoBehaviour
         bossDamage = GetComponent<BossDamage>();
 
         instantCloneValue = 0;
-
-        
+        predictNumber = 0;
 
         switch (mySabotageType)
         {
@@ -125,7 +124,6 @@ public class BossAttack : MonoBehaviour
         if (!sabotageFlag)
         {
             time += Time.deltaTime;
-            number = 0;
 
             if (time > intervalTime)
             {
@@ -137,6 +135,7 @@ public class BossAttack : MonoBehaviour
                 {
                     time = 0;
                 }
+                predictNumber = 0;
                 sabotageFlag = true;
                 alreadyInstantFlag = false;
                 alreadyPredictFlag = false;
@@ -162,37 +161,36 @@ public class BossAttack : MonoBehaviour
                     if (clonePredictItem.Length >= sabotageItem.Length)
                     {
                         alreadyPredictFlag = true;
-                        number = 0;
+                        predictNumber = 0;
                     }
 
                     for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
                     {
                         float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
                         float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
-                        predictInstantPos[number] = new Vector3(x, instancePosY, z);
-                        Vector3 checkPos = predictInstantPos[number];
-                        checkPos.y = PredictInstancePosY;
+                        predictInstantPos[predictNumber] = new Vector3(x, instancePosY, z);
+                        Vector3 CheckPos = predictInstantPos[predictNumber];
+                        CheckPos.y = PredictInstancePosY;
                         Quaternion predictRot = Quaternion.identity;
                         predictRot.y = 180f;
 
                         int layerMask = 1 << LayerMask;
                         layerMask = ~layerMask;
 
-                        if (!Physics.CheckBox(checkPos, halfExtents, predictRot, layerMask))
+                        if (!Physics.CheckBox(CheckPos, halfExtents, predictRot, layerMask))
                         {
-                            instantPos[number] = predictInstantPos[number];
-                            number++;
+                            instantPos[predictNumber] = predictInstantPos[predictNumber];
                             if (!firstRubble)
                             {
-                                Instantiate(predictSabotageItem[i], checkPos, predictRot);
+                                Instantiate(predictSabotageItem[predictNumber], CheckPos, predictRot);
                             }
+                            predictNumber++;
                         }
 
-                        if (number >= instantPos.Length)
+                        if (predictNumber >= instantPos.Length)
                         {
                             break;
                         }
-
                     }
                 }
             }
@@ -227,15 +225,6 @@ public class BossAttack : MonoBehaviour
                         }
                         alreadyInstantFlag = true;
                     }
-                    //GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-                    //if (cloneItem.Length >= sabotageItem.Length + instantCloneValue)
-                    //{
-                    //    alreadyInstantFlag = true;
-                    //    if (firstRubble)
-                    //    {
-                    //        firstRubble = false;
-                    //    }
-                    //}
                 }
             }
 
@@ -267,6 +256,7 @@ public class BossAttack : MonoBehaviour
 
             
         }
+
     }
 
     void AllDestroy()
@@ -289,8 +279,4 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-    //public void ReduceInstantValue()
-    //{
-    //    instantCloneValue--;
-    //}
 }

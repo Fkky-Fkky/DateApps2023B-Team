@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
             {
                 transform.GetChild(i).gameObject.GetComponent<SabotageItem>().OutGroup();
             }
-            transform.GetChild(i).gameObject.transform.parent = null;
+            //transform.GetChild(i).gameObject.transform.parent = null;
         }
         for (int i = 0; i < ChildPlayer.Length; i++)
         {

@@ -62,6 +62,7 @@ public class BossDamage : MonoBehaviour
                     boss.transform.position.z);
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 time = 0;
+
             }
         }
         else
@@ -100,12 +101,12 @@ public class BossDamage : MonoBehaviour
             damageFlag = false;
             knockBackFlag = false;
             firstEffect = true;
-
             GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("BoomEffect");
             foreach (GameObject clone_explosionEffect in cloneItem)
             {
                 Destroy(clone_explosionEffect);
             }
+
         }
     }
 

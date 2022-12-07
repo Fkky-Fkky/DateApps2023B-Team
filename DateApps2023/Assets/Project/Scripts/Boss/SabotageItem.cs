@@ -166,7 +166,7 @@ public class SabotageItem : MonoBehaviour
                     this.gameObject.transform.position.x,
                     60,
                     this.gameObject.transform.position.z);
-        rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
         boxCol.isTrigger = true;
     }
