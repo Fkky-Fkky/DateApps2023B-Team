@@ -10,8 +10,8 @@ public class BossCamera : MonoBehaviour
     //private Camera cam;
 
     //cam = Camera.main;
-    float a = 0.05f;
-    float o = 0.05f;
+    float widthValue = 0.05f;
+    float heightValue = 0.05f;
     float y = 0.5f;
 
     int camera_flag=0;
@@ -28,6 +28,9 @@ public class BossCamera : MonoBehaviour
     //private GameObject monita;
 
     float time = 0;
+
+    [SerializeField]
+    private float displayTime = 5.0f;
 
 
 
@@ -49,12 +52,12 @@ public class BossCamera : MonoBehaviour
         
         time += Time.deltaTime;
 
-        if (time >= 5)
+        if (time >= displayTime)
         {
             Bosscamera.rect = new Rect(0, 0, 0, 0);
             //monita.SetActive(false);
-            a = 0.05f;
-            o = 0.05f;
+            widthValue = 0.05f;
+            heightValue = 0.05f;
              y = 0.5f;
 
         }
@@ -70,7 +73,6 @@ public class BossCamera : MonoBehaviour
 
     public void swith()
     {
-        
         camera_flag = 0;
         time = 0;
         StartCoroutine(Camerachenge());
@@ -85,17 +87,17 @@ public class BossCamera : MonoBehaviour
         
         if (Bosscamera.rect.width < 0.5f)
         {
-            Bosscamera.rect = new Rect(0.25f, 0.5f, 0 + a, 0.05f);
-            
-            a += 0.05f;
+            Bosscamera.rect = new Rect(0.25f, 0.5f, 0 + widthValue, 0.05f);
+
+            widthValue += 0.05f;
         }
         if(Bosscamera.rect.width >= 0.5f&&camera_flag==0)
         {
-            Bosscamera.rect = new Rect(0.25f, y, 0.5f, 0.05f+o);
+            Bosscamera.rect = new Rect(0.25f, y, 0.5f, 0.05f + heightValue);
 
             if (Bosscamera.rect.height < 0.5)
-            { 
-                o += 0.05f;
+            {
+                heightValue += 0.05f;
                 y -= 0.03f;
             }
                
@@ -116,27 +118,27 @@ public class BossCamera : MonoBehaviour
 
         if (Bosscamera.rect.height <= 0.6f )
         {
-            Bosscamera.rect = new Rect(0.25f, y, 0.5f, 0.05f + o);//
+            Bosscamera.rect = new Rect(0.25f, y, 0.5f, 0.05f + heightValue);//
             Debug.Log("i");
-            o -= 0.05f;
+            heightValue -= 0.05f;
             y += 0.03f;
         }
 
         if (Bosscamera.rect.height <= 0.05f)
         {
             Debug.Log("u");
-            Bosscamera.rect = new Rect(0.25f, 0.25f, 0 + a, 0.5f);
+            Bosscamera.rect = new Rect(0.25f, 0.25f, 0 + widthValue, 0.5f);
 
             if (Bosscamera.rect.height < 0.5)
-                a -= 0.05f;
+                widthValue -= 0.05f;
 
 
             if (camera_flag == 2)
             {
                 Debug.Log("e");
                 camera_flag = 0;
-                a = 0.05f;
-                o = 0.05f;
+                widthValue = 0.05f;
+                heightValue = 0.05f;
                 y = 0.5f;
                 //monita.SetActive(false);
             }

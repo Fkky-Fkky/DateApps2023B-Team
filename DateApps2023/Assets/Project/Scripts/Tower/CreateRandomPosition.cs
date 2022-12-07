@@ -115,10 +115,11 @@ public class CreateRandomPosition : MonoBehaviour
         if(time>=0.01)
         {
             //bosscamera.StartCoroutine(Camerachenge());
-            bosscamera.swith();
+            //bosscamera.swith();
         }
         if(time >= 0.5f)
         {
+            bosscamera.swith();
             boss.GetComponent<BossDamage>().KnockbackTrue();
         }
 
@@ -127,7 +128,7 @@ public class CreateRandomPosition : MonoBehaviour
             tower_bild_flag = 0;
             tower_flag = 1;
             time = 0;
-            boss.GetComponent<BossDamage>().KnockbackFalse();
+            //boss.GetComponent<BossDamage>().KnockbackFalse();
 
             CubePrefabs[0].SetActive(false);
             CubePrefabs[1].SetActive(false);

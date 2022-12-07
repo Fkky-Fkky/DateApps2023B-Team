@@ -9778,7 +9778,7 @@ GameObject:
   - component: {fileID: 5136725146570867881}
   m_Layer: 0
   m_Name: Boom
-  m_TagString: Untagged
+  m_TagString: BoomEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10054,7 +10054,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 4
+      scalar: 400
       minScalar: 450
       maxCurve:
         serializedVersion: 2
@@ -10107,7 +10107,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 100
       minScalar: 150
       maxCurve:
         serializedVersion: 2
@@ -10160,7 +10160,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 100
       minScalar: 100
       maxCurve:
         serializedVersion: 2

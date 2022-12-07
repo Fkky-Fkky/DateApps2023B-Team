@@ -30,12 +30,21 @@ public class BossDamage : MonoBehaviour
     private GameObject explosionEffect = null;
 
     private bool damageFlag = false;
+    private bool firstEffect = true;
+
+    [SerializeField]
+    private float damageIntervalTime = 1.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         knockBackFlag = false;
+        damageFlag = false;
+        firstEffect = true;
+
+        time = stopTime;
         //animationController = transform.GetChild(2).GetComponent<AnimationController>();
     }
 
@@ -52,16 +61,30 @@ public class BossDamage : MonoBehaviour
                     boss.transform.position.y,
                     boss.transform.position.z);
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                time = 0;
             }
         }
         else
         {
-            time = 0;
+            time += Time.deltaTime;
 
-            boss.transform.position = new Vector3(
-                0.0f,
-                boss.transform.position.y,
-                boss.transform.position.z + knockBackPower * Time.deltaTime);
+            if(time >= damageIntervalTime)
+            {
+                AnimationImage.SetBool("Damage", true);
+                if (firstEffect)
+                {
+                    damageFlag = true;
+                    firstEffect = false;
+                }
+
+                boss.transform.position = new Vector3(
+                    0.0f,
+                    boss.transform.position.y,
+                    boss.transform.position.z + knockBackPower * Time.deltaTime
+                    );
+            }
+
+        
 
         }
 
@@ -75,7 +98,14 @@ public class BossDamage : MonoBehaviour
         {
             AnimationImage.SetBool("Damage", false);
             damageFlag = false;
-            Destroy(explosionEffect);
+            knockBackFlag = false;
+            firstEffect = true;
+
+            GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("BoomEffect");
+            foreach (GameObject clone_explosionEffect in cloneItem)
+            {
+                Destroy(clone_explosionEffect);
+            }
         }
     }
 
@@ -85,20 +115,20 @@ public class BossDamage : MonoBehaviour
         if (knockBackFlag)
             return;
 
+        time = 0;
         knockBackFlag = true;
-        damageFlag = true;
         //DamegeÇONÇ…Ç∑ÇÈèàóù
-        AnimationImage.SetBool("Damage", true);
     }
 
-    public void KnockbackFalse()
-    {
-        if(!knockBackFlag)
-            return;
+    //public void KnockbackFalse()
+    //{
+    //    if(!knockBackFlag)
+    //        return;
 
-        knockBackFlag = false;
-        //DamegeÇOFFÇ…Ç∑ÇÈèàóù
-        AnimationImage.SetBool("Damage", false);
-    }
+    //    time = 0;
+    //    knockBackFlag = false;
+    //    //DamegeÇOFFÇ…Ç∑ÇÈèàóù
+    //    AnimationImage.SetBool("Damage", false);
+    //}
 
 }

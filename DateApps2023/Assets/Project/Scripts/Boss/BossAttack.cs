@@ -181,8 +181,11 @@ public class BossAttack : MonoBehaviour
                         if (!Physics.CheckBox(checkPos, halfExtents, predictRot, layerMask))
                         {
                             instantPos[number] = predictInstantPos[number];
-                            Instantiate(predictSabotageItem[i], checkPos, predictRot);
                             number++;
+                            if (!firstRubble)
+                            {
+                                Instantiate(predictSabotageItem[i], checkPos, predictRot);
+                            }
                         }
 
                         if (number >= instantPos.Length)

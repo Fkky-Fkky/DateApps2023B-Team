@@ -767,7 +767,7 @@ GameObject:
   m_Component:
   - component: {fileID: 756329471}
   m_Layer: 0
-  m_Name: ExplovePoint
+  m_Name: ExplosionPointt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1012,6 +1012,10 @@ PrefabInstance:
       propertyPath: Maincamera
       value: 
       objectReference: {fileID: 1435586584}
+    - target: {fileID: 610635896590161087, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+      propertyPath: displayTime
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1031987516387900868, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1096,6 +1100,10 @@ PrefabInstance:
       propertyPath: explosionEffect
       value: 
       objectReference: {fileID: 4914716930404006884, guid: aed12c224fbc8704d8eaa07a52e88f44, type: 3}
+    - target: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+      propertyPath: damageIntervalTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1648196746715476575, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: boss
       value: 
@@ -2080,6 +2088,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6907194323406962547, guid: a39ee6fcdfcedf5439654acfce19b228, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 6907194323487964994, guid: a39ee6fcdfcedf5439654acfce19b228, type: 3}
       propertyPath: m_Name
       value: Walls

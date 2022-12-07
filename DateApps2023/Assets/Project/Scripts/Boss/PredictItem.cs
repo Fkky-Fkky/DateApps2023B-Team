@@ -20,12 +20,30 @@ public class PredictItem : MonoBehaviour
         StartCoroutine("Transparent");
     }
 
+    public void DestroyPredict()
+    {
+        Destroy(this.gameObject);
+    }
+
    IEnumerator Transparent()
     {
-        for (int i = 0; i < 255 - transparentValue; i++)
+        while (true)
         {
-            myMesh.material.color = myMesh.material.color + new Color32(0, 0, 0, 1);
-            yield return new WaitForSeconds(transparentSpeed);
+            for (int i = 0; i < 255 - transparentValue; i++)
+            {
+                myMesh.material.color = myMesh.material.color + new Color32(0, 0, 0, 1);
+                //if(myMesh.material.color.a == 255 - transparentValue)
+                //{
+                //    break;
+                //}
+                yield return new WaitForSeconds(transparentSpeed);
+            }
+            for (int i = 0; i < 255 - transparentValue; i++)
+            {
+                myMesh.material.color = myMesh.material.color - new Color32(0, 0, 0, 1);
+
+                yield return new WaitForSeconds(transparentSpeed);
+            }
         }
     }
 }

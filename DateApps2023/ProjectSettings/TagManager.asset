@@ -14,6 +14,7 @@ TagManager:
   - Wall
   - Group
   - ClonePredictItem
+  - BoomEffect
   layers:
   - Default
   - TransparentFX
