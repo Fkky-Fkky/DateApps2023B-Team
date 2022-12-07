@@ -71,7 +71,7 @@ public class BossCamera : MonoBehaviour
 
     }
 
-    public void swith()
+    public void cameraSwitch()
     {
         camera_flag = 0;
         time = 0;

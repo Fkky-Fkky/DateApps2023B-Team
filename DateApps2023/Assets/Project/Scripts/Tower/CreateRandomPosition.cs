@@ -70,27 +70,27 @@ public class CreateRandomPosition : MonoBehaviour
                 Instantiate(item[number], new Vector3(x, 51, z), CubePrefabs[number].transform.rotation);
                 
                 number += 1;
-                // GameObject‚ğã‹L‚ÅŒˆ‚Ü‚Á‚½ƒ‰ƒ“ƒ_ƒ€‚ÈêŠ‚É¶¬
-                //Instantiate(createPrefab, new Vector3(x, 1, z), createPrefab.transform.rotation);
             }
             number = 0;
             tower_flag = 0;
         }
 
-        for (int i = 0; i < 4; i++)
+
+        if (tower_bild_flag == 0)
         {
-            if (tower_bild_flag == 0)
+            for (int i = 0; i < 4; i++)
             {
                 CubePrefabs[i].SetActive(false);
-                if (BlastFlag)
+            }
+
+            if (BlastFlag)
+            {
+                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("SmokeEffect");
+                foreach (GameObject clone_smokeEffect in cloneItem)
                 {
-                    GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("SmokeEffect");
-                    foreach (GameObject clone_smokeEffect in cloneItem)
-                    {
-                        Destroy(clone_smokeEffect);
-                    }
-                    BlastFlag = false;
+                    Destroy(clone_smokeEffect);
                 }
+                BlastFlag = false;
             }
         }
 
@@ -125,18 +125,17 @@ public class CreateRandomPosition : MonoBehaviour
             u = 1;
         if(time>=0.01)
         {
-            //bosscamera.StartCoroutine(Camerachenge());
-            //bosscamera.swith();
+            
+
+        }
+        if (time >= 0.5f)
+        {
             if (!BlastFlag)
             {
                 Instantiate(smokeEffect, smokePoint.position, Quaternion.identity);
                 BlastFlag = true;
             }
-
-        }
-        if (time >= 0.5f)
-        {
-            bosscamera.swith();
+            bosscamera.cameraSwitch();
             boss.GetComponent<BossDamage>().KnockbackTrue();
         }
 
@@ -161,7 +160,6 @@ public class CreateRandomPosition : MonoBehaviour
         if (Keyboard.current.zKey.wasPressedThisFrame)
         {
             tower_bild_flag += 1;
-            //CubePrefabs[1].SetActive(false);
         }
     }
     public void Settower_bild_flag()
