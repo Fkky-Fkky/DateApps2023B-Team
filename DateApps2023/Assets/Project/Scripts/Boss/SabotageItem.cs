@@ -33,6 +33,11 @@ public class SabotageItem : MonoBehaviour
 
     private float fallY = 55f;
     public float Multiplier = 1f;
+
+    [SerializeField]
+    private float destroyTime = 2.0f;
+    private bool isDestroy = false;
+    private float currentTime = 0;
     #endregion
 
     // Start is called before the first frame update
@@ -89,6 +94,18 @@ public class SabotageItem : MonoBehaviour
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
             Destroy(rigidbody);
+        }
+
+        if (isDestroy)
+        {
+            currentTime += Time.deltaTime;
+            if(currentTime >= destroyTime)
+            {
+                playercontroller.ReleaseChild();
+                DoHanteiEnter();
+                isDestroy = false;
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -191,10 +208,9 @@ public class SabotageItem : MonoBehaviour
     public void DestroyMe()
     {
         playercontroller.ReleaseChild();
-
         DoHanteiEnter();
+        isDestroy = true;        
         StartCoroutine("Transparent");
-        Destroy(gameObject, 2);
     }
 
     public void DoHanteiEnter()

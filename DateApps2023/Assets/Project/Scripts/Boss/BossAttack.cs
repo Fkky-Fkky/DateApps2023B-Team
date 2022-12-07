@@ -96,20 +96,15 @@ public class BossAttack : MonoBehaviour
 
         instantCloneValue = 0;
         predictNumber = 0;
+        time = 0;
 
         switch (mySabotageType)
         {
             case SabotageType.Rubble:
-                #region
-                time = intervalTime;
                 firstRubble = true;
-                #endregion
                 break;
             case SabotageType.Flame:
-                #region
-                time = 0;
                 firstRubble = false;
-                #endregion
                 break;
         }
     }
@@ -121,24 +116,24 @@ public class BossAttack : MonoBehaviour
         {
             time = 0;
         }
+
+        if (firstRubble)
+        {
+            FirstRubbleAttack();
+        }
+
         if (!sabotageFlag)
         {
             time += Time.deltaTime;
 
-            if (time > intervalTime)
+            if (time >= intervalTime)
             {
-                if (firstRubble)
-                {
-                    time = attackTime - 0.5f;
-                }
-                else
-                {
-                    time = 0;
-                }
+                time = 0;
                 predictNumber = 0;
-                sabotageFlag = true;
                 alreadyInstantFlag = false;
                 alreadyPredictFlag = false;
+                sabotageFlag = true;
+            
             }
         }
         if (sabotageFlag)
@@ -180,10 +175,7 @@ public class BossAttack : MonoBehaviour
                         if (!Physics.CheckBox(CheckPos, halfExtents, predictRot, layerMask))
                         {
                             instantPos[predictNumber] = predictInstantPos[predictNumber];
-                            if (!firstRubble)
-                            {
-                                Instantiate(predictSabotageItem[predictNumber], CheckPos, predictRot);
-                            }
+                            Instantiate(predictSabotageItem[predictNumber], CheckPos, predictRot);
                             predictNumber++;
                         }
 
@@ -209,20 +201,12 @@ public class BossAttack : MonoBehaviour
                     {
                         RotateNumber = UnityEngine.Random.Range(-180f, 180f);
                         RotateY = Quaternion.Euler(0, RotateNumber, 0);
-                        if (firstRubble)
-                        {
-                            instantPos[i].y = PredictInstancePosY;
-                        }
                         Instantiate(sabotageItem[i], instantPos[i], RotateY);
                         instantNumber++;
                     }
 
                     if (instantNumber >= sabotageItem.Length)
                     {
-                        if (firstRubble)
-                        {
-                            firstRubble = false;
-                        }
                         alreadyInstantFlag = true;
                     }
                 }
@@ -257,6 +241,41 @@ public class BossAttack : MonoBehaviour
             
         }
 
+    }
+
+    void FirstRubbleAttack()
+    {
+        GameObject[] cloneFirstSabotage = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
+        if (cloneFirstSabotage.Length >= sabotageItem.Length)
+        {
+            predictNumber = 0;
+            firstRubble = false;
+        }
+
+        for (int i = 0; i < sabotageItem.Length - cloneFirstSabotage.Length; i++)
+        {
+            float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
+            float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
+            predictInstantPos[predictNumber] = new Vector3(x, instancePosY, z);
+            Vector3 CheckPos = predictInstantPos[predictNumber];
+            CheckPos.y = PredictInstancePosY;
+            RotateNumber = UnityEngine.Random.Range(-180f, 180f);
+            RotateY = Quaternion.Euler(0, RotateNumber, 0);
+
+            int layerMask = 1 << LayerMask;
+            layerMask = ~layerMask;
+
+            if (!Physics.CheckBox(CheckPos, halfExtents, RotateY, layerMask))
+            {
+                instantPos[predictNumber] = predictInstantPos[predictNumber];
+                Instantiate(sabotageItem[predictNumber], CheckPos, RotateY);
+                predictNumber++;
+            }
+            if (predictNumber >= instantPos.Length)
+            {
+                break;
+            }
+        }
     }
 
     void AllDestroy()
