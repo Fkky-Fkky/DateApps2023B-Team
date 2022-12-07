@@ -7,43 +7,46 @@ public class PredictItem : MonoBehaviour
     MeshRenderer myMesh;
 
     [SerializeField]
-    private float transparentSpeed = 0.01f;
+    private float transparentSpeed = 1.0f;
 
     [SerializeField]
     private float transparentValue = 0;
 
     [SerializeField]
-    private int transparentNumber = 2;
+    private float minAlpha = 0.0f;
+    [SerializeField]
+    private float maxAlpha = 1.0f;
+
+    private bool fadeFlag = true;
 
     // Start is called before the first frame update
     void Start()
     {
         myMesh = this.gameObject.GetComponent<MeshRenderer>();
         myMesh.material.color = new Color(myMesh.material.color.r, myMesh.material.color.g, myMesh.material.color.b, transparentValue);
-        StartCoroutine(Transparent());
     }
 
-    public void DestroyPredict()
+    private void Update()
     {
-        Destroy(this.gameObject);
-    }
+        float alpha = myMesh.material.color.a;
 
-   IEnumerator Transparent()
-    {
-
-        for (int j = 0; j < transparentNumber; j++)
+        if (fadeFlag)
         {
-            for (int i = 0; i < 255 - transparentValue; i++)
+            alpha += Time.deltaTime * transparentSpeed;
+            if (alpha >= maxAlpha)
             {
-                myMesh.material.color = myMesh.material.color + new Color32(0, 0, 0, 1);
-                yield return new WaitForSeconds(transparentSpeed);
-            }
-            for (int i = 0; i < 255 - transparentValue; i++)
-            {
-                myMesh.material.color = myMesh.material.color - new Color32(0, 0, 0, 1);
-                yield return new WaitForSeconds(transparentSpeed);
+                fadeFlag = false;
             }
         }
+        else
+        {
+            alpha -= Time.deltaTime * transparentSpeed;
+            if (alpha <= minAlpha)
+            {
+                fadeFlag = true;
+            }
+        }
+        myMesh.material.color = new Color(myMesh.material.color.r, myMesh.material.color.g, myMesh.material.color.b, alpha);
 
     }
 }
