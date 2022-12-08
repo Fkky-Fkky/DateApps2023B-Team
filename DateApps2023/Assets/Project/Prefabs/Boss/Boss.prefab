@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a774260656b0e1e43b7f9deea7389251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Maincamera: {fileID: 0}
   Bosscamera: {fileID: 1031987516387900868}
+  displayTime: 5
 --- !u!1 &1646241457149395611
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +776,7 @@ Transform:
   - {fileID: 1643745053203628095}
   - {fileID: 1643880345261233121}
   - {fileID: 4628830047137733291}
+  - {fileID: 3490875008881636801}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -840,6 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e6744090faeb0459472457f08c3f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   target: {fileID: 0}
   BossDistanceTMP: {fileID: 0}
   sceneName: GameoverScene
@@ -855,6 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySabotageType: 0
   boss: {fileID: 1647289903949419459}
   bossDamage: {fileID: 1648196746715476574}
   intervalTime: 15
@@ -869,6 +872,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   halfExtents: {x: 30, y: 100, z: 30}
+  PredictInstancePosY: 55
+  predictSabotageItem: []
+  predictInstantPos: []
+  instantPos: []
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,6 +892,9 @@ MonoBehaviour:
   knockBackPower: 300
   stopTime: 5
   AnimationImage: {fileID: 1697093568606495979}
+  damagePoint: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  damageIntervalTime: 1
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,3 +1013,34 @@ SkinnedMeshRenderer:
     m_Center: {x: -80.1039, y: -2.447403, z: 17.706985}
     m_Extent: {x: 241.08421, y: 215.05971, z: 397.3723}
   m_DirtyAABB: 0
+--- !u!1 &8793899989359866274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3490875008881636801}
+  m_Layer: 0
+  m_Name: ExplosionPointt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3490875008881636801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8793899989359866274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.25, z: 1.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1643879179760658977}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
