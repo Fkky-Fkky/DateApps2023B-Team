@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 6238757406006744719}
   - component: {fileID: 591214730849233933}
   - component: {fileID: 8904828533913442946}
+  - component: {fileID: 3853267611445608271}
   m_Layer: 0
   m_Name: houdai6
   m_TagString: item3
@@ -464,6 +465,8 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
+  defaultPosY: 51
+  carryPosY: 60
   myItemSize: 1
 --- !u!65 &8904828533913442946
 BoxCollider:
@@ -478,6 +481,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6798831, y: 0.4035499, z: 0.76994014}
   m_Center: {x: 0.015277832, y: 0.23241188, z: -0.40746573}
+--- !u!114 &3853267611445608271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764217949150432309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 0.2509804, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7061909029430779198
 GameObject:
   m_ObjectHideFlags: 0

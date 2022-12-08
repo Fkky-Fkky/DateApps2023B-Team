@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1267000973458216138}
   - component: {fileID: 5417849462388861245}
   - component: {fileID: 8059906159192892132}
+  - component: {fileID: 9157095741009535160}
   m_Layer: 0
   m_Name: houdai2
   m_TagString: item
@@ -116,3 +117,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.07196578, y: 0.06263917, z: 0.08978193}
   m_Center: {x: -0.0045006634, y: -0.005250072, z: 0.038001757}
+--- !u!114 &9157095741009535160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762716768448984351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 0.2509804, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
