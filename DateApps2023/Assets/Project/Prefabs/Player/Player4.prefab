@@ -935,15 +935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2000
   slowMoveSpeed: 150
-  maxAngularSpeed: Infinity
-  smoothTime: 0
-  _forward: {x: 0, y: 0, z: 1}
-  _up: {x: 0, y: 1, z: 0}
-  _axis: {x: 0, y: 1, z: 0}
-  InGroup: 0
-  EnterItem: 0
   playerNumber: 3
-  playerMoveDamage: 0
 --- !u!114 &7916477825766917937
 MonoBehaviour:
   m_ObjectHideFlags: 0

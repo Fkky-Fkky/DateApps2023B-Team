@@ -38,6 +38,13 @@ public class SabotageItem : MonoBehaviour
     private float destroyTime = 2.0f;
     private bool isDestroy = false;
     private float currentTime = 0;
+
+    [SerializeField]
+    private Transform wavePoint = null;
+
+    [SerializeField]
+    private GameObject damageWaveEffect = null;
+    private bool firstEffect = false;
     #endregion
 
     // Start is called before the first frame update
@@ -75,11 +82,20 @@ public class SabotageItem : MonoBehaviour
         {
             AvoidPlayer = false;
             AtackTiming = false;
+            if(firstEffect)
+            {
+                Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                firstEffect = false;
+            }
 
             this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
                     fallY,
                     this.gameObject.transform.position.z);
+        }
+        if (this.gameObject.transform.position.y >= fallY + 50)
+        {
+            firstEffect = true;
         }
 
         if (AvoidPlayer)
@@ -117,10 +133,20 @@ public class SabotageItem : MonoBehaviour
             {
                 //collision.gameObject.GetComponent<PlayerController>().SetSabotageItem(this.gameObject);
                 collision.gameObject.GetComponent<PlayerController>().DamageChild();
+                if (firstEffect)
+                {
+                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                    firstEffect = false;
+                }
             }
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<PlayerDamage>().CallDamage();
+                if (firstEffect)
+                {
+                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                    firstEffect = false;
+                }
             }
             AtackTiming = false;
         }
@@ -129,6 +155,11 @@ public class SabotageItem : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
+                if (firstEffect)
+                {
+                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                    firstEffect = false;
+                }
                 //collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
             }
             if (collision.gameObject.CompareTag("item")
@@ -137,12 +168,14 @@ public class SabotageItem : MonoBehaviour
             || collision.gameObject.CompareTag("item4"))
             {
                 collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
+                if (firstEffect)
+                {
+                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                    firstEffect = false;
+                }
                 //collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
             }
-            //if (collision.gameObject.CompareTag("CloneSabotageItem"))
-            //{
-            //    AvoidPlayer = false;
-            //}
+            
         }
         
         
@@ -210,7 +243,7 @@ public class SabotageItem : MonoBehaviour
         playercontroller.ReleaseChild();
         DoHanteiEnter();
         isDestroy = true;        
-        StartCoroutine("Transparent");
+        StartCoroutine(Transparent());
     }
 
     public void DoHanteiEnter()

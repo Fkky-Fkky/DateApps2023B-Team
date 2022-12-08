@@ -181,6 +181,7 @@ public class PlayerMove : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         Destroy(rigidbody);
         rb = GetComponentInParent<Rigidbody>();
+
     }
 
     public void RemoveItem(int groupNo)
@@ -206,16 +207,16 @@ public class PlayerMove : MonoBehaviour
 
         AnimationImage.SetBool("Carry", false);
         AnimationImage.SetBool("CarryMove", false);
-
     }
 
     void GamepadMove()
     {
         if (!playerMoveDamage)
         {
+            var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
+
             if (!InGroup)
             {
-                var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
                 Vector3 vec = new Vector3(0, 0, 0);
 
                 if (leftStickValue.x != 0.0f)

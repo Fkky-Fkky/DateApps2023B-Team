@@ -714,11 +714,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2000
   slowMoveSpeed: 150
-  maxAngularSpeed: Infinity
-  smoothTime: 0
-  _forward: {x: 0, y: 0, z: 1}
-  _up: {x: 0, y: 1, z: 0}
-  _axis: {x: 0, y: 1, z: 0}
   playerNumber: 2
 --- !u!114 &7916477825766917937
 MonoBehaviour:
@@ -733,7 +728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stanTime: 5
-  myMaterial: {fileID: 2100000, guid: 71009ee5e0aa5c14ab2d9b303add9461, type: 2}
 --- !u!136 &7644300349639810741
 CapsuleCollider:
   m_ObjectHideFlags: 0

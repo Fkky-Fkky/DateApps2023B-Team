@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 55, z: 0}
   m_LocalScale: {x: 37.5, y: 37.5, z: 37.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 642249836816091161}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -117,10 +118,11 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
-  AtackTiming: 1
-  AvoidPlayer: 1
   myItemSize: 0
   Multiplier: 3
+  destroyTime: 2
+  wavePoint: {fileID: 642249836816091161}
+  damageWaveEffect: {fileID: 1714681308540598, guid: 5cbc537826220e04592d5a41a0dd985f, type: 3}
 --- !u!65 &8310806021170904350
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134,3 +136,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3269041, y: 0.23946808, z: 0.43054947}
   m_Center: {x: -0.0002690633, y: -0.01979162, z: -0.007266566}
+--- !u!1 &5593658293154712415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 642249836816091161}
+  m_Layer: 6
+  m_Name: WavePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &642249836816091161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5593658293154712415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2944399583157852949}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

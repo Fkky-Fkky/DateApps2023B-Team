@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private bool HaveItem = false;
     private bool HaveSabotage = false;
 
-
     // Start is called before the first frame update
     void Start()
     {
