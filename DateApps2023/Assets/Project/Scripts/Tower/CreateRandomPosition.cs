@@ -156,11 +156,11 @@ public class CreateRandomPosition : MonoBehaviour
         if (CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true && CubePrefabs[3].activeSelf == true)
             tower_bild_flag = 4;
 
-        //デバック用
-        if (Keyboard.current.zKey.wasPressedThisFrame)
-        {
-            tower_bild_flag += 1;
-        }
+        ////デバック用
+        //if (Keyboard.current.zKey.wasPressedThisFrame)
+        //{
+        //    tower_bild_flag += 1;
+        //}
     }
     public void Settower_bild_flag()
     {
