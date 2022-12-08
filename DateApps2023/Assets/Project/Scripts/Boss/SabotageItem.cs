@@ -85,6 +85,11 @@ public class SabotageItem : MonoBehaviour
             if(firstEffect)
             {
                 Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ShockWaveEffect");
+                foreach (GameObject clone_shockEffect in cloneItem)
+                {
+                    Destroy(clone_shockEffect, 5);
+                }
                 firstEffect = false;
             }
 
@@ -155,11 +160,6 @@ public class SabotageItem : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
-                if (firstEffect)
-                {
-                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
-                    firstEffect = false;
-                }
                 //collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
             }
             if (collision.gameObject.CompareTag("item")
@@ -168,14 +168,19 @@ public class SabotageItem : MonoBehaviour
             || collision.gameObject.CompareTag("item4"))
             {
                 collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
-                if (firstEffect)
-                {
-                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
-                    firstEffect = false;
-                }
                 //collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
             }
-            
+            if (firstEffect)
+            {
+                Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ShockWaveEffect");
+                foreach (GameObject clone_shockEffect in cloneItem)
+                {
+                    Destroy(clone_shockEffect, 5);
+                }
+                firstEffect = false;
+            }
+
         }
         
         
