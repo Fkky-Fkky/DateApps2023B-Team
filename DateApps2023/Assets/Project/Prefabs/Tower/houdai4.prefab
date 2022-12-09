@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6423652207147605601}
   - component: {fileID: 3805402950412773980}
   - component: {fileID: 5255621581707388096}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: houdai4
   m_TagString: item4
   m_Icon: {fileID: 0}

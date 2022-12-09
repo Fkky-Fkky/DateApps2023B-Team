@@ -138,7 +138,10 @@ public class PlayerMove : MonoBehaviour
         {
             EnterItem = true;
         }
-        if (collision.gameObject.CompareTag("Group"))
+        if (collision.gameObject.CompareTag("Group1")
+            || collision.gameObject.CompareTag("Group2")
+           || collision.gameObject.CompareTag("Group3")
+           || collision.gameObject.CompareTag("Group4"))
         {
             EnterItem = true;
             moveSpeed = slowMoveSpeed;
@@ -152,13 +155,23 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("item3")
            || collision.gameObject.CompareTag("item4")
            || collision.gameObject.CompareTag("CloneSabotageItem")
-           || collision.gameObject.CompareTag("Group")
+           || collision.gameObject.CompareTag("Group1")
+            || collision.gameObject.CompareTag("Group2")
+           || collision.gameObject.CompareTag("Group3")
+           || collision.gameObject.CompareTag("Group4")
            )
         {
             EnterItem = false;
+            this.gameObject.transform.position = new Vector3(
+                this.gameObject.transform.position.x,
+                defaultPosY,
+                this.gameObject.transform.position.z);
         }
 
-        if (collision.gameObject.CompareTag("Group"))
+        if (collision.gameObject.CompareTag("Group1")
+            || collision.gameObject.CompareTag("Group2")
+           || collision.gameObject.CompareTag("Group3")
+           || collision.gameObject.CompareTag("Group4"))
         {
             EnterItem = false;
             this.gameObject.transform.position = new Vector3(

@@ -53,6 +53,7 @@ public class PlayerCarryDown : MonoBehaviour
                         if (carryItem.CompareTag("CloneSabotageItem"))
                         {
                             sabotageItem = carryItem.GetComponent<SabotageItem>();
+                            sabotageItem.DestroyRigidbody();
                             sabotageItem.GetGrabPoint(this.gameObject);
                             myGroupNo = sabotageItem.groupNumber;
                         }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DeleteSabotageItem : MonoBehaviour
 {
-    private GameObject destroyItem = null;
+    //private GameObject destroyItem = null;
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("CloneSabotageItem"))
-        {
-            destroyItem = other.gameObject;
-            destroyItem.GetComponent<SabotageItem>().DestroyMe();
-        }
-    }
+    //void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.CompareTag("CloneSabotageItem"))
+    //    {
+    //        destroyItem = other.gameObject;
+    //        destroyItem.GetComponent<SabotageItem>().DestroyMe();
+    //    }
+    //}
 }

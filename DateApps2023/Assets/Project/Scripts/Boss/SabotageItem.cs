@@ -13,7 +13,7 @@ public class SabotageItem : MonoBehaviour
     public int groupNumber = 1;
     private bool InGroup = false;
 
-    BoxCollider boxCol;
+    //BoxCollider boxCol;
     private Rigidbody rb;
     private bool AtackTiming = true;
     private bool AvoidPlayer = true;
@@ -50,7 +50,7 @@ public class SabotageItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boxCol = GetComponent<BoxCollider>();
+        //boxCol = GetComponent<BoxCollider>();
 
         mesh = GetComponent<MeshRenderer>();
         mesh.material.color = mesh.material.color - new Color(0, 0, 0, 0);
@@ -61,6 +61,7 @@ public class SabotageItem : MonoBehaviour
 
         AvoidPlayer = true;
         AtackTiming = true;
+        isDestroy = false;
 
         switch (myItemSize)
         {
@@ -120,11 +121,12 @@ public class SabotageItem : MonoBehaviour
         if (isDestroy)
         {
             currentTime += Time.deltaTime;
-            if(currentTime >= destroyTime)
+            AtackTiming = false;
+            AvoidPlayer = false;
+            if (currentTime >= destroyTime)
             {
                 playercontroller.ReleaseChild();
                 DoHanteiEnter();
-                isDestroy = false;
                 Destroy(gameObject);
             }
         }
@@ -132,6 +134,15 @@ public class SabotageItem : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+
+            DestroyMe();
+        }
+
+
         if (AtackTiming)
         {
             if (collision.gameObject.CompareTag("Group"))
@@ -143,47 +154,63 @@ public class SabotageItem : MonoBehaviour
                     Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
                     firstEffect = false;
                 }
+                AtackTiming = false;
+
             }
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<PlayerDamage>().CallDamage();
+
                 if (firstEffect)
                 {
                     Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
                     firstEffect = false;
                 }
+                AtackTiming = false;
+
+            }
+            if (collision.gameObject.CompareTag("SteelFrame"))
+            {
+                if (firstEffect)
+                {
+                    Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+                    firstEffect = false;
+                }
+                AtackTiming = false;
+
             }
             AtackTiming = false;
-        }
-        if (AvoidPlayer)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
-                //collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
-            }
-            if (collision.gameObject.CompareTag("item")
-            || collision.gameObject.CompareTag("item2")
-            || collision.gameObject.CompareTag("item3")
-            || collision.gameObject.CompareTag("item4"))
-            {
-                collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
-                //collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
-            }
-            if (firstEffect)
-            {
-                Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
-                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ShockWaveEffect");
-                foreach (GameObject clone_shockEffect in cloneItem)
-                {
-                    Destroy(clone_shockEffect, 5);
-                }
-                firstEffect = false;
-            }
 
         }
-        
-        
+        //if (AvoidPlayer)
+        //{
+        //    //if (collision.gameObject.CompareTag("Player"))
+        //    //{
+        //    //    collision.gameObject.GetComponent<PlayerDamage>().SetSabotageObject(this.gameObject);
+        //    //    //collision.gameObject.GetComponent<PlayerDamage>().AvoidObject();
+        //    //}
+        //    //if (collision.gameObject.CompareTag("item")
+        //    //|| collision.gameObject.CompareTag("item2")
+        //    //|| collision.gameObject.CompareTag("item3")
+        //    //|| collision.gameObject.CompareTag("item4"))
+        //    //{
+        //    //    collision.gameObject.GetComponent<hantei>().SetSabotageObject(this.gameObject);
+        //    //    //collision.gameObject.GetComponent<hantei>().AvoidSabotageItem();
+        //    //}
+        //    if (firstEffect)
+        //    {
+        //        Instantiate(damageWaveEffect, wavePoint.position, Quaternion.identity);
+        //        GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ShockWaveEffect");
+        //        foreach (GameObject clone_shockEffect in cloneItem)
+        //        {
+        //            Destroy(clone_shockEffect, 5);
+        //        }
+        //        firstEffect = false;
+        //    }
+
+        //}
+
+
     }
 
 
@@ -194,16 +221,22 @@ public class SabotageItem : MonoBehaviour
         myGrabPoint[number] = thisGrabPoint;
         playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
         number++;
+        DestroyRigidbody();
 
         while (!InGroup)
         {
-            GameObject group = GameObject.Find("Group" + groupNumber);
+            GameObject group = GameObject.FindWithTag("Group" + groupNumber);
+            this.gameObject.transform.position = new Vector3(
+                   this.gameObject.transform.position.x,
+                   60,
+                   this.gameObject.transform.position.z);
             if (group.transform.childCount <= 0)
             {
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
                 playercontroller.GetItemSize(itemSizeCount, 2);
                 InGroup = true;
+                break;
             }
             else
             {
@@ -212,30 +245,30 @@ public class SabotageItem : MonoBehaviour
                 {
                     groupNumber = 1;
                 }
+                playercontroller = null;
             }
         }
 
         rb = GetComponentInParent<Rigidbody>();
 
-        this.gameObject.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    60,
-                    this.gameObject.transform.position.z);
-        //rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+    }
 
-        boxCol.isTrigger = true;
+    public void DestroyRigidbody()
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        Destroy(rigidbody);
     }
 
     public void OutGroup()
     {
         InGroup = false;
         gameObject.transform.parent = null;
-        boxCol.isTrigger = false;
+        //boxCol.isTrigger = false;
         DoHanteiEnter();
 
         this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
-                    56,
+                    60,
                     this.gameObject.transform.position.z);
 
         rb = this.gameObject.AddComponent<Rigidbody>();

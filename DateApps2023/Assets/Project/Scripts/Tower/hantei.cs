@@ -22,6 +22,8 @@ public class hantei : MonoBehaviour
     [SerializeField]
     private float carryPosY = 60;
 
+    BoxCollider boxCol = null;
+
 
     enum ItemSize
     {
@@ -50,6 +52,8 @@ public class hantei : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        boxCol = GetComponent<BoxCollider>();
+
         switch (myItemSize)
         {
             case ItemSize.Small:
@@ -94,15 +98,28 @@ public class hantei : MonoBehaviour
         playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
         number++;
 
+        
+        boxCol.isTrigger = false;
+
         while (!InGroup)
         {
-            GameObject group = GameObject.Find("Group" + groupNumber);
+            GameObject group = GameObject.FindWithTag("Group" + groupNumber);
+            playercontroller = group.GetComponent<PlayerController>();
+
+            //if (group.transform.childCount <= 0)
             if (group.transform.childCount <= 0)
             {
+                this.gameObject.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    carryPosY,
+                    this.gameObject.transform.position.z
+                    );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
                 playercontroller.GetItemSize(myItemSizeCount, 1);
+                
                 InGroup = true;
+                break;
             }
             else
             {
@@ -111,15 +128,22 @@ public class hantei : MonoBehaviour
                 {
                     groupNumber = 1;
                 }
+                playercontroller = null;
             }
         }
 
-        this.gameObject.transform.position = new Vector3(
-          this.gameObject.transform.position.x,
-          carryPosY,
-          this.gameObject.transform.position.z
-          );
 
+        
+
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("SteelFrame"))
+        {
+            var heading = this.gameObject.transform.position - collision.gameObject.transform.position;
+            this.gameObject.transform.position += new Vector3(heading.x * 0.5f, 0.0f, heading.z * 0.5f);
+        }
     }
 
     //public void AvoidSabotageItem()
@@ -159,8 +183,8 @@ public class hantei : MonoBehaviour
         }
     }
 
-    public void SetSabotageObject(GameObject setObject)
-    {
-        sabotageObject = setObject;
-    }
+    //public void SetSabotageObject(GameObject setObject)
+    //{
+    //    sabotageObject = setObject;
+    //}
 }

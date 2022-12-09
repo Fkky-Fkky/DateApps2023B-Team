@@ -111,9 +111,9 @@ public class PlayerDamage : MonoBehaviour
 
     //}
 
-    public void SetSabotageObject(GameObject setObject)
-    {
-        sabotageObject = setObject;
-    }
+    //public void SetSabotageObject(GameObject setObject)
+    //{
+    //    sabotageObject = setObject;
+    //}
 
 }

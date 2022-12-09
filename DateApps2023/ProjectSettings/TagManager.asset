@@ -17,6 +17,11 @@ TagManager:
   - BoomEffect
   - SmokeEffect
   - ShockWaveEffect
+  - SteelFrame
+  - Group1
+  - Group2
+  - Group3
+  - Group4
   layers:
   - Default
   - TransparentFX
@@ -27,8 +32,8 @@ TagManager:
   - SabotageItem
   - Player
   - Group
-  - 
-  - 
+  - Item
+  - SteelFrame
   - 
   - 
   - 
