@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,17 @@ using UnityEngine;
 public class BossAttack : MonoBehaviour
 {
     #region
+    enum SabotageType
+    {
+        None,
+        Rubble, //瓦礫
+        Flame   //火の粉
+    }
+
+    [SerializeField]
+    SabotageType mySabotageType = SabotageType.None;
+
+
     private Rigidbody rb;
 
     [SerializeField]
@@ -54,24 +66,47 @@ public class BossAttack : MonoBehaviour
 
     float time = 0;
     float currentSabotageTime = 0;
+
+    private bool firstRubble = true;
+
+    private float RotateNumber;
+    private Quaternion RotateY;
     #endregion
 
     #region 予測アイテム(仮)用
-    /*    private bool alreadyPredictFlag = false;
-        [SerializeField]
-        private float PredictInstancePosY = 55;
-        [SerializeField]
-        private GameObject[] predictSabotageItem;
-        public Vector3[] predictInstantPos;
-        public Vector3[] instantPos;
-        int number = 0;*/
+    private bool alreadyPredictFlag = false;
+    [SerializeField]
+    private float PredictInstancePosY = 55;
+    [SerializeField]
+    private GameObject[] predictSabotageItem;
+    public Vector3[] predictInstantPos;
+    public Vector3[] instantPos;
+    private int predictNumber = 0;
+    private int instantNumber = 0;
+    private int instantCloneValue = 0;
     #endregion
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         bossDamage = GetComponent<BossDamage>();
+
+        instantCloneValue = 0;
+        predictNumber = 0;
+        time = 0;
+
+        switch (mySabotageType)
+        {
+            case SabotageType.Rubble:
+                firstRubble = true;
+                break;
+            case SabotageType.Flame:
+                firstRubble = false;
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -82,19 +117,28 @@ public class BossAttack : MonoBehaviour
             time = 0;
         }
 
+        if (firstRubble)
+        {
+            FirstRubbleAttack();
+        }
+
         if (!sabotageFlag)
         {
             time += Time.deltaTime;
 
-            if (time > intervalTime)
+            if (time >= intervalTime)
             {
                 time = 0;
-                sabotageFlag = true;
+                predictNumber = 0;
                 alreadyInstantFlag = false;
+                alreadyPredictFlag = false;
+                sabotageFlag = true;
+            
             }
         }
         if (sabotageFlag)
         {
+            
             time += Time.deltaTime;
             currentSabotageTime += Time.deltaTime;
 
@@ -105,126 +149,133 @@ public class BossAttack : MonoBehaviour
                     boss.transform.position.y,
                     boss.transform.position.z);
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-            }
-            else
-            {
-                if (!alreadyInstantFlag)
+
+                if (!alreadyPredictFlag)
                 {
-                    GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-                    if (cloneItem.Length >= sabotageItem.Length)
+                    GameObject[] clonePredictItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
+                    if (clonePredictItem.Length >= sabotageItem.Length)
                     {
-                        alreadyInstantFlag = true;
+                        alreadyPredictFlag = true;
+                        predictNumber = 0;
                     }
 
-                    for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
+                    for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
                     {
-                        float x = Random.Range(rangeA.position.x, rangeB.position.x);
-                        float z = Random.Range(rangeA.position.z, rangeB.position.z);
-                        Vector3 instantPos = new Vector3(x, instancePosY, z);
+                        float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
+                        float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
+                        predictInstantPos[predictNumber] = new Vector3(x, instancePosY, z);
+                        Vector3 CheckPos = predictInstantPos[predictNumber];
+                        CheckPos.y = PredictInstancePosY;
+                        Quaternion predictRot = Quaternion.identity;
+                        predictRot.y = 180f;
 
                         int layerMask = 1 << LayerMask;
                         layerMask = ~layerMask;
 
-                        if (!Physics.CheckBox(instantPos, halfExtents, Quaternion.identity, layerMask))
+                        if (!Physics.CheckBox(CheckPos, halfExtents, predictRot, layerMask))
                         {
-                            Instantiate(sabotageItem[i], instantPos, Quaternion.identity);
+                            instantPos[predictNumber] = predictInstantPos[predictNumber];
+                            Instantiate(predictSabotageItem[predictNumber], CheckPos, predictRot);
+                            predictNumber++;
+                        }
+
+                        if (predictNumber >= instantPos.Length)
+                        {
+                            break;
                         }
                     }
                 }
             }
-            if (currentSabotageTime > sabotageTime)
+            else
             {
-                AllDestroy();
-                time = 0;
-                currentSabotageTime = 0;
-                sabotageFlag = false;
-            }
-        }
-        #region 予測アイテム(仮)用
-        /*if (!sabotageFlag)
-    {
-        time += Time.deltaTime;
-        number = 0;
+                PredictDestroy();
 
-        if (time > intervalTime)
-        {
-            time = 0;
-            sabotageFlag = true;
-            alreadyInstantFlag = false;
-            alreadyPredictFlag = false;
-        }
-    }
-    if (sabotageFlag)
-    {
-        time += Time.deltaTime;
-        currentSabotageTime += Time.deltaTime;
-
-        if (time < attackTime)
-        {
-            boss.transform.position = new Vector3(
-                0.0f,
-                boss.transform.position.y,
-                boss.transform.position.z);
-            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-
-            if (!alreadyPredictFlag)
-            {
-                GameObject[] clonePredictItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
-                if (clonePredictItem.Length >= sabotageItem.Length)
+                if (!alreadyInstantFlag)
                 {
-                    alreadyPredictFlag = true;
-                    number = 0;
-                }
-
-                for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
-                {
-                    float x = Random.Range(rangeA.position.x, rangeB.position.x);
-                    float z = Random.Range(rangeA.position.z, rangeB.position.z);
-                    predictInstantPos[number] = new Vector3(x, instancePosY, z);
-                    Vector3 checkPos = predictInstantPos[number];
-                    checkPos.y = PredictInstancePosY;
-
-                    int layerMask = 1 << LayerMask;
-                    layerMask = ~layerMask;
-
-                    if (!Physics.CheckBox(checkPos, halfExtents, Quaternion.identity, layerMask))
+                    if(instantCloneValue <= 0)
                     {
-                        instantPos[number] = predictInstantPos[number];
-                        Instantiate(predictSabotageItem[i], checkPos, Quaternion.identity);
-                        number++;
+                        instantCloneValue = 0;
+                    }
+                    
+                    for (int i = 0; i < sabotageItem.Length; i++)
+                    {
+                        RotateNumber = UnityEngine.Random.Range(-180f, 180f);
+                        RotateY = Quaternion.Euler(0, RotateNumber, 0);
+                        Instantiate(sabotageItem[i], instantPos[i], RotateY);
+                        instantNumber++;
+                    }
+
+                    if (instantNumber >= sabotageItem.Length)
+                    {
+                        alreadyInstantFlag = true;
                     }
                 }
             }
-        }
-        else
-        {
-            PredictDestroy();
 
-            if (!alreadyInstantFlag)
+            switch (mySabotageType)
             {
-                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-                if (cloneItem.Length >= sabotageItem.Length)
-                {
-                    alreadyInstantFlag = true;
-                }
+                case SabotageType.Rubble:
+                    #region
+                    if (currentSabotageTime > sabotageTime)
+                    {
+                        time = 0;
+                        instantCloneValue += sabotageItem.Length;
+                        currentSabotageTime = 0;
+                        sabotageFlag = false;
+                    }
+                    #endregion
+                    break;
+                case SabotageType.Flame:
+                    #region
+                    if (currentSabotageTime > sabotageTime)
+                    {
+                        AllDestroy();
+                        time = 0;
+                        currentSabotageTime = 0;
+                        sabotageFlag = false;
+                    }
+                    #endregion
+                    break;
+            }
 
-                for (int i = 0; i < sabotageItem.Length - cloneItem.Length; i++)
-                {
-                    Instantiate(sabotageItem[i], instantPos[number], Quaternion.identity);
-                    number++;
-                }
+            
+        }
+
+    }
+
+    void FirstRubbleAttack()
+    {
+        GameObject[] cloneFirstSabotage = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
+        if (cloneFirstSabotage.Length >= sabotageItem.Length)
+        {
+            predictNumber = 0;
+            firstRubble = false;
+        }
+
+        for (int i = 0; i < sabotageItem.Length - cloneFirstSabotage.Length; i++)
+        {
+            float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
+            float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
+            predictInstantPos[predictNumber] = new Vector3(x, instancePosY, z);
+            Vector3 CheckPos = predictInstantPos[predictNumber];
+            CheckPos.y = PredictInstancePosY;
+            RotateNumber = UnityEngine.Random.Range(-180f, 180f);
+            RotateY = Quaternion.Euler(0, RotateNumber, 0);
+
+            int layerMask = 1 << LayerMask;
+            layerMask = ~layerMask;
+
+            if (!Physics.CheckBox(CheckPos, halfExtents, RotateY, layerMask))
+            {
+                instantPos[predictNumber] = predictInstantPos[predictNumber];
+                Instantiate(sabotageItem[predictNumber], CheckPos, RotateY);
+                predictNumber++;
+            }
+            if (predictNumber >= instantPos.Length)
+            {
+                break;
             }
         }
-
-         if (currentSabotageTime > sabotageTime)
-        {
-            AllDestroy();
-            time = 0;
-            currentSabotageTime = 0;
-            sabotageFlag = false;
-        }
-        }*/
-        #endregion
     }
 
     void AllDestroy()
@@ -237,8 +288,7 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-    #region 予測アイテム(仮)用
-    /*void PredictDestroy()
+    void PredictDestroy()
     {
         GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
 
@@ -246,6 +296,6 @@ public class BossAttack : MonoBehaviour
         {
             Destroy(clone_predictItem);
         }
-    }*/
-    #endregion
+    }
+
 }

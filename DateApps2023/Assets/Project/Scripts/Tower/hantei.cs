@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using UnityEngine;
 using static PlayerMove;
-using static UnityEditor.PlayerSettings;
 
 public class hantei : MonoBehaviour
 {
@@ -17,9 +16,14 @@ public class hantei : MonoBehaviour
     public int groupNumber = 1;
     private bool InGroup = false;
 
-    BoxCollider boxCol;
-    BoxCollider childBoxCol;
-    private Vector3 sizeCount;
+    [SerializeField]
+    private float defaultPosY = 51;
+
+    [SerializeField]
+    private float carryPosY = 60;
+
+    BoxCollider boxCol = null;
+
 
     enum ItemSize
     {
@@ -30,8 +34,19 @@ public class hantei : MonoBehaviour
 
     [SerializeField]
     ItemSize myItemSize = ItemSize.Small;
-    private int itemSizeCount = 0;
+    private int myItemSizeCount = 0;
 
+    private GameObject sabotageObject;
+    //[SerializeField]
+    //private Vector2 rimitPosX = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 rimitPosZ = Vector2.zero;
+    //[SerializeField]
+    //private Vector2 respownPos = Vector2.zero;
+
+    //float time = 0;
+    //[SerializeField]
+    //private float respawnTime = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -42,16 +57,38 @@ public class hantei : MonoBehaviour
         switch (myItemSize)
         {
             case ItemSize.Small:
-                itemSizeCount = (int)ItemSize.Small;
+                myItemSizeCount = (int)ItemSize.Small;
                 break;
             case ItemSize.Medium:
-                itemSizeCount = (int)ItemSize.Medium;
+                myItemSizeCount = (int)ItemSize.Medium;
                 break;
             case ItemSize.Large:
-                itemSizeCount = (int)ItemSize.Large;
+                myItemSizeCount = (int)ItemSize.Large;
                 break;
         }
     }
+
+    //private void Update()
+    //{
+    //    if (this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
+    //    {
+    //        time += Time.deltaTime;
+    //        if (time > respawnTime)
+    //        {
+    //            this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+    //            time = 0;
+    //        }
+    //    }
+    //    if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
+    //    {
+    //        time += Time.deltaTime;
+    //        if (time > respawnTime)
+    //        {
+    //            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
+    //            time = 0;
+    //        }
+    //    }
+    //}
 
     public void GetGrabPoint(GameObject thisGrabPoint)
     {
@@ -61,15 +98,28 @@ public class hantei : MonoBehaviour
         playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
         number++;
 
+        
+        boxCol.isTrigger = false;
+
         while (!InGroup)
         {
-            GameObject group = GameObject.Find("Group" + groupNumber);
+            GameObject group = GameObject.FindWithTag("Group" + groupNumber);
+            playercontroller = group.GetComponent<PlayerController>();
+
+            //if (group.transform.childCount <= 0)
             if (group.transform.childCount <= 0)
             {
+                this.gameObject.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    carryPosY,
+                    this.gameObject.transform.position.z
+                    );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(itemSizeCount);
+                playercontroller.GetItemSize(myItemSizeCount, 1);
+                
                 InGroup = true;
+                break;
             }
             else
             {
@@ -78,17 +128,42 @@ public class hantei : MonoBehaviour
                 {
                     groupNumber = 1;
                 }
+                playercontroller = null;
             }
         }
 
-        sizeCount = boxCol.size;
+
+        
+
     }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("SteelFrame"))
+        {
+            var heading = this.gameObject.transform.position - collision.gameObject.transform.position;
+            this.gameObject.transform.position += new Vector3(heading.x * 0.5f, 0.0f, heading.z * 0.5f);
+        }
+    }
+
+    //public void AvoidSabotageItem()
+    //{
+    //    var heading = this.gameObject.transform.position - sabotageObject.transform.position;
+    //    this.gameObject.transform.position += new Vector3(heading.x * 1.5f, 0.0f, heading.z * 1.5f);
+
+    //}
 
     public void OutGroup()
     {
         InGroup = false;
         gameObject.transform.parent = null;
-        boxCol.size = sizeCount;
+        DoHanteiEnter();
+
+        this.gameObject.transform.position = new Vector3(
+            this.gameObject.transform.position.x,
+            defaultPosY,
+            this.gameObject.transform.position.z
+            );
 
     }
 
@@ -107,6 +182,9 @@ public class hantei : MonoBehaviour
             playerCarryDowns[i].HanteiEnter();
         }
     }
-    
 
+    //public void SetSabotageObject(GameObject setObject)
+    //{
+    //    sabotageObject = setObject;
+    //}
 }

@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class cubehantei : MonoBehaviour
 {
-    public CreateRandomPosition createrandomposition;
-    public hantei itemHantei;
-
     private GameObject destroyItem = null;
 
+    [SerializeField]
+    private CreateRandomPosition createrandomposition = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameObject obj_tower = GameObject.Find("tower");
-        createrandomposition = obj_tower.GetComponent<CreateRandomPosition>();
-    }
+
 
     void OnTriggerEnter(Collider other)
     {

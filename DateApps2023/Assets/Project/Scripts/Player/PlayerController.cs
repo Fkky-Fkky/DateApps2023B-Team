@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-using static Unity.VisualScripting.Metadata;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,16 +21,29 @@ public class PlayerController : MonoBehaviour
     private int itemSizeCount = 0;
     private int playerCount = 0;
     private float mySpeed = 1.0f;
-    public float sentSpeed = 1.0f;
 
     private Vector3 groupVec = new Vector3(0, 0, 0);
+    private GameObject sabotageGameObject;
 
+    public GameObject[] ChildPlayer = null;
+    public Animator[] AnimationImage = null;
+
+    private const string ps_WalkSpeed = "RunSpeed";
+    [SerializeField]
+    private float AnimationSpeed = 0.001f;
+
+    public bool HaveItem = false;
+    public bool HaveSabotage = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.Sleep();
+        rb.useGravity = false;
+
+        Array.Resize(ref ChildPlayer, 4);
+        Array.Resize(ref AnimationImage, ChildPlayer.Length);
     }
 
     private void FixedUpdate()
@@ -40,8 +52,6 @@ public class PlayerController : MonoBehaviour
         {
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-            CheckPlayerCount();
-            sentSpeed = (mySpeed * moveSpeed) / 2;
             
             for(int i = 0; i < gamepadFrag.Length; i++)
             {
@@ -51,12 +61,23 @@ public class PlayerController : MonoBehaviour
 
                     if (leftStickValue.x != 0.0f)
                     {
+                        AnimationImage[i].SetBool("CarryMove", true);
                         before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
                     }
                     if (leftStickValue.y != 0.0f)
                     {
+                        AnimationImage[i].SetBool("CarryMove", true);
                         before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
                     }
+                    
+
+                    if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+                    {
+                        AnimationImage[i].SetBool("CarryMove", false);
+                    }
+
+                    float walkSpeed = mySpeed * AnimationSpeed;
+                    AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
                 }
             }
 
@@ -64,38 +85,189 @@ public class PlayerController : MonoBehaviour
             groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
             rb.velocity = groupVec;
 
-            if (transform.childCount == 1)
+            if (transform.childCount <= 1)
             {
-                transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
-            }
-            else if(transform.childCount <= 1)
-            {
+                for (int i = 0; i < this.transform.childCount; i++)
+                {
+                    if (transform.GetChild(i).gameObject.CompareTag("item")
+                    || transform.GetChild(i).gameObject.CompareTag("item2")
+                    || transform.GetChild(i).gameObject.CompareTag("item3")
+                    || transform.GetChild(i).gameObject.CompareTag("item4"))
+                    {
+                        transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
+                    }
+                    if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+                    {
+                        transform.GetChild(i).gameObject.GetComponent<SabotageItem>().OutGroup();
+                    }
+                    if (transform.GetChild(0).gameObject.CompareTag("Player"))
+                    {
+                        transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerCarryDown>().HanteiEnter();
+                    }
+                    transform.GetChild(i).gameObject.transform.parent = null;
+                }
+
+                for (int i = 0; i < ChildPlayer.Length; i++)
+                {
+                    if (ChildPlayer[i] != null || AnimationImage[i] != null)
+                    {
+                        AnimationImage[i].SetBool("CarryMove", false);
+                        ChildPlayer[i] = null;
+                        AnimationImage[i] = null;
+                    }
+                }
+                //if (HaveSabotage)
+                //{
+                //    if (transform.GetChild(0).gameObject.CompareTag("CloneSabotageItem"))
+                //    {
+                //        transform.GetChild(0).gameObject.GetComponent<SabotageItem>().OutGroup();
+                //    }
+                //    if (transform.GetChild(0).gameObject.CompareTag("Player"))
+                //    {
+                //        transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerCarryDown>().HanteiEnter();
+                //    }
+                //}
+                //if (HaveItem)
+                //{
+                //    if (transform.GetChild(0).gameObject.CompareTag("item")
+                //    || transform.GetChild(0).gameObject.CompareTag("item2")
+                //    || transform.GetChild(0).gameObject.CompareTag("item3")
+                //    || transform.GetChild(0).gameObject.CompareTag("item4"))
+                //    {
+                //        transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
+                //    }
+                //    if (transform.GetChild(0).gameObject.CompareTag("Player"))
+                //    {
+                //        transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerCarryDown>().HanteiEnter();
+                //    }
+                //}
+
                 AllFragFalse();
+
+            }
+            //else if(transform.childCount <= 1)
+            //{
+            //    AllFragFalse();
+            //}
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Wall")
+            ||other.gameObject.CompareTag("FailedLine"))
+        {
+            if (HaveSabotage)
+            {
+                for (int i = 0; i < this.transform.childCount; i++)
+                {
+                    if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+                    {
+                        transform.GetChild(i).gameObject.GetComponent<SabotageItem>().DestroyMe();
+                    }
+                }
             }
         }
     }
 
-    public void GetMyNo(int childNo)
+    public void GetMyNo(int childNo,GameObject gameObject)
     {
+        ChildPlayer[childNo] = gameObject;
+        AnimationImage[childNo] = gameObject.GetComponent<Animator>();
+
         gamepadFrag[childNo] = true;
         playerCount++;
         controlFrag = true;
+        CheckPlayerCount();
+
+    }
+
+    public void GetItemSize(int itemSize, int itemType)
+    {
+        itemSizeCount = itemSize;
+        if (itemType == 1) //ñCë‰ÇÃÉpÅ[Éc
+        {
+            HaveItem = true;
+        }
+        if (itemType == 2) //ñWäQÉAÉCÉeÉÄ
+        {
+            HaveSabotage = true;
+        }
+        CheckPlayerCount();
+
     }
 
     public void ReleaseChild()
     {
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
+            if (transform.GetChild(i).gameObject.CompareTag("item")
+            || transform.GetChild(i).gameObject.CompareTag("item2")
+            || transform.GetChild(i).gameObject.CompareTag("item3")
+            || transform.GetChild(i).gameObject.CompareTag("item4"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<SabotageItem>().DoHanteiEnter();
+            }
             transform.GetChild(i).gameObject.transform.parent = null;
+        }
+
+        for (int i = 0; i < ChildPlayer.Length; i++)
+        {
+            if (ChildPlayer[i] != null || AnimationImage[i] != null)
+            {
+                AnimationImage[i].SetBool("CarryMove", false);
+                ChildPlayer[i] = null;
+                AnimationImage[i] = null;
+            }
         }
         AllFragFalse();
     }
 
-    public void OutGroup(int outChildNo)
+    public void DamageChild()
     {
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.CompareTag("Player"))
+            {
+                //transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().SetSabotageObject(sabotageGameObject);
+                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().CallDamage();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("item")
+                    || transform.GetChild(i).gameObject.CompareTag("item2")
+                    || transform.GetChild(i).gameObject.CompareTag("item3")
+                    || transform.GetChild(i).gameObject.CompareTag("item4"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("CloneSabotageItem"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<SabotageItem>().OutGroup();
+            }
+            //transform.GetChild(i).gameObject.transform.parent = null;
+        }
+        for (int i = 0; i < ChildPlayer.Length; i++)
+        {
+            if (ChildPlayer[i] != null || AnimationImage[i] != null)
+            {
+                AnimationImage[i].SetBool("CarryMove", false);
+                ChildPlayer[i] = null;
+                AnimationImage[i] = null;
+            }
+        }
+        AllFragFalse();
+    }
+
+    public void PlayerOutGroup(int outChildNo)
+    {
+        ChildPlayer[outChildNo] = null;
+        AnimationImage[outChildNo] = null;
         gamepadFrag[outChildNo] = false;
         playerCount--;
+
     }
 
     void AllFragFalse()
@@ -106,12 +278,14 @@ public class PlayerController : MonoBehaviour
         }
         controlFrag = false;
         playerCount = 0;
+        HaveItem = false;
+        HaveSabotage = false;
     }
 
-    public void GetItemSize(int itemSize)
-    {
-        itemSizeCount = itemSize;
-    }
+    //public void SetSabotageItem(GameObject setGameObject)
+    //{
+    //    sabotageGameObject = setGameObject;
+    //}
 
     void CheckPlayerCount()
     {
@@ -164,7 +338,6 @@ public class PlayerController : MonoBehaviour
         }
         if (itemSizeCount == 2)
         {
-            //mySpeed = 0.25f;
             if (playerCount == 1)
             {
                 mySpeed = (moveSpeed * 0.3f) / playerCount;
