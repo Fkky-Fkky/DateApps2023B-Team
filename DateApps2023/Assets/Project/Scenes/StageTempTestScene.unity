@@ -1018,11 +1018,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
---- !u!4 &756329471 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3490875008881636801, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
-  m_PrefabInstance: {fileID: 939972947}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &780704996 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3319014651833614891, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
@@ -1114,6 +1109,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8443617149660249088, guid: a7d1577eba7e1de48a0adc8e920c4544, type: 3}
   m_PrefabInstance: {fileID: 356730298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &912258817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1025522102612202502, guid: 9be04377dd5554a42aa847e0c129ea08, type: 3}
+  m_PrefabInstance: {fileID: 1725110312}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &939231567
 PrefabInstance:
@@ -1230,7 +1230,7 @@ PrefabInstance:
     - target: {fileID: 610635896590161087, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: monita
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 912258817}
     - target: {fileID: 610635896590161087, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: Bosscamera
       value: 
@@ -1322,7 +1322,7 @@ PrefabInstance:
     - target: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: damagePoint
       value: 
-      objectReference: {fileID: 756329471}
+      objectReference: {fileID: 0}
     - target: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: explosionEffect
       value: 
@@ -2343,6 +2343,10 @@ PrefabInstance:
     - target: {fileID: 1025522102612202502, guid: 9be04377dd5554a42aa847e0c129ea08, type: 3}
       propertyPath: m_Name
       value: monita
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025522102612202502, guid: 9be04377dd5554a42aa847e0c129ea08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9be04377dd5554a42aa847e0c129ea08, type: 3}
