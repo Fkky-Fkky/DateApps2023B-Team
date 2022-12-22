@@ -19,7 +19,6 @@ public class PlayerCarryDown : MonoBehaviour
 
     private PlayerMove playermove = null;
     private hantei hanteiItem;
-    private SabotageItem sabotageItem;
 
     private int myGroupNo = 1;
 
@@ -50,17 +49,7 @@ public class PlayerCarryDown : MonoBehaviour
                     {
                         isCarry = true;
                         canUsed = false;
-                        if (carryItem.CompareTag("CloneSabotageItem"))
-                        {
-                            sabotageItem = carryItem.GetComponent<SabotageItem>();
-                            sabotageItem.DestroyRigidbody();
-                            sabotageItem.GetGrabPoint(this.gameObject);
-                            myGroupNo = sabotageItem.groupNumber;
-                        }
-                        else if (carryItem.CompareTag("item")
-                             || carryItem.CompareTag("item2")
-                             || carryItem.CompareTag("item3")
-                             || carryItem.CompareTag("item4"))
+                        if (carryItem.CompareTag("item"))
                         {
                             hanteiItem = carryItem.GetComponent<hantei>();
                             hanteiItem.GetGrabPoint(this.gameObject);
@@ -88,12 +77,7 @@ public class PlayerCarryDown : MonoBehaviour
     {
         if (!isCarry)
         {
-            if (collision.gameObject.CompareTag("item")
-            || collision.gameObject.CompareTag("item2")
-            || collision.gameObject.CompareTag("item3")
-            || collision.gameObject.CompareTag("item4")
-            || collision.gameObject.CompareTag("CloneSabotageItem")
-            )
+            if (collision.gameObject.CompareTag("item"))
             {
                 canUsed = true;
                 carryItem = collision.gameObject;
@@ -105,12 +89,7 @@ public class PlayerCarryDown : MonoBehaviour
     {
         if (!isCarry)
         {
-            if (collision.gameObject.CompareTag("item")
-            || collision.gameObject.CompareTag("item2")
-            || collision.gameObject.CompareTag("item3")
-            || collision.gameObject.CompareTag("item4")
-            || collision.gameObject.CompareTag("CloneSabotageItem")
-            )
+            if (collision.gameObject.CompareTag("item"))
             {
                 canUsed = false;
                 carryItem = null;

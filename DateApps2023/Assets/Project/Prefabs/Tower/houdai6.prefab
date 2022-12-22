@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 3853267611445608271}
   m_Layer: 9
   m_Name: houdai6
-  m_TagString: item3
+  m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

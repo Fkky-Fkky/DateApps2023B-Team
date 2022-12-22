@@ -751,7 +751,6 @@ GameObject:
   - component: {fileID: 1648196746715476570}
   - component: {fileID: 1648196746715476573}
   - component: {fileID: 1648196746715476572}
-  - component: {fileID: 1648196746715476575}
   - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
   m_Layer: 0
@@ -845,37 +844,6 @@ MonoBehaviour:
   target: {fileID: 0}
   BossDistanceTMP: {fileID: 0}
   sceneName: GameoverScene
---- !u!114 &1648196746715476575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mySabotageType: 0
-  boss: {fileID: 1647289903949419459}
-  bossDamage: {fileID: 1648196746715476574}
-  intervalTime: 15
-  attackTime: 5
-  sabotageTime: 30
-  rangeA: {fileID: 0}
-  rangeB: {fileID: 0}
-  instancePosY: 100
-  sabotageItem:
-  - {fileID: 2944399583157852937, guid: 58c3d218d34418547b3d410cb187a87e, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  halfExtents: {x: 30, y: 100, z: 30}
-  PredictInstancePosY: 55
-  predictSabotageItem: []
-  predictInstantPos: []
-  instantPos: []
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,6 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  target: {fileID: 0}
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0
