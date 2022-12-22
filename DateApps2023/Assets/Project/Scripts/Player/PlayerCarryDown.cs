@@ -18,7 +18,8 @@ public class PlayerCarryDown : MonoBehaviour
     private int myPlayerNo = 5;
 
     private PlayerMove playermove = null;
-    private hantei hanteiItem;
+    private hantei energyItem;
+    private CarryCannon cannonItem;
 
     private int myGroupNo = 1;
 
@@ -51,9 +52,15 @@ public class PlayerCarryDown : MonoBehaviour
                         canUsed = false;
                         if (carryItem.CompareTag("item"))
                         {
-                            hanteiItem = carryItem.GetComponent<hantei>();
-                            hanteiItem.GetGrabPoint(this.gameObject);
-                            myGroupNo = hanteiItem.groupNumber;
+                            energyItem = carryItem.GetComponent<hantei>();
+                            energyItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = energyItem.groupNumber;
+                        }
+                        if (carryItem.CompareTag("Cannon"))
+                        {
+                            cannonItem = carryItem.GetComponent<CarryCannon>();
+                            cannonItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = cannonItem.groupNumber;
                         }
                         playermove.GetItem(myGroupNo);
                     }
@@ -77,7 +84,8 @@ public class PlayerCarryDown : MonoBehaviour
     {
         if (!isCarry)
         {
-            if (collision.gameObject.CompareTag("item"))
+            if (collision.gameObject.CompareTag("item")
+                || collision.gameObject.CompareTag("Cannon"))
             {
                 canUsed = true;
                 carryItem = collision.gameObject;
@@ -89,7 +97,8 @@ public class PlayerCarryDown : MonoBehaviour
     {
         if (!isCarry)
         {
-            if (collision.gameObject.CompareTag("item"))
+            if (collision.gameObject.CompareTag("item")
+                || collision.gameObject.CompareTag("Cannon"))
             {
                 canUsed = false;
                 carryItem = null;
@@ -105,6 +114,8 @@ public class PlayerCarryDown : MonoBehaviour
         isCarry = false;
         canUsed = false;
         carryItem = null;
+        energyItem = null;
+        cannonItem = null;
         myCol.enabled = true;
     }
 

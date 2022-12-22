@@ -46,6 +46,8 @@ public class PlayerMove : MonoBehaviour
 
     private Animator AnimationImage;
 
+    private PlayerAttack attack;
+
     #endregion
 
     // Start is called before the first frame update
@@ -77,6 +79,9 @@ public class PlayerMove : MonoBehaviour
         carryDown = GetComponentInChildren<PlayerCarryDown>();
         carryDown.GetPlayerNo(playerNo);
 
+        attack = GetComponentInChildren<PlayerAttack>();
+        attack.GetPlayerNo(playerNo);
+
         tempMoveSpeed = moveSpeed;
 
         defaultPosY = this.gameObject.transform.position.y;
@@ -97,9 +102,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("item")
-           || collision.gameObject.CompareTag("CloneSabotageItem")
-           )
+        if (collision.gameObject.CompareTag("item"))
         {
             EnterItem = true;
         }

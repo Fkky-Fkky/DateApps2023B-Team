@@ -2965,7 +2965,7 @@ GameObject:
   - component: {fileID: 8436389966515613478}
   m_Layer: 0
   m_Name: Tower cannon1
-  m_TagString: item2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3015,6 +3015,8 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
+  defaultPosY: 51
+  carryPosY: 60
   myItemSize: 0
 --- !u!1 &8978467751676437585
 GameObject:

@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5773730434467325644}
   - component: {fileID: 2113282198848111815}
+  - component: {fileID: 213736351948869023}
+  - component: {fileID: 450282541923384077}
   m_Layer: 0
   m_Name: Cannon Tower 1
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,11 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecde31b6b8c5c74f9a5f9af0f5d3e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CubePrefabs:
-  - {fileID: 2088593607001964214, guid: d8a8f7ec107a87740bc40b746c8907d7, type: 3}
-  - {fileID: 8944384094857708346, guid: 34b6ce852e261894a8e03a793827618d, type: 3}
-  - {fileID: 8665399377508722422, guid: 07b028adc2aeee34a90d036f51256d7d, type: 3}
-  - {fileID: 5410927690097262536, guid: f54c692f3cf01ff41b143df384d538bb, type: 3}
   rangeA: {fileID: 0}
   rangeB: {fileID: 0}
   item:
@@ -63,6 +60,44 @@ MonoBehaviour:
   tower_bild_flag: 0
   boss: {fileID: 0}
   bosscamera: {fileID: 0}
+  smokePoint: {fileID: 0}
+  smokeEffect: {fileID: 0}
+--- !u!114 &213736351948869023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192371552468964226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &450282541923384077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192371552468964226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce8c99cbdca86e42958addc9153c996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myGrabPoint: []
+  playerCarryDowns: []
+  groupNumber: 1
+  defaultPosY: 51
+  carryPosY: 60
+  myItemSize: 0
 --- !u!1001 &994785040156594213
 PrefabInstance:
   m_ObjectHideFlags: 0

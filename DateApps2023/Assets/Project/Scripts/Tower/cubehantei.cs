@@ -6,8 +6,15 @@ public class cubehantei : MonoBehaviour
 {
     private GameObject destroyItem = null;
 
-    [SerializeField]
     private CreateRandomPosition createrandomposition = null;
+
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        createrandomposition = GetComponentInParent<CreateRandomPosition>();
+        rb = GetComponentInParent<Rigidbody>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
