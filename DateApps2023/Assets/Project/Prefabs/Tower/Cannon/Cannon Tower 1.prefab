@@ -1,5 +1,94 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &268648513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 268648514}
+  m_Layer: 0
+  m_Name: SmokePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &268648514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268648513}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 19.6, z: 29.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5773730434467325644}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2131586704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2131586705}
+  - component: {fileID: 2131586707}
+  - component: {fileID: 2131586706}
+  m_Layer: 0
+  m_Name: DeriPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2131586705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131586704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5773730434467325644}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2131586707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131586704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18541fd01e3c3554a8fef40e8a883a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &2131586706
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131586704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 50, z: 50}
+  m_Center: {x: 0, y: 25, z: 0}
 --- !u!1 &6192371552468964226
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +101,7 @@ GameObject:
   - component: {fileID: 2113282198848111815}
   - component: {fileID: 213736351948869023}
   - component: {fileID: 450282541923384077}
+  - component: {fileID: 1858907753}
   m_Layer: 0
   m_Name: Cannon Tower 1
   m_TagString: Cannon
@@ -35,6 +125,8 @@ Transform:
   - {fileID: 2778995710691128473}
   - {fileID: 6932697377012085759}
   - {fileID: 2749472830698036186}
+  - {fileID: 268648514}
+  - {fileID: 2131586705}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,15 +145,15 @@ MonoBehaviour:
   rangeA: {fileID: 0}
   rangeB: {fileID: 0}
   item:
-  - {fileID: 892242271176656347, guid: 3c886b28209182848a7ac4fcdd387d00, type: 3}
-  - {fileID: 6838053393363546037, guid: 1fe4fbe85423cf047a4ab8441293d5df, type: 3}
-  - {fileID: 2703908563456108561, guid: 830d4f7e64ecc5a4ea0bf9febb2392e7, type: 3}
-  - {fileID: 2025038954868542451, guid: daa68dd4bb6946041b49b11982961ace, type: 3}
+  - {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
+  - {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
+  - {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
+  - {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
   tower_bild_flag: 0
   boss: {fileID: 0}
   bosscamera: {fileID: 0}
-  smokePoint: {fileID: 0}
-  smokeEffect: {fileID: 0}
+  smokePoint: {fileID: 268648514}
+  smokeEffect: {fileID: 1636802288112176355, guid: d7f65607152ed9947951f1f99e8146cb, type: 3}
 --- !u!114 &213736351948869023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +189,23 @@ MonoBehaviour:
   groupNumber: 1
   defaultPosY: 51
   carryPosY: 60
-  myItemSize: 0
+  myItemSize: 2
+--- !u!54 &1858907753
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192371552468964226}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!1001 &994785040156594213
 PrefabInstance:
   m_ObjectHideFlags: 0
