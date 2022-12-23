@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6544279265657264574}
   - component: {fileID: 6544279265657264513}
   - component: {fileID: 6544279265657264575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Group
-  m_TagString: Group4
+  m_TagString: Group1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,4 +66,3 @@ MonoBehaviour:
   AnimationImage: []
   AnimationSpeed: 0.001
   HaveItem: 0
-  HaveSabotage: 0
