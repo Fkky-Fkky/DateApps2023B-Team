@@ -46,16 +46,8 @@ public class PlayerMove : MonoBehaviour
 
     private Animator AnimationImage;
 
-    //[SerializeField]
-    //private Vector2 rimitPosX = Vector2.zero;
-    //[SerializeField]
-    //private Vector2 rimitPosZ = Vector2.zero;
-    //[SerializeField]
-    //private Vector2 respownPos = Vector2.zero;
+    private PlayerAttack attack;
 
-    //float time = 0;
-    //[SerializeField]
-    //private float respawnTime = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -87,32 +79,13 @@ public class PlayerMove : MonoBehaviour
         carryDown = GetComponentInChildren<PlayerCarryDown>();
         carryDown.GetPlayerNo(playerNo);
 
+        attack = GetComponentInChildren<PlayerAttack>();
+        attack.GetPlayerNo(playerNo);
+
         tempMoveSpeed = moveSpeed;
 
         defaultPosY = this.gameObject.transform.position.y;
     }
-
-    //void Update()
-    //{
-    //    if(this.gameObject.transform.position.x < rimitPosX.x || this.gameObject.transform.position.x > rimitPosX.y)
-    //    {
-    //        time += Time.deltaTime;
-    //        if(time > respawnTime)
-    //        {
-    //            this.gameObject.transform.position = new Vector3(respownPos.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-    //            time = 0;
-    //        }
-    //    }
-    //    if (this.gameObject.transform.position.z < rimitPosZ.x || this.gameObject.transform.position.z > rimitPosZ.y)
-    //    {
-    //        time += Time.deltaTime;
-    //        if (time > respawnTime)
-    //        {
-    //            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, respownPos.y);
-    //            time = 0;
-    //        }
-    //    }
-    //}
 
     private void FixedUpdate()
     {
@@ -129,12 +102,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("item")
-           || collision.gameObject.CompareTag("item2")
-           || collision.gameObject.CompareTag("item3")
-           || collision.gameObject.CompareTag("item4")
-           || collision.gameObject.CompareTag("CloneSabotageItem")
-           )
+        if (collision.gameObject.CompareTag("item"))
         {
             EnterItem = true;
         }
@@ -151,10 +119,6 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("item")
-           || collision.gameObject.CompareTag("item2")
-           || collision.gameObject.CompareTag("item3")
-           || collision.gameObject.CompareTag("item4")
-           || collision.gameObject.CompareTag("CloneSabotageItem")
            || collision.gameObject.CompareTag("Group1")
             || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
@@ -276,6 +240,11 @@ public class PlayerMove : MonoBehaviour
         playerMoveDamage = false;
         InGroup = false;
         EnterItem = false;
+    }
+
+    public void CallHanteiEnter()
+    {
+        carryDown.HanteiEnter();
     }
 
 }

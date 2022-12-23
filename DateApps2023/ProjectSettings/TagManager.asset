@@ -6,14 +6,9 @@ TagManager:
   tags:
   - FailedLine
   - hantei
-  - item4
-  - item2
   - item
-  - item3
-  - CloneSabotageItem
   - Wall
   - Group
-  - ClonePredictItem
   - BoomEffect
   - SmokeEffect
   - ShockWaveEffect
@@ -22,6 +17,7 @@ TagManager:
   - Group2
   - Group3
   - Group4
+  - Cannon
   layers:
   - Default
   - TransparentFX

@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using UnityEngine;
 
-public class hantei : MonoBehaviour
+public class CarryCannon : MonoBehaviour
 {
     #region
     public GameObject[] myGrabPoint = null;
@@ -63,7 +61,7 @@ public class hantei : MonoBehaviour
         playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
         number++;
 
-        
+
         boxCol.isTrigger = false;
 
         while (!InGroup)
@@ -81,7 +79,7 @@ public class hantei : MonoBehaviour
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
                 playercontroller.GetItemSize(myItemSizeCount, 1);
-                
+
                 InGroup = true;
                 break;
             }
@@ -94,15 +92,6 @@ public class hantei : MonoBehaviour
                 }
                 playercontroller = null;
             }
-        }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("SteelFrame"))
-        {
-            var heading = this.gameObject.transform.position - collision.gameObject.transform.position;
-            this.gameObject.transform.position += new Vector3(heading.x * 0.5f, 0.0f, heading.z * 0.5f);
         }
     }
 
@@ -120,14 +109,6 @@ public class hantei : MonoBehaviour
 
     }
 
-    public void DestroyMe()
-    {
-        playercontroller.ReleaseChild();
-
-        DoHanteiEnter();
-        Destroy(gameObject);
-    }
-
     public void DoHanteiEnter()
     {
         for (int i = 0; i < myGrabPoint.Length; i++)
@@ -135,5 +116,4 @@ public class hantei : MonoBehaviour
             playerCarryDowns[i].HanteiEnter();
         }
     }
-
 }

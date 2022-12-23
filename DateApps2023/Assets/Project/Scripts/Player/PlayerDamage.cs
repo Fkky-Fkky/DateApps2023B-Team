@@ -6,7 +6,6 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerDamage : MonoBehaviour
 {
     private Rigidbody rb;
-    //private BoxCollider boxCol;
     private CapsuleCollider capsuleCol;
     float time = 0;
     private bool currentDamage;
@@ -21,9 +20,6 @@ public class PlayerDamage : MonoBehaviour
 
     private PlayerMove playerMove;
     private PlayerCarryDown playerCarryDown;
-
-    private GameObject sabotageObject;
-    private GameObject player;
 
     private Animator AnimationImage;
 
@@ -40,8 +36,6 @@ public class PlayerDamage : MonoBehaviour
         playerMove = this.gameObject.GetComponent<PlayerMove>();
         playerCarryDown = this.gameObject.GetComponentInChildren<PlayerCarryDown>();
 
-        player = this.gameObject;
-
     }
 
     private void Update()
@@ -55,11 +49,6 @@ public class PlayerDamage : MonoBehaviour
 
             time += Time.deltaTime;
             this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
-            //this.gameObject.transform.position = new Vector3(
-            //        this.gameObject.transform.position.x,
-            //        defaultPosY,
-            //        this.gameObject.transform.position.z
-            //        );
 
             if (time > stanTime)
             {
@@ -101,19 +90,5 @@ public class PlayerDamage : MonoBehaviour
 
         currentDamage = true;
     }
-
-    //public void AvoidObject()
-    //{
-    //    var heading = player.transform.position - sabotageObject.transform.position;
-    //    this.gameObject.transform.position += new Vector3(heading.x * 2.0f, 0.0f, heading.z * 2.0f);
-    //    DamagePosX = this.gameObject.transform.position.x;
-    //    DamagePosZ = this.gameObject.transform.position.z;
-
-    //}
-
-    //public void SetSabotageObject(GameObject setObject)
-    //{
-    //    sabotageObject = setObject;
-    //}
 
 }

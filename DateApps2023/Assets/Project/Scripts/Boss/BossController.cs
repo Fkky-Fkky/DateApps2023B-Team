@@ -6,9 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-//
-// 
-//
 public class BossController : MonoBehaviour
 {
     public Slider slider;

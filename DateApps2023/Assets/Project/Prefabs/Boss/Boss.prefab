@@ -1,99 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1642176492
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1642176493}
-  - component: {fileID: 1642176494}
-  m_Layer: 0
-  m_Name: Spot Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1642176493
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642176492}
-  m_LocalRotation: {x: -0, y: -0.99440145, z: -0.10566795, w: 0}
-  m_LocalPosition: {x: 0.07909156, y: -0.11, z: 4.483333}
-  m_LocalScale: {x: 0.005555555, y: 0.00502218, z: 0.0055284267}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -12.131, y: 0, z: 0}
---- !u!108 &1642176494
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642176492}
-  m_Enabled: 1
-  serializedVersion: 10
-  m_Type: 0
-  m_Shape: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 20
-  m_Range: 816.8496
-  m_SpotAngle: 126.002075
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1 &1031987516387900868
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031987516387900868}
   m_LocalRotation: {x: -0, y: -0.8660254, z: -0, w: -0.5}
-  m_LocalPosition: {x: -4.1666665, y: 2, z: 4.1666665}
+  m_LocalPosition: {x: -4.1666665, y: 1.5999999, z: 4.1666665}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,14 +58,14 @@ Camera:
     width: 0.5
     height: 0.5
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 2000
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 100
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -178,7 +84,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031987516387900868}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &610635896590161087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a774260656b0e1e43b7f9deea7389251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bosscamera: {fileID: 2403555630710928110}
-  displayTime: 6
+  Bosscamera: {fileID: 1031987516387900868}
+  displayTime: 5
 --- !u!1 &1646241457149395611
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +751,6 @@ GameObject:
   - component: {fileID: 1648196746715476570}
   - component: {fileID: 1648196746715476573}
   - component: {fileID: 1648196746715476572}
-  - component: {fileID: 1648196746715476575}
   - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
   m_Layer: 0
@@ -870,7 +775,6 @@ Transform:
   - {fileID: 1643745053203628095}
   - {fileID: 1643880345261233121}
   - {fileID: 4628830047137733291}
-  - {fileID: 1642176493}
   - {fileID: 3490875008881636801}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -919,7 +823,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647289903949419459}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -940,48 +844,6 @@ MonoBehaviour:
   target: {fileID: 0}
   BossDistanceTMP: {fileID: 0}
   sceneName: GameoverScene
---- !u!114 &1648196746715476575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mySabotageType: 1
-  boss: {fileID: 1647289903949419459}
-  bossDamage: {fileID: 1648196746715476574}
-  intervalTime: 30
-  attackTime: 5
-  sabotageTime: 10
-  rangeA: {fileID: 0}
-  rangeB: {fileID: 0}
-  instancePosY: 200
-  sabotageItem:
-  - {fileID: 2944399583157852937, guid: cb9a08646972e7549a879f29eefde6a5, type: 3}
-  - {fileID: 2944399583157852937, guid: 7a35cbfa20432e54b800ceb2c9e542cc, type: 3}
-  - {fileID: 180798, guid: 7f1ce0d205990a244a38657bf0571ced, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  halfExtents: {x: 19, y: 60, z: 19}
-  PredictInstancePosY: 51
-  predictSabotageItem:
-  - {fileID: 2944399583157852937, guid: 923219c01d96d4e4f9baed5e7b528f2f, type: 3}
-  - {fileID: 2944399583157852937, guid: 923219c01d96d4e4f9baed5e7b528f2f, type: 3}
-  - {fileID: 2944399583157852937, guid: 923219c01d96d4e4f9baed5e7b528f2f, type: 3}
-  predictInstantPos:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  instantPos:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,9 +860,9 @@ MonoBehaviour:
   knockBackPower: 300
   stopTime: 5
   AnimationImage: {fileID: 1697093568606495979}
-  damagePoint: {fileID: 3490875008881636801}
-  explosionEffect: {fileID: 4914716930404006884, guid: aed12c224fbc8704d8eaa07a52e88f44, type: 3}
-  damageIntervalTime: 3
+  damagePoint: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  damageIntervalTime: 1
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,6 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  target: {fileID: 0}
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,5 +1011,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

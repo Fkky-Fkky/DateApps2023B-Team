@@ -18,8 +18,8 @@ public class PlayerCarryDown : MonoBehaviour
     private int myPlayerNo = 5;
 
     private PlayerMove playermove = null;
-    private hantei hanteiItem;
-    private SabotageItem sabotageItem;
+    private hantei energyItem;
+    private CarryCannon cannonItem;
 
     private int myGroupNo = 1;
 
@@ -50,21 +50,17 @@ public class PlayerCarryDown : MonoBehaviour
                     {
                         isCarry = true;
                         canUsed = false;
-                        if (carryItem.CompareTag("CloneSabotageItem"))
+                        if (carryItem.CompareTag("item"))
                         {
-                            sabotageItem = carryItem.GetComponent<SabotageItem>();
-                            sabotageItem.DestroyRigidbody();
-                            sabotageItem.GetGrabPoint(this.gameObject);
-                            myGroupNo = sabotageItem.groupNumber;
+                            energyItem = carryItem.GetComponent<hantei>();
+                            energyItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = energyItem.groupNumber;
                         }
-                        else if (carryItem.CompareTag("item")
-                             || carryItem.CompareTag("item2")
-                             || carryItem.CompareTag("item3")
-                             || carryItem.CompareTag("item4"))
+                        if (carryItem.CompareTag("Cannon"))
                         {
-                            hanteiItem = carryItem.GetComponent<hantei>();
-                            hanteiItem.GetGrabPoint(this.gameObject);
-                            myGroupNo = hanteiItem.groupNumber;
+                            cannonItem = carryItem.GetComponent<CarryCannon>();
+                            cannonItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = cannonItem.groupNumber;
                         }
                         playermove.GetItem(myGroupNo);
                     }
@@ -89,11 +85,7 @@ public class PlayerCarryDown : MonoBehaviour
         if (!isCarry)
         {
             if (collision.gameObject.CompareTag("item")
-            || collision.gameObject.CompareTag("item2")
-            || collision.gameObject.CompareTag("item3")
-            || collision.gameObject.CompareTag("item4")
-            || collision.gameObject.CompareTag("CloneSabotageItem")
-            )
+                || collision.gameObject.CompareTag("Cannon"))
             {
                 canUsed = true;
                 carryItem = collision.gameObject;
@@ -106,11 +98,7 @@ public class PlayerCarryDown : MonoBehaviour
         if (!isCarry)
         {
             if (collision.gameObject.CompareTag("item")
-            || collision.gameObject.CompareTag("item2")
-            || collision.gameObject.CompareTag("item3")
-            || collision.gameObject.CompareTag("item4")
-            || collision.gameObject.CompareTag("CloneSabotageItem")
-            )
+                || collision.gameObject.CompareTag("Cannon"))
             {
                 canUsed = false;
                 carryItem = null;
@@ -126,6 +114,8 @@ public class PlayerCarryDown : MonoBehaviour
         isCarry = false;
         canUsed = false;
         carryItem = null;
+        energyItem = null;
+        cannonItem = null;
         myCol.enabled = true;
     }
 

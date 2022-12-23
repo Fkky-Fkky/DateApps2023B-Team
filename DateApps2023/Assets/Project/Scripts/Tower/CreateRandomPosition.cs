@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class CreateRandomPosition : MonoBehaviour
 {
-    //[SerializeField]
-    //[Tooltip("生成する1オブジェクト")]
-    //private GameObject createPrefab1;
-
-    public GameObject[] CubePrefabs;
 
     [SerializeField]
     [Tooltip("生成する範囲A")]
@@ -30,11 +26,8 @@ public class CreateRandomPosition : MonoBehaviour
 
     private int number=0;
 
-    int a = 0;
-    int i = 0;
-    int u = 0;
-
-    public GameObject boss;
+    [SerializeField]
+    private GameObject boss;
 
     [SerializeField]
     private BossCamera bosscamera;
@@ -46,12 +39,9 @@ public class CreateRandomPosition : MonoBehaviour
     private GameObject smokeEffect = null;
 
     private bool BlastFlag = false;
+    private float RotateNumber;
+    private Quaternion RotateY;
 
-
-    void Start()
-    {
-        boss = GameObject.Find("Boss");       
-    }
 
     // Update is called once per frame
     void Update()
@@ -59,7 +49,7 @@ public class CreateRandomPosition : MonoBehaviour
 
         if (tower_flag == 1)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < item.Length; i++)
             {
                 // rangeAとrangeBのx座標の範囲内でランダムな数値を作成
                 float x = Random.Range(rangeA.position.x, rangeB.position.x);
@@ -67,7 +57,10 @@ public class CreateRandomPosition : MonoBehaviour
                 // rangeAとrangeBのz座標の範囲内でランダムな数値を作成
                 float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
-                Instantiate(item[number], new Vector3(x, 51, z), CubePrefabs[number].transform.rotation);
+                RotateNumber = UnityEngine.Random.Range(-180f, 180f);
+                RotateY = Quaternion.Euler(0, RotateNumber, 0);
+
+                Instantiate(item[number], new Vector3(x, 51, z), RotateY);
                 
                 number += 1;
             }
@@ -78,11 +71,6 @@ public class CreateRandomPosition : MonoBehaviour
 
         if (tower_bild_flag == 0)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                CubePrefabs[i].SetActive(false);
-            }
-
             if (BlastFlag)
             {
                 GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("SmokeEffect");
@@ -94,40 +82,6 @@ public class CreateRandomPosition : MonoBehaviour
             }
         }
 
-
-        if (tower_bild_flag == 1)
-            CubePrefabs[0].SetActive(true);
-        if (tower_bild_flag == 2 && CubePrefabs[0].activeSelf == true || a == 1&&CubePrefabs[0].activeSelf==true )
-            CubePrefabs[1].SetActive(true);
-        else if (tower_bild_flag == 2 && CubePrefabs[0].activeSelf == false)
-            a = 1;
-
-        if (tower_bild_flag == 3 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true 
-            || i == 1 && CubePrefabs[0].activeSelf==true && CubePrefabs[1].activeSelf == true)
-            CubePrefabs[2].SetActive(true);
-
-        else if (tower_bild_flag == 3 && CubePrefabs[0].activeSelf == false && CubePrefabs[1].activeSelf == false
-            || tower_bild_flag == 3 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == false)
-            i = 1;
-
-        if (tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true
-            ||u==1 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true)
-        {
-            CubePrefabs[3].SetActive(true);
-
-            time += Time.deltaTime;
-            a = 0;
-            i = 0;
-            u = 0;
-
-        }
-        else if (tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false|| tower_bild_flag >= 4 && CubePrefabs[0].activeSelf == false && CubePrefabs[1].activeSelf == false && CubePrefabs[2].activeSelf == false)
-            u = 1;
-        if(time>=0.01)
-        {
-            
-
-        }
         if (time >= 0.5f)
         {
             if (!BlastFlag)
@@ -144,40 +98,21 @@ public class CreateRandomPosition : MonoBehaviour
             tower_bild_flag = 0;
             tower_flag = 1;
             time = 0;
-            //boss.GetComponent<BossDamage>().KnockbackFalse();
-
-            CubePrefabs[0].SetActive(false);
-            CubePrefabs[1].SetActive(false);
-            CubePrefabs[2].SetActive(false);
-            CubePrefabs[3].SetActive(false);
-
         }
 
-        if (CubePrefabs[0].activeSelf == true && CubePrefabs[1].activeSelf == true && CubePrefabs[2].activeSelf == true && CubePrefabs[3].activeSelf == true)
-            tower_bild_flag = 4;
+        if(tower_bild_flag >= 4)
+        {
+            time += Time.deltaTime;
+        }
 
         ////デバック用
-        //if (Keyboard.current.zKey.wasPressedThisFrame)
-        //{
-        //    tower_bild_flag += 1;
-        //}
+        if (Keyboard.current.zKey.wasPressedThisFrame)
+        {
+            tower_bild_flag += 1;
+        }
     }
     public void Settower_bild_flag()
     {
-        tower_bild_flag = 1;
-    }
-
-    public void Settower_bild_flag2()
-    {
-        tower_bild_flag = 2;
-    }
-
-    public void Settower_bild_flag3()
-    {
-        tower_bild_flag = 3;
-    }
-    public void Settower_bild_flag4()
-    {
-        tower_bild_flag = 4;
+        tower_bild_flag += 1;
     }
 }

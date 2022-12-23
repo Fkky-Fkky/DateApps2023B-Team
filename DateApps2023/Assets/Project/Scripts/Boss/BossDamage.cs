@@ -6,14 +6,11 @@ public class BossDamage : MonoBehaviour
 {
     private Rigidbody rb;
 
-    [SerializeField]
-    private GameObject boss;
-
     public bool knockBackFlag { get; private set; }
 
-    [SerializeField]
-    [Tooltip("mä∑éZÅH")]
-    private float knockBackPower = 300.0f;
+    //[SerializeField]
+    //[Tooltip("mä∑éZÅH")]
+    //private float knockBackPower = 300.0f;
 
     [SerializeField]
     [Tooltip("ÉmÉbÉNÉoÉbÉNå„çdíºéûä‘")]
@@ -32,14 +29,20 @@ public class BossDamage : MonoBehaviour
     private bool damageFlag = false;
     private bool firstEffect = true;
 
-    [SerializeField]
-    private float damageIntervalTime = 1.0f;
+    private float PosX;
+    private float PosZ;
+
+    BossMove bossMove;
+
+    //[SerializeField]
+    //private float damageIntervalTime = 1.0f;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        bossMove = GetComponent<BossMove>();
         knockBackFlag = false;
         damageFlag = false;
         firstEffect = true;
@@ -51,42 +54,35 @@ public class BossDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!knockBackFlag)
+        if (knockBackFlag)
         {
             time += Time.deltaTime;
-            if (time <= stopTime)
-            {
-                boss.transform.position = new Vector3(
-                    0.0f,
-                    boss.transform.position.y,
-                    boss.transform.position.z);
-                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-                time = 0;
-
-            }
-        }
-        else
-        {
-            time += Time.deltaTime;
-
-            if(time >= damageIntervalTime)
+            if(time <= stopTime)
             {
                 AnimationImage.SetBool("Damage", true);
+
                 if (firstEffect)
                 {
                     damageFlag = true;
                     firstEffect = false;
                 }
 
-                boss.transform.position = new Vector3(
-                    0.0f,
-                    boss.transform.position.y,
-                    boss.transform.position.z + knockBackPower * Time.deltaTime
-                    );
+                this.gameObject.transform.position = new Vector3(PosX, this.gameObject.transform.position.y, PosZ);
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
             }
-
-        
-
+            else
+            {
+                damageFlag = false;
+                bossMove.DamageFalse();
+                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("BoomEffect");
+                foreach (GameObject clone_explosionEffect in cloneItem)
+                {
+                    Destroy(clone_explosionEffect);
+                }
+                firstEffect = true;
+                knockBackFlag = false;
+                time = 0;
+            }
         }
 
         if (damageFlag)
@@ -98,15 +94,15 @@ public class BossDamage : MonoBehaviour
         if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Damege") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f) 
         {
             AnimationImage.SetBool("Damage", false);
-            damageFlag = false;
-            knockBackFlag = false;
-            firstEffect = true;
+            //damageFlag = false;
+            //knockBackFlag = false;
+            //time = 0;
+            //firstEffect = true;
             GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("BoomEffect");
             foreach (GameObject clone_explosionEffect in cloneItem)
             {
                 Destroy(clone_explosionEffect);
             }
-
         }
     }
 
@@ -118,18 +114,10 @@ public class BossDamage : MonoBehaviour
 
         time = 0;
         knockBackFlag = true;
-        //DamegeÇONÇ…Ç∑ÇÈèàóù
+        bossMove.DamageTrue();
+        PosX = this.gameObject.transform.position.x;
+        PosZ = this.gameObject.transform.position.z;
     }
 
-    //public void KnockbackFalse()
-    //{
-    //    if(!knockBackFlag)
-    //        return;
-
-    //    time = 0;
-    //    knockBackFlag = false;
-    //    //DamegeÇOFFÇ…Ç∑ÇÈèàóù
-    //    AnimationImage.SetBool("Damage", false);
-    //}
 
 }
