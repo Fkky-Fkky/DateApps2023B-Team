@@ -18,6 +18,7 @@ TagManager:
   - Group3
   - Group4
   - Cannon
+  - Punch
   layers:
   - Default
   - TransparentFX
