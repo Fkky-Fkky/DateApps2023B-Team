@@ -18,7 +18,7 @@ public class EnergyCharge : MonoBehaviour
         Energy = 0;
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("item"))
         {
@@ -31,10 +31,20 @@ public class EnergyCharge : MonoBehaviour
 
     private void ChargeEnergy()
     {
-        if(Energy > MAX_ENERGY)
+        Energy = Mathf.Min(Energy + 1, MAX_ENERGY);
+        if (Energy > MAX_ENERGY)
         {
             boxCol.enabled = false;
         }
-        Energy++;
+    }
+
+    public void DisChargeEnergy()
+    {
+        Energy = Mathf.Max(Energy - 1, 0);
+    }
+
+    public bool IsEnergyCharge()
+    {
+        return Energy > 0;
     }
 }
