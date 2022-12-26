@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private BoxCollider boxCol= null;
 
     [SerializeField]
-    private float hitTime = 0.5f;
+    private float hitTime = 0.25f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,14 +27,8 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void GetPlayerNo(int parentNumber)
-    {
-        myPlayerNo = parentNumber;
-    }
-
     IEnumerator FistAttack()
     {
-        Debug.Log("â£ÇÈÇºÅI");
         boxCol.enabled = true;
         yield return new WaitForSeconds(hitTime);
         boxCol.enabled = false;
@@ -42,4 +36,8 @@ public class PlayerAttack : MonoBehaviour
         yield return null;
     }
 
+    public void GetPlayerNo(int parentNumber)
+    {
+        myPlayerNo = parentNumber;
+    }
 }
