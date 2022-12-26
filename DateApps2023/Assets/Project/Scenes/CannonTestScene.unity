@@ -3268,6 +3268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CannonSwitch
       objectReference: {fileID: 0}
+    - target: {fileID: 1826584722502462948, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 750174a377012a74ebaa2b6e6139bc53, type: 2}
     - target: {fileID: 1826584722502462949, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
       propertyPath: m_Mesh
       value: 
