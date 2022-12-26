@@ -2897,7 +2897,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600504475}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -140.7, y: 62.9, z: -27.6}
+  m_LocalPosition: {x: -50.5, y: 62.9, z: -27.6}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4028,6 +4028,7 @@ MonoBehaviour:
   smokeEffect: {fileID: 1636802288112176355, guid: d7f65607152ed9947951f1f99e8146cb, type: 3}
   smokePosition: {fileID: 883855836}
   energyCharge: {fileID: 785577604}
+  bossDamage: {fileID: 939972948}
 --- !u!1 &3472315593076206531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3270675820559483232, guid: a99bea20c6f3fe54e8562beb1a0644e1, type: 3}
