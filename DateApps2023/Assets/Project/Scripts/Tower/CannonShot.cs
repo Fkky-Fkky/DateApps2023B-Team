@@ -13,10 +13,16 @@ public class CannonShot : MonoBehaviour
     [SerializeField]
     private EnergyCharge energyCharge = null;
 
-    public bool IsShotting { get; private set; }
-    private float shotTime = 0.0f;
+    [SerializeField]
+    private BossDamage bossDamage = null;
 
-    private const float MAX_SHOT_TIME = 1.0f;
+    public bool IsShotting { get; private set; }
+    private int smokeNum = 0;
+    private GameObject[] smokeEffects = new GameObject[3];
+
+    private float coolTime = 0.0f;
+
+    private const float MAX_COOL_TIME = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,15 +32,16 @@ public class CannonShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsShotting)
+        if (!IsShotting)
         {
-            shotTime += Time.deltaTime;
+            return;
         }
 
-        if(shotTime > MAX_SHOT_TIME)
+        coolTime = Mathf.Max(coolTime - Time.deltaTime, 0.0f);
+        if(coolTime <= 0.0f && smokeNum >= 3)
         {
-            shotTime = 0.0f;
             IsShotting = false;
+            DestroySmoke();
         }
     }
 
@@ -42,6 +49,27 @@ public class CannonShot : MonoBehaviour
     {
         IsShotting = true;
         energyCharge.DisChargeEnergy();
-        Instantiate(smokeEffect, smokePosition);
+        InvokeRepeating("CreateSmoke", 0.0f, 2.0f);
+    }
+
+    private void CreateSmoke()
+    {
+        smokeEffects[smokeNum] = Instantiate(smokeEffect, smokePosition);
+        smokeNum++;
+        bossDamage.KnockbackTrue();
+        if (smokeNum >= 3)
+        {
+            CancelInvoke();
+            coolTime = MAX_COOL_TIME;
+        }
+    }
+
+    private void DestroySmoke()
+    {
+        for (int i = 0; i < smokeEffects.Length; i++)
+        {
+            Destroy(smokeEffects[i]);
+        }
+        smokeNum = 0;
     }
 }
