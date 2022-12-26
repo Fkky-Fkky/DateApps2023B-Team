@@ -19,6 +19,7 @@ TagManager:
   - Group4
   - Cannon
   - PlayerAttackPoint
+  - item4
   layers:
   - Default
   - TransparentFX
