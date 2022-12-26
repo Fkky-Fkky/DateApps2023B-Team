@@ -27,7 +27,7 @@ public class CannonSwitch : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (energyCharge.IsEnergyCharge())
+            if (isShot)
             {
                 cannonShot.Shot();
             }

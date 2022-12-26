@@ -20,13 +20,14 @@ public class EnergyCharge : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("item"))
+        if (!other.gameObject.CompareTag("item"))
         {
-            destroyItem = other.gameObject;
-            destroyItem.GetComponent<hantei>().DestroyMe();
-            ChargeEnergy();
-            createRandomPosition.Settower_bild_flag();
+            return;
         }
+        destroyItem = other.gameObject;
+        destroyItem.GetComponent<hantei>().DestroyMe();
+        ChargeEnergy();
+        createRandomPosition.Settower_bild_flag();
     }
 
     private void ChargeEnergy()
