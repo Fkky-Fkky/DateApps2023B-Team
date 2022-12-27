@@ -1014,7 +1014,7 @@ MonoBehaviour:
   knockBackPower: 1
   EndStanCount: 3
   EndCaptureCount: 1
-  stanBoxCol: {fileID: 0}
+  stanBoxCol: {fileID: 7255117873455938838}
 --- !u!136 &7644300349639810741
 CapsuleCollider:
   m_ObjectHideFlags: 0
