@@ -11,11 +11,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private float hitTime = 0.25f;
 
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
         boxCol.enabled = false;
+
+        animator = GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,9 +33,12 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator FistAttack()
     {
+        animator.SetBool("Attack", true);
         boxCol.enabled = true;
+
         yield return new WaitForSeconds(hitTime);
         boxCol.enabled = false;
+        animator.SetBool("Attack", false);
 
         yield return null;
     }
