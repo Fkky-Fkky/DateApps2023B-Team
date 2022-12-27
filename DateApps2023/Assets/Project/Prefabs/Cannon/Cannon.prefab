@@ -56,8 +56,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.137866, y: 1.5301906, z: 1.7953753}
-  m_Center: {x: 0.0072482517, y: 0.65268576, z: 0.31446028}
+  m_Size: {x: 1.137866, y: 0.8940082, z: 1.7953753}
+  m_Center: {x: 0.0072482517, y: 0.3345946, z: 0.31446028}
 --- !u!1 &608408025102211633
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ Transform:
   - {fileID: 603738395722836450}
   - {fileID: 603738396114872995}
   m_Father: {fileID: 6235379894168220595}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &608408025102211635
 MonoBehaviour:
@@ -139,7 +139,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6235379894168220595}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2433888748963709109
 GameObject:
@@ -426,6 +426,7 @@ Transform:
   - {fileID: 6362180091862451294}
   - {fileID: 6474222705068195099}
   - {fileID: 608408025037340664}
+  - {fileID: 1529489894783582474}
   - {fileID: 608408026505789374}
   - {fileID: 608408025102211634}
   m_Father: {fileID: 0}
@@ -494,8 +495,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.84941745, y: 1.5098064, z: 0.9000314}
-  m_Center: {x: -0.048064478, y: 0.6427354, z: 0.06996607}
+  m_Size: {x: 0.84941745, y: 1.0183183, z: 0.9000314}
+  m_Center: {x: -0.048064478, y: 0.3969914, z: 0.06996607}
 --- !u!1001 &608408025447218819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -769,3 +770,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b9def8cda7a374fb014909379fc5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5741313187892393587
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6235379894168220595}
+    m_Modifications:
+    - target: {fileID: 5899499684447595971, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_Name
+      value: CannonSwitch
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.009
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.708
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.568
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+--- !u!4 &1529489894783582474 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6527100249867515769, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+  m_PrefabInstance: {fileID: 5741313187892393587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2193822944324508592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5899499684447595971, guid: 9fd4d5339d8b2e24fa28898f903ee067, type: 3}
+  m_PrefabInstance: {fileID: 5741313187892393587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1370944459765354666
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193822944324508592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.7640784, y: 1.5088375, z: 1.6132834}
+  m_Center: {x: 1.6547791, y: -0.86459285, z: 0.020377513}
+--- !u!114 &5217654158581220599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193822944324508592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361a9368e119ea743be2feb02b5a66ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyCharge: {fileID: 608408025037340662}
+  cannonShot: {fileID: 608408025486642117}
