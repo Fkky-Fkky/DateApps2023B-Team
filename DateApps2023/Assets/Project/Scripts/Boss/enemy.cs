@@ -1,80 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
 
 
 //[RequireComponent(typeof(NavMeshAgent))]
 public class enemy : MonoBehaviour
 {
-    // 追いかける対象の座標情報
-    [SerializeField] private Transform playerTransform;
-
-    int move = 0;
+    public GameObject[] players;
+    [SerializeField] private Transform[] playerTransform;
+    int move = 4;
+    int work = 0;
+    float rast_timer =0;
+    int rast_timer_flag=0;
     float attck_time = 0;
 
     //BoxCollider boxCol;
 
     Animator animator;
 
-    int attck = Animator.StringToHash("attck");
-    int idle = Animator.StringToHash("idle");
-    int attck_idle = Animator.StringToHash("attck_idle");
+    //int attck = Animator.StringToHash("attck");
+    //int idle = Animator.StringToHash("idle");
+    //int attck_idle = Animator.StringToHash("attck_idle");
     
     // エージェントをキャッシュしておく用
     private NavMeshAgent _agent;
 
+
+    int rnd;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-
-       
-       
-        _agent = GetComponent<NavMeshAgent>();
+        rnd = Random.Range(0, 3);
+       _agent = GetComponent<NavMeshAgent>();
         animator.SetTrigger("idle");
     }
     void Update()
     {
-        if (move == 0)
+        Transform myTransform = this.transform;
+
+        if (move == 4)
         {
-            _agent.destination = playerTransform.position;
+            Vector3 pos = myTransform.position;
+            pos.y += 0.1f;
+            if (pos.y >= 55)
+            {
+                move = 0;
+            }
         }
-        //if(move==1)
-        //{
-        //    Debug.Log("a");
-            
-        //}
+
+        if (work == 0)
+        {
+            _agent.destination = players[rnd].transform.position;
+        }
 
         attck_time += Time.deltaTime;
 
         if (attck_time >= 0.5&&move==1)
         {
             animator.SetTrigger("attck");
-            Debug.Log("i");
         }
 
-        if (attck_time >= 1.5 && move == 1)
+        if (attck_time >= 0.75 && move == 1)
         {
-            Debug.Log("u");
             move = 0;
-        
+            work = 1;
+        }
+
+        if (rast_timer_flag == 1)
+        {
+            rast_timer += Time.deltaTime;
+        }
+
+        if(rast_timer>=2)
+        {
+            Vector3 pos = myTransform.position;
+            animator.SetTrigger("idle");
+            _agent.destination = playerTransform[4].transform.position;
+            if(pos.z<=-120)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
     void OnTriggerEnter(Collider collision)//Trigger
     {
-        
         if (collision.gameObject.CompareTag("Player"))
         {
-                move = 1;
+            work = 1;
+            move = 1;
             attck_time = 0;
+            rast_timer_flag = 1;
             animator.SetTrigger("attckidle");
         }
     }
-
-    //void OnTriggerEnter(Collider collision)
-    //{
-    //    Debug.Log("Hit"); // ログを表示する
-    //}
 }
