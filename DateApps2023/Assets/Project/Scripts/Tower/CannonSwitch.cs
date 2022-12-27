@@ -11,39 +11,26 @@ public class CannonSwitch : MonoBehaviour
     private CannonShot cannonShot = null;
 
     private bool isShot = false;
-
-    private Vector3 scale;
+    private Vector3 defaultScale;
+    private GameObject button = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        scale = GetComponent<Transform>().localScale;
+        button = transform.GetChild(0).gameObject;
+        defaultScale = button.GetComponent<Transform>().localScale;
+        SwitchOn();
     }
 
     // Update is called once per frame
     void Update()
     {
         isShot = !cannonShot.IsShotting && energyCharge.IsEnergyCharge();
-
-        Vector3 scale_ = scale;
         if (!isShot)
         {
-            scale_.y = 1.0f;
-
+            return;
         }
-        else
-        {
-            scale_.y = scale.y;
-        }
-
-        transform.localScale = scale_;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isShot)
-            {
-                cannonShot.Shot();
-            }
-        }
+        SwitchOff();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,6 +43,20 @@ public class CannonSwitch : MonoBehaviour
         if (isShot)
         {
             cannonShot.Shot();
+            SwitchOn();
         }
+    }
+
+    private void SwitchOn()
+    {
+        Vector3 scale_ = defaultScale;
+        scale_.z = 0.0f;
+        button.transform.localScale = scale_;
+    }
+
+    private void SwitchOff()
+    {
+        Vector3 scale_ = defaultScale;
+        button.transform.localScale = scale_;
     }
 }
