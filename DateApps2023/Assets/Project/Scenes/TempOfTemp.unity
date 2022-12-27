@@ -889,6 +889,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 6f2922518029afa498a905147fb5b99e, type: 2}
     - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+      propertyPath: stanBoxCol
+      value: 
+      objectReference: {fileID: 1393810174}
+    - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: captureTime
       value: 5
       objectReference: {fileID: 0}
@@ -2352,6 +2356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
+--- !u!65 &1393810174 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7255117873455938838, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+  m_PrefabInstance: {fileID: 649865514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1435586584 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1619350375742510268, guid: 8985b02583ad8bc439b901658b00843e, type: 3}
