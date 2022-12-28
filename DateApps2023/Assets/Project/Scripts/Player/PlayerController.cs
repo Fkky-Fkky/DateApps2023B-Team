@@ -83,35 +83,35 @@ public class PlayerController : MonoBehaviour
                 groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
                 rb.velocity = groupVec;
             }
-            
-            if (transform.childCount <= 1)
-            {
-                for (int i = 0; i < this.transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).gameObject.CompareTag("item"))
-                    {
-                        transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
-                    }
-                    if (transform.GetChild(0).gameObject.CompareTag("Player"))
-                    {
-                        transform.GetChild(0).gameObject.GetComponent<PlayerMove>().CallHanteiEnter();
-                    }
-                    //transform.GetChild(i).gameObject.transform.parent = null;
-                }
 
-                for (int i = 0; i < ChildPlayer.Length; i++)
-                {
-                    if (ChildPlayer[i] != null || AnimationImage[i] != null)
-                    {
-                        AnimationImage[i].SetBool("CarryMove", false);
-                        ChildPlayer[i] = null;
-                        AnimationImage[i] = null;
-                    }
-                }
+            //    if (transform.childCount <= 1)
+            //    {
+            //        for (int i = 0; i < this.transform.childCount; i++)
+            //        {
+            //            if (transform.GetChild(i).gameObject.CompareTag("item"))
+            //            {
+            //                transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
+            //            }
+            //            if (transform.GetChild(i).gameObject.CompareTag("Player"))
+            //            {
+            //                transform.GetChild(i).gameObject.GetComponent<PlayerMove>().CallHanteiEnter();
+            //            }
+            //            //transform.GetChild(i).gameObject.transform.parent = null;
+            //        }
 
-                AllFragFalse();
+            //        for (int i = 0; i < ChildPlayer.Length; i++)
+            //        {
+            //            if (ChildPlayer[i] != null || AnimationImage[i] != null)
+            //            {
+            //                AnimationImage[i].SetBool("CarryMove", false);
+            //                ChildPlayer[i] = null;
+            //                AnimationImage[i] = null;
+            //            }
+            //        }
 
-            }
+            //        AllFragFalse();
+
+            //    }
         }
     }
 
