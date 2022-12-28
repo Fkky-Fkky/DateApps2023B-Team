@@ -7,6 +7,7 @@ public class EnergyCharge : MonoBehaviour
     private GameObject destroyItem = null;
     private BoxCollider boxCol = null;
     const int MAX_ENERGY = 3;
+    const int ADD_ENERGY = 1;
     
     public int Energy { get; private set; }
 
@@ -29,8 +30,8 @@ public class EnergyCharge : MonoBehaviour
 
     private void ChargeEnergy()
     {
-        Energy = Mathf.Min(Energy + 1, MAX_ENERGY);
-        if (Energy > MAX_ENERGY)
+        Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
+        if (Energy >= MAX_ENERGY)
         {
             boxCol.enabled = false;
         }
@@ -38,7 +39,12 @@ public class EnergyCharge : MonoBehaviour
 
     public void DisChargeEnergy()
     {
-        Energy = Mathf.Max(Energy - 1, 0);
+        Energy = Mathf.Max(Energy - ADD_ENERGY, 0);
+        if (boxCol.enabled)
+        {
+            return;
+        }
+        boxCol.enabled = true;
     }
 
     public bool IsEnergyCharge()

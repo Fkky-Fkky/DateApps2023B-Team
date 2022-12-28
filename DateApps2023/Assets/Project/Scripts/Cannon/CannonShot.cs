@@ -8,6 +8,9 @@ public class CannonShot : MonoBehaviour
     private GameObject smokeEffect = null;
 
     [SerializeField]
+    private GameObject chargeShotEffect = null;
+
+    [SerializeField]
     private Transform smokePosition = null;
 
     [SerializeField]
@@ -17,17 +20,16 @@ public class CannonShot : MonoBehaviour
     private BossDamage bossDamage = null;
 
     public bool IsShotting { get; private set; }
+
     private int smokeNum = 0;
-    private GameObject[] smokeEffects = new GameObject[3];
-
     private float coolTime = 0.0f;
+    private GameObject[] smokeEffects = new GameObject[3];
+    private GameObject cloneChrageEffect = null;
 
+    private const int MAX_SMOKE_NUM = 3;
     private const float MAX_COOL_TIME = 3.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private const float INVOKE_TIME = 2.0f;
+    private const float REPEAT_INVOKE_TIME = 2.0f;
 
     // Update is called once per frame
     void Update()
@@ -38,10 +40,11 @@ public class CannonShot : MonoBehaviour
         }
 
         coolTime = Mathf.Max(coolTime - Time.deltaTime, 0.0f);
-        if(coolTime <= 0.0f && smokeNum >= 3)
+        if(coolTime <= 0.0f && smokeNum >= MAX_SMOKE_NUM)
         {
             IsShotting = false;
             DestroySmoke();
+            DestroyChargeEffect();
         }
     }
 
@@ -49,7 +52,18 @@ public class CannonShot : MonoBehaviour
     {
         IsShotting = true;
         energyCharge.DisChargeEnergy();
-        InvokeRepeating("CreateSmoke", 0.0f, 2.0f);
+        CreateChageEffect();
+        InvokeRepeating(nameof(CreateSmoke), INVOKE_TIME, REPEAT_INVOKE_TIME);
+    }
+
+    private void CreateChageEffect()
+    {
+        cloneChrageEffect = Instantiate(chargeShotEffect, smokePosition);
+    }
+
+    private void DestroyChargeEffect()
+    {
+        Destroy(cloneChrageEffect);
     }
 
     private void CreateSmoke()
@@ -57,7 +71,7 @@ public class CannonShot : MonoBehaviour
         smokeEffects[smokeNum] = Instantiate(smokeEffect, smokePosition);
         smokeNum++;
         bossDamage.KnockbackTrue();
-        if (smokeNum >= 3)
+        if (smokeNum >= MAX_SMOKE_NUM)
         {
             CancelInvoke();
             coolTime = MAX_COOL_TIME;
