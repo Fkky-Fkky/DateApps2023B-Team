@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6235379894168220595}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &608408025037340662
 MonoBehaviour:
@@ -91,7 +91,7 @@ Transform:
   - {fileID: 603738395722836450}
   - {fileID: 603738396114872995}
   m_Father: {fileID: 6235379894168220595}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &608408025102211635
 MonoBehaviour:
@@ -139,7 +139,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6235379894168220595}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2433888748963709109
 GameObject:
@@ -425,10 +425,10 @@ Transform:
   - {fileID: 2711221356423905773}
   - {fileID: 6362180091862451294}
   - {fileID: 6474222705068195099}
-  - {fileID: 608408025037340664}
-  - {fileID: 1529489894783582474}
-  - {fileID: 608408026505789374}
   - {fileID: 608408025102211634}
+  - {fileID: 1529489894783582474}
+  - {fileID: 608408025037340664}
+  - {fileID: 608408026505789374}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokeEffect: {fileID: 1636802288112176355, guid: d7f65607152ed9947951f1f99e8146cb, type: 3}
+  chargeShotEffect: {fileID: 0}
   smokePosition: {fileID: 608408026505789374}
   energyCharge: {fileID: 608408025037340662}
   bossDamage: {fileID: 0}
