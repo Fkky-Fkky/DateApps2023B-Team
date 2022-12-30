@@ -22,6 +22,7 @@ TagManager:
   - Group2
   - Group3
   - Group4
+  - Enemy
   layers:
   - Default
   - TransparentFX
