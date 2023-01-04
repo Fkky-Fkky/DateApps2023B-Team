@@ -115,7 +115,7 @@ public class enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider collision)//Trigger
+    void OnCollisionEnter(Collision collision)//Trigger
     {
         if (collision.gameObject.CompareTag("Player"))
         {
