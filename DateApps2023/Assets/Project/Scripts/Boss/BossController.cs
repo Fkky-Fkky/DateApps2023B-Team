@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
-    public Slider slider;
 
     int boss_hp = 3;
 
@@ -26,7 +25,7 @@ public class BossController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slider.value = 3;
+
     }
 
     // Update is called once per frame
@@ -34,7 +33,7 @@ public class BossController : MonoBehaviour
     {
         targetRange = gameObject.transform.position.z - target.position.z;
         BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
-        slider.value = targetRange / 1000;
+        
 
         if(boss_hp==0)
         {
