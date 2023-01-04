@@ -18,7 +18,7 @@ public class enemy_j : MonoBehaviour
 
     float z;
 
-    float spider_time = 29;
+    float spider_time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class enemy_j : MonoBehaviour
     void Update()
     {
         spider_time += Time.deltaTime;
-        if(spider_time >=1) 
+        if(spider_time >=60) 
         {
             spider_time = 0;
            

@@ -10,6 +10,13 @@ using static UnityEngine.GraphicsBuffer;
 //[RequireComponent(typeof(NavMeshAgent))]
 public class enemy : MonoBehaviour
 {
+    //CallDamage呼び出し用
+    [SerializeField]
+    private PlayerDamage []PlayerDamage;
+
+    //攻撃の当たり判定
+    private Collider AttackCollider;
+
     public GameObject[] players;
     [SerializeField] private Transform[] playerTransform;
     int move = 4;
@@ -29,29 +36,39 @@ public class enemy : MonoBehaviour
     // エージェントをキャッシュしておく用
     private NavMeshAgent _agent;
 
-
+    
     int rnd;
 
     void Start()
     {
+        //口の当たり判定の設定
+        AttackCollider = GameObject.Find("RigHeadGizmo").GetComponent<BoxCollider>();
+        AttackCollider.enabled = false;
+
+        //アニメーター
         animator = GetComponent<Animator>();
-        rnd = Random.Range(0, 3);
-       _agent = GetComponent<NavMeshAgent>();
+
         animator.SetTrigger("idle");
+
+        //プレイヤーのランダム変数
+        rnd = Random.Range(0, 3);
+        //Navを取得
+       _agent = GetComponent<NavMeshAgent>();
+     
     }
     void Update()
     {
         Transform myTransform = this.transform;
 
-        if (move == 4)
-        {
-            Vector3 pos = myTransform.position;
-            pos.y += 0.1f;
-            if (pos.y >= 55)
-            {
-                move = 0;
-            }
-        }
+        //if (move == 4)
+        //{
+        //    Vector3 pos = myTransform.position;
+        //    pos.y += 0.1f;
+        //    if (pos.y >= 55)
+        //    {
+        //        move = 0;
+        //    }
+        //}
 
         if (work == 0)
         {
@@ -71,6 +88,16 @@ public class enemy : MonoBehaviour
             work = 1;
         }
 
+        if (attck_time >= 0.9 && move == 0)
+        {
+            AttackCollider.enabled = true;
+        }
+        if (attck_time >= 1.2 && move == 0)
+        {
+
+            AttackCollider.enabled = false;
+        }
+
         if (rast_timer_flag == 1)
         {
             rast_timer += Time.deltaTime;
@@ -88,7 +115,7 @@ public class enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider collision)//Trigger
+    void OnCollisionEnter(Collision collision)//Trigger
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -98,5 +125,15 @@ public class enemy : MonoBehaviour
             rast_timer_flag = 1;
             animator.SetTrigger("attckidle");
         }
+
+        //if (AttackCollider.gameObject.CompareTag("Player"))
+        //{
+            
+        //}
+    }
+
+    public void OnattackCollider()
+    {
+        PlayerDamage[rnd].CallDamage();
     }
 }

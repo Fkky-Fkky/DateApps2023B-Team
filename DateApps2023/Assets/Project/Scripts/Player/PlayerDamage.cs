@@ -145,6 +145,8 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallDamage()
     {
+        Debug.Log("anpanan");
+
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
