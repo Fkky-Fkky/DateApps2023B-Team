@@ -19,14 +19,19 @@ public class CannonShot : MonoBehaviour
     [SerializeField]
     private BossDamage bossDamage = null;
 
+    [SerializeField]
+    private GenerateEnergy generateEnergy = null;
+
     public bool IsShotting { get; private set; }
 
     private int smokeNum = 0;
+    private int shotNum = 0;
     private float coolTime = 0.0f;
     private GameObject[] smokeEffects = new GameObject[3];
     private GameObject cloneChrageEffect = null;
 
     private const int MAX_SMOKE_NUM = 3;
+    private const int MAX_SHOT_NUM = 5;
     private const float MAX_COOL_TIME = 3.0f;
     private const float INVOKE_TIME = 2.0f;
     private const float REPEAT_INVOKE_TIME = 2.0f;
@@ -45,6 +50,11 @@ public class CannonShot : MonoBehaviour
             IsShotting = false;
             DestroySmoke();
             DestroyChargeEffect();
+            if(shotNum >= MAX_SHOT_NUM)
+            {
+                generateEnergy.Generate();
+                shotNum = 0;
+            }
         }
     }
 
@@ -54,6 +64,7 @@ public class CannonShot : MonoBehaviour
         energyCharge.DisChargeEnergy();
         CreateChageEffect();
         InvokeRepeating(nameof(CreateSmoke), INVOKE_TIME, REPEAT_INVOKE_TIME);
+        shotNum++;
     }
 
     private void CreateChageEffect()
