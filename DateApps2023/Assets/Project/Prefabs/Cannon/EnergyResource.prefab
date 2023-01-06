@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 989744109513928689}
   - component: {fileID: 989744109513928688}
   m_Layer: 0
-  m_Name: PowerCell
+  m_Name: EnergyResource
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
