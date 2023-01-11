@@ -11,14 +11,17 @@ using static UnityEngine.GraphicsBuffer;
 public class enemy : MonoBehaviour
 {
     //CallDamage呼び出し用
+    public GameObject[] players;
+
     [SerializeField]
     private PlayerDamage []PlayerDamage;
 
     //攻撃の当たり判定
     private Collider AttackCollider;
 
-    public GameObject[] players;
     [SerializeField] private Transform[] playerTransform;
+
+    [SerializeField] private Transform rirurnTransform;
     int move = 4;
     int work = 0;
     float rast_timer =0;
@@ -36,7 +39,6 @@ public class enemy : MonoBehaviour
     // エージェントをキャッシュしておく用
     private NavMeshAgent _agent;
 
-    
     int rnd;
 
     void Start()
@@ -107,7 +109,7 @@ public class enemy : MonoBehaviour
         {
             Vector3 pos = myTransform.position;
             animator.SetTrigger("idle");
-            _agent.destination = playerTransform[4].transform.position;
+            _agent.destination = rirurnTransform.transform.position;
             if(pos.z<=-120)
             {
                 Destroy(gameObject);
@@ -126,10 +128,7 @@ public class enemy : MonoBehaviour
             animator.SetTrigger("attckidle");
         }
 
-        //if (AttackCollider.gameObject.CompareTag("Player"))
-        //{
-            
-        //}
+      
     }
 
     public void OnattackCollider()
