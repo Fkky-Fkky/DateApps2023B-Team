@@ -223,7 +223,11 @@ public class PlayerMove : MonoBehaviour
                         transform.localRotation = Quaternion.LookRotation(direction);
                     }
                 }
-                
+                else
+                {
+                    moveSpeed = slowMoveSpeed;
+                }
+
             }
         }
     }
