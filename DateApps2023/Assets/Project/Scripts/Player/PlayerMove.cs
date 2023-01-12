@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,6 +28,8 @@ public class PlayerMove : MonoBehaviour
     private bool InGroup = false;
     private bool EnterItem = false;
     private bool IsAttack = false;
+
+    private GameObject ItemOfEnter = null;
 
     public enum PlayerNumber
     {
@@ -88,6 +91,17 @@ public class PlayerMove : MonoBehaviour
         defaultPosY = this.gameObject.transform.position.y;
     }
 
+    private void Update()
+    {
+        if (EnterItem)
+        {
+            if(ItemOfEnter == null)
+            {
+                EnterItem = false;
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
         GamepadMove();
@@ -106,9 +120,10 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("item"))
         {
             EnterItem = true;
+            ItemOfEnter = collision.gameObject;
         }
         if (collision.gameObject.CompareTag("Group1")
-            || collision.gameObject.CompareTag("Group2")
+           || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
            || collision.gameObject.CompareTag("Group4"))
         {
@@ -121,12 +136,13 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("item")
            || collision.gameObject.CompareTag("Group1")
-            || collision.gameObject.CompareTag("Group2")
+           || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
            || collision.gameObject.CompareTag("Group4")
            )
         {
             EnterItem = false;
+            ItemOfEnter = null;
             this.gameObject.transform.position = new Vector3(
                 this.gameObject.transform.position.x,
                 defaultPosY,
@@ -134,7 +150,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Group1")
-            || collision.gameObject.CompareTag("Group2")
+           || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
            || collision.gameObject.CompareTag("Group4"))
         {
@@ -231,9 +247,6 @@ public class PlayerMove : MonoBehaviour
                 }
 
                 rb.velocity = vec;
-
-               
-
             }
         }
     }
