@@ -39,12 +39,8 @@ public class PlayerCarryDown : MonoBehaviour
         if (!carryDamage)
         {
             if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
-                {
-                if (isCarry)
-                {
-                    HanteiEnter();
-                }
-                else
+            {
+                if(!isCarry)
                 {
                     if (canUsed)
                     {
@@ -66,6 +62,14 @@ public class PlayerCarryDown : MonoBehaviour
                     }
                 }
             }
+            if (Gamepad.all[myPlayerNo].bButton.wasReleasedThisFrame)
+            {
+                if (isCarry)
+                {
+                    HanteiEnter();
+                }
+            }
+
         }
 
         if (isCarry)
