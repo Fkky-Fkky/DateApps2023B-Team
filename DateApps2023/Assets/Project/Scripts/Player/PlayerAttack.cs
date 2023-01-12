@@ -11,7 +11,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private float hitTime = 0.25f;
 
+    private PlayerMove playerMove;
+
     Animator animator;
+    float time = 0;
+
+    private bool myAttack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +25,8 @@ public class PlayerAttack : MonoBehaviour
         boxCol.enabled = false;
 
         animator = GetComponentInParent<Animator>();
+
+        playerMove = GetComponentInParent<PlayerMove>();
     }
 
     // Update is called once per frame
@@ -27,20 +34,37 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
         {
-            StartCoroutine(FistAttack());
+            if (!myAttack)
+            {
+                FistAttack();
+            }
+        }
+      
+        if(myAttack)
+        {
+            time += Time.deltaTime;
+            if (time >= hitTime)
+            {
+                EndAttack();
+                time = 0;
+            }
         }
     }
 
-    IEnumerator FistAttack()
+    private void FistAttack()
     {
         animator.SetBool("Attack", true);
         boxCol.enabled = true;
+        playerMove.StartAttack();
+        myAttack = true;
+    }
 
-        yield return new WaitForSeconds(hitTime);
-        boxCol.enabled = false;
+    private void EndAttack()
+    {
         animator.SetBool("Attack", false);
-
-        yield return null;
+        boxCol.enabled = false;
+        playerMove.EndAttack();
+        myAttack = false;
     }
 
     public void GetPlayerNo(int parentNumber)
