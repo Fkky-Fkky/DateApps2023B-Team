@@ -26,6 +26,7 @@ public class PlayerMove : MonoBehaviour
 
     private bool InGroup = false;
     private bool EnterItem = false;
+    private bool IsAttack = false;
 
     public enum PlayerNumber
     {
@@ -196,15 +197,32 @@ public class PlayerMove : MonoBehaviour
             {
                 Vector3 vec = new Vector3(0, 0, 0);
 
-                if (leftStickValue.x != 0.0f)
+                if (!IsAttack)
                 {
-                    AnimationImage.SetBool("Move", true);
-                    vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                }
-                if (leftStickValue.y != 0.0f)
-                {
-                    AnimationImage.SetBool("Move", true);
-                    vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
+                    if (leftStickValue.x != 0.0f)
+                    {
+                        AnimationImage.SetBool("Move", true);
+                        vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
+                    }
+                    if (leftStickValue.y != 0.0f)
+                    {
+                        AnimationImage.SetBool("Move", true);
+                        vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
+                    }
+
+                    if (!EnterItem)
+                    {
+                        moveSpeed = tempMoveSpeed;
+                        if (leftStickValue.x != 0 || leftStickValue.y != 0)
+                        {
+                            var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
+                            transform.localRotation = Quaternion.LookRotation(direction);
+                        }
+                    }
+                    else
+                    {
+                        moveSpeed = slowMoveSpeed;
+                    }
                 }
 
                 if(leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
@@ -214,19 +232,7 @@ public class PlayerMove : MonoBehaviour
 
                 rb.velocity = vec;
 
-                if (!EnterItem)
-                {
-                    moveSpeed = tempMoveSpeed;
-                    if (leftStickValue.x != 0 || leftStickValue.y != 0)
-                    {
-                        var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
-                        transform.localRotation = Quaternion.LookRotation(direction);
-                    }
-                }
-                else
-                {
-                    moveSpeed = slowMoveSpeed;
-                }
+               
 
             }
         }
@@ -236,6 +242,7 @@ public class PlayerMove : MonoBehaviour
     {
         playerMoveDamage = true;
         InGroup = false;
+        IsAttack = false;
         EnterItem = false;
     }
 
@@ -243,7 +250,18 @@ public class PlayerMove : MonoBehaviour
     {
         playerMoveDamage = false;
         InGroup = false;
+        IsAttack = false;
         EnterItem = false;
+    }
+
+    public void StartAttack()
+    {
+        IsAttack = true;
+    }
+
+    public void EndAttack()
+    {
+        IsAttack = false;
     }
 
     public void CallHanteiEnter()
