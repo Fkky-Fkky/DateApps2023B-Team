@@ -84,34 +84,18 @@ public class PlayerController : MonoBehaviour
             }
             rb.velocity = groupVec;
 
-            //    if (transform.childCount <= 1)
-            //    {
-            //        for (int i = 0; i < this.transform.childCount; i++)
-            //        {
-            //            if (transform.GetChild(i).gameObject.CompareTag("item"))
-            //            {
-            //                transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
-            //            }
-            //            if (transform.GetChild(i).gameObject.CompareTag("Player"))
-            //            {
-            //                transform.GetChild(i).gameObject.GetComponent<PlayerMove>().CallHanteiEnter();
-            //            }
-            //            //transform.GetChild(i).gameObject.transform.parent = null;
-            //        }
-
-            //        for (int i = 0; i < ChildPlayer.Length; i++)
-            //        {
-            //            if (ChildPlayer[i] != null || AnimationImage[i] != null)
-            //            {
-            //                AnimationImage[i].SetBool("CarryMove", false);
-            //                ChildPlayer[i] = null;
-            //                AnimationImage[i] = null;
-            //            }
-            //        }
-
-            //        AllFragFalse();
-
-            //    }
+            if (transform.childCount <= 1)
+            {
+                if (transform.GetChild(0).gameObject.CompareTag("item"))
+                {
+                    transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
+                }
+                else if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
+                {
+                    transform.GetChild(0).gameObject.GetComponent<CarryCannon>().OutGroup();
+                }
+                AllFragFalse();
+            }
         }
     }
 
@@ -204,6 +188,8 @@ public class PlayerController : MonoBehaviour
         controlFrag = false;
         playerCount = 0;
         HaveItem = false;
+        groupVec = Vector3.zero;
+        rb.velocity = groupVec;
     }
 
     void CheckPlayerCount()

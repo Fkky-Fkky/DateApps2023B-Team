@@ -211,7 +211,7 @@ public class PlayerDamage : MonoBehaviour
     public void CallKnockBack(Transform knockPos)
     {
         var distination = (transform.position - knockPos.position).normalized;
-        rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
+        transform.position += distination * knockBackPower;
     }
 
 }
