@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 {
                     transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
                 }
-                if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
+                else if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
                 {
                     transform.GetChild(0).gameObject.GetComponent<CarryCannon>().OutGroup();
                 }
@@ -188,6 +188,8 @@ public class PlayerController : MonoBehaviour
         controlFrag = false;
         playerCount = 0;
         HaveItem = false;
+        groupVec = Vector3.zero;
+        rb.velocity = groupVec;
     }
 
     void CheckPlayerCount()
