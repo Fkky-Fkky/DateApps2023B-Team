@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
                         if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
                         {
                             AnimationImage[i].SetBool("CarryMove", false);
+                            before[i] = Vector2.zero;
                         }
 
                         float walkSpeed = mySpeed * AnimationSpeed;
@@ -81,6 +82,10 @@ public class PlayerController : MonoBehaviour
 
                 groupVec.x = before[0].x + before[1].x + before[2].x + before[3].x;
                 groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
+            }
+            else
+            {
+                groupVec = Vector3.zero;
             }
             rb.velocity = groupVec;
 
