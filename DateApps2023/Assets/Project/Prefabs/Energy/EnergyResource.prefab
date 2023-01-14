@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989744109513928702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.9, y: 56.6, z: -36.2}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,8 +114,8 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
-  defaultPosY: 51
-  carryPosY: 60
+  defaultPosY: 0
+  carryPosY: 0.8
   myItemSize: 2
 --- !u!114 &989744109513928688
 MonoBehaviour:
