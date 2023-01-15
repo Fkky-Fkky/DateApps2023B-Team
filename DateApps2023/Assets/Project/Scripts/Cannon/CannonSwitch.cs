@@ -12,13 +12,17 @@ public class CannonSwitch : MonoBehaviour
 
     private bool isShot = false;
     private Vector3 defaultScale;
+    private Vector3 switchOnScale;
     private GameObject button = null;
+    private BoxCollider boxCollider = null;
 
     // Start is called before the first frame update
     void Start()
     {
         button = transform.GetChild(0).gameObject;
         defaultScale = button.GetComponent<Transform>().localScale;
+        switchOnScale = new Vector3(defaultScale.x, defaultScale.y, 0.0f);
+        boxCollider = GetComponent<BoxCollider>();
         SwitchOn();
     }
 
@@ -49,14 +53,16 @@ public class CannonSwitch : MonoBehaviour
 
     private void SwitchOn()
     {
-        Vector3 scale_ = defaultScale;
-        scale_.z = 0.0f;
-        button.transform.localScale = scale_;
+        button.transform.localScale = switchOnScale;
+        boxCollider.enabled = false;
     }
 
     private void SwitchOff()
     {
-        Vector3 scale_ = defaultScale;
-        button.transform.localScale = scale_;
+        button.transform.localScale = defaultScale;
+        if (!boxCollider.enabled)
+        {
+            boxCollider.enabled = true;
+        }
     }
 }
