@@ -34,6 +34,7 @@ public class GenerateEnergy : MonoBehaviour
     {
         int generateNum = 0;
         Vector3 genaratePos;
+        int miss = 0;
         while (generateNum < MAX_GENERATE)
         {
             float x = Random.Range(generatePosMin.position.x, generatePosMax.position.x);
@@ -43,6 +44,14 @@ public class GenerateEnergy : MonoBehaviour
             {
                 Instantiate(energy, genaratePos, Quaternion.identity);
                 generateNum++;
+            }
+            else
+            {
+                miss++;
+                if(miss > 10)
+                {
+                    break;
+                }
             }
         }
     }
