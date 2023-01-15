@@ -13,6 +13,8 @@ public class GenerateEnergy : MonoBehaviour
     [SerializeField]
     private Transform generatePosMax = null;
 
+
+    private float[] createArea = new float[6];
     private Vector3 halfExtents;
 
     const int MAX_GENERATE = 5;
@@ -21,13 +23,12 @@ public class GenerateEnergy : MonoBehaviour
     void Start()
     {
         halfExtents = energy.transform.localScale / 2;
+        float fiveDivide = ((generatePosMin.position.x - generatePosMax.position.x) / 5) * -1;
+        for (int i = 0; i < 6; i++)
+        {
+            createArea[i] = generatePosMin.position.x + (fiveDivide * i);
+        }
         Generate();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Generate()
@@ -35,10 +36,30 @@ public class GenerateEnergy : MonoBehaviour
         int generateNum = 0;
         Vector3 genaratePos;
         int miss = 0;
+        //while (generateNum < MAX_GENERATE)
+        //{
+        //    float x = Random.Range(generatePosMin.position.x, generatePosMax.position.x);
+        //    float z = Random.Range(generatePosMin.position.z, generatePosMax.position.z);
+        //    genaratePos = new Vector3(x, generatePosMin.position.y, z);
+        //    if (!Physics.CheckBox(genaratePos, halfExtents))
+        //    {
+        //        Instantiate(energy, genaratePos, Quaternion.identity);
+        //        generateNum++;
+        //    }
+        //    else
+        //    {
+        //        miss++;
+        //    }
+        //    if (miss > 10)
+        //    {
+        //        break;
+        //    }
+        //}
+
         while (generateNum < MAX_GENERATE)
         {
-            float x = Random.Range(generatePosMin.position.x, generatePosMax.position.x);
-            float z = Random.Range(generatePosMin.position.z, generatePosMax.position.z);
+            float x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
+            float z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
             genaratePos = new Vector3(x, generatePosMin.position.y, z);
             if (!Physics.CheckBox(genaratePos, halfExtents))
             {
@@ -48,11 +69,13 @@ public class GenerateEnergy : MonoBehaviour
             else
             {
                 miss++;
-                if(miss > 10)
-                {
-                    break;
-                }
+            }
+
+            if (miss > 10)
+            {
+                break;
             }
         }
+        Debug.Log(miss);
     }
 }
