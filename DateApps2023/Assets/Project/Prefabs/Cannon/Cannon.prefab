@@ -56,8 +56,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.137866, y: 0.8940082, z: 1.7953753}
-  m_Center: {x: 0.0072482517, y: 0.3345946, z: 0.31446028}
+  m_Size: {x: 1.3471549, y: 0.8940082, z: 1.7953753}
+  m_Center: {x: 0, y: 0.3345946, z: 0.31446028}
 --- !u!1 &608408025102211633
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,9 +418,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6756336597369760009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 56.2, z: 39.8}
-  m_LocalScale: {x: 70, y: 70, z: 70}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2711221356423905773}
   - {fileID: 6362180091862451294}
@@ -465,8 +465,8 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
-  defaultPosY: 51
-  carryPosY: 60
+  defaultPosY: 0
+  carryPosY: 0.8
   myItemSize: 2
 --- !u!114 &608408025486642117
 MonoBehaviour:
@@ -485,6 +485,7 @@ MonoBehaviour:
   smokePosition: {fileID: 608408026505789374}
   energyCharge: {fileID: 608408025037340662}
   bossDamage: {fileID: 0}
+  generateEnergy: {fileID: 0}
 --- !u!65 &6843777197854238308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -859,7 +860,7 @@ BoxCollider:
   m_GameObject: {fileID: 2193822944324508592}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3.7640784, y: 1.5088375, z: 1.6132834}
   m_Center: {x: 1.6547791, y: -0.86459285, z: 0.020377513}
