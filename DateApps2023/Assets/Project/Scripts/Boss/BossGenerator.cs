@@ -12,18 +12,19 @@ public class BossGenerator : MonoBehaviour
     GameObject bossL;
 
     float intervalTime =  0.0f;
+    [SerializeField]
     float bossInterval = 2.0f;
 
 
-    Vector3 bossPositionCenter = new Vector3(   0.0f, -220.0f, 745.0f);
-    Vector3 bossPositionLeft   = new Vector3(-736.0f, -251.0f, 920.0f);
-    Vector3 bossPositionRight  = new Vector3(1065.0f, -251.0f, 889.0f);
+    Vector3 bossPositionCenter = new Vector3(    0.0f, -51.4f, 210.7f);
+    Vector3 bossPositionLeft   = new Vector3(-100.0f, -51.4f, 210.7f);
+    Vector3 bossPositionRight  = new Vector3( 100.0f, -51.4f, 210.7f);
 
     int bossPattern;
 
     int patternNumber;
     int start = 1;
-    int end   = 4;
+    int end   = 8;
 
     void Start()
     {
@@ -59,10 +60,13 @@ public class BossGenerator : MonoBehaviour
     {
         bossPattern = GetRandomValue(bossPattern);
 
+        
+
         switch (bossPattern) {
             case 1:
                 bossC = Instantiate(bossModel);
                 bossC.transform.position = bossPositionCenter;
+                bossC.tag = "BossCenter";
                 intervalTime = 0.0f;
                 break;
             case 2:
