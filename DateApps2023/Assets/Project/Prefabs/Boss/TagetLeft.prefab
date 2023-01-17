@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8104742940686979462}
   - component: {fileID: 828299687517940645}
   m_Layer: 0
-  m_Name: TagetCenterLeft
+  m_Name: TagetLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

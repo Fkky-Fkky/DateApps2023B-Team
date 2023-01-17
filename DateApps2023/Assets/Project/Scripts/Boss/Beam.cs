@@ -10,10 +10,10 @@ public class Beam : MonoBehaviour
 
 
     [SerializeField]
-    GameObject tagetC;
+    GameObject targetC;
 
     [SerializeField]
-    GameObject tagetR;
+    GameObject targetR;
 
     [SerializeField]
     GameObject targetL;
@@ -22,7 +22,14 @@ public class Beam : MonoBehaviour
     float rightTarget  =  0.1f;
     float leftTarget   = -0.1f;
 
+    bool isDestroy;
+    float time = 0.0f;
+    float destroyTime = 1.0f;
 
+    private void Start()
+    {
+        isDestroy = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -31,7 +38,7 @@ public class Beam : MonoBehaviour
         {
             gameObject.transform.position = Vector3.MoveTowards(
                 gameObject.transform.position,
-                tagetC.transform.position,
+                targetC.transform.position,
                 beamSpeed * Time.deltaTime
                 );
         }
@@ -40,7 +47,7 @@ public class Beam : MonoBehaviour
         {
             gameObject.transform.position = Vector3.MoveTowards(
                 gameObject.transform.position,
-                tagetR.transform.position,
+                targetR.transform.position,
                 beamSpeed * Time.deltaTime
                 );
         }
@@ -52,6 +59,28 @@ public class Beam : MonoBehaviour
                 targetL.transform.position,
                 beamSpeed * Time.deltaTime
                 );
+        }
+
+        BeamDestroy();
+    }
+
+    private void BeamDestroy()
+    {
+        if (gameObject.transform.position == targetC.transform.position ||
+            gameObject.transform.position == targetR.transform.position ||
+            gameObject.transform.position == targetL.transform.position)
+        {
+            isDestroy= true;
+        }
+
+        if(isDestroy )
+        {
+            time += Time.deltaTime;
+            if (time > destroyTime)
+            {
+                Destroy(gameObject);
+                time= 0;
+            }
         }
 
     }
