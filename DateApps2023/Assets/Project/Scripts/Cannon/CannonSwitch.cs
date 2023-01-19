@@ -10,7 +10,9 @@ public class CannonSwitch : MonoBehaviour
     [SerializeField]
     private CannonShot cannonShot = null;
 
-    private bool isShot = false;
+    [SerializeField]
+    private StandManager standManager = null;
+    
     private Vector3 defaultScale;
     private Vector3 switchOnScale;
     private GameObject button = null;
@@ -29,12 +31,14 @@ public class CannonSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isShot = !cannonShot.IsShotting && energyCharge.IsEnergyCharge();
-        if (!isShot)
+        if (!IsShot())
         {
-            return;
+            SwitchOn();
         }
-        SwitchOff();
+        else
+        {
+            SwitchOff();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,25 +48,50 @@ public class CannonSwitch : MonoBehaviour
             return;
         }
 
-        if (isShot)
+        if (IsShot())
         {
             cannonShot.Shot();
             SwitchOn();
         }
     }
 
+    private bool IsShot()
+    {
+        if (cannonShot.IsShotting)
+        {
+            return false;
+        }
+
+        if (!energyCharge.IsEnergyCharge())
+        {
+            return false;
+        }
+
+        if (!standManager.IsConectingStand())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private void SwitchOn()
     {
-        button.transform.localScale = switchOnScale;
+        if (!boxCollider.enabled)
+        {
+            return;
+        }
         boxCollider.enabled = false;
+        button.transform.localScale = switchOnScale;
     }
 
     private void SwitchOff()
     {
-        button.transform.localScale = defaultScale;
-        if (!boxCollider.enabled)
+        if (boxCollider.enabled)
         {
-            boxCollider.enabled = true;
+            return;
         }
+        boxCollider.enabled = true;
+        button.transform.localScale = defaultScale;
     }
 }

@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class StandManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private CannonStand[] stands = new CannonStand[3];
 
-    // Update is called once per frame
-    void Update()
+    public bool IsConectingStand()
     {
-        
-    }
+        bool isConectingdStand = false;
+        for (int i = 0; i < stands.Length; ++i)
+        {
+            if (stands[i].IsConnect)
+            {
+                isConectingdStand = true;
+            }
+        }
+        return isConectingdStand;
+    } 
 }
