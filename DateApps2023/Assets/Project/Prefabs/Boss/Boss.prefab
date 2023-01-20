@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 1648196746715476572}
   - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
+  - component: {fileID: 1763202426801422486}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -862,9 +863,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647289903949419459}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 3350}
-  m_LocalScale: {x: 150, y: 166.66669, z: 150}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: -51.4, z: 210.7}
+  m_LocalScale: {x: 18, y: 20, z: 18}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1643745053203628095}
   - {fileID: 1643880345261233121}
@@ -935,7 +936,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e6744090faeb0459472457f08c3f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
   target: {fileID: 0}
   BossDistanceTMP: {fileID: 0}
   sceneName: GameoverScene
@@ -969,6 +969,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   target: {fileID: 0}
+--- !u!114 &1763202426801422486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIntervalTime: 20
+  beamObject: {fileID: 2826176851657174157, guid: 463cd4ddbc9b9df4f9eb489e2ffd30f8, type: 3}
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
-
-    int boss_hp = 3;
+    [SerializeField]
+    int boss_hp;
 
     [SerializeField]
     private Transform target;
@@ -35,17 +35,6 @@ public class BossController : MonoBehaviour
         BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
         
 
-        if(boss_hp==0)
-        {
-            Destroy(gameObject);
-            Debug.Log("qqqqqqq");
-        }
-
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            boss_hp -= 1;
-            Debug.Log("aijwdijdij");
-        }
     }
 
     private void OnTriggerEnter(Collider other)
