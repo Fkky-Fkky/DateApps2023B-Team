@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackIntervalTime: 20
-  beamObject: {fileID: 0}
+  beamObject: {fileID: 2826176851657174157, guid: 463cd4ddbc9b9df4f9eb489e2ffd30f8, type: 3}
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0

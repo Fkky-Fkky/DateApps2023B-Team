@@ -66,7 +66,6 @@ public class BossGenerator : MonoBehaviour
             case 1:
                 bossC = Instantiate(bossModel);
                 bossC.transform.position = bossPositionCenter;
-                bossC.tag = "BossCenter";
                 intervalTime = 0.0f;
                 break;
             case 2:

@@ -20,7 +20,7 @@ TagManager:
   - Cannon
   - PlayerAttackPoint
   - item4
-  - BossCenter
+  - BossAttack
   layers:
   - Default
   - TransparentFX

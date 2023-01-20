@@ -24,7 +24,7 @@ public class Beam : MonoBehaviour
 
     bool isDestroy;
     float time = 0.0f;
-    float destroyTime = 1.0f;
+    float destroyTime = 0.5f;
 
     private void Start()
     {
