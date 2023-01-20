@@ -1915,7 +1915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932195618067029972, guid: 2159d29ee7d775543b3b442e4eb061cf, type: 3}
       propertyPath: m_Shadows.m_Type
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2932195618067029973, guid: 2159d29ee7d775543b3b442e4eb061cf, type: 3}
       propertyPath: m_RootOrder
@@ -2885,6 +2885,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 135067196565591905, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
+      propertyPath: stagePattern.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 135067196565591905, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
+      propertyPath: stagePattern.Array.data[0]
+      value: 
+      objectReference: {fileID: 5181333915861248551, guid: a8c824d5d93fb144299dd590fa355767, type: 3}
+    - target: {fileID: 135067196565591905, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
+      propertyPath: stagePattern.Array.data[1]
+      value: 
+      objectReference: {fileID: 8541841497323246, guid: b206c8854bf16be47b992badfbf96692, type: 3}
+    - target: {fileID: 135067196565591905, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
+      propertyPath: stagePattern.Array.data[2]
+      value: 
+      objectReference: {fileID: 6262207211834273875, guid: 318567b2b4fcc2448bd89fc91cf28e04, type: 3}
     - target: {fileID: 135067196565591906, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
       propertyPath: m_RootOrder
       value: 23
