@@ -46,6 +46,9 @@ public class PlayerDamage : MonoBehaviour
     private int myPlayerNo = 5;
     private enemy enemyScript = null;
 
+    [SerializeField]
+    private GameObject knockbackEffect = null;
+
 
 
     private void Start()
@@ -209,6 +212,7 @@ public class PlayerDamage : MonoBehaviour
 
             if (!currentDamage && !currentCapture)
             {
+                Instantiate(knockbackEffect, other.transform.position, other.transform.rotation);
                 CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
             }
         }

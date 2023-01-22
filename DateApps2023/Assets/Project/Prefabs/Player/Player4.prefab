@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitTime: 0.5
+  attackEffect: {fileID: 8460667080445658512, guid: a3e2c3406e02f2c4ba86cfb1604277bd, type: 3}
 --- !u!1 &97687718823558519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1016,7 @@ MonoBehaviour:
   EndStanCount: 3
   EndCaptureCount: 1
   stanBoxCol: {fileID: 7255117873455938838}
+  knockbackEffect: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
 --- !u!136 &7644300349639810741
 CapsuleCollider:
   m_ObjectHideFlags: 0

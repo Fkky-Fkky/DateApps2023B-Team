@@ -18,6 +18,9 @@ public class PlayerAttack : MonoBehaviour
 
     private bool myAttack = false;
 
+    [SerializeField]
+    private GameObject attackEffect = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +59,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", true);
         boxCol.enabled = true;
         playerMove.StartAttack();
+        Instantiate(attackEffect, this.transform.position, this.transform.rotation);
         myAttack = true;
     }
 
