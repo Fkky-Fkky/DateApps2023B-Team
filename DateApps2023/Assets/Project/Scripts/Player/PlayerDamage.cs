@@ -43,6 +43,10 @@ public class PlayerDamage : MonoBehaviour
     private int knockCount = 0;
     //private bool onlyKnock = true;
 
+    private int myPlayerNo = 5;
+    private enemy enemyScript = null;
+
+
 
     private void Start()
     {
@@ -193,6 +197,8 @@ public class PlayerDamage : MonoBehaviour
         }
 
         currentCapture = true;
+        enemyScript = null;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -206,12 +212,31 @@ public class PlayerDamage : MonoBehaviour
                 CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
             }
         }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemyScript = other.gameObject.GetComponent<enemy>();
+            if (!currentDamage && myPlayerNo == enemyScript.rnd)
+            {
+                CallCapture();
+            }
+            else
+            {
+                enemyScript = null;
+            }
+
+        }
     }
 
     public void CallKnockBack(Transform knockPos)
     {
         var distination = (transform.position - knockPos.position).normalized;
         transform.position += distination * knockBackPower;
+    }
+
+    public void GetPlayerNo(int myNumber)
+    {
+        myPlayerNo = myNumber;
     }
 
 }
