@@ -5,17 +5,11 @@ using UnityEngine;
 public class CannonStand : MonoBehaviour
 {
     public bool IsConnect { get; private set; }
-
-    private Vector3 connectCannonPos;
+    
     private Transform cannonTransform = null;
     
     private const float CANNON_POS_Y = -0.3f;
     
-    private void Start()
-    {
-        connectCannonPos = new Vector3(transform.position.x, CANNON_POS_Y, transform.position.z);
-    }
-
     private void Update()
     {
         if (!IsConnect)
@@ -23,7 +17,7 @@ public class CannonStand : MonoBehaviour
             return;
         }
 
-        if(connectCannonPos.y < cannonTransform.position.y)
+        if(CANNON_POS_Y < cannonTransform.position.y)
         {
             CannonCut();
         }
@@ -42,7 +36,8 @@ public class CannonStand : MonoBehaviour
     private void CannontConnect()
     {
         IsConnect = true;
-        cannonTransform.position = connectCannonPos;
+        Vector3 connectPos = new Vector3(cannonTransform.position.x, CANNON_POS_Y, cannonTransform.position.z);
+        cannonTransform.position = connectPos;
         cannonTransform.rotation = transform.rotation;
     }
 
