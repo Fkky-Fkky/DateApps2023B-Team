@@ -8,6 +8,14 @@ public class Beam : MonoBehaviour
     [SerializeField]
     float beamSpeed;
 
+    float centerTarget = 0.0f;
+    float rightTarget = 0.1f;
+    float leftTarget = -0.1f;
+
+    bool isDestroy;
+    float time = 0.0f;
+    float destroyTime = 0.5f;
+
 
     [SerializeField]
     GameObject targetC;
@@ -18,17 +26,14 @@ public class Beam : MonoBehaviour
     [SerializeField]
     GameObject targetL;
 
-    float centerTarget =  0.0f;
-    float rightTarget  =  0.1f;
-    float leftTarget   = -0.1f;
+    
 
-    bool isDestroy;
-    float time = 0.0f;
-    float destroyTime = 0.5f;
 
     private void Start()
     {
+        targetC.SetActive(false);
         isDestroy = false;
+
     }
 
     // Update is called once per frame
@@ -61,8 +66,11 @@ public class Beam : MonoBehaviour
                 );
         }
 
+
+
         BeamDestroy();
     }
+
 
     private void BeamDestroy()
     {
@@ -78,7 +86,9 @@ public class Beam : MonoBehaviour
             time += Time.deltaTime;
             if (time > destroyTime)
             {
+
                 Destroy(gameObject);
+                isDestroy= false;
                 time= 0;
             }
         }

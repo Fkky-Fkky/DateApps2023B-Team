@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossModel: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  bossInterval: 10
