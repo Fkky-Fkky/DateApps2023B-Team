@@ -49,7 +49,21 @@ public class PlayerDamage : MonoBehaviour
     [SerializeField]
     private GameObject knockbackEffect = null;
 
+    [SerializeField]
+    private GameObject stanEffect = null;
+    private GameObject cloneStanEffect = null;
 
+    [SerializeField]
+    private float damageEffectInterval = 1.75f;
+
+    [SerializeField]
+    private Transform damageStanPoint = null;
+
+    [SerializeField]
+    private float damageEffectPosY = -2.0f;
+
+    [SerializeField]
+    private float captureEffectPosY = -0.75f;
 
     private void Start()
     {
@@ -65,17 +79,13 @@ public class PlayerDamage : MonoBehaviour
 
         knockCount = 0;
         stanBoxCol.enabled = false;
+
     }
 
     private void Update()
     {
         if (currentDamage)
         {
-            if (!doCouroutine)
-            {
-                doCouroutine = true;
-            }
-
             time += Time.deltaTime;
             this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
 
@@ -87,6 +97,8 @@ public class PlayerDamage : MonoBehaviour
                 capsuleCol.enabled = true;
                 if (doCouroutine)
                 {
+                    Destroy(cloneStanEffect);
+                    cloneStanEffect = null;
                     this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
                     defaultPosY,
@@ -102,6 +114,15 @@ public class PlayerDamage : MonoBehaviour
                 playerCarryDown.carryDamage = false;
                 currentDamage = false;
 
+            }else if(time >= damageEffectInterval)
+            {
+                if (!doCouroutine)
+                {
+                    Vector3 InstantPos = damageStanPoint.position;
+                    InstantPos.y = damageEffectPosY;
+                    cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
+                    doCouroutine = true;
+                }
             }
         }
 
@@ -123,6 +144,8 @@ public class PlayerDamage : MonoBehaviour
                 capsuleCol.enabled = true;
                 if (doCouroutine)
                 {
+                    Destroy(cloneStanEffect);
+                    cloneStanEffect = null;
                     this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
                     defaultPosY,
@@ -154,6 +177,12 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallDamage()
     {
+        if(cloneStanEffect != null)
+        {
+            Destroy(cloneStanEffect);
+            cloneStanEffect = null;
+        }
+
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
@@ -180,6 +209,12 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallCapture()
     {
+        if (cloneStanEffect != null)
+        {
+            Destroy(cloneStanEffect);
+            cloneStanEffect = null;
+        }
+
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
@@ -193,6 +228,10 @@ public class PlayerDamage : MonoBehaviour
 
         DamagePosX = this.gameObject.transform.position.x;
         DamagePosZ = this.gameObject.transform.position.z;
+
+        Vector3 InstantPos = this.gameObject.transform.position;
+        InstantPos.y = captureEffectPosY;
+        cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
 
         knockCount = 0;
 

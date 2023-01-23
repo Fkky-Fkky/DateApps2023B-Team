@@ -888,6 +888,14 @@ PrefabInstance:
       propertyPath: captureTime
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+      propertyPath: stanEffectPosY
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+      propertyPath: captureEffectPosY
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
 --- !u!1 &651367995 stripped
@@ -1423,6 +1431,14 @@ PrefabInstance:
     - target: {fileID: 7916477825766917937, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: captureTime
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
+      propertyPath: stanEffectPosY
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
+      propertyPath: captureEffectPosY
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
@@ -2184,6 +2200,14 @@ PrefabInstance:
       propertyPath: AnimationImage
       value: 
       objectReference: {fileID: 1342934108}
+    - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
+      propertyPath: stanEffectPosY
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
+      propertyPath: captureEffectPosY
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
 --- !u!95 &1342934108 stripped
@@ -2290,6 +2314,14 @@ PrefabInstance:
     - target: {fileID: 7916477825766917937, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: captureTime
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
+      propertyPath: stanEffectPosY
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
+      propertyPath: captureEffectPosY
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
