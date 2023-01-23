@@ -113,6 +113,8 @@ public class PlayerMove : MonoBehaviour
         {
             moveSpeed = slowMoveSpeed;
         }
+
+       
     }
 
     private void OnCollisionStay(Collision collision)

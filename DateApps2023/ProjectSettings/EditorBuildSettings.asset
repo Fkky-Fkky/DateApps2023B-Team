@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/StartScene.unity
     guid: 516595733ff0092408f732fba3fc3e76
   - enabled: 1
-    path: Assets/Project/Scenes/CannonTestScene.unity
+    path: Assets/Project/Scenes/new stage TestScene.unity
     guid: 4a5b4ba0fdeccbf4da96c7b0eb5dbbe5
   - enabled: 0
     path: Assets/Project/Scenes/StageTempTestScene.unity

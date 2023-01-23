@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class PlayerAttack : MonoBehaviour
     float time = 0;
 
     private bool myAttack = false;
+
+    [SerializeField] private Transform player;
+
+    //[SerializeField]
+    //public enemy enemy_hit;
 
     // Start is called before the first frame update
     void Start()
@@ -71,4 +77,20 @@ public class PlayerAttack : MonoBehaviour
     {
         myPlayerNo = parentNumber;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("123");
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (!rb)
+                return;
+
+            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
+            //rb.AddForce(pw, ForceMode.Impulse);
+            rb.AddForce(player.forward * 10f, ForceMode.VelocityChange);
+        }
+    }
+    
 }
