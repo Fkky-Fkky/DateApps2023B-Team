@@ -62,7 +62,7 @@ public class CannonSwitch : MonoBehaviour
             return false;
         }
 
-        if (!energyCharge.IsEnergyCharge())
+        if (!energyCharge.IsEnergyCharged())
         {
             return false;
         }

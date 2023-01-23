@@ -50,7 +50,7 @@ public class EnergyCharge : MonoBehaviour
         boxCol.enabled = true;
     }
 
-    public bool IsEnergyCharge()
+    public bool IsEnergyCharged()
     {
         return Energy > 0;
     }
