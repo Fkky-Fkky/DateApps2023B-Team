@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnergyCharge : MonoBehaviour
 {
-    private GameObject destroyItem = null;
     private BoxCollider boxCol = null;
     const int MAX_ENERGY = 3;
     const int ADD_ENERGY = 1;
@@ -23,8 +22,12 @@ public class EnergyCharge : MonoBehaviour
         {
             return;
         }
-        destroyItem = other.gameObject;
-        destroyItem.GetComponent<hantei>().DestroyMe();
+
+        if (other.transform.parent == null)
+        {
+            return;
+        }
+        other.GetComponent<hantei>().DestroyMe();
         ChargeEnergy();
     }
 
