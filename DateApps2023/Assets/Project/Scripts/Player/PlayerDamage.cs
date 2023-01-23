@@ -93,6 +93,7 @@ public class PlayerDamage : MonoBehaviour
                     this.gameObject.transform.position.z
                     );
                     AnimationImage.SetBool("Damage", false);
+                    AnimationImage.SetBool("Capture", false);
 
                     doCouroutine = false;
                 }
@@ -128,6 +129,7 @@ public class PlayerDamage : MonoBehaviour
                     this.gameObject.transform.position.z
                     );
                     AnimationImage.SetBool("Damage", false);
+                    AnimationImage.SetBool("Capture", false);
 
                     doCouroutine = false;
                 }
@@ -140,25 +142,24 @@ public class PlayerDamage : MonoBehaviour
         }
 
         ////デバッグ用コマンド　C：拘束　D：ダメージ
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    CallCapture();
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    CallDamage();
-        //}
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CallCapture();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            CallDamage();
+        }
     }
 
     public void CallDamage()
     {
-        Debug.Log("anpanan");
-
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
         AnimationImage.SetBool("Carry", false);
         AnimationImage.SetBool("CarryMove", false);
+        AnimationImage.SetBool("Capture", false);
         AnimationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
@@ -184,7 +185,8 @@ public class PlayerDamage : MonoBehaviour
 
         AnimationImage.SetBool("Carry", false);
         AnimationImage.SetBool("CarryMove", false);
-        AnimationImage.SetBool("Damage", true);
+        AnimationImage.SetBool("Damage", false);
+        AnimationImage.SetBool("Capture", true);
 
         playerMove.PlayerDamage();
         playerCarryDown.carryDamage = true;

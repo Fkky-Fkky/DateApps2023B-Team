@@ -877,9 +877,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+      propertyPath: stanTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: myMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 6f2922518029afa498a905147fb5b99e, type: 2}
+    - target: {fileID: 7916477825766917937, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+      propertyPath: captureTime
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
 --- !u!1 &651367995 stripped
@@ -1407,6 +1415,14 @@ PrefabInstance:
     - target: {fileID: 6642304097403980634, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
+      propertyPath: stanTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
+      propertyPath: captureTime
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
@@ -2157,6 +2173,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
+      propertyPath: stanTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
+      propertyPath: captureTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: AnimationImage
       value: 
       objectReference: {fileID: 1342934108}
@@ -2258,6 +2282,14 @@ PrefabInstance:
     - target: {fileID: 6642304097403980634, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
+      propertyPath: stanTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916477825766917937, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
+      propertyPath: captureTime
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
