@@ -8,6 +8,9 @@ public class BossMove : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField]
+    int bossHp;
+
+    [SerializeField]
     [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]
     private float moveSpeed = 5.0f;
 
