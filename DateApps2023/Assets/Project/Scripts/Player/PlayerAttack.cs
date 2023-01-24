@@ -21,6 +21,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private GameObject attackEffect = null;
 
+    [SerializeField]
+    private Transform effectPos = null;
+
+    [SerializeField]
+    private GameObject fistObject = null;
+    [SerializeField]
+    private Transform fistPos = null;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +68,9 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", true);
         boxCol.enabled = true;
         playerMove.StartAttack();
-        Instantiate(attackEffect, this.transform.position, this.transform.rotation);
+        Instantiate(attackEffect, effectPos.position, this.transform.rotation);
+        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+
         myAttack = true;
     }
 
@@ -68,6 +79,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", false);
         boxCol.enabled = false;
         playerMove.EndAttack();
+
         myAttack = false;
     }
 

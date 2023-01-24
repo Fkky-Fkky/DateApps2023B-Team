@@ -253,7 +253,7 @@ public class PlayerDamage : MonoBehaviour
 
             if (!currentDamage && !currentCapture)
             {
-                Instantiate(knockbackEffect, other.transform.position, other.transform.rotation);
+                Instantiate(knockbackEffect, this.transform.position, other.transform.rotation);
                 CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
             }
         }
