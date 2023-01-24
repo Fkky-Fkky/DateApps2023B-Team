@@ -56,7 +56,7 @@ public class BossMove : MonoBehaviour
             bossHp -= 1;
         }
 
-        if (bossHp < 0)
+        if (bossHp <= 0)
         {
             bossCount.bossKillCount++;
             Destroy(gameObject.gameObject);
