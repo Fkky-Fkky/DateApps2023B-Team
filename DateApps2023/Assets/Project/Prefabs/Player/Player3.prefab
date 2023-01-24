@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitTime: 0.5
+  attackEffect: {fileID: 8460667080445658512, guid: a3e2c3406e02f2c4ba86cfb1604277bd, type: 3}
 --- !u!1 &408052079998776407
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +686,37 @@ Transform:
   m_Father: {fileID: 5308758720019756818}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6431378970772002780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 747593582066731271}
+  m_Layer: 0
+  m_Name: StanEffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &747593582066731271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431378970772002780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6642304097403980633}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6642304097403980634
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +754,7 @@ Transform:
   - {fileID: 5308758720019756818}
   - {fileID: 7572727731041616123}
   - {fileID: 1477818418}
+  - {fileID: 747593582066731271}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -794,6 +827,12 @@ MonoBehaviour:
   EndStanCount: 3
   EndCaptureCount: 1
   stanBoxCol: {fileID: 3892457421331143132}
+  knockbackEffect: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
+  stanEffect: {fileID: 5659291355382750488, guid: b3db7d4d711f94d4796743baa5ba7a38, type: 3}
+  damageEffectInterval: 1.75
+  damageStanPoint: {fileID: 747593582066731271}
+  damageEffectPosY: -2
+  captureEffectPosY: -0.75
 --- !u!136 &7644300349639810741
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public class enemy : MonoBehaviour
     // エージェントをキャッシュしておく用
     private NavMeshAgent _agent;
 
-    int rnd;
+    public int rnd;
 
     void Start()
     {
@@ -131,8 +131,8 @@ public class enemy : MonoBehaviour
       
     }
 
-    public void OnattackCollider()
-    {
-        PlayerDamage[rnd].CallDamage();
-    }
+    //public void OnattackCollider()
+    //{
+    //    PlayerDamage[rnd].CallDamage();
+    //}
 }

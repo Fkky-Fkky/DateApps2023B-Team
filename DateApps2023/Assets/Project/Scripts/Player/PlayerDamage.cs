@@ -43,6 +43,27 @@ public class PlayerDamage : MonoBehaviour
     private int knockCount = 0;
     //private bool onlyKnock = true;
 
+    private int myPlayerNo = 5;
+    private enemy enemyScript = null;
+
+    [SerializeField]
+    private GameObject knockbackEffect = null;
+
+    [SerializeField]
+    private GameObject stanEffect = null;
+    private GameObject cloneStanEffect = null;
+
+    [SerializeField]
+    private float damageEffectInterval = 1.75f;
+
+    [SerializeField]
+    private Transform damageStanPoint = null;
+
+    [SerializeField]
+    private float damageEffectPosY = -2.0f;
+
+    [SerializeField]
+    private float captureEffectPosY = -0.75f;
 
     private void Start()
     {
@@ -58,17 +79,13 @@ public class PlayerDamage : MonoBehaviour
 
         knockCount = 0;
         stanBoxCol.enabled = false;
+
     }
 
     private void Update()
     {
         if (currentDamage)
         {
-            if (!doCouroutine)
-            {
-                doCouroutine = true;
-            }
-
             time += Time.deltaTime;
             this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
 
@@ -80,12 +97,15 @@ public class PlayerDamage : MonoBehaviour
                 capsuleCol.enabled = true;
                 if (doCouroutine)
                 {
+                    Destroy(cloneStanEffect);
+                    cloneStanEffect = null;
                     this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
                     defaultPosY,
                     this.gameObject.transform.position.z
                     );
                     AnimationImage.SetBool("Damage", false);
+                    AnimationImage.SetBool("Capture", false);
 
                     doCouroutine = false;
                 }
@@ -94,6 +114,15 @@ public class PlayerDamage : MonoBehaviour
                 playerCarryDown.carryDamage = false;
                 currentDamage = false;
 
+            }else if(time >= damageEffectInterval)
+            {
+                if (!doCouroutine)
+                {
+                    Vector3 InstantPos = damageStanPoint.position;
+                    InstantPos.y = damageEffectPosY;
+                    cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
+                    doCouroutine = true;
+                }
             }
         }
 
@@ -115,12 +144,15 @@ public class PlayerDamage : MonoBehaviour
                 capsuleCol.enabled = true;
                 if (doCouroutine)
                 {
+                    Destroy(cloneStanEffect);
+                    cloneStanEffect = null;
                     this.gameObject.transform.position = new Vector3(
                     this.gameObject.transform.position.x,
                     defaultPosY,
                     this.gameObject.transform.position.z
                     );
                     AnimationImage.SetBool("Damage", false);
+                    AnimationImage.SetBool("Capture", false);
 
                     doCouroutine = false;
                 }
@@ -133,25 +165,30 @@ public class PlayerDamage : MonoBehaviour
         }
 
         ////デバッグ用コマンド　C：拘束　D：ダメージ
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    CallCapture();
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    CallDamage();
-        //}
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CallCapture();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            CallDamage();
+        }
     }
 
     public void CallDamage()
     {
-        Debug.Log("anpanan");
+        if(cloneStanEffect != null)
+        {
+            Destroy(cloneStanEffect);
+            cloneStanEffect = null;
+        }
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
         AnimationImage.SetBool("Carry", false);
         AnimationImage.SetBool("CarryMove", false);
+        AnimationImage.SetBool("Capture", false);
         AnimationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
@@ -172,18 +209,29 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallCapture()
     {
+        if (cloneStanEffect != null)
+        {
+            Destroy(cloneStanEffect);
+            cloneStanEffect = null;
+        }
+
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
         AnimationImage.SetBool("Carry", false);
         AnimationImage.SetBool("CarryMove", false);
-        AnimationImage.SetBool("Damage", true);
+        AnimationImage.SetBool("Damage", false);
+        AnimationImage.SetBool("Capture", true);
 
         playerMove.PlayerDamage();
         playerCarryDown.carryDamage = true;
 
         DamagePosX = this.gameObject.transform.position.x;
         DamagePosZ = this.gameObject.transform.position.z;
+
+        Vector3 InstantPos = this.gameObject.transform.position;
+        InstantPos.y = captureEffectPosY;
+        cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
 
         knockCount = 0;
 
@@ -193,6 +241,8 @@ public class PlayerDamage : MonoBehaviour
         }
 
         currentCapture = true;
+        enemyScript = null;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -203,8 +253,23 @@ public class PlayerDamage : MonoBehaviour
 
             if (!currentDamage && !currentCapture)
             {
+                Instantiate(knockbackEffect, other.transform.position, other.transform.rotation);
                 CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
             }
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemyScript = other.gameObject.GetComponent<enemy>();
+            if (!currentDamage && myPlayerNo == enemyScript.rnd)
+            {
+                CallCapture();
+            }
+            else
+            {
+                enemyScript = null;
+            }
+
         }
     }
 
@@ -212,6 +277,11 @@ public class PlayerDamage : MonoBehaviour
     {
         var distination = (transform.position - knockPos.position).normalized;
         transform.position += distination * knockBackPower;
+    }
+
+    public void GetPlayerNo(int myNumber)
+    {
+        myPlayerNo = myNumber;
     }
 
 }
