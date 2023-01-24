@@ -39,7 +39,7 @@ public class enemy_j : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spider_time += Time.deltaTime;
+        //spider_time += Time.deltaTime;
         if(spider_time >= spider_spoan_time && rnd==1) 
         {
             spider_time = 0;
