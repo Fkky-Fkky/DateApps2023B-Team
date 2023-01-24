@@ -59,7 +59,7 @@ public class GenerateEnergy : MonoBehaviour
                 miss++;
             }
 
-            if (miss > 10)
+            if (miss > 30)
             {
                 break;
             }
