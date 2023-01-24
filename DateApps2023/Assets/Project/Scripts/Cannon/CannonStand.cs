@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CannonStand : MonoBehaviour
 {
+    [SerializeField]
+    GameObject connectEffect = null;
+
+    [SerializeField]
+    private Transform effectPos = null;
+
+
     public bool IsConnect { get; private set; }
     
     private Transform cannonTransform = null;
@@ -39,6 +46,7 @@ public class CannonStand : MonoBehaviour
         Vector3 connectPos = new Vector3(cannonTransform.position.x, CANNON_POS_Y, cannonTransform.position.z);
         cannonTransform.position = connectPos;
         cannonTransform.rotation = transform.rotation;
+        Instantiate(connectEffect, effectPos.position, Quaternion.identity);
     }
 
     private void CannonCut()

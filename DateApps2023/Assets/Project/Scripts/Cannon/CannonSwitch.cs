@@ -71,7 +71,6 @@ public class CannonSwitch : MonoBehaviour
         {
             return false;
         }
-
         return true;
     }
 

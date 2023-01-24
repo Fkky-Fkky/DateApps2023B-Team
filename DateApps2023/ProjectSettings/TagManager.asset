@@ -21,6 +21,7 @@ TagManager:
   - PlayerAttackPoint
   - item4
   - BossAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX
