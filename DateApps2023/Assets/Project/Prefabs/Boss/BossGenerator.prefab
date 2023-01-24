@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131905478442208739}
   - component: {fileID: 131905478442208736}
+  - component: {fileID: 8262618935548590350}
   m_Layer: 0
   m_Name: BossGenerator
   m_TagString: Untagged
@@ -46,3 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossModel: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
   bossInterval: 10
+--- !u!114 &8262618935548590350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131905478442208737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossKillCount: 0

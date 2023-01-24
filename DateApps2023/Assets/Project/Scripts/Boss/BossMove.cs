@@ -7,8 +7,12 @@ public class BossMove : MonoBehaviour
 {
     private Rigidbody rb;
 
+
     [SerializeField]
     int bossHp;
+
+    public BossAttack bossAttack;
+    public BossCount bossCount;
 
     [SerializeField]
     [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]
@@ -28,7 +32,6 @@ public class BossMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //rb.velocity -= new Vector3(0.0f, 0.0f, moveSpeed * Time.deltaTime);
         if(!damageFlag)
         {
             Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
@@ -38,13 +41,25 @@ public class BossMove : MonoBehaviour
 
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
 
-            Vector3 p = new Vector3(0f, 0f, moveSpeed * Time.deltaTime);
-
-            transform.Translate(p);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                target.transform.position,
+                moveSpeed * Time.deltaTime
+                );
         }
         else
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        }
+
+        if(Input.GetMouseButtonDown(1)) {
+            bossHp -= 1;
+        }
+
+        if (bossHp < 0)
+        {
+            bossCount.bossKillCount++;
+            Destroy(gameObject.gameObject);
         }
     }
 

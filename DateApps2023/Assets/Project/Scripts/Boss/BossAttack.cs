@@ -14,6 +14,9 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     public GameObject beamObject;
 
+    [SerializeField]
+    Animator attackAnimation = null;
+
 
     float centerTarget = 0.0f;
     float rightTarget = 0.1f;
@@ -36,7 +39,7 @@ public class BossAttack : MonoBehaviour
     float areaDestroyTime = 0.0f;
     float areaDestroyTimeMax = 0.5f;
 
-
+    public bool isAttack;
 
     private void Start()
     {
@@ -51,12 +54,9 @@ public class BossAttack : MonoBehaviour
             damageTime += Time.deltaTime;
             if (damageTime >= damageTimeMax)
             {
+                //attackAnimation.SetBool("Attack", true);
                 DamageAreaControl();
             }
-            //Vector3 pos = this.transform.position;
-            //pos.y = 0;
-            //Instantiate(beamObject, pos, Quaternion.identity);
-            //time = 0.0f;
 
         }
 
@@ -95,7 +95,7 @@ public class BossAttack : MonoBehaviour
         areaDestroyTime += Time.deltaTime;
         if (areaDestroyTime >= areaDestroyTimeMax)
         {
-
+            //attackAnimation.SetBool("Attack", false);
             damageTime = 0.0f;
             areaCount = 0;
             areaDestroyTime = 0.0f;

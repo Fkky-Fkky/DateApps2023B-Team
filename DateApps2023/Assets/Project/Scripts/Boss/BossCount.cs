@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossCount : MonoBehaviour
 {
-    int bossKillCount;
+    public int bossKillCount;
     // Start is called before the first frame update
     void Start()
     {

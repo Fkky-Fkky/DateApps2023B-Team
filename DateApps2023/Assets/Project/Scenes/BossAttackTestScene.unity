@@ -513,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossModel
       value: 
-      objectReference: {fileID: 651367995}
+      objectReference: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
     - target: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossInterval
       value: 10
@@ -969,6 +969,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6907194322903773649, guid: a39ee6fcdfcedf5439654acfce19b228, type: 3}
   m_PrefabInstance: {fileID: 1835699846}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &748238741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8262618935548590350, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+  m_PrefabInstance: {fileID: 161668958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &756329471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3490875008881636801, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
@@ -1196,9 +1207,17 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1648196746715476545, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+      propertyPath: bossHp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648196746715476545, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 720696453}
+    - target: {fileID: 1648196746715476545, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+      propertyPath: bossCount
+      value: 
+      objectReference: {fileID: 748238741}
     - target: {fileID: 1648196746715476545, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: moveSpeed
       value: 1
@@ -1353,7 +1372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: attackIntervalTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2403555630710928110, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: m_Depth

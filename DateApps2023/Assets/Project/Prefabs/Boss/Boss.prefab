@@ -931,12 +931,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65e6744090faeb0459472457f08c3f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss_hp: 0
   target: {fileID: 0}
   BossDistanceTMP: {fileID: 0}
   sceneName: GameoverScene
@@ -968,8 +967,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8cc92c29a0b84faa73b36b8d3d196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossHp: 3
+  bossAttack: {fileID: 0}
+  bossCount: {fileID: 8262618935548590350, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
   moveSpeed: 5
-  target: {fileID: 0}
+  target: {fileID: 5220305299871190883, guid: ee67ba263eaeffd4392518bac9d3290d, type: 3}
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,11 +985,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackIntervalTime: 20
-  attackInterval: 0.5
   beamObject: {fileID: 2826176851657174157, guid: 463cd4ddbc9b9df4f9eb489e2ffd30f8, type: 3}
+  attackAnimation: {fileID: 1697093568606495979}
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
   damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
+  isAttack: 0
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0
