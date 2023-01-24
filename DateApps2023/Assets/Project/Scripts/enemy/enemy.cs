@@ -20,7 +20,7 @@ public class enemy : MonoBehaviour
     //攻撃の当たり判定
     private Collider AttackCollider;
 
-    [SerializeField] private Transform[] playerTransform; 
+    [SerializeField] private GameObject[] playerTransform; 
 
     [SerializeField] private Transform Centerpoint;
 
@@ -51,8 +51,7 @@ public class enemy : MonoBehaviour
 
     float wl_time = 0;
 
-
-
+    bool noattck = false;
 
     //BoxCollider boxCol;
 
@@ -64,9 +63,9 @@ public class enemy : MonoBehaviour
 
     private Rigidbody rb;
 
-    private NavMeshAgent _agent;
+    NavMeshAgent _agent;
 
-    int rnd;
+    int rnd = 0;
 
     int x;
     int z;
@@ -75,6 +74,7 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+
         gameState = summon.start;
 
         //口の当たり判定の設定
@@ -89,7 +89,7 @@ public class enemy : MonoBehaviour
         animator.SetTrigger("idle");
 
         //プレイヤーのランダム変数
-        rnd = Random.Range(0, 3);
+        //rnd = Random.Range(0, 3);
         //Navを取得
        _agent = this.GetComponent<NavMeshAgent>();
         //NavMeshAgent nav = this. GetComponent<NavMeshAgent>();
@@ -109,6 +109,7 @@ public class enemy : MonoBehaviour
         Transform myTransform = this.transform;
         Vector3 pos = myTransform.position;
         Quaternion rot = transform.rotation;
+
         #region 出現
 
         if (gameState == summon.start)
@@ -116,7 +117,7 @@ public class enemy : MonoBehaviour
             work = 1;
             move = 4;
             gameState = summon.climbing;
-            myTransform.Rotate(270, 0f, 0f);
+            myTransform.Rotate(-90, 0f, 0f);
         }
         //y8.5
         else if(gameState == summon.climbing)
@@ -125,15 +126,15 @@ public class enemy : MonoBehaviour
             //climbing_speed
             if (pos.y >= -1.2)
             {
-
-                if(pos.x>0)
+                if (pos.x>0)
                 {
+                    
                     rb.useGravity = true;
                     Vector3 force = new Vector3(-2.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
                 }
 
-                else if(pos.x<=0)
+                else if(pos.x<0)
                 {
                     rb.useGravity = true;
                     Vector3 force = new Vector3(2.0f, 15.0f, 0.0f);
@@ -146,19 +147,20 @@ public class enemy : MonoBehaviour
         //空中での回転
          else if (gameState == summon.jump)
         {
-            StartCoroutine(Onturn());
-            if (rot.x >= 0)
-            { 
-               gameState = summon.landing;
-               rb.constraints = RigidbodyConstraints.FreezeRotation;
+           if(pos.y>=5)
+           {           
+                StartCoroutine(Onturn());
+                gameState = summon.landing;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
 
-        else if(gameState==summon.landing)
+        else if(gameState == summon.landing)
         {
             //着地
             if(pos.y<=0)
             {
+                work = 0;
                 _agent.enabled = true;
                 gameState = summon.end;
             }
@@ -170,7 +172,10 @@ public class enemy : MonoBehaviour
 
         if (work == 0)
         {
-            //_agent.destination = playerTransform[rnd].transform.position;
+            Debug.Log("選ばれたプレイヤー");
+            Debug.Log(rnd);
+            // agent.destination = target.transform.position;
+            _agent.destination = playerTransform[rnd].transform.position;
         }
 
         attck_time += Time.deltaTime;
@@ -186,7 +191,7 @@ public class enemy : MonoBehaviour
             work = 1;
         }
 
-        if (attck_time >= 0.9 && move == 0)
+        if (attck_time >= 0.9 && move == 0&&noattck!=true)
         {
             AttackCollider.enabled = true;
         }
@@ -199,55 +204,79 @@ public class enemy : MonoBehaviour
         {
             rast_timer += Time.deltaTime;
         }
-
-        if(rast_timer>=2)
+      //退場
+        if (rast_timer>=2)
         {
-            
+            AttackCollider.enabled = false;
+            noattck = true;
             animator.SetTrigger("idle");
-            //_agent.destination = rirurnTransform.transform.position;
-            if(pos.z<=-120)
+           _agent.destination = rirurnTransform.transform.position;
+
+            //_agent.enabled = false;
+
+            if (pos.z<=-120)
             {
                 Destroy(gameObject);
             }
         }
         #endregion
 
-        if(pos.y>=17)
+        if (pos.y <= -40)
             Destroy(gameObject);
 
-        if (_agent == false||
-             gameState == summon.end)
-        {
-            wl_time+=Time.deltaTime;
-            if(wl_time>=5)
-            {
-               _agent.enabled = true;
-                wl_time = 0;
-            }
-
-        }
-        //if(_agent==true)
-        //    wl_time = 0;
         
 
+        //ノックバック時の壁に当たった時の処理
+        if (_agent.enabled == false　&&　gameState == summon.end)
+        {
+            wl_time+=Time.deltaTime;
+            if(wl_time>=3.0f)
+            {
+               _agent.enabled = true;
+               wl_time = 0;
+            }
+        }
     }
 
     //空中の回転
     IEnumerator Onturn()
     {
         Transform myTransform = this.transform;
-
         yield return new WaitForSeconds(1);
         for (int i = 1; i < 9; i += 1)
         {
             myTransform.Rotate(new Vector3(10, 0, 0));
             yield return new WaitForSeconds(0.05f);
         }
+        
+    }
+
+    IEnumerator Onex()
+    {
+       
+        for (int i = 1; i < 9; i += 1)
+        {
+            this.transform.position += new Vector3(0, 0, -0.5f);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Wall")&&
+            gameState == summon.end&&
+            noattck==true)
+        {
+            Debug.Log("Wall");
+            _agent.enabled = false;
+            StartCoroutine(Onex());
+            
+        }
     }
 
     void OnCollisionEnter(Collision collision)//Trigger
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject == playerTransform[rnd])
         {
             work = 1;
             move = 1;
@@ -255,11 +284,6 @@ public class enemy : MonoBehaviour
             rast_timer_flag = 1;
             animator.SetTrigger("attckidle");
         }
-
-        //if (collision.gameObject.CompareTag("PlayerAttackPoint"))
-        //{
-           
-        //}
     }
 
     public void OnattackCollider()
