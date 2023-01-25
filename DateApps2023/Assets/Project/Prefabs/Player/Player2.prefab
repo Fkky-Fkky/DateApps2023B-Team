@@ -65,7 +65,7 @@ MonoBehaviour:
   effectPos: {fileID: 1238008730974303081}
   fistObject: {fileID: 8692326370387051740, guid: 71feb589912087e46beaa3904ceb1cbe, type: 3}
   fistPos: {fileID: 114753801796912019}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 96ce62a57e0bb834ebc573f169faf0cd, type: 3}
 --- !u!1 &151116467243988219
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4542332347472883343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0, z: -0.6}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1066,20 +1066,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6843f421259504c9834cd27fb284a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stanTime: 5
-  captureTime: 5
+  stanTime: 10
+  captureTime: 10
   knockBackPower: 0.2
   EndStanCount: 3
   EndCaptureCount: 1
   stanBoxCol: {fileID: 12537776404337732}
   knockbackEffect: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
   stanEffect: {fileID: 5659291355382750488, guid: b3db7d4d711f94d4796743baa5ba7a38, type: 3}
-  damageEffectInterval: 1.75
+  damageEffectInterval: 0.75
   damageStanPoint: {fileID: 2157883639207442247}
   damageEffectPosY: -2
-  captureEffectPosY: -0.75
-  stanSound: {fileID: 0}
-  knockbackSound: {fileID: 0}
+  captureEffectPosY: -1
+  stanSound: {fileID: 8300000, guid: 403f3593a66c77c44adb8b13932ebee0, type: 3}
+  knockbackSound: {fileID: 8300000, guid: 5085e4785f1fed94e85533beba9841c0, type: 3}
 --- !u!136 &7644300349639810741
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1374,13 +1374,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8483941467416996085}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.35, y: -0.3, z: -1}
+  m_LocalPosition: {x: 0, y: -0.3, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 270701663}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &8626080228239287132
 GameObject:
   m_ObjectHideFlags: 0
