@@ -44,7 +44,7 @@ public class BossDamage : MonoBehaviour
     //[SerializeField]
     //private float damageIntervalTime = 1.0f;
 
-    float effectPosY = 0.5f;
+    float effectPosY = -40.0f;
 
 
     // Start is called before the first frame update
