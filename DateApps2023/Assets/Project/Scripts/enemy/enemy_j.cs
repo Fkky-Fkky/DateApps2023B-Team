@@ -47,7 +47,7 @@ public class enemy_j : MonoBehaviour
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
             z = Random.Range(rangeA.position.z, rangeB.position.z);
-            Instantiate(spider, new Vector3(x, -15, z), spider.transform.rotation);
+            Instantiate(spider, new Vector3(x, -8, z), spider.transform.rotation);
             rnd = Random.Range(1, 3);
         }
 

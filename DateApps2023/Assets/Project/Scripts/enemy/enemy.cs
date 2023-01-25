@@ -25,6 +25,25 @@ public class enemy : MonoBehaviour
     [SerializeField] private Transform Centerpoint;
 
     [SerializeField] private Transform rirurnTransform;
+
+    [SerializeField]
+    [Tooltip("場外判定x")]
+    private int ex_x = 17;
+
+    [SerializeField]
+    [Tooltip("場外判定-x")]
+    private int ex_mx = -17;
+
+    [SerializeField]
+    [Tooltip("場外判定z")]
+    private int ex_z = 10;
+
+    [SerializeField]
+    [Tooltip("場外判定-z")]
+    private int ex_mz = -10;
+
+
+
     int move = 4;
     int work = 0;
 
@@ -48,6 +67,8 @@ public class enemy : MonoBehaviour
     float rast_timer =0;
     int rast_timer_flag=0;
     float attck_time = 0;
+
+    bool ex_flag = false;
 
     float wl_time = 0;
 
@@ -221,21 +242,29 @@ public class enemy : MonoBehaviour
         }
         #endregion
 
-        if (pos.y <= -40)
+        if (pos.y <= -10)
             Destroy(gameObject);
 
-        
-
-        //ノックバック時の壁に当たった時の処理
+        //ノックバック時に場外に行かなかった時の処理
         if (_agent.enabled == false　&&　gameState == summon.end)
         {
             wl_time+=Time.deltaTime;
-            if(wl_time>=3.0f)
+            if(wl_time >= 1.5f&&ex_flag == false)
             {
                _agent.enabled = true;
                wl_time = 0;
             }
         }
+
+
+        if (pos.x >= ex_x && gameState == summon.end||
+            pos.z >= ex_z && gameState == summon.end)
+            ex_flag = true;
+
+        if (pos.x <= ex_mx && gameState == summon.end ||
+            pos.z <= ex_mz && gameState == summon.end )
+            ex_flag = true;
+
     }
 
     //空中の回転
@@ -248,7 +277,6 @@ public class enemy : MonoBehaviour
             myTransform.Rotate(new Vector3(10, 0, 0));
             yield return new WaitForSeconds(0.05f);
         }
-        
     }
 
     IEnumerator Onex()
