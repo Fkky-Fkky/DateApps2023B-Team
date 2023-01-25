@@ -115,7 +115,7 @@ public class PlayerMove : MonoBehaviour
             EnterItem = true;
             ItemOfEnter = collision.gameObject;
         }
-        if (collision.gameObject.CompareTag("Group1")
+        else if (collision.gameObject.CompareTag("Group1")
            || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
            || collision.gameObject.CompareTag("Group4"))
