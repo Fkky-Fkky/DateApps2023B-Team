@@ -29,6 +29,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private Transform fistPos = null;
 
+    [SerializeField]
+    private AudioClip attackSound = null;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponentInParent<Animator>();
 
         playerMove = GetComponentInParent<PlayerMove>();
+        audioSource= GetComponentInParent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -70,6 +74,7 @@ public class PlayerAttack : MonoBehaviour
         playerMove.StartAttack();
         Instantiate(attackEffect, effectPos.position, this.transform.rotation);
         Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        audioSource.PlayOneShot(attackSound);
 
         myAttack = true;
     }

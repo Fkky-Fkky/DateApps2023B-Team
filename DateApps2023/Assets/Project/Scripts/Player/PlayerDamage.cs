@@ -65,17 +65,27 @@ public class PlayerDamage : MonoBehaviour
     [SerializeField]
     private float captureEffectPosY = -0.75f;
 
+    [SerializeField]
+    private AudioClip stanSound = null;
+
+    [SerializeField]
+    private AudioClip knockbackSound = null;
+
+    private AudioSource audioSource;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
-        capsuleCol = this.gameObject.GetComponent<CapsuleCollider>();
+        capsuleCol = GetComponent<CapsuleCollider>();
         AnimationImage = GetComponent<Animator>();
 
-        defaultPosY = this.gameObject.transform.position.y;
+        defaultPosY = transform.position.y;
 
-        playerMove = this.gameObject.GetComponent<PlayerMove>();
-        playerCarryDown = this.gameObject.GetComponentInChildren<PlayerCarryDown>();
+        playerMove = GetComponent<PlayerMove>();
+        playerCarryDown = GetComponentInChildren<PlayerCarryDown>();
+
+        audioSource = GetComponent<AudioSource>();
 
         knockCount = 0;
         stanBoxCol.enabled = false;
@@ -121,6 +131,8 @@ public class PlayerDamage : MonoBehaviour
                     Vector3 InstantPos = damageStanPoint.position;
                     InstantPos.y = damageEffectPosY;
                     cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
+                    audioSource.PlayOneShot(stanSound);
+
                     doCouroutine = true;
                 }
             }
@@ -194,8 +206,9 @@ public class PlayerDamage : MonoBehaviour
         playerMove.PlayerDamage();
         playerCarryDown.carryDamage = true;
 
-        DamagePosX = this.gameObject.transform.position.x;
-        DamagePosZ = this.gameObject.transform.position.z;
+        DamagePosX = transform.position.x;
+        DamagePosZ = transform.position.z;
+
 
         knockCount = 0;
 
@@ -232,6 +245,8 @@ public class PlayerDamage : MonoBehaviour
         Vector3 InstantPos = this.gameObject.transform.position;
         InstantPos.y = captureEffectPosY;
         cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
+        audioSource.PlayOneShot(stanSound);
+
 
         knockCount = 0;
 
@@ -275,8 +290,10 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallKnockBack(Transform knockPos)
     {
-        var distination = (transform.position - knockPos.position).normalized;
-        transform.position += distination * knockBackPower;
+        audioSource.PlayOneShot(knockbackSound);
+        //var distination = (transform.position - knockPos.position).normalized;
+        //transform.position += distination * knockBackPower;
+        rb.velocity = Vector3.zero;
     }
 
     public void GetPlayerNo(int myNumber)

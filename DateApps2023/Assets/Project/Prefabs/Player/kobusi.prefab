@@ -99,4 +99,4 @@ MonoBehaviour:
   startTime: 0.025
   endTime: 0.4
   intervalTime: 0.3
-  pushForward: 0.8
+  pushForward: 0.4
