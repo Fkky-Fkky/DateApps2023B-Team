@@ -5,7 +5,7 @@ using UnityEngine;
 public class CannonDamage : MonoBehaviour
 {
     [SerializeField]
-    EnergyCharge energyCharge = null;
+    private EnergyCharge energyCharge = null;
 
     private void OnTriggerEnter(Collider other)
     {

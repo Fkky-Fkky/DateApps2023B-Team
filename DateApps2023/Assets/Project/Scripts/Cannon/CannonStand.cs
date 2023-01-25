@@ -4,47 +4,19 @@ using UnityEngine;
 
 public class CannonStand : MonoBehaviour
 {
-    public bool IsConnect { get; private set; }
-    
-    private Transform cannonTransform = null;
-    
-    private const float CANNON_POS_Y = -0.3f;
-    
-    private void Update()
-    {
-        if (!IsConnect)
-        {
-            return;
-        }
+    [SerializeField]
+    private STAND_POSITION standPosition = STAND_POSITION.NONE;
 
-        if(CANNON_POS_Y < cannonTransform.position.y)
-        {
-            CannonCut();
-        }
+    public int ConnectingPos
+    {
+        get { return (int)standPosition; }
     }
 
-    private void OnTriggerEnter(Collider other)
+    enum STAND_POSITION
     {
-        if (!other.CompareTag("Cannon"))
-        {
-            return;
-        }
-        cannonTransform = other.transform;
-        CannontConnect();
-    }
-
-    private void CannontConnect()
-    {
-        IsConnect = true;
-        Vector3 connectPos = new Vector3(cannonTransform.position.x, CANNON_POS_Y, cannonTransform.position.z);
-        cannonTransform.position = connectPos;
-        cannonTransform.rotation = transform.rotation;
-    }
-
-    private void CannonCut()
-    {
-        IsConnect = false;
-        cannonTransform.rotation = Quaternion.identity;
-        cannonTransform = null;
+        LEFT,
+        CENTRE,
+        RIGHT,
+        NONE
     }
 }
