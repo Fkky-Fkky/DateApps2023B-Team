@@ -81,6 +81,8 @@ public class BossAttack : MonoBehaviour
                 isAttack = true;
                 DamageAreaControl();
             }
+
+
         }
     }
 
