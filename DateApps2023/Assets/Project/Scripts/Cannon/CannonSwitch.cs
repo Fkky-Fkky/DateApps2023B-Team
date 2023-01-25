@@ -11,7 +11,7 @@ public class CannonSwitch : MonoBehaviour
     private CannonShot cannonShot = null;
 
     [SerializeField]
-    private StandManager standManager = null;
+    private CannonConnect cannonConnect = null;
     
     private Vector3 defaultScale;
     private Vector3 switchOnScale;
@@ -67,7 +67,7 @@ public class CannonSwitch : MonoBehaviour
             return false;
         }
 
-        if (!standManager.IsConectingStand())
+        if (!cannonConnect.IsConnect)
         {
             return false;
         }

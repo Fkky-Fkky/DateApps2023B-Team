@@ -22,6 +22,7 @@ TagManager:
   - item4
   - BossAttack
   - Enemy
+  - CannonStand
   layers:
   - Default
   - TransparentFX
