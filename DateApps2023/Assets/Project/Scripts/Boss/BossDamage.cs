@@ -34,6 +34,7 @@ public class BossDamage : MonoBehaviour
 
     BossMove bossMove;
 
+    BossCount bossCount;
     //[SerializeField]
     //private float damageIntervalTime = 1.0f;
 
@@ -88,6 +89,7 @@ public class BossDamage : MonoBehaviour
         if (damageFlag)
         {
             Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
+            //bossMove.bossHp--;
             damageFlag = false;
         }
 
@@ -104,6 +106,14 @@ public class BossDamage : MonoBehaviour
                 Destroy(clone_explosionEffect);
             }
         }
+
+        if (bossMove.bossHp <= 0)
+        {
+            bossCount.bossKillCount++;
+            AnimationImage.SetTrigger("Die");
+            Destroy(gameObject.gameObject);
+        }
+
     }
 
 

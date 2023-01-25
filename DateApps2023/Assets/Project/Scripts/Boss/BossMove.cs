@@ -9,14 +9,14 @@ public class BossMove : MonoBehaviour
 
 
     [SerializeField]
-    int bossHp;
+    public int bossHp;
 
     public BossAttack bossAttack;
     public BossCount bossCount;
 
     [SerializeField]
     [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]
-    private float moveSpeed = 5.0f;
+    private float moveSpeed = 2.0f;
 
     [SerializeField]
     private GameObject target;
@@ -32,34 +32,28 @@ public class BossMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!damageFlag)
+        if (!damageFlag)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
+            if (!bossAttack.isAttack)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
 
-            lookRotation.z = 0;
-            lookRotation.x = 0;
+                lookRotation.z = 0;
+                lookRotation.x = 0;
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
 
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                target.transform.position,
-                moveSpeed * Time.deltaTime
-                );
+                Vector3 pos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    pos,
+                    moveSpeed * Time.deltaTime
+                    );
+            }
         }
         else
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        }
-
-        if(Input.GetMouseButtonDown(1)) {
-            bossHp -= 1;
-        }
-
-        if (bossHp <= 0)
-        {
-            bossCount.bossKillCount++;
-            Destroy(gameObject.gameObject);
         }
     }
 

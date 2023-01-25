@@ -37,13 +37,14 @@ public class BossAttack : MonoBehaviour
     int areaCountMax = 1;
 
     float areaDestroyTime = 0.0f;
-    float areaDestroyTimeMax = 0.5f;
+    float areaDestroyTimeMax = 2.0f;
 
     public bool isAttack;
 
     private void Start()
     {
         areaCount= 0;
+        isAttack = false;
     }
 
     void Update()
@@ -54,7 +55,8 @@ public class BossAttack : MonoBehaviour
             damageTime += Time.deltaTime;
             if (damageTime >= damageTimeMax)
             {
-                //attackAnimation.SetBool("Attack", true);
+                isAttack = true;
+                attackAnimation.SetTrigger("Attack");
                 DamageAreaControl();
             }
 
@@ -95,7 +97,7 @@ public class BossAttack : MonoBehaviour
         areaDestroyTime += Time.deltaTime;
         if (areaDestroyTime >= areaDestroyTimeMax)
         {
-            //attackAnimation.SetBool("Attack", false);
+            isAttack= false;
             damageTime = 0.0f;
             areaCount = 0;
             areaDestroyTime = 0.0f;
