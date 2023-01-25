@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class EnergyCharge : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject energyChargeEffect = null;
+
+    [SerializeField]
+    private Transform chargeEffectPos = null;
+
     private BoxCollider boxCol = null;
-    const int MAX_ENERGY = 3;
-    const int ADD_ENERGY = 1;
+    private const int MAX_ENERGY = 3;
+    private const int ADD_ENERGY = 1;
     
     public int Energy { get; private set; }
 
@@ -34,6 +40,7 @@ public class EnergyCharge : MonoBehaviour
     private void ChargeEnergy()
     {
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
+        Instantiate(energyChargeEffect, transform.position, Quaternion.identity);
         if (Energy >= MAX_ENERGY)
         {
             boxCol.enabled = false;

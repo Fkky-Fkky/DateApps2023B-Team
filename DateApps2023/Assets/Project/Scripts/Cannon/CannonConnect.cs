@@ -5,7 +5,7 @@ using UnityEngine;
 public class CannonConnect : MonoBehaviour
 {
     [SerializeField]
-    GameObject connectEffect = null;
+    private GameObject connectEffect = null;
 
     [SerializeField]
     private Transform effectPos = null;
