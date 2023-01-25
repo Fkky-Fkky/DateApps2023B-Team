@@ -14,13 +14,10 @@ using static UnityEngine.GraphicsBuffer;
 public class enemy : MonoBehaviour
 {
 
-    
-
     //攻撃の当たり判定
     private Collider AttackCollider;
 
-    //[SerializeField] 
-    private GameObject[] players;
+    [SerializeField] private GameObject[] players;
 
     [SerializeField] private PlayerDamage[] PlayerDamage;
 
@@ -28,7 +25,6 @@ public class enemy : MonoBehaviour
 
     [SerializeField] private Transform rirurnTransform;
 
-    
 
     [SerializeField]
     [Tooltip("場外判定x")]
@@ -89,8 +85,6 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
-        //players[0] = GameObject.Find("player1");
-
         gameState = summon.start;
 
         //口の当たり判定の設定
@@ -186,9 +180,6 @@ public class enemy : MonoBehaviour
 
         if (work == 0)
         {
-            Debug.Log("選ばれたプレイヤー");
-            Debug.Log(rnd);
-            // agent.destination = target.transform.position;
             _agent.destination = players[rnd].transform.position;
         }
 
@@ -235,9 +226,12 @@ public class enemy : MonoBehaviour
         }
         #endregion
 
+
         if (pos.y <= -10)
             Destroy(gameObject);
 
+        #region ノックバック
+    
         //ノックバック時に場外に行かなかった時の処理
         if (_agent.enabled == false　&&　gameState == summon.end)
         {
@@ -257,6 +251,7 @@ public class enemy : MonoBehaviour
         if (pos.x <= ex_mx && gameState == summon.end ||
             pos.z <= ex_mz && gameState == summon.end )
             ex_flag = true;
+        #endregion
 
     }
 
@@ -272,6 +267,7 @@ public class enemy : MonoBehaviour
         }
     }
 
+    //帰宅
     IEnumerator Onex()
     {
        
@@ -282,6 +278,7 @@ public class enemy : MonoBehaviour
         }
     }
 
+    //壁との判定
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Wall")&&
@@ -291,10 +288,10 @@ public class enemy : MonoBehaviour
             Debug.Log("Wall");
             _agent.enabled = false;
             StartCoroutine(Onex());
-            
         }
     }
 
+    //プレイヤーとの判定
     void OnCollisionEnter(Collision collision)//Trigger
     {
         if (collision.gameObject == players[rnd])
