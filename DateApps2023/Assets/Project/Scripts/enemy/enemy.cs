@@ -14,17 +14,21 @@ using static UnityEngine.GraphicsBuffer;
 public class enemy : MonoBehaviour
 {
 
-    [SerializeField]
-    private PlayerDamage []PlayerDamage;
+    
 
     //攻撃の当たり判定
     private Collider AttackCollider;
 
-    [SerializeField] private GameObject[] playerTransform; 
+    //[SerializeField] 
+    private GameObject[] players;
+
+    [SerializeField] private PlayerDamage[] PlayerDamage;
 
     [SerializeField] private Transform Centerpoint;
 
     [SerializeField] private Transform rirurnTransform;
+
+    
 
     [SerializeField]
     [Tooltip("場外判定x")]
@@ -41,8 +45,6 @@ public class enemy : MonoBehaviour
     [SerializeField]
     [Tooltip("場外判定-z")]
     private int ex_mz = -10;
-
-
 
     int move = 4;
     int work = 0;
@@ -74,27 +76,20 @@ public class enemy : MonoBehaviour
 
     bool noattck = false;
 
-    //BoxCollider boxCol;
-
     Animator animator;
-
-    //int attck = Animator.StringToHash("attck");
-    //int idle = Animator.StringToHash("idle");
-    //int attck_idle = Animator.StringToHash("attck_idle");
 
     private Rigidbody rb;
 
     NavMeshAgent _agent;
 
-    int rnd = 0;
+    int rnd;
 
     int x;
     int z;
 
-    //public CapsuleCollider cube_boxCol;
-
     void Start()
     {
+        //players[0] = GameObject.Find("player1");
 
         gameState = summon.start;
 
@@ -102,15 +97,13 @@ public class enemy : MonoBehaviour
         AttackCollider = GameObject.Find("RigHeadGizmo").GetComponent<BoxCollider>();
         AttackCollider.enabled = false;
 
-        //cube_boxCol = cube.GetComponent<CapsuleCollider>();
-
         //アニメーター
         animator = GetComponent<Animator>();
 
         animator.SetTrigger("idle");
 
         //プレイヤーのランダム変数
-        //rnd = Random.Range(0, 3);
+        rnd = Random.Range(0, 3);
         //Navを取得
        _agent = this.GetComponent<NavMeshAgent>();
         //NavMeshAgent nav = this. GetComponent<NavMeshAgent>();
@@ -196,7 +189,7 @@ public class enemy : MonoBehaviour
             Debug.Log("選ばれたプレイヤー");
             Debug.Log(rnd);
             // agent.destination = target.transform.position;
-            _agent.destination = playerTransform[rnd].transform.position;
+            _agent.destination = players[rnd].transform.position;
         }
 
         attck_time += Time.deltaTime;
@@ -304,7 +297,7 @@ public class enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)//Trigger
     {
-        if (collision.gameObject == playerTransform[rnd])
+        if (collision.gameObject == players[rnd])
         {
             work = 1;
             move = 1;
