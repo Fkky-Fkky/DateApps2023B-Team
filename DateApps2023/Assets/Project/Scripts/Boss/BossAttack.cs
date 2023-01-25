@@ -11,8 +11,6 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     float attackIntervalTime = 20.0f;
 
-    [SerializeField]
-    public GameObject beamObject;
 
     [SerializeField]
     Animator attackAnimation = null;
@@ -41,6 +39,12 @@ public class BossAttack : MonoBehaviour
 
     public bool isAttack;
 
+    float animationtime = 0.0f;
+    float animationtimeMax = 1.5f;
+
+
+    public BossMove bossMove;
+
     private void Start()
     {
         areaCount= 0;
@@ -50,19 +54,34 @@ public class BossAttack : MonoBehaviour
     void Update()
     {
         time+= Time.deltaTime;
-        if (time >= attackIntervalTime)
+
+        if (bossMove.bossHp > 0)
         {
-            damageTime += Time.deltaTime;
-            if (damageTime >= damageTimeMax)
+            if (time >= attackIntervalTime)
+            {
+                attackAnimation.SetTrigger("Attack");
+                Attack();
+            }
+        }
+        else
+        {
+            isAttack = false;
+        }
+    }
+
+    void Attack()
+    {
+        damageTime += Time.deltaTime;
+        if (damageTime >= damageTimeMax)
+        {
+
+            animationtime += Time.deltaTime;
+            if (animationtime >= animationtimeMax)
             {
                 isAttack = true;
-                attackAnimation.SetTrigger("Attack");
                 DamageAreaControl();
             }
-
         }
-
-
     }
 
     void DamageAreaControl()
@@ -93,14 +112,14 @@ public class BossAttack : MonoBehaviour
                 areaCount++;
             }
         }
-
         areaDestroyTime += Time.deltaTime;
         if (areaDestroyTime >= areaDestroyTimeMax)
         {
             isAttack= false;
+            areaDestroyTime = 0.0f;
+            animationtime = 0.0f;
             damageTime = 0.0f;
             areaCount = 0;
-            areaDestroyTime = 0.0f;
             time = 0.0f;
         }
 
