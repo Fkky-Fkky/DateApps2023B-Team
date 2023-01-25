@@ -34,7 +34,13 @@ public class BossDamage : MonoBehaviour
 
     BossMove bossMove;
 
-    BossCount bossCount;
+    public BossCount bossCount;
+
+    private float bossDestroyTime = 0.0f;
+    private float bossDestroyTimeMax = 2.3f;
+
+    [SerializeField]
+    GameObject fellDownEffect;
     //[SerializeField]
     //private float damageIntervalTime = 1.0f;
 
@@ -89,7 +95,7 @@ public class BossDamage : MonoBehaviour
         if (damageFlag)
         {
             Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-            //bossMove.bossHp--;
+            bossMove.bossHp--;
             damageFlag = false;
         }
 
@@ -111,7 +117,13 @@ public class BossDamage : MonoBehaviour
         {
             bossCount.bossKillCount++;
             AnimationImage.SetTrigger("Die");
-            Destroy(gameObject.gameObject);
+            bossDestroyTime += Time.deltaTime;
+            if (bossDestroyTime >= bossDestroyTimeMax)
+            {
+                Instantiate(fellDownEffect, transform.position, Quaternion.identity);
+                Destroy(gameObject.gameObject);
+                bossDestroyTime = 0.0f;
+            }
         }
 
     }

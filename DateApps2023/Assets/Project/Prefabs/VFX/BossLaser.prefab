@@ -83080,7 +83080,7 @@ GameObject:
   - component: {fileID: 4097040022455114}
   - component: {fileID: 8740279556228552420}
   m_Layer: 0
-  m_Name: V3DLaser_07
+  m_Name: BossLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
