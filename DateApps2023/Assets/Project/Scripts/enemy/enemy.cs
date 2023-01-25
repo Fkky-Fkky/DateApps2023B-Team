@@ -72,13 +72,15 @@ public class enemy : MonoBehaviour
 
     bool noattck = false;
 
+    bool one_flag = false;
+
     Animator animator;
 
     private Rigidbody rb;
 
     NavMeshAgent _agent;
 
-    int rnd;
+    int rnd =0;
 
     int x;
     int z;
@@ -97,7 +99,7 @@ public class enemy : MonoBehaviour
         animator.SetTrigger("idle");
 
         //プレイヤーのランダム変数
-        rnd = Random.Range(0, 3);
+        //rnd = Random.Range(0, 3);
         //Navを取得
        _agent = this.GetComponent<NavMeshAgent>();
         //NavMeshAgent nav = this. GetComponent<NavMeshAgent>();
@@ -214,11 +216,16 @@ public class enemy : MonoBehaviour
         {
             AttackCollider.enabled = false;
             noattck = true;
-            animator.SetTrigger("idle");
-           _agent.destination = rirurnTransform.transform.position;
 
-            //_agent.enabled = false;
+            if(one_flag==false)
+            {
+                animator.SetTrigger("idle");
+                _agent.enabled = true;
+                one_flag = true;
+            }
 
+            _agent.destination = rirurnTransform.transform.position;
+           
             if (pos.z<=-120)
             {
                 Destroy(gameObject);
@@ -226,7 +233,7 @@ public class enemy : MonoBehaviour
         }
         #endregion
 
-
+       
         if (pos.y <= -10)
             Destroy(gameObject);
 
@@ -287,6 +294,8 @@ public class enemy : MonoBehaviour
         {
             Debug.Log("Wall");
             _agent.enabled = false;
+            rast_timer = 0;
+            rast_timer_flag = 0;
             StartCoroutine(Onex());
         }
     }
