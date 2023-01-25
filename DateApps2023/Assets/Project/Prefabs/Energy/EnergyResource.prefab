@@ -116,7 +116,7 @@ MonoBehaviour:
   playerCarryDowns: []
   groupNumber: 1
   defaultPosY: 0
-  carryPosY: 0.8
+  carryPosY: 0.2
   myItemSize: 2
 --- !u!114 &989744109513928688
 MonoBehaviour:
