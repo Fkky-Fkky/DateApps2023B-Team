@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stagePattern:
-  - {fileID: 6123771957559872632, guid: 4188991812b29664a9d9c764f3f37675, type: 3}
-  - {fileID: 1188433595369711273, guid: ff79fc7a7cb510a4eb543e4ad32a2b23, type: 3}
-  - {fileID: 3013639044041150775, guid: be65af737ac0e8c44ba67a30209d92ca, type: 3}
+  - {fileID: 8046862528757879818, guid: 07c746dad05d602499c08f0e493ff1d9, type: 3}
+  - {fileID: 4666726451030840361, guid: 22b6fb02ea71bbc40a38cd65128574ee, type: 3}
+  - {fileID: 5594375541174611209, guid: b0b565b486427e44dbeeb2c6551c266d, type: 3}
   GeneratePos: {x: 0, y: 0, z: 0}
