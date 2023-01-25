@@ -20,8 +20,6 @@ public class PlayerAttack : MonoBehaviour
 
     private bool myAttack = false;
 
-    [SerializeField] private Transform player;
-
     //[SerializeField]
     //public enemy enemy_hit;
 
@@ -91,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
 
             //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
             //rb.AddForce(pw, ForceMode.Impulse);
-            rb.AddForce(player.forward * 10f, ForceMode.VelocityChange);
+            rb.AddForce(this.transform.forward * 10f, ForceMode.VelocityChange);
 
             NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
             if (!nav)
