@@ -28,7 +28,9 @@ public class enemy_j : MonoBehaviour
 
     int rnd;
 
-    [SerializeField] int spider_spoan_time = 10;
+    bool end_flag = false;
+
+    [SerializeField] int spider_spoan_time = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +41,17 @@ public class enemy_j : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //spider_time += Time.deltaTime;
+        if(spider.transform.position.y <= -15&&end_flag==false)
+        {
+            Rigidbody rb = spider.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+            //rb.AddForce(force, ForceMode.Impulse);
+
+            end_flag = true;
+        }
+
+        spider_time += Time.deltaTime;
         if(spider_time >= spider_spoan_time && rnd==1) 
         {
             spider_time = 0;

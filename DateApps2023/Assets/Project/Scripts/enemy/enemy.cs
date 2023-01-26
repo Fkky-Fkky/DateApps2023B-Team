@@ -17,7 +17,11 @@ public class enemy : MonoBehaviour
     //攻撃の当たり判定
     private Collider AttackCollider;
 
+    private Collider myCollider;
+
     [SerializeField] private GameObject[] players;
+
+    private GameObject oriznal;
 
     [SerializeField] private PlayerDamage[] PlayerDamage;
 
@@ -28,19 +32,19 @@ public class enemy : MonoBehaviour
 
     [SerializeField]
     [Tooltip("場外判定x")]
-    private int ex_x = 17;
+    private int ex_x = 14;
 
     [SerializeField]
     [Tooltip("場外判定-x")]
-    private int ex_mx = -17;
+    private int ex_mx = -14;
 
     [SerializeField]
     [Tooltip("場外判定z")]
-    private int ex_z = 10;
+    private int ex_z = 7;
 
     [SerializeField]
     [Tooltip("場外判定-z")]
-    private int ex_mz = -10;
+    private int ex_mz = -5;
 
     int move = 4;
     int work = 0;
@@ -89,6 +93,9 @@ public class enemy : MonoBehaviour
     {
         gameState = summon.start;
 
+        myCollider = this.GetComponent<CapsuleCollider>();
+
+
         //口の当たり判定の設定
         AttackCollider = GameObject.Find("RigHeadGizmo").GetComponent<BoxCollider>();
         AttackCollider.enabled = false;
@@ -105,14 +112,17 @@ public class enemy : MonoBehaviour
         //NavMeshAgent nav = this. GetComponent<NavMeshAgent>();
         _agent.enabled = false;
 
-        Vector3 vector3 = Centerpoint.transform.position - this.transform.position;
-        vector3.y = 0f;
-        Quaternion quaternion = Quaternion.LookRotation(vector3);
+        Vector3 vec = Centerpoint.transform.position - this.transform.position;
+
+        vec.y = 0f;
+        Quaternion quaternion = Quaternion.LookRotation(vec);
         this.transform.rotation = quaternion;
 
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
-        
+
+        oriznal = GameObject.Find("Spider");
+
     }
     void Update()
     {
@@ -124,6 +134,7 @@ public class enemy : MonoBehaviour
 
         if (gameState == summon.start)
         {
+            rb.constraints = RigidbodyConstraints.None;
             work = 1;
             move = 4;
             gameState = summon.climbing;
@@ -138,7 +149,6 @@ public class enemy : MonoBehaviour
             {
                 if (pos.x>0)
                 {
-                    
                     rb.useGravity = true;
                     Vector3 force = new Vector3(-2.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
@@ -214,7 +224,7 @@ public class enemy : MonoBehaviour
       //退場
         if (rast_timer>=2)
         {
-            AttackCollider.enabled = false;
+            //AttackCollider.enabled = false;
             noattck = true;
 
             if(one_flag==false)
@@ -233,18 +243,27 @@ public class enemy : MonoBehaviour
             }
         }
         #endregion
+        //ex_flag = true;
 
-       
-        if (pos.y <= -10)
+        if (-25 >= pos.y )
+        {
+            move = 5;
+            rast_timer_flag = 0;
+            rast_timer = 0;
             Destroy(gameObject);
-
+        }
         #region ノックバック
-    
+
         //ノックバック時に場外に行かなかった時の処理
         if (_agent.enabled == false　&&　gameState == summon.end)
         {
             wl_time+=Time.deltaTime;
-            if(wl_time >= 1.5f&&ex_flag == false)
+
+            if(wl_time<1.5 && ex_flag == true)
+            {
+                myCollider.enabled = false;
+            }
+            else if(wl_time >= 1.5f&&ex_flag == false)
             {
                 _agent.enabled = true;
                wl_time = 0;
@@ -289,16 +308,7 @@ public class enemy : MonoBehaviour
     //壁との判定
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall")&&
-            gameState == summon.end&&
-            noattck==true)
-        {
-            Debug.Log("Wall");
-            _agent.enabled = false;
-            rast_timer = 0;
-            rast_timer_flag = 0;
-            StartCoroutine(Onex());
-        }
+        
     }
 
     //プレイヤーとの判定
@@ -311,6 +321,19 @@ public class enemy : MonoBehaviour
             attck_time = 0;
             rast_timer_flag = 1;
             animator.SetTrigger("attckidle");
+        }
+
+        if (collision.gameObject.CompareTag("Wall") &&
+            gameState == summon.end &&
+            noattck == true)
+        {
+            
+            myCollider.enabled=false;
+            Debug.Log("Wall");
+            _agent.enabled = false;
+            rast_timer = 0;
+            rast_timer_flag = 0;
+            StartCoroutine(Onex());
         }
     }
 

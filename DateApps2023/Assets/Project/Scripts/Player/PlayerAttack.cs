@@ -81,7 +81,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("123");
             Rigidbody rb = other.GetComponent<Rigidbody>();
            
             if (!rb)
