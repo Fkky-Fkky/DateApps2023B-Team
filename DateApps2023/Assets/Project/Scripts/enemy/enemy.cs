@@ -91,7 +91,7 @@ public class enemy : MonoBehaviour
 
     NavMeshAgent _agent;
 
-    int rnd =0;
+    public int rnd =0;
 
     int x;
     int z;
