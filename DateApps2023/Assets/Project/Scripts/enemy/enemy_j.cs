@@ -46,8 +46,6 @@ public class enemy_j : MonoBehaviour
             Rigidbody rb = spider.GetComponent<Rigidbody>();
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezePosition;
-            //rb.AddForce(force, ForceMode.Impulse);
-
             end_flag = true;
         }
 

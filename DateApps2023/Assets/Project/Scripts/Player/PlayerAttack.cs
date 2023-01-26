@@ -88,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
 
             //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
             //rb.AddForce(pw, ForceMode.Impulse);
-            rb.AddForce(this.transform.forward * 10f, ForceMode.VelocityChange);
+            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
 
             NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
             if (!nav)

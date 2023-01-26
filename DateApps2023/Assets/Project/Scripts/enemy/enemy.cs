@@ -13,7 +13,6 @@ using static UnityEngine.GraphicsBuffer;
 //[RequireComponent(typeof(NavMeshAgent))]
 public class enemy : MonoBehaviour
 {
-
     //攻撃の当たり判定
     private Collider AttackCollider;
 
@@ -28,6 +27,14 @@ public class enemy : MonoBehaviour
     [SerializeField] private Transform Centerpoint;
 
     [SerializeField] private Transform rirurnTransform;
+
+    [SerializeField]
+    [Tooltip("生成する範囲A")]
+    private Transform rangeA;
+    
+    [SerializeField]
+    [Tooltip("生成する範囲D")]
+    private Transform rangeD;
 
 
     [SerializeField]
@@ -44,7 +51,7 @@ public class enemy : MonoBehaviour
 
     [SerializeField]
     [Tooltip("場外判定-z")]
-    private int ex_mz = -5;
+    private int ex_mz = -7;
 
     int move = 4;
     int work = 0;
@@ -180,6 +187,7 @@ public class enemy : MonoBehaviour
             //着地
             if(pos.y<=0)
             {
+                //rb.useGravity = false;
                 work = 0;
                 _agent.enabled = true;
                 gameState = summon.end;
@@ -252,6 +260,7 @@ public class enemy : MonoBehaviour
             rast_timer = 0;
             Destroy(gameObject);
         }
+
         #region ノックバック
 
         //ノックバック時に場外に行かなかった時の処理
@@ -259,8 +268,9 @@ public class enemy : MonoBehaviour
         {
             wl_time+=Time.deltaTime;
 
-            if(wl_time<1.5 && ex_flag == true)
+            if(ex_flag == true)
             {
+                rb.useGravity = false;
                 myCollider.enabled = false;
             }
             else if(wl_time >= 1.5f&&ex_flag == false)
@@ -270,6 +280,15 @@ public class enemy : MonoBehaviour
             }
         }
 
+        Vector3 rangeApos = rangeA.position;
+        Vector3 rangeDpos = rangeD.position;
+        if (rangeApos.x <= pos.x && gameState == summon.end ||
+            rangeApos.x <= pos.z && gameState == summon.end)
+            rb.useGravity = true;
+
+        if (rangeDpos.x >= pos.x && gameState == summon.end ||
+            rangeDpos.x >= pos.z && gameState == summon.end)
+            rb.useGravity = true;
 
         if (pos.x >= ex_x && gameState == summon.end||
             pos.z >= ex_z && gameState == summon.end)
