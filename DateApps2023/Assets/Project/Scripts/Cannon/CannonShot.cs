@@ -17,9 +17,6 @@ public class CannonShot : MonoBehaviour
     private EnergyCharge energyCharge = null;
 
     [SerializeField]
-    private BossDamage bossDamage = null;
-
-    [SerializeField]
     private GenerateEnergy generateEnergy = null;
 
     public bool IsShotting { get; private set; }
@@ -73,7 +70,6 @@ public class CannonShot : MonoBehaviour
     private void CreateSmoke()
     {
         Instantiate(smokeEffect, smokePosition);
-        bossDamage.KnockbackTrue();
         coolTime = MAX_COOL_TIME;
         isCoolTime = true;
     }
