@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 1
     agentSlope: 5
-    agentClimb: 1
+    agentClimb: 0.01
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -710,7 +710,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1220,6 +1220,22 @@ PrefabInstance:
       propertyPath: rirurnTransform
       value: 
       objectReference: {fileID: 1510931020}
+    - target: {fileID: 5566276763959674487, guid: ab3416ca6ba0e194da20080dd51bca35, type: 3}
+      propertyPath: players.Array.data[0]
+      value: 
+      objectReference: {fileID: 1189343757}
+    - target: {fileID: 5566276763959674487, guid: ab3416ca6ba0e194da20080dd51bca35, type: 3}
+      propertyPath: players.Array.data[1]
+      value: 
+      objectReference: {fileID: 1263274289}
+    - target: {fileID: 5566276763959674487, guid: ab3416ca6ba0e194da20080dd51bca35, type: 3}
+      propertyPath: players.Array.data[2]
+      value: 
+      objectReference: {fileID: 284231699}
+    - target: {fileID: 5566276763959674487, guid: ab3416ca6ba0e194da20080dd51bca35, type: 3}
+      propertyPath: players.Array.data[3]
+      value: 
+      objectReference: {fileID: 2048096832}
     - target: {fileID: 5566276763959674487, guid: ab3416ca6ba0e194da20080dd51bca35, type: 3}
       propertyPath: PlayerDamage.Array.data[0]
       value: 
@@ -2287,8 +2303,8 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &1189343757 stripped
@@ -2397,8 +2413,8 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &1318891614
@@ -2761,8 +2777,8 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!4 &1343403117 stripped
@@ -3745,8 +3761,8 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1001 &608408025518527952

@@ -180,7 +180,7 @@ public class enemy : MonoBehaviour
 
         #region UŒ‚ŠJn
 
-        if (work == 0)
+        if (work == 0&& _agent.enabled == true)
         {
             _agent.destination = players[rnd].transform.position;
         }
@@ -224,6 +224,7 @@ public class enemy : MonoBehaviour
                 one_flag = true;
             }
 
+            if(_agent.enabled == true)
             _agent.destination = rirurnTransform.transform.position;
            
             if (pos.z<=-120)
@@ -245,7 +246,7 @@ public class enemy : MonoBehaviour
             wl_time+=Time.deltaTime;
             if(wl_time >= 1.5f&&ex_flag == false)
             {
-               _agent.enabled = true;
+                _agent.enabled = true;
                wl_time = 0;
             }
         }
