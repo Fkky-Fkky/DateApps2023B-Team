@@ -53,7 +53,7 @@ public class enemy : MonoBehaviour
     [Tooltip("場外判定-z")]
     private int ex_mz = -7;
 
-    int move = 4;
+    bool attck_flag = false;
     int work = 0;
 
     [SerializeField]
@@ -101,10 +101,10 @@ public class enemy : MonoBehaviour
         gameState = summon.start;
 
         myCollider = this.GetComponent<CapsuleCollider>();
-
+        myCollider.enabled = true;
 
         //口の当たり判定の設定
-        AttackCollider = GameObject.Find("RigHeadGizmo").GetComponent<BoxCollider>();
+        AttackCollider = gameObject.GetComponentInChildren<BoxCollider>();
         AttackCollider.enabled = false;
 
         //アニメーター
@@ -143,7 +143,7 @@ public class enemy : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints.None;
             work = 1;
-            move = 4;
+            attck_flag = false;
             gameState = summon.climbing;
             myTransform.Rotate(-90, 0f, 0f);
         }
@@ -190,7 +190,9 @@ public class enemy : MonoBehaviour
                 //rb.useGravity = false;
                 work = 0;
                 _agent.enabled = true;
+                AttackCollider.enabled = false;
                 gameState = summon.end;
+                
             }
         }
         #endregion
@@ -203,26 +205,38 @@ public class enemy : MonoBehaviour
             _agent.destination = players[rnd].transform.position;
         }
 
-        attck_time += Time.deltaTime;
 
-        if (attck_time >= 0.5&&move==1)
-        {
-            animator.SetTrigger("attck");
-        }
 
-        if (attck_time >= 0.75 && move == 1)
-        {
-            move = 0;
-            work = 1;
-        }
+        //if (attck_time >= 0.75 && attck_flag == true)
+        //{
+        //    work = 1;
+        //}
 
-        if (attck_time >= 0.9 && move == 0&&noattck!=true)
+
+        if (attck_flag == true)
         {
-            AttackCollider.enabled = true;
-        }
-        if (attck_time >= 1.2 && move == 0)
-        {
-            AttackCollider.enabled = false;
+            attck_time += Time.deltaTime;
+
+            if (AttackCollider.enabled == true)
+            {
+                if (attck_time >= 1.2)
+                {
+                    rast_timer_flag = 1;
+                    attck_flag = false;
+                    noattck = true;
+                    AttackCollider.enabled = false;
+                    attck_time = 0;
+                }
+            }
+            else
+            {
+                if (attck_time >= 0.9)
+                    AttackCollider.enabled = true;
+                else if (attck_time >= 0.5)
+                {
+                    animator.SetTrigger("attck");
+                }
+            }
         }
 
         if (rast_timer_flag == 1)
@@ -230,11 +244,10 @@ public class enemy : MonoBehaviour
             rast_timer += Time.deltaTime;
         }
       //退場
-        if (rast_timer>=2)
+        if (rast_timer >= 1)
         {
             //AttackCollider.enabled = false;
-            noattck = true;
-
+            
             if(one_flag==false)
             {
                 animator.SetTrigger("idle");
@@ -247,6 +260,7 @@ public class enemy : MonoBehaviour
            
             if (pos.z<=-120)
             {
+                //ex_flag = false;
                 Destroy(gameObject);
             }
         }
@@ -255,9 +269,7 @@ public class enemy : MonoBehaviour
 
         if (-25 >= pos.y )
         {
-            move = 5;
-            rast_timer_flag = 0;
-            rast_timer = 0;
+            //attck_flag = false;
             Destroy(gameObject);
         }
 
@@ -333,12 +345,13 @@ public class enemy : MonoBehaviour
     //プレイヤーとの判定
     void OnCollisionEnter(Collision collision)//Trigger
     {
-        if (collision.gameObject == players[rnd])
+        if (collision.gameObject == players[rnd]&&noattck==false)
         {
             work = 1;
-            move = 1;
+            attck_flag = true;
             attck_time = 0;
-            rast_timer_flag = 1;
+            noattck = true;
+            one_flag = false;
             animator.SetTrigger("attckidle");
         }
 
@@ -350,8 +363,6 @@ public class enemy : MonoBehaviour
             myCollider.enabled=false;
             Debug.Log("Wall");
             _agent.enabled = false;
-            rast_timer = 0;
-            rast_timer_flag = 0;
             StartCoroutine(Onex());
         }
     }
