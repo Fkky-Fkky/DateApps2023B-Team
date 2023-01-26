@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.AI;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -91,5 +92,26 @@ public class PlayerAttack : MonoBehaviour
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+
+            if (!rb)
+                return;
+
+            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
+            //rb.AddForce(pw, ForceMode.Impulse);
+            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
+
+            NavMeshAgent nav = other.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (!nav)
+                return;
+
+            nav.enabled = false;
+        }
     }
 }
