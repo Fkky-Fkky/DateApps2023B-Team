@@ -16,6 +16,8 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
     private Vector4[] controlParticlesPositions;
     private float[] controlParticlesSizes;
 
+    public BossAttack bossAttack;
+
     void Start()
     {
         controlParticlesPositions = new Vector4[5];
@@ -33,7 +35,7 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
     {
         controlParticles = new ParticleSystem.Particle[5];
 
-        if (Input.GetMouseButtonDown(0))
+        if (bossAttack.isAttack )//|| Input.GetMouseButtonDown(0))
         {
             distortionSpherePS.Emit(1);
             controlPS.Emit(1);

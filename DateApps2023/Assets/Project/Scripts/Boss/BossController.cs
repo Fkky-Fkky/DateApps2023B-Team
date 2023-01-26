@@ -10,9 +10,6 @@ using UnityEngine.UI;
 public class BossController : MonoBehaviour
 {
     [SerializeField]
-    int boss_hp;
-
-    [SerializeField]
     private Transform target;
     private float targetRange;
 
@@ -32,7 +29,7 @@ public class BossController : MonoBehaviour
     void Update()
     {
         targetRange = gameObject.transform.position.z - target.position.z;
-        BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
+        //BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
         
 
     }
@@ -44,10 +41,4 @@ public class BossController : MonoBehaviour
           SceneManager.LoadScene(sceneName);
       }
   }
-
-    public void bosshp()
-    {
-        boss_hp -= 1;
-    }
-
 }

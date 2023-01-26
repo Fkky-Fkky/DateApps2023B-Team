@@ -6,17 +6,7 @@ public class BossDamage : MonoBehaviour
 {
     private Rigidbody rb;
 
-    public bool knockBackFlag { get; private set; }
-
-    //[SerializeField]
-    //[Tooltip("mä∑éZÅH")]
-    //private float knockBackPower = 300.0f;
-
-    [SerializeField]
-    [Tooltip("ÉmÉbÉNÉoÉbÉNå„çdíºéûä‘")]
-    private float stopTime = 5.0f;
-
-    float time = 0;
+    BossManager bossManager;
 
     [SerializeField] Animator AnimationImage = null;
 
@@ -26,16 +16,24 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     private GameObject explosionEffect = null;
 
-    private bool damageFlag = false;
-    private bool firstEffect = true;
+    public bool isDamage = false;
 
-    private float PosX;
-    private float PosZ;
+    bool isKnockback = false;
+    float knockbackTime = 0.0f;
+    float knockbackTimeMax = 1.5f;
+
 
     BossMove bossMove;
 
-    //[SerializeField]
-    //private float damageIntervalTime = 1.0f;
+    public BossCount bossCount;
+
+    private float bossDestroyTime = 0.0f;
+    private float bossDestroyTimeMax = 2.5f;
+
+    [SerializeField]
+    GameObject fellDownEffect;
+
+    float effectPosY = -40.0f;
 
 
     // Start is called before the first frame update
@@ -43,81 +41,78 @@ public class BossDamage : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         bossMove = GetComponent<BossMove>();
-        knockBackFlag = false;
-        damageFlag = false;
-        firstEffect = true;
-
-        time = stopTime;
-        //animationController = transform.GetChild(2).GetComponent<AnimationController>();
+        isDamage = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (knockBackFlag)
+        if (isKnockback)
         {
-            time += Time.deltaTime;
-            if(time <= stopTime)
+            knockbackTime += Time.deltaTime;
+            if (knockbackTime <= knockbackTimeMax)
             {
-                AnimationImage.SetBool("Damage", true);
-
-                if (firstEffect)
-                {
-                    damageFlag = true;
-                    firstEffect = false;
-                }
-
-                this.gameObject.transform.position = new Vector3(PosX, this.gameObject.transform.position.y, PosZ);
-                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                Vector3 bossPos = transform.position;
+                bossPos.z += 0.5f * Time.deltaTime;
+                transform.position = bossPos;
             }
             else
             {
-                damageFlag = false;
-                bossMove.DamageFalse();
-                GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("BoomEffect");
-                foreach (GameObject clone_explosionEffect in cloneItem)
-                {
-                    Destroy(clone_explosionEffect);
-                }
-                firstEffect = true;
-                knockBackFlag = false;
-                time = 0;
+                knockbackTime= 0.0f;
+                isKnockback = false;
+
             }
         }
+        
 
-        if (damageFlag)
+        if (isDamage)
         {
             Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-            damageFlag = false;
+            bossMove.bossHp--;
+            if (bossMove.bossHp >= 1)
+            {
+                AnimationImage.SetTrigger("Damage");
+            }
+            else
+            {
+                AnimationImage.SetTrigger("Die");
+            }
+            bossMove.DamageFalse();
+            isDamage = false;
         }
 
-        if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Damege") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f) 
+        if (bossMove.bossHp <= 0)
         {
-            AnimationImage.SetBool("Damage", false);
-            //damageFlag = false;
-            //knockBackFlag = false;
-            //time = 0;
-            //firstEffect = true;
-            GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("BoomEffect");
-            foreach (GameObject clone_explosionEffect in cloneItem)
+            bossCount.bossKillCount++;
+            bossDestroyTime += Time.deltaTime;
+            if (bossDestroyTime >= bossDestroyTimeMax)
             {
-                Destroy(clone_explosionEffect);
+                Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
+                Instantiate(fellDownEffect, pos, Quaternion.identity);
+
+                Destroy(gameObject);
+                bossDestroyTime = 0.0f;
             }
         }
+
     }
-
-
-    public void KnockbackTrue()
+    public void KnockbackTrue( )
     {
-        if (knockBackFlag)
+        if (isKnockback)
             return;
 
-        time = 0;
-        knockBackFlag = true;
+        isKnockback = true;
+        isDamage = true;
         bossMove.DamageTrue();
-        PosX = this.gameObject.transform.position.x;
-        PosZ = this.gameObject.transform.position.z;
     }
 
+    public void KnockbackTrueSub()
+    {
+        if (isKnockback)
+            return;
+        isKnockback = true;
+        isDamage = true;
+        bossMove.DamageTrue();
+    }
 
 }
