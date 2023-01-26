@@ -23,6 +23,7 @@ TagManager:
   - BossAttack
   - Enemy
   - CannonStand
+  - TimerText
   layers:
   - Default
   - TransparentFX
