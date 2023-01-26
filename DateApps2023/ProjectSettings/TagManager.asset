@@ -25,6 +25,8 @@ TagManager:
   - Left
   - Right
   - Boss
+  - CannonStand
+  - Enemy
   layers:
   - Default
   - TransparentFX
