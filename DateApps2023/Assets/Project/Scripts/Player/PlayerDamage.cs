@@ -29,8 +29,8 @@ public class PlayerDamage : MonoBehaviour
 
     private Animator AnimationImage;
 
-    [SerializeField]
-    private float knockBackPower = 50.0f;
+    //[SerializeField]
+    //private float knockBackPower = 50.0f;
 
     [SerializeField]
     private int EndStanCount = 3;

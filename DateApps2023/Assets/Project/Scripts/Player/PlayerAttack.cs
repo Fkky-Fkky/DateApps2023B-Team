@@ -35,6 +35,8 @@ public class PlayerAttack : MonoBehaviour
     private AudioClip attackSound = null;
     private AudioSource audioSource;
 
+    private GameObject instantPunch = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,17 +61,27 @@ public class PlayerAttack : MonoBehaviour
                     FistAttack();
                 }
             }
-        }
-      
-        if(myAttack)
-        {
-            time += Time.deltaTime;
-            if (time >= hitTime)
+            if (myAttack)
             {
+                time += Time.deltaTime;
+                if (time >= hitTime)
+                {
+                    EndAttack();
+                    time = 0;
+                }
+            }
+        }
+        else if(isCarry || isDamage)
+        {
+            if (myAttack)
+            {
+                instantPunch.GetComponent<FistDissolve>().OnEndDissolve();
                 EndAttack();
                 time = 0;
             }
         }
+      
+        
     }
 
     private void FistAttack()
@@ -78,7 +90,7 @@ public class PlayerAttack : MonoBehaviour
         boxCol.enabled = true;
         playerMove.StartAttack();
         Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
         audioSource.PlayOneShot(attackSound);
 
         myAttack = true;
@@ -89,6 +101,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", false);
         boxCol.enabled = false;
         playerMove.EndAttack();
+        instantPunch = null;
 
         myAttack = false;
     }
