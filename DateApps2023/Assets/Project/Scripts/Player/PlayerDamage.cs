@@ -25,11 +25,12 @@ public class PlayerDamage : MonoBehaviour
 
     private PlayerMove playerMove;
     private PlayerCarryDown playerCarryDown;
+    private PlayerAttack playerAttack;
 
     private Animator AnimationImage;
 
-    [SerializeField]
-    private float knockBackPower = 50.0f;
+    //[SerializeField]
+    //private float knockBackPower = 50.0f;
 
     [SerializeField]
     private int EndStanCount = 3;
@@ -84,12 +85,12 @@ public class PlayerDamage : MonoBehaviour
 
         playerMove = GetComponent<PlayerMove>();
         playerCarryDown = GetComponentInChildren<PlayerCarryDown>();
+        playerAttack = GetComponentInChildren<PlayerAttack>();
 
         audioSource = GetComponent<AudioSource>();
 
         knockCount = 0;
         stanBoxCol.enabled = false;
-
     }
 
     private void Update()
@@ -121,7 +122,9 @@ public class PlayerDamage : MonoBehaviour
                 }
         
                 playerMove.NotPlayerDamage();
-                playerCarryDown.carryDamage = false;
+                playerCarryDown.OffCarryDamage();
+                playerAttack.OffIsDamage();
+
                 currentDamage = false;
 
             }else if(time >= damageEffectInterval)
@@ -170,7 +173,9 @@ public class PlayerDamage : MonoBehaviour
                 }
 
                 playerMove.NotPlayerDamage();
-                playerCarryDown.carryDamage = false;
+                playerCarryDown.OffCarryDamage();
+                playerAttack.OffIsDamage();
+
                 currentCapture = false;
 
             }
@@ -194,6 +199,8 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
+        playerMove.CallHanteiEnter();
+
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
@@ -204,7 +211,8 @@ public class PlayerDamage : MonoBehaviour
         AnimationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
-        playerCarryDown.carryDamage = true;
+        playerCarryDown.OnCarryDamage();
+        playerAttack.OnIsDamage();
 
         DamagePosX = transform.position.x;
         DamagePosZ = transform.position.z;
@@ -227,6 +235,7 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
+        playerMove.CallHanteiEnter();
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
@@ -237,7 +246,8 @@ public class PlayerDamage : MonoBehaviour
         AnimationImage.SetBool("Capture", true);
 
         playerMove.PlayerDamage();
-        playerCarryDown.carryDamage = true;
+        playerCarryDown.OnCarryDamage();
+        playerAttack.OnIsDamage(); 
 
         DamagePosX = this.gameObject.transform.position.x;
         DamagePosZ = this.gameObject.transform.position.z;

@@ -9,11 +9,9 @@ using System.Reflection;
 
 public class TimeCount : MonoBehaviour
 {
-    [SerializeField]
-    private int minutesCount = 3;
-    private float secondsCount;
+    public static float secondsCount;
+    private bool isMain = true;
 
-    [SerializeField]
     TextMeshProUGUI timeCdTMP;
 
     [SerializeField]
@@ -24,18 +22,24 @@ public class TimeCount : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        secondsCount = minutesCount * 60;
+        timeCdTMP = GetComponent<TextMeshProUGUI>();
+        secondsCount = 0.0f;
+        isMain = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        secondsCount -= Time.deltaTime;
-        timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00"); ;
+        if (isMain)
+        {
+            secondsCount += Time.deltaTime;
+            timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00");
+        }
 
-        if (secondsCount <= 0)
+        if (secondsCount >= 180)
         {
             AnimationImage.SetBool("Die", true);
+            isMain = false;
 
             float animTime = AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime > 1.0f)
@@ -49,5 +53,11 @@ public class TimeCount : MonoBehaviour
             AnimationImage.SetBool("Die", false);
         }
 
+
+    }
+
+    public static float GetTime()
+    {
+        return secondsCount;
     }
 }

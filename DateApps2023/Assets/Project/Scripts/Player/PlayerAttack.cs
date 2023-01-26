@@ -17,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
     float time = 0;
 
     private bool myAttack = false;
+    private bool isCarry = false;
+    private bool isDamage = false;
 
     [SerializeField]
     private GameObject attackEffect = null;
@@ -33,6 +35,8 @@ public class PlayerAttack : MonoBehaviour
     private AudioClip attackSound = null;
     private AudioSource audioSource;
 
+    private GameObject instantPunch = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,23 +52,36 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
+        if(!isCarry && !isDamage)
         {
-            if (!myAttack)
+            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
             {
-                FistAttack();
+                if (!myAttack)
+                {
+                    FistAttack();
+                }
+            }
+            if (myAttack)
+            {
+                time += Time.deltaTime;
+                if (time >= hitTime)
+                {
+                    EndAttack();
+                    time = 0;
+                }
             }
         }
-      
-        if(myAttack)
+        else if(isCarry || isDamage)
         {
-            time += Time.deltaTime;
-            if (time >= hitTime)
+            if (myAttack)
             {
+                instantPunch.GetComponent<FistDissolve>().OnEndDissolve();
                 EndAttack();
                 time = 0;
             }
         }
+      
+        
     }
 
     private void FistAttack()
@@ -73,7 +90,7 @@ public class PlayerAttack : MonoBehaviour
         boxCol.enabled = true;
         playerMove.StartAttack();
         Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
         audioSource.PlayOneShot(attackSound);
 
         myAttack = true;
@@ -84,6 +101,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", false);
         boxCol.enabled = false;
         playerMove.EndAttack();
+        instantPunch = null;
 
         myAttack = false;
     }
@@ -91,5 +109,25 @@ public class PlayerAttack : MonoBehaviour
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
+    }
+
+    public void OnIsCarry()
+    {
+        isCarry = true;
+    }
+
+    public void OffIsCarry()
+    {
+        isCarry = false;
+    }
+
+    public void OnIsDamage()
+    {
+        isDamage = true;
+    }
+
+    public void OffIsDamage()
+    {
+        isDamage = false;
     }
 }
