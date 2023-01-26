@@ -6,14 +6,25 @@ public class BossManager : MonoBehaviour
 {
 
     public BossDamage bossDamage;
+    
+    float bossGenerationTime = 0.0f;
+    [SerializeField]
+    float bossIntervalTime = 10.0f;
 
+    public bool isGanerat;
     private void Start()
     {
-        
+        isGanerat = false;
     }
 
     void Update()
     {
+        bossGenerationTime += Time.deltaTime;
+        if (bossGenerationTime >= bossIntervalTime)
+        {
+            isGanerat = true;
+            bossGenerationTime = 0.0f;
+        }
         Debugging();
     }
 
@@ -48,4 +59,5 @@ public class BossManager : MonoBehaviour
         }
 
     }
+
 }
