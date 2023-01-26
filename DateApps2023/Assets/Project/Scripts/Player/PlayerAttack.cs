@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
@@ -80,8 +81,6 @@ public class PlayerAttack : MonoBehaviour
                 time = 0;
             }
         }
-      
-        
     }
 
     private void FistAttack()
@@ -130,4 +129,25 @@ public class PlayerAttack : MonoBehaviour
     {
         isDamage = false;
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+
+            if (!rb)
+                return;
+
+            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
+            //rb.AddForce(pw, ForceMode.Impulse);
+            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
+
+            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
+            if (!nav)
+                return;
+
+            nav.enabled = false;
+        }
+    }
+
 }
