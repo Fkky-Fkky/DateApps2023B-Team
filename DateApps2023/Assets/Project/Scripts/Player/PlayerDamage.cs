@@ -25,6 +25,7 @@ public class PlayerDamage : MonoBehaviour
 
     private PlayerMove playerMove;
     private PlayerCarryDown playerCarryDown;
+    private PlayerAttack playerAttack;
 
     private Animator AnimationImage;
 
@@ -84,6 +85,7 @@ public class PlayerDamage : MonoBehaviour
 
         playerMove = GetComponent<PlayerMove>();
         playerCarryDown = GetComponentInChildren<PlayerCarryDown>();
+        playerAttack = GetComponentInChildren<PlayerAttack>();
 
         audioSource = GetComponent<AudioSource>();
 
@@ -121,7 +123,9 @@ public class PlayerDamage : MonoBehaviour
                 }
         
                 playerMove.NotPlayerDamage();
-                playerCarryDown.carryDamage = false;
+                playerCarryDown.OffCarryDamage();
+                playerAttack.OffIsDamage();
+
                 currentDamage = false;
 
             }else if(time >= damageEffectInterval)
@@ -170,21 +174,23 @@ public class PlayerDamage : MonoBehaviour
                 }
 
                 playerMove.NotPlayerDamage();
-                playerCarryDown.carryDamage = false;
+                playerCarryDown.OffCarryDamage();
+                playerAttack.OffIsDamage();
+
                 currentCapture = false;
 
             }
         }
 
         ////デバッグ用コマンド　C：拘束　D：ダメージ
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    CallCapture();
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    CallDamage();
-        //}
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CallCapture();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            CallDamage();
+        }
     }
 
     public void CallDamage()
@@ -204,7 +210,8 @@ public class PlayerDamage : MonoBehaviour
         AnimationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
-        playerCarryDown.carryDamage = true;
+        playerCarryDown.OnCarryDamage();
+        playerAttack.OnIsDamage();
 
         DamagePosX = transform.position.x;
         DamagePosZ = transform.position.z;
@@ -237,7 +244,8 @@ public class PlayerDamage : MonoBehaviour
         AnimationImage.SetBool("Capture", true);
 
         playerMove.PlayerDamage();
-        playerCarryDown.carryDamage = true;
+        playerCarryDown.OnCarryDamage();
+        playerAttack.OnIsDamage(); 
 
         DamagePosX = this.gameObject.transform.position.x;
         DamagePosZ = this.gameObject.transform.position.z;

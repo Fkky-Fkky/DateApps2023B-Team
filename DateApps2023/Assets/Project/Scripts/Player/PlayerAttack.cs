@@ -17,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
     float time = 0;
 
     private bool myAttack = false;
+    private bool isCarry = false;
+    private bool isDamage = false;
 
     [SerializeField]
     private GameObject attackEffect = null;
@@ -48,11 +50,14 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
+        if(!isCarry && !isDamage)
         {
-            if (!myAttack)
+            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
             {
-                FistAttack();
+                if (!myAttack)
+                {
+                    FistAttack();
+                }
             }
         }
       
@@ -91,5 +96,25 @@ public class PlayerAttack : MonoBehaviour
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
+    }
+
+    public void OnIsCarry()
+    {
+        isCarry = true;
+    }
+
+    public void OffIsCarry()
+    {
+        isCarry = false;
+    }
+
+    public void OnIsDamage()
+    {
+        isDamage = true;
+    }
+
+    public void OffIsDamage()
+    {
+        isDamage = false;
     }
 }
