@@ -10,12 +10,21 @@ public class CannonConnect : MonoBehaviour
     [SerializeField]
     private Transform effectPos = null;
 
+    [SerializeField]
+    private AudioClip connectSe = null;
+
     public int ConnectingPos { get; private set; }
     public bool IsConnect { get; private set; }
 
     private Transform standTransform = null;
+    private AudioSource audioSource = null;
 
     private const float CANNON_POS_Y = -0.3f;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -46,6 +55,7 @@ public class CannonConnect : MonoBehaviour
         IsConnect = true;
         transform.rotation = standTransform.rotation;
         Instantiate(connectEffect, effectPos.position, Quaternion.identity);
+        audioSource.PlayOneShot(connectSe);
     }
 
     private void CannonCut()
