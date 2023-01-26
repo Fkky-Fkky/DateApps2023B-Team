@@ -76,4 +76,11 @@ public class FistDissolve : MonoBehaviour
             }
         }
     }
+
+    public void OnEndDissolve()
+    {
+        isIntervalDissolve = false;
+        isEndDissolve = true;
+        endTime = startTime;
+    }
 }

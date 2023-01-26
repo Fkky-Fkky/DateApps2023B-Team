@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.AI;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
     float time = 0;
 
     private bool myAttack = false;
+    private bool isCarry = false;
+    private bool isDamage = false;
 
     [SerializeField]
     private GameObject attackEffect = null;
@@ -34,6 +35,8 @@ public class PlayerAttack : MonoBehaviour
     private AudioClip attackSound = null;
     private AudioSource audioSource;
 
+    private GameObject instantPunch = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,23 +52,36 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
+        if(!isCarry && !isDamage)
         {
-            if (!myAttack)
+            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
             {
-                FistAttack();
+                if (!myAttack)
+                {
+                    FistAttack();
+                }
+            }
+            if (myAttack)
+            {
+                time += Time.deltaTime;
+                if (time >= hitTime)
+                {
+                    EndAttack();
+                    time = 0;
+                }
             }
         }
-      
-        if(myAttack)
+        else if(isCarry || isDamage)
         {
-            time += Time.deltaTime;
-            if (time >= hitTime)
+            if (myAttack)
             {
+                instantPunch.GetComponent<FistDissolve>().OnEndDissolve();
                 EndAttack();
                 time = 0;
             }
         }
+      
+        
     }
 
     private void FistAttack()
@@ -74,7 +90,7 @@ public class PlayerAttack : MonoBehaviour
         boxCol.enabled = true;
         playerMove.StartAttack();
         Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
         audioSource.PlayOneShot(attackSound);
 
         myAttack = true;
@@ -85,6 +101,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", false);
         boxCol.enabled = false;
         playerMove.EndAttack();
+        instantPunch = null;
 
         myAttack = false;
     }
@@ -94,24 +111,23 @@ public class PlayerAttack : MonoBehaviour
         myPlayerNo = parentNumber;
     }
 
-    void OnTriggerEnter(Collider other)
+    public void OnIsCarry()
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Rigidbody rb = other.GetComponent<Rigidbody>();
+        isCarry = true;
+    }
 
-            if (!rb)
-                return;
+    public void OffIsCarry()
+    {
+        isCarry = false;
+    }
 
-            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
-            //rb.AddForce(pw, ForceMode.Impulse);
-            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
+    public void OnIsDamage()
+    {
+        isDamage = true;
+    }
 
-            NavMeshAgent nav = other.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            if (!nav)
-                return;
-
-            nav.enabled = false;
-        }
+    public void OffIsDamage()
+    {
+        isDamage = false;
     }
 }

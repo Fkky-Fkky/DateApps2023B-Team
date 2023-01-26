@@ -23,7 +23,7 @@ public class PlayerCarryDown : MonoBehaviour
 
     private int myGroupNo = 1;
 
-    public bool carryDamage = false;
+    private bool carryDamage = false;
 
     #endregion
 
@@ -126,6 +126,16 @@ public class PlayerCarryDown : MonoBehaviour
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
+    }
+
+    public void OnCarryDamage()
+    {
+        carryDamage = true;
+    }
+
+    public void OffCarryDamage()
+    {
+        carryDamage = false;
     }
 
 }

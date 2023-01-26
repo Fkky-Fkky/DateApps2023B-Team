@@ -164,6 +164,8 @@ public class PlayerMove : MonoBehaviour
         group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
 
         InGroup = true;
+        attack.OnIsCarry();
+
         AnimationImage.SetBool("Move", false);
         AnimationImage.SetBool("Carry", true);
 
@@ -183,6 +185,7 @@ public class PlayerMove : MonoBehaviour
 
         EnterItem = false;
         InGroup = false;
+        attack.OffIsCarry();
 
         rb = this.gameObject.AddComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
