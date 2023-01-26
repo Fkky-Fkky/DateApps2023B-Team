@@ -91,7 +91,6 @@ public class PlayerDamage : MonoBehaviour
 
         knockCount = 0;
         stanBoxCol.enabled = false;
-
     }
 
     private void Update()
@@ -183,14 +182,14 @@ public class PlayerDamage : MonoBehaviour
         }
 
         ////デバッグ用コマンド　C：拘束　D：ダメージ
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            CallCapture();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            CallDamage();
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    CallCapture();
+        //}
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    CallDamage();
+        //}
     }
 
     public void CallDamage()
