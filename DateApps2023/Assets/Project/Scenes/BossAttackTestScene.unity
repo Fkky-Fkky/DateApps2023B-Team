@@ -515,6 +515,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
     - target: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossManager
+      value: 
+      objectReference: {fileID: 1595085892}
+    - target: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossInterval
       value: 10
       objectReference: {fileID: 0}
@@ -1014,6 +1018,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &890320822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+  m_PrefabInstance: {fileID: 161668958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbb8be069dd0424c9ff07afe3721995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &939231567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2005,6 +2020,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6964006f754df414ea805cd8271e9aab, type: 3}
+--- !u!114 &1595085892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
+  m_PrefabInstance: {fileID: 954377159217777309}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89449f665048514590b47d95021cdaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1701825196 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6907194322903773650, guid: a39ee6fcdfcedf5439654acfce19b228, type: 3}
@@ -2428,7 +2454,7 @@ PrefabInstance:
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: bossGenerator
       value: 
-      objectReference: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      objectReference: {fileID: 890320822}
     - target: {fileID: 954377158567244029, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: m_Name
       value: BossManager
@@ -2622,7 +2648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7624636622010158228, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.5
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 7624636622010158228, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
       propertyPath: m_LocalRotation.w

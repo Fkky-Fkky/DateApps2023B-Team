@@ -13,9 +13,9 @@ public class BossGenerator : MonoBehaviour
     GameObject bossR;
     GameObject bossL;
 
-    float intervalTime = 0.0f;
-    [SerializeField]
-    float bossInterval = 10.0f;
+    //float intervalTime = 0.0f;
+    //[SerializeField]
+    //float bossInterval = 10.0f;
 
 
     Vector3 bossPositionCenter = new Vector3(0.0f, -51.4f, 210.7f);
@@ -35,7 +35,7 @@ public class BossGenerator : MonoBehaviour
     void Start()
     {
         bossCount = 1;
-        intervalTime = 0.0f;
+        // intervalTime = 0.0f;
         bossModel.tag = "Boss";
     }
 
@@ -71,7 +71,7 @@ public class BossGenerator : MonoBehaviour
         }
     }
 
-    public void BossRandomGeneration()
+    void BossRandomGeneration()
     {
         if (bossCount == 1)
         {
@@ -81,7 +81,6 @@ public class BossGenerator : MonoBehaviour
         {
             bossPattern = GetRandomValue(bossPattern);
         }
-
 
         switch (bossPattern)
         {
