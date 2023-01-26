@@ -21,12 +21,27 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private GameObject target;
 
-    private bool damageFlag = false; 
+    private bool damageFlag = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (transform.position.x == 0.0f)
+        {
+            tag = "Center";
+        }
+
+        if (transform.position.x >= 0.1f)
+        {
+            tag = "Right";
+        }
+
+        if (transform.position.x <= -0.1f)
+        {
+            tag = "Left";
+        }
     }
 
     // Update is called once per frame

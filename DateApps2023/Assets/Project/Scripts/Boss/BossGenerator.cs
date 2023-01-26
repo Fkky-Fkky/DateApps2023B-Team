@@ -13,7 +13,7 @@ public class BossGenerator : MonoBehaviour
 
     float intervalTime =  0.0f;
     [SerializeField]
-    float bossInterval = 2.0f;
+    float bossInterval = 10.0f;
 
 
     Vector3 bossPositionCenter = new Vector3(    0.0f, -51.4f, 210.7f);
@@ -24,10 +24,15 @@ public class BossGenerator : MonoBehaviour
 
     int patternNumber;
     int start = 1;
-    int end   = 8;
+    int end   = 4;
+
+    int bossCount;
 
     void Start()
     {
+        bossCount = 1;
+        intervalTime = 9.0f;
+        bossModel.tag = "boss";
     }
 
     void Update()
@@ -58,64 +63,43 @@ public class BossGenerator : MonoBehaviour
 
     void BossRandomGeneration()
     {
-        bossPattern = GetRandomValue(bossPattern);
+        if (bossCount == 1)
+        {
+            bossPattern = 1;
+        }
+        if (bossCount >= 2)
+        {
+            bossPattern = GetRandomValue(bossPattern);
+        }
 
-        
 
         switch (bossPattern) {
             case 1:
                 bossC = Instantiate(bossModel);
                 bossC.transform.position = bossPositionCenter;
+                bossCount++;
                 intervalTime = 0.0f;
+
                 break;
             case 2:
                 bossL = Instantiate(bossModel);
                 bossL.transform.position = bossPositionLeft;
-                
+                bossCount++;
                 intervalTime = 0.0f;
                 break;
             case 3:
                 bossR = Instantiate(bossModel);
                 bossR.transform.position = bossPositionRight;
+                bossCount++;
                 intervalTime = 0.0f;
-                break;
-            case 4:
-                bossC = Instantiate(bossModel);
-                bossC.transform.position = bossPositionCenter;
-
-                bossL = Instantiate(bossModel);
-                bossL.transform.position = bossPositionLeft;
-                intervalTime = 0.0f;
-                break;
-            case 5:
-                bossR = Instantiate(bossModel);
-                bossR.transform.position = bossPositionRight;
-
-                bossL = Instantiate(bossModel);
-                bossL.transform.position = bossPositionLeft;
-                intervalTime = 0.0f;
-                break;
-            case 6:
-                bossC = Instantiate(bossModel);
-                bossC.transform.position = bossPositionCenter;
-
-                bossR = Instantiate(bossModel);
-                bossR.transform.position = bossPositionRight;
-                intervalTime = 0.0f;
-                break;
-            case 7:
-                bossC = Instantiate(bossModel);
-                bossC.transform.position = bossPositionCenter;
-
-                bossR = Instantiate(bossModel);
-                bossR.transform.position = bossPositionRight;
-
-                bossL = Instantiate(bossModel);
-                bossL.transform.position = bossPositionLeft;
-                intervalTime = 0.0f;
-
                 break;
         }
 
     }
+
+    public GameObject BossModle()
+    {
+        return bossModel;
+    }
+
 }

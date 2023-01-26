@@ -45,6 +45,8 @@ public class BossAttack : MonoBehaviour
 
     public BossMove bossMove;
 
+    public BossDamage bossDamage;
+
     private void Start()
     {
         areaCount= 0;
@@ -54,7 +56,18 @@ public class BossAttack : MonoBehaviour
     void Update()
     {
         time+= Time.deltaTime;
+        if (!bossDamage.isDamage)
+        {
+            AttackAnimation();
+        }
+        else
+        {
+            isAttack = false;
+        }
+    }
 
+    void AttackAnimation()
+    {
         if (bossMove.bossHp > 0)
         {
             if (time >= attackIntervalTime)

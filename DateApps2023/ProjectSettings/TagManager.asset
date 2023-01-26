@@ -21,6 +21,10 @@ TagManager:
   - PlayerAttackPoint
   - item4
   - BossAttack
+  - Center
+  - Left
+  - Right
+  - Boss
   layers:
   - Default
   - TransparentFX

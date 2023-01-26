@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 1763202426801422486}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,7 +923,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 4.5, y: 3.5, z: 3}
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &1648196746715476572
 MonoBehaviour:
@@ -952,10 +952,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopTime: 5
   AnimationImage: {fileID: 1697093568606495979}
   damagePoint: {fileID: 3490875008881636801}
-  explosionEffect: {fileID: 4914716930404006884, guid: aed12c224fbc8704d8eaa07a52e88f44, type: 3}
+  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
+  isDamage: 0
   bossCount: {fileID: 8262618935548590350, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
   fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
 --- !u!114 &1648196746715476545
@@ -994,6 +994,7 @@ MonoBehaviour:
   damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
   isAttack: 0
   bossMove: {fileID: 1648196746715476545}
+  bossDamage: {fileID: 1648196746715476574}
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0
