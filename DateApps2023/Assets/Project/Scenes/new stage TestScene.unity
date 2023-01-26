@@ -3995,6 +3995,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1400696300}
     - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
+      propertyPath: spderpositionA
+      value: 
+      objectReference: {fileID: 1343403117}
+    - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
+      propertyPath: spderpositionD
+      value: 
+      objectReference: {fileID: 2367532654577339932}
+    - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: rirurnTransform
       value: 
       objectReference: {fileID: 1510931020}

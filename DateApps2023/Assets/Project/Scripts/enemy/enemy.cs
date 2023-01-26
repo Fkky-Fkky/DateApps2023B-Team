@@ -30,11 +30,11 @@ public class enemy : MonoBehaviour
 
     [SerializeField]
     [Tooltip("ê∂ê¨Ç∑ÇÈîÕàÕA")]
-    private Transform rangeA;
+    private Transform spderpositionA;
     
     [SerializeField]
     [Tooltip("ê∂ê¨Ç∑ÇÈîÕàÕD")]
-    private Transform rangeD;
+    private Transform spderpositionD;
 
 
     [SerializeField]
@@ -292,8 +292,8 @@ public class enemy : MonoBehaviour
             }
         }
 
-        Vector3 rangeApos = rangeA.position;
-        Vector3 rangeDpos = rangeD.position;
+        Vector3 rangeApos = spderpositionA.position;
+        Vector3 rangeDpos = spderpositionD.position;
         if (rangeApos.x <= pos.x && gameState == summon.end ||
             rangeApos.x <= pos.z && gameState == summon.end)
             rb.useGravity = true;
