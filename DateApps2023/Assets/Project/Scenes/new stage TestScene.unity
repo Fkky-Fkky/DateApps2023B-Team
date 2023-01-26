@@ -2706,6 +2706,10 @@ PrefabInstance:
       propertyPath: spider
       value: 
       objectReference: {fileID: 5047769963765888379}
+    - target: {fileID: 5925748087450168984, guid: c7aaa4f7d3a691a4bba489d7d48e9e11, type: 3}
+      propertyPath: spider_spoan_time
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5925748087450168985, guid: c7aaa4f7d3a691a4bba489d7d48e9e11, type: 3}
       propertyPath: m_Name
       value: enemy_j
@@ -3906,6 +3910,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 513599242}
     m_Modifications:
+    - target: {fileID: 1413706645459310227, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
+      propertyPath: m_Speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739945634644183694, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8241050366122842857, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: m_Name
       value: Spider
@@ -3956,20 +3968,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: ex_x
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: ex_z
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: ex_mx
-      value: -14
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: ex_mz
-      value: -7
+      value: -6
       objectReference: {fileID: 0}
+    - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
+      propertyPath: rangeA
+      value: 
+      objectReference: {fileID: 1343403117}
+    - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
+      propertyPath: rangeD
+      value: 
+      objectReference: {fileID: 2367532654577339932}
     - target: {fileID: 8749434787197111639, guid: c2412fe29608fb0498989107aa83ee5c, type: 3}
       propertyPath: Centerpoint
       value: 
