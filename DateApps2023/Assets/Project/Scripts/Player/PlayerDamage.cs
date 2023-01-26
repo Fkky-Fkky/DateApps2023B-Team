@@ -200,6 +200,8 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
+        playerMove.CallHanteiEnter();
+
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
@@ -234,6 +236,7 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
+        playerMove.CallHanteiEnter();
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
