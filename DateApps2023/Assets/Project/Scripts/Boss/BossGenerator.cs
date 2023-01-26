@@ -32,7 +32,7 @@ public class BossGenerator : MonoBehaviour
     {
         bossCount = 1;
         intervalTime = 9.0f;
-        bossModel.tag = "boss";
+        bossModel.tag = "Boss";
     }
 
     void Update()

@@ -20,7 +20,7 @@ public class BossManager : MonoBehaviour
     void Debugging()
     {
         //デバック用
-        if (Input.GetKeyDown(KeyCode.K))//<-ifの中に大砲のフラグ
+        if (Input.GetKeyDown(KeyCode.K))//<-ifの中に大砲を発射したフラグと大砲がいるレーンの情報
         {
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
             foreach (GameObject boss in objects)

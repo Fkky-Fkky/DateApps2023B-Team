@@ -29,7 +29,7 @@ public class BossController : MonoBehaviour
     void Update()
     {
         targetRange = gameObject.transform.position.z - target.position.z;
-        BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
+        //BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
         
 
     }
