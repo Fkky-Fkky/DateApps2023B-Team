@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18541fd01e3c3554a8fef40e8a883a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyChargeEffect: {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
+  chargeEffectPos: {fileID: 3059687311060529630}
 --- !u!65 &608408025037340663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134,12 +136,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608408026505789373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.669, z: 1.084}
+  m_LocalPosition: {x: 0, y: 0.669, z: 1.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6235379894168220595}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &945104328733769971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3059687311060529630}
+  m_Layer: 0
+  m_Name: ChrgeEffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3059687311060529630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945104328733769971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6235379894168220595}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2433888748963709109
 GameObject:
@@ -400,8 +433,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6235379894168220595}
   - component: {fileID: 608408025486642115}
+  - component: {fileID: 7016912078447326486}
   - component: {fileID: 608408025486642116}
   - component: {fileID: 608408025486642117}
+  - component: {fileID: 1228524025749394180}
+  - component: {fileID: 6797443795630132375}
   - component: {fileID: 6843777197854238308}
   m_Layer: 0
   m_Name: Cannon
@@ -429,6 +465,7 @@ Transform:
   - {fileID: 1529489894783582474}
   - {fileID: 608408025037340664}
   - {fileID: 608408026505789374}
+  - {fileID: 3059687311060529630}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -450,6 +487,20 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &7016912078447326486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6756336597369760009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fab438bd946e747a2641c1416b49b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannonConnect: {fileID: 6797443795630132375}
+  cannonShot: {fileID: 608408025486642117}
 --- !u!114 &608408025486642116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,8 +516,8 @@ MonoBehaviour:
   myGrabPoint: []
   playerCarryDowns: []
   groupNumber: 1
-  defaultPosY: 0
-  carryPosY: 0.8
+  defaultPosY: -0.3
+  carryPosY: 0.2
   myItemSize: 2
 --- !u!114 &608408025486642117
 MonoBehaviour:
@@ -480,12 +531,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d52537b7f5856c498dd5eaee025652a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smokeEffect: {fileID: 1636802288112176355, guid: d7f65607152ed9947951f1f99e8146cb, type: 3}
-  chargeShotEffect: {fileID: 0}
+  smokeEffect: {fileID: 3102745252890071952, guid: 0fa7914f42d3e754b9a4a5ebfadf8418, type: 3}
+  chargeShotEffect: {fileID: 7370199869646859276, guid: 7daf18ee7bb8259448d30fe64fac2e0e, type: 3}
   smokePosition: {fileID: 608408026505789374}
   energyCharge: {fileID: 608408025037340662}
-  bossDamage: {fileID: 0}
   generateEnergy: {fileID: 0}
+--- !u!114 &1228524025749394180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6756336597369760009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613c87a200d1fbb42b90704244cf3c9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyCharge: {fileID: 608408025037340662}
+--- !u!114 &6797443795630132375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6756336597369760009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f77336411ad694488b985a5af8f6fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectEffect: {fileID: 4319145361413959232, guid: 59db49542e2a645428659003f7383d83, type: 3}
+  effectPos: {fileID: 608408025037340664}
 --- !u!65 &6843777197854238308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -860,7 +937,7 @@ BoxCollider:
   m_GameObject: {fileID: 2193822944324508592}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.7640784, y: 1.5088375, z: 1.6132834}
   m_Center: {x: 1.6547791, y: -0.86459285, z: 0.020377513}
@@ -878,3 +955,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyCharge: {fileID: 608408025037340662}
   cannonShot: {fileID: 608408025486642117}
+  cannonConnect: {fileID: 6797443795630132375}

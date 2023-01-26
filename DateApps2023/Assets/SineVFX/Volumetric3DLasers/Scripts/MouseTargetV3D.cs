@@ -8,6 +8,7 @@ public class MouseTargetV3D : MonoBehaviour {
     public float speed = 1f;
 
     private Vector3 mouseWorldPosition;
+
     
     // Positioning cursor prefab
     void FixedUpdate () {  

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -20,8 +18,20 @@ public class PlayerAttack : MonoBehaviour
 
     private bool myAttack = false;
 
-    //[SerializeField]
-    //public enemy enemy_hit;
+    [SerializeField]
+    private GameObject attackEffect = null;
+
+    [SerializeField]
+    private Transform effectPos = null;
+
+    [SerializeField]
+    private GameObject fistObject = null;
+    [SerializeField]
+    private Transform fistPos = null;
+
+    [SerializeField]
+    private AudioClip attackSound = null;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponentInParent<Animator>();
 
         playerMove = GetComponentInParent<PlayerMove>();
+        audioSource= GetComponentInParent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -61,6 +72,10 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", true);
         boxCol.enabled = true;
         playerMove.StartAttack();
+        Instantiate(attackEffect, effectPos.position, this.transform.rotation);
+        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        audioSource.PlayOneShot(attackSound);
+
         myAttack = true;
     }
 
@@ -69,6 +84,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Attack", false);
         boxCol.enabled = false;
         playerMove.EndAttack();
+
         myAttack = false;
     }
 
@@ -76,26 +92,4 @@ public class PlayerAttack : MonoBehaviour
     {
         myPlayerNo = parentNumber;
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Rigidbody rb = other.GetComponent<Rigidbody>();
-           
-            if (!rb)
-                return;
-
-            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
-            //rb.AddForce(pw, ForceMode.Impulse);
-            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
-
-            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
-            if (!nav)
-                return;
-
-            nav.enabled = false;
-        }
-    }
-    
 }

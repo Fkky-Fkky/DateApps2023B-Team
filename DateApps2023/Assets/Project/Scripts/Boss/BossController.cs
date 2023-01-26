@@ -9,9 +9,6 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
-
-    int boss_hp = 3;
-
     [SerializeField]
     private Transform target;
     private float targetRange;
@@ -32,20 +29,9 @@ public class BossController : MonoBehaviour
     void Update()
     {
         targetRange = gameObject.transform.position.z - target.position.z;
-        BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
+        //BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
         
 
-        if(boss_hp==0)
-        {
-            Destroy(gameObject);
-            Debug.Log("qqqqqqq");
-        }
-
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            boss_hp -= 1;
-            Debug.Log("aijwdijdij");
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,10 +41,4 @@ public class BossController : MonoBehaviour
           SceneManager.LoadScene(sceneName);
       }
   }
-
-    public void bosshp()
-    {
-        boss_hp -= 1;
-    }
-
 }

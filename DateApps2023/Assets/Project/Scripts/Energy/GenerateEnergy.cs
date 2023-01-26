@@ -13,18 +13,20 @@ public class GenerateEnergy : MonoBehaviour
     [SerializeField]
     private Transform generatePosMax = null;
 
-
     private float[] createArea = new float[6];
-    private Vector3 halfExtents;
+    private Vector3 halfExtents = Vector3.zero;
+    private List<Vector3> createPositionList = new List<Vector3>();
 
     const int MAX_GENERATE = 5;
+    const int MAX_AREA = 6;
+    const float GENERATE_POS_Y = 20.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         halfExtents = energy.transform.localScale / 2;
         float fiveDivide = ((generatePosMin.position.x - generatePosMax.position.x) / 5) * -1;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < MAX_AREA; i++)
         {
             createArea[i] = generatePosMin.position.x + (fiveDivide * i);
         }
@@ -33,37 +35,23 @@ public class GenerateEnergy : MonoBehaviour
 
     public void Generate()
     {
-        int generateNum = 0;
-        Vector3 genaratePos;
-        int miss = 0;
-        //while (generateNum < MAX_GENERATE)
-        //{
-        //    float x = Random.Range(generatePosMin.position.x, generatePosMax.position.x);
-        //    float z = Random.Range(generatePosMin.position.z, generatePosMax.position.z);
-        //    genaratePos = new Vector3(x, generatePosMin.position.y, z);
-        //    if (!Physics.CheckBox(genaratePos, halfExtents))
-        //    {
-        //        Instantiate(energy, genaratePos, Quaternion.identity);
-        //        generateNum++;
-        //    }
-        //    else
-        //    {
-        //        miss++;
-        //    }
-        //    if (miss > 10)
-        //    {
-        //        break;
-        //    }
-        //}
+        GeneratePosition();
+        EnergyGenerate();
+    }
 
+    private void GeneratePosition()
+    {
+        int generateNum = 0;
+        int miss = 0;
+        Vector3 genaratePos;
         while (generateNum < MAX_GENERATE)
         {
             float x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
             float z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            genaratePos = new Vector3(x, generatePosMin.position.y, z);
+            genaratePos = new Vector3(x, generatePosMax.position.y, z);
             if (!Physics.CheckBox(genaratePos, halfExtents))
             {
-                Instantiate(energy, genaratePos, Quaternion.identity);
+                createPositionList.Add(genaratePos);
                 generateNum++;
             }
             else
@@ -71,11 +59,21 @@ public class GenerateEnergy : MonoBehaviour
                 miss++;
             }
 
-            if (miss > 10)
+            if (miss > 30)
             {
                 break;
             }
         }
         Debug.Log(miss);
+    }
+
+    private void EnergyGenerate()
+    {
+        for (int i = 0; i < createPositionList.Count; i++)
+        {
+            Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
+            Instantiate(energy, position, Quaternion.identity);
+        }
+        createPositionList.Clear();
     }
 }

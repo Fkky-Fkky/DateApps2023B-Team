@@ -1,301 +1,143 @@
-//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using Unity.VisualScripting;
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-//public class BossAttack : MonoBehaviour
-//{
-//    #region
-//    enum SabotageType
-//    {
-//        None,
-//        Rubble, //瓦礫
-//        Flame   //火の粉
-//    }
+public class BossAttack : MonoBehaviour
+{
 
-//    [SerializeField]
-//    SabotageType mySabotageType = SabotageType.None;
+    float time = 0.0f;
+
+    [SerializeField]
+    float attackIntervalTime = 20.0f;
 
 
-//    private Rigidbody rb;
-
-//    [SerializeField]
-//    private GameObject boss;
-
-//    [SerializeField]
-//    private BossDamage bossDamage;
-
-//    [SerializeField]
-//    [Tooltip("次の攻撃までの間隔")]
-//    private float intervalTime = 15;
-
-//    [SerializeField]
-//    [Tooltip("攻撃実行中(ボスが止まっている時間)")]
-//    private float attackTime = 5;
-
-//    [SerializeField]
-//    [Tooltip("妨害アイテムが消えるまでの時間")]
-//    private float sabotageTime = 30;
-
-//    private bool sabotageFlag = false;
-//    private bool alreadyInstantFlag = false;
-
-//    [SerializeField]
-//    [Tooltip("生成する範囲A(=アイテムと同じ範囲)")]
-//    private Transform rangeA;
-
-//    [SerializeField]
-//    [Tooltip("生成する範囲B(=アイテムと同じ範囲)")]
-//    private Transform rangeB;
-
-//    [SerializeField]
-//    [Tooltip("妨害アイテムが落ちる高さ")]
-//    private float instancePosY = 55;
-
-//    [SerializeField]
-//    [Tooltip("妨害アイテム(落としたい数だけ入れる)")]
-//    private GameObject[] sabotageItem;
-
-//    [SerializeField]
-//    private LayerMask LayerMask;
-
-//    [SerializeField]
-//    [Tooltip("妨害アイテム重なり回避用の仮判定")]
-//    private Vector3 halfExtents = new Vector3(12.5f, 12.5f, 12.5f);
-
-//    float time = 0;
-//    float currentSabotageTime = 0;
-
-//    private bool firstRubble = true;
-
-//    private float RotateNumber;
-//    private Quaternion RotateY;
-//    #endregion
-
-//    #region 予測アイテム(仮)用
-//    private bool alreadyPredictFlag = false;
-//    [SerializeField]
-//    private float PredictInstancePosY = 55;
-//    [SerializeField]
-//    private GameObject[] predictSabotageItem;
-//    public Vector3[] predictInstantPos;
-//    public Vector3[] instantPos;
-//    private int predictNumber = 0;
-//    private int instantNumber = 0;
-//    private int instantCloneValue = 0;
-//    #endregion
+    [SerializeField]
+    Animator attackAnimation = null;
 
 
+    float centerTarget = 0.0f;
+    float rightTarget = 0.1f;
+    float leftTarget = -0.1f;
 
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        rb = GetComponent<Rigidbody>();
-//        bossDamage = GetComponent<BossDamage>();
 
-//        instantCloneValue = 0;
-//        predictNumber = 0;
-//        time = 0;
+    [SerializeField]
+    GameObject dmageAreaCenter;
+    [SerializeField]
+    GameObject damageAreaRight;
+    [SerializeField]
+    GameObject damageAreaLeft;
 
-//        switch (mySabotageType)
-//        {
-//            case SabotageType.Rubble:
-//                firstRubble = true;
-//                break;
-//            case SabotageType.Flame:
-//                firstRubble = false;
-//                break;
-//        }
-//    }
+    float damageTime = 0.0f;
+    float damageTimeMax = 0.5f;
 
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        if (bossDamage.knockBackFlag)
-//        {
-//            time = 0;
-//        }
+    int areaCount;
+    int areaCountMax = 1;
 
-//        if (firstRubble)
-//        {
-//            FirstRubbleAttack();
-//        }
+    float areaDestroyTime = 0.0f;
+    float areaDestroyTimeMax = 2.0f;
 
-//        if (!sabotageFlag)
-//        {
-//            time += Time.deltaTime;
+    public bool isAttack;
 
-//            if (time >= intervalTime)
-//            {
-//                time = 0;
-//                predictNumber = 0;
-//                alreadyInstantFlag = false;
-//                alreadyPredictFlag = false;
-//                sabotageFlag = true;
-            
-//            }
-//        }
-//        if (sabotageFlag)
-//        {
-            
-//            time += Time.deltaTime;
-//            currentSabotageTime += Time.deltaTime;
+    float animationtime = 0.0f;
+    float animationtimeMax = 1.5f;
 
-//            if (time < attackTime)
-//            {
-//                boss.transform.position = new Vector3(
-//                    0.0f,
-//                    boss.transform.position.y,
-//                    boss.transform.position.z);
-//                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-//                if (!alreadyPredictFlag)
-//                {
-//                    GameObject[] clonePredictItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
-//                    if (clonePredictItem.Length >= sabotageItem.Length)
-//                    {
-//                        alreadyPredictFlag = true;
-//                        predictNumber = 0;
-//                    }
+    public BossMove bossMove;
 
-//                    for (int i = 0; i < sabotageItem.Length - clonePredictItem.Length; i++)
-//                    {
-//                        float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
-//                        float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
-//                        predictInstantPos[predictNumber] = new Vector3(x, instancePosY, z);
-//                        Vector3 CheckPos = predictInstantPos[predictNumber];
-//                        CheckPos.y = PredictInstancePosY;
-//                        Quaternion predictRot = Quaternion.identity;
-//                        predictRot.y = 180f;
+    public BossDamage bossDamage;
 
-//                        int layerMask = 1 << LayerMask;
-//                        layerMask = ~layerMask;
+    private void Start()
+    {
+        areaCount= 0;
+        isAttack = false;
+    }
 
-//                        if (!Physics.CheckBox(CheckPos, halfExtents, predictRot, layerMask))
-//                        {
-//                            instantPos[predictNumber] = predictInstantPos[predictNumber];
-//                            Instantiate(predictSabotageItem[predictNumber], CheckPos, predictRot);
-//                            predictNumber++;
-//                        }
+    void Update()
+    {
+        time+= Time.deltaTime;
+        if (!bossDamage.isDamage)
+        {
+            AttackAnimation();
+        }
+        else
+        {
+            isAttack = false;
+        }
+    }
 
-//                        if (predictNumber >= instantPos.Length)
-//                        {
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                PredictDestroy();
+    void AttackAnimation()
+    {
+        if (bossMove.bossHp > 0)
+        {
+            if (time >= attackIntervalTime)
+            {
+                attackAnimation.SetTrigger("Attack");
+                Attack();
+            }
+        }
+        else
+        {
+            isAttack = false;
+        }
+    }
 
-//                if (!alreadyInstantFlag)
-//                {
-//                    if(instantCloneValue <= 0)
-//                    {
-//                        instantCloneValue = 0;
-//                    }
-                    
-//                    for (int i = 0; i < sabotageItem.Length; i++)
-//                    {
-//                        RotateNumber = UnityEngine.Random.Range(-180f, 180f);
-//                        RotateY = Quaternion.Euler(0, RotateNumber, 0);
-//                        Instantiate(sabotageItem[i], instantPos[i], RotateY);
-//                        instantNumber++;
-//                    }
+    void Attack()
+    {
+        damageTime += Time.deltaTime;
+        if (damageTime >= damageTimeMax)
+        {
 
-//                    if (instantNumber >= sabotageItem.Length)
-//                    {
-//                        alreadyInstantFlag = true;
-//                    }
-//                }
-//            }
+            animationtime += Time.deltaTime;
+            if (animationtime >= animationtimeMax)
+            {
+                isAttack = true;
+                DamageAreaControl();
+            }
 
-//            switch (mySabotageType)
-//            {
-//                case SabotageType.Rubble:
-//                    #region
-//                    if (currentSabotageTime > sabotageTime)
-//                    {
-//                        time = 0;
-//                        instantCloneValue += sabotageItem.Length;
-//                        currentSabotageTime = 0;
-//                        sabotageFlag = false;
-//                    }
-//                    #endregion
-//                    break;
-//                case SabotageType.Flame:
-//                    #region
-//                    if (currentSabotageTime > sabotageTime)
-//                    {
-//                        AllDestroy();
-//                        time = 0;
-//                        currentSabotageTime = 0;
-//                        sabotageFlag = false;
-//                    }
-//                    #endregion
-//                    break;
-//            }
 
-            
-//        }
+        }
+    }
 
-//    }
+    void DamageAreaControl()
+    {
+        if (gameObject.transform.position.x == centerTarget)
+        {
+            if (areaCount < areaCountMax)
+            {
+                Instantiate(dmageAreaCenter);
+                areaCount++;
+            }
+        }
 
-//    void FirstRubbleAttack()
-//    {
-//        GameObject[] cloneFirstSabotage = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-//        if (cloneFirstSabotage.Length >= sabotageItem.Length)
-//        {
-//            predictNumber = 0;
-//            firstRubble = false;
-//        }
+        if (gameObject.transform.position.x >= rightTarget)
+        {
+            if (areaCount < areaCountMax)
+            {
+                Instantiate(damageAreaRight);
+                areaCount++;
+            }
+        }
 
-//        for (int i = 0; i < sabotageItem.Length - cloneFirstSabotage.Length; i++)
-//        {
-//            float x = UnityEngine.Random.Range(rangeA.position.x, rangeB.position.x);
-//            float z = UnityEngine.Random.Range(rangeA.position.z, rangeB.position.z);
-//            predictInstantPos[predictNumber] = new Vector3(x, instancePosY, z);
-//            Vector3 CheckPos = predictInstantPos[predictNumber];
-//            CheckPos.y = PredictInstancePosY;
-//            RotateNumber = UnityEngine.Random.Range(-180f, 180f);
-//            RotateY = Quaternion.Euler(0, RotateNumber, 0);
+        if (gameObject.transform.position.x <= leftTarget)
+        {
+            if (areaCount < areaCountMax)
+            {
+                Instantiate(damageAreaLeft);
+                areaCount++;
+            }
+        }
+        areaDestroyTime += Time.deltaTime;
+        if (areaDestroyTime >= areaDestroyTimeMax)
+        {
+            isAttack= false;
+            areaDestroyTime = 0.0f;
+            animationtime = 0.0f;
+            damageTime = 0.0f;
+            areaCount = 0;
+            time = 0.0f;
+        }
 
-//            int layerMask = 1 << LayerMask;
-//            layerMask = ~layerMask;
+    }
 
-//            if (!Physics.CheckBox(CheckPos, halfExtents, RotateY, layerMask))
-//            {
-//                instantPos[predictNumber] = predictInstantPos[predictNumber];
-//                Instantiate(sabotageItem[predictNumber], CheckPos, RotateY);
-//                predictNumber++;
-//            }
-//            if (predictNumber >= instantPos.Length)
-//            {
-//                break;
-//            }
-//        }
-//    }
-
-//    void AllDestroy()
-//    {
-//        GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("CloneSabotageItem");
-
-//        foreach (GameObject clone_sabotageItem in cloneItem)
-//        {
-//            Destroy(clone_sabotageItem);
-//        }
-//    }
-
-//    void PredictDestroy()
-//    {
-//        GameObject[] cloneItem = GameObject.FindGameObjectsWithTag("ClonePredictItem");
-
-//        foreach (GameObject clone_predictItem in cloneItem)
-//        {
-//            Destroy(clone_predictItem);
-//        }
-//    }
-
-//}
+}

@@ -27,6 +27,8 @@ public class ProgressControlV3D : MonoBehaviour {
     private LightLineV3D[] lils;
     private Renderer[] renderers;
 
+    public BossAttack bossAttack;
+
     private void Start()
     {
         globalProgress = 1f;
@@ -87,7 +89,8 @@ public class ProgressControlV3D : MonoBehaviour {
             globalImpactProgress += Time.deltaTime * globalImpactProgressSpeed;
         }
 
-        if (Input.GetMouseButton(0) || always == true)
+        //if (Input.GetMouseButton(0) || always == true)
+        if (bossAttack.isAttack || always == true)
         {
             globalProgress = 0f;
             endPointEffect.emit = true;
@@ -97,7 +100,8 @@ public class ProgressControlV3D : MonoBehaviour {
             endPointEffect.emit = false;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        if (bossAttack.isAttack)
         {
             globalImpactProgress = 0f;
         }
@@ -114,7 +118,7 @@ public class ProgressControlV3D : MonoBehaviour {
             if (changeAllMaxLength == true)
             {
                 ll.maxLength = maxLength;
-            }            
+            }
         }
 
         foreach (LightLineV3D lil in lils)

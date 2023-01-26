@@ -66,17 +66,8 @@ public class PlayerMove : MonoBehaviour
                 Debug.Log("None : " + gameObject.name);
                 break;
 
-            case PlayerNumber.PL_1P:
-                playerNo = (int)PlayerNumber.PL_1P;
-                break;
-            case PlayerNumber.PL_2P:
-                playerNo = (int)PlayerNumber.PL_2P;
-                break;
-            case PlayerNumber.PL_3P:
-                playerNo = (int)PlayerNumber.PL_3P;
-                break;
-            case PlayerNumber.PL_4P:
-                playerNo = (int)PlayerNumber.PL_4P;
+            default:
+                playerNo = (int)playerNumber;
                 break;
         }
 
@@ -85,6 +76,8 @@ public class PlayerMove : MonoBehaviour
 
         attack = GetComponentInChildren<PlayerAttack>();
         attack.GetPlayerNo(playerNo);
+
+        GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
 
         tempMoveSpeed = moveSpeed;
 
@@ -124,7 +117,7 @@ public class PlayerMove : MonoBehaviour
             EnterItem = true;
             ItemOfEnter = collision.gameObject;
         }
-        if (collision.gameObject.CompareTag("Group1")
+        else if (collision.gameObject.CompareTag("Group1")
            || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
            || collision.gameObject.CompareTag("Group4"))

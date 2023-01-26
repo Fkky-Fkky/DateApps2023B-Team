@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class EnergyCharge : MonoBehaviour
 {
-    private GameObject destroyItem = null;
+    [SerializeField]
+    private GameObject energyChargeEffect = null;
+
+    [SerializeField]
+    private Transform chargeEffectPos = null;
+
+    [SerializeField]
+    private AudioClip chargeSe = null;
+
     private BoxCollider boxCol = null;
-    const int MAX_ENERGY = 3;
-    const int ADD_ENERGY = 1;
+    private AudioSource audioSource = null;
+    private const int MAX_ENERGY = 3;
+    private const int ADD_ENERGY = 1;
     
     public int Energy { get; private set; }
 
     private void Start()
     {
         boxCol = GetComponent<BoxCollider>();
+        audioSource = transform.parent.GetComponent<AudioSource>();
         Energy = 0;
     }
 
@@ -23,14 +33,20 @@ public class EnergyCharge : MonoBehaviour
         {
             return;
         }
-        destroyItem = other.gameObject;
-        destroyItem.GetComponent<hantei>().DestroyMe();
+
+        if (other.transform.parent == null)
+        {
+            return;
+        }
+        other.GetComponent<hantei>().DestroyMe();
         ChargeEnergy();
     }
 
     private void ChargeEnergy()
     {
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
+        Instantiate(energyChargeEffect, transform.position, Quaternion.identity);
+        audioSource.PlayOneShot(chargeSe);
         if (Energy >= MAX_ENERGY)
         {
             boxCol.enabled = false;
@@ -47,7 +63,7 @@ public class EnergyCharge : MonoBehaviour
         boxCol.enabled = true;
     }
 
-    public bool IsEnergyCharge()
+    public bool IsEnergyCharged()
     {
         return Energy > 0;
     }

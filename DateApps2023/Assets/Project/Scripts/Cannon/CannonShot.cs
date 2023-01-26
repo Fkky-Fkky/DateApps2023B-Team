@@ -17,44 +17,51 @@ public class CannonShot : MonoBehaviour
     private EnergyCharge energyCharge = null;
 
     [SerializeField]
-    private BossDamage bossDamage = null;
+    private GenerateEnergy generateEnergy = null;
 
     [SerializeField]
-    private GenerateEnergy generateEnergy = null;
+    private AudioClip shotChargeSe = null;
+
+    [SerializeField]
+    private AudioClip shotSe = null;
 
     public bool IsShotting { get; private set; }
 
-    private int smokeNum = 0;
     private int shotNum = 0;
     private float coolTime = 0.0f;
-    private GameObject[] smokeEffects = new GameObject[3];
-    private GameObject cloneChrageEffect = null;
+    private bool isCoolTime = false;
+    private AudioSource audioSource = null;
 
-    private const int MAX_SMOKE_NUM = 3;
     private const int MAX_SHOT_NUM = 5;
     private const float MAX_COOL_TIME = 3.0f;
     private const float INVOKE_TIME = 2.0f;
-    private const float REPEAT_INVOKE_TIME = 2.0f;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (!IsShotting)
+        if (!isCoolTime)
         {
             return;
         }
 
         coolTime = Mathf.Max(coolTime - Time.deltaTime, 0.0f);
-        if(coolTime <= 0.0f && smokeNum >= MAX_SMOKE_NUM)
+
+        if (coolTime > 0.0f)
         {
-            IsShotting = false;
-            DestroySmoke();
-            DestroyChargeEffect();
-            if(shotNum >= MAX_SHOT_NUM)
-            {
-                generateEnergy.Generate();
-                shotNum = 0;
-            }
+            return;
+        }
+
+        IsShotting = false;
+        isCoolTime = false;
+        if(shotNum >= MAX_SHOT_NUM)
+        {
+            generateEnergy.Generate();
+            shotNum = 0;
         }
     }
 
@@ -63,38 +70,22 @@ public class CannonShot : MonoBehaviour
         IsShotting = true;
         energyCharge.DisChargeEnergy();
         CreateChageEffect();
-        InvokeRepeating(nameof(CreateSmoke), INVOKE_TIME, REPEAT_INVOKE_TIME);
+        Invoke(nameof(CreateSmoke), INVOKE_TIME);
         shotNum++;
     }
 
     private void CreateChageEffect()
     {
-        cloneChrageEffect = Instantiate(chargeShotEffect, smokePosition);
-    }
-
-    private void DestroyChargeEffect()
-    {
-        Destroy(cloneChrageEffect);
+        Instantiate(chargeShotEffect, smokePosition);
+        audioSource.PlayOneShot(shotChargeSe);
     }
 
     private void CreateSmoke()
     {
-        smokeEffects[smokeNum] = Instantiate(smokeEffect, smokePosition);
-        smokeNum++;
-        bossDamage.KnockbackTrue();
-        if (smokeNum >= MAX_SMOKE_NUM)
-        {
-            CancelInvoke();
-            coolTime = MAX_COOL_TIME;
-        }
-    }
-
-    private void DestroySmoke()
-    {
-        for (int i = 0; i < smokeEffects.Length; i++)
-        {
-            Destroy(smokeEffects[i]);
-        }
-        smokeNum = 0;
+        Instantiate(smokeEffect, smokePosition);
+        audioSource.Stop();
+        audioSource.PlayOneShot(shotSe);
+        coolTime = MAX_COOL_TIME;
+        isCoolTime = true;
     }
 }
