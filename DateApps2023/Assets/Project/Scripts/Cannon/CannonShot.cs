@@ -19,15 +19,27 @@ public class CannonShot : MonoBehaviour
     [SerializeField]
     private GenerateEnergy generateEnergy = null;
 
+    [SerializeField]
+    private AudioClip shotChargeSe = null;
+
+    [SerializeField]
+    private AudioClip shotSe = null;
+
     public bool IsShotting { get; private set; }
 
     private int shotNum = 0;
     private float coolTime = 0.0f;
     private bool isCoolTime = false;
+    private AudioSource audioSource = null;
 
     private const int MAX_SHOT_NUM = 5;
     private const float MAX_COOL_TIME = 3.0f;
     private const float INVOKE_TIME = 2.0f;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -65,11 +77,14 @@ public class CannonShot : MonoBehaviour
     private void CreateChageEffect()
     {
         Instantiate(chargeShotEffect, smokePosition);
+        audioSource.PlayOneShot(shotChargeSe);
     }
 
     private void CreateSmoke()
     {
         Instantiate(smokeEffect, smokePosition);
+        audioSource.Stop();
+        audioSource.PlayOneShot(shotSe);
         coolTime = MAX_COOL_TIME;
         isCoolTime = true;
     }

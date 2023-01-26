@@ -10,7 +10,11 @@ public class EnergyCharge : MonoBehaviour
     [SerializeField]
     private Transform chargeEffectPos = null;
 
+    [SerializeField]
+    private AudioClip chargeSe = null;
+
     private BoxCollider boxCol = null;
+    private AudioSource audioSource = null;
     private const int MAX_ENERGY = 3;
     private const int ADD_ENERGY = 1;
     
@@ -19,6 +23,7 @@ public class EnergyCharge : MonoBehaviour
     private void Start()
     {
         boxCol = GetComponent<BoxCollider>();
+        audioSource = transform.parent.GetComponent<AudioSource>();
         Energy = 0;
     }
 
@@ -41,6 +46,7 @@ public class EnergyCharge : MonoBehaviour
     {
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
         Instantiate(energyChargeEffect, transform.position, Quaternion.identity);
+        audioSource.PlayOneShot(chargeSe);
         if (Energy >= MAX_ENERGY)
         {
             boxCol.enabled = false;
