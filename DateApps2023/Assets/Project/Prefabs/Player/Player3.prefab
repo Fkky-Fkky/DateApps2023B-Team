@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69876a81c79b25e4b91d38d5d909633e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carryDamage: 0
 --- !u!1 &2535996612999046457
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +738,7 @@ GameObject:
   - component: {fileID: 7644300349639810741}
   - component: {fileID: 3892457421331143132}
   - component: {fileID: 4400204124267526955}
+  - component: {fileID: 6703949529683751594}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Player
@@ -830,7 +830,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stanTime: 10
   captureTime: 10
-  knockBackPower: 0.2
   EndStanCount: 3
   EndCaptureCount: 1
   stanBoxCol: {fileID: 3892457421331143132}
@@ -965,6 +964,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6703949529683751594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642304097403980634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 0, g: 1, b: 0.054290295, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6775470732203195223
 GameObject:
   m_ObjectHideFlags: 0
