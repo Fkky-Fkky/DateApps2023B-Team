@@ -38,7 +38,7 @@ public class BossDamage : MonoBehaviour
     private bool isInvincible = false;
     private float invincibleTime = 0.0f;
     [SerializeField]
-    private float invincibleTimeMax = 10.0f;
+    private float invincibleTimeMax = 4.0f;
 
 
 

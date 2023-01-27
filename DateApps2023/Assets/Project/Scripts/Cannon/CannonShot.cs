@@ -26,6 +26,7 @@ public class CannonShot : MonoBehaviour
     private AudioClip shotSe = null;
 
     public bool IsShotting { get; private set; }
+    public bool IsNowShot { get; private set; }
 
     private int shotNum = 0;
     private float coolTime = 0.0f;
@@ -58,7 +59,8 @@ public class CannonShot : MonoBehaviour
 
         IsShotting = false;
         isCoolTime = false;
-        if(shotNum >= MAX_SHOT_NUM)
+        IsNowShot = false;
+        if (shotNum >= MAX_SHOT_NUM)
         {
             generateEnergy.Generate();
             shotNum = 0;
@@ -86,6 +88,7 @@ public class CannonShot : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(shotSe);
         coolTime = MAX_COOL_TIME;
+        IsNowShot = true;
         isCoolTime = true;
     }
 }
