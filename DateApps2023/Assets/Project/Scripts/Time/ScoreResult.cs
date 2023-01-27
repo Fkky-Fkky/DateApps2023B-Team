@@ -6,13 +6,15 @@ using UnityEngine;
 public class ScoreResult : MonoBehaviour
 {
     private float scoreSecondsTime;
-    TextMeshProUGUI timeTMP;
+    private int killCount;
+    TextMeshProUGUI scoreTMP;
 
     // Start is called before the first frame update
     void Start()
     {
-        timeTMP = GetComponent<TextMeshProUGUI>();
+        scoreTMP = GetComponent<TextMeshProUGUI>();
         scoreSecondsTime = TimeCount.GetTime();
-        timeTMP.text = "Time  " + ((int)(scoreSecondsTime / 60)).ToString("00") + ":" + ((int)scoreSecondsTime % 60).ToString("00");
+        killCount = BossCount.GetKillCount();
+        scoreTMP.text = "Time  " + ((int)(scoreSecondsTime / 60)).ToString("00") + ":" + ((int)scoreSecondsTime % 60).ToString("00") + "\n" + "Boss  " + ((int)killCount).ToString("00");
     }
 }
