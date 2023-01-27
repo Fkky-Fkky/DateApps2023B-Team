@@ -13,7 +13,7 @@ public class PlayerDamage : MonoBehaviour
     private bool currentCapture;
 
     [SerializeField]
-    private float stanTime = 5.0f;
+    private float stanTime = 1.0f;
 
     [SerializeField]
     private float captureTime = 5.0f;
@@ -283,9 +283,14 @@ public class PlayerDamage : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("Enemy"))
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            enemyScript = other.gameObject.GetComponent<enemy>();
+            enemyScript = collision.gameObject.GetComponent<enemy>();
             if (!currentDamage && myPlayerNo == enemyScript.rnd)
             {
                 CallCapture();
