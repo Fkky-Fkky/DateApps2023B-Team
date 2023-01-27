@@ -157,14 +157,14 @@ public class enemy : MonoBehaviour
                 if (pos.x>0)
                 {
                     rb.useGravity = true;
-                    Vector3 force = new Vector3(-2.0f, 15.0f, 0.0f);
+                    Vector3 force = new Vector3(-1.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
                 }
 
                 else if(pos.x<0)
                 {
                     rb.useGravity = true;
-                    Vector3 force = new Vector3(2.0f, 15.0f, 0.0f);
+                    Vector3 force = new Vector3(1.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
                 }
                 gameState = summon.jump;
