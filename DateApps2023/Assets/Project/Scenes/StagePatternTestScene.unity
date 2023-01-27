@@ -1737,6 +1737,10 @@ PrefabInstance:
       propertyPath: predictSabotageItem.Array.data[2]
       value: 
       objectReference: {fileID: 2944399583157852937, guid: 923219c01d96d4e4f9baed5e7b528f2f, type: 3}
+    - target: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+      propertyPath: attackIntervalTime
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 2403555630710928110, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
       propertyPath: m_Depth
       value: 100
@@ -3069,6 +3073,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 608408025486642116, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: myItemSize
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 608408025486642117, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: bossDamage
       value: 
@@ -3170,6 +3178,26 @@ PrefabInstance:
       propertyPath: generatePosMin
       value: 
       objectReference: {fileID: 345375994}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: energy.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: energy.Array.data[0]
+      value: 
+      objectReference: {fileID: 989744109513928702, guid: f1bcfb00fc9b189498c201f48f182e7c, type: 3}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: energy.Array.data[1]
+      value: 
+      objectReference: {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: energy.Array.data[2]
+      value: 
+      objectReference: {fileID: 989744109513928702, guid: b64548de963fa7f4d8e77cf5a0449a13, type: 3}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: energy.Array.data[3]
+      value: 
+      objectReference: {fileID: 989744109513928702, guid: 8882423c885f0134b91110b65c663a4d, type: 3}
     - target: {fileID: 752636907267945281, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: m_Name
       value: EnergyManager

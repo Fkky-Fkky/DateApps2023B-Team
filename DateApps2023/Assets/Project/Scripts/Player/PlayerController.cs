@@ -37,12 +37,15 @@ public class PlayerController : MonoBehaviour
     private TextMeshPro carryText = null;
     private Outline outline = null;
 
+    private float defaultMass;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.Sleep();
         rb.useGravity = false;
+        defaultMass = rb.mass;
 
         Array.Resize(ref ChildPlayer, 4);
         Array.Resize(ref AnimationImage, ChildPlayer.Length);
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-            if(playerCount >= 2)
+            if(playerCount >= itemSizeCount + 1)
             {
                 for (int i = 0; i < gamepadFrag.Length; i++)
                 {
@@ -129,6 +132,11 @@ public class PlayerController : MonoBehaviour
         if (itemType == 1) //–C‘ä‚Ìƒp[ƒc
         {
             HaveItem = true;
+        }
+        else if(itemType == 2)
+        {
+            HaveItem = true;
+            rb.mass *= 10;
         }
         CheckPlayerCount();
 
@@ -231,6 +239,7 @@ public class PlayerController : MonoBehaviour
         outline = null;
         carryText.text = null;
         carryText = null;
+        rb.mass = defaultMass;
         groupVec = Vector3.zero;
         rb.velocity = groupVec;
     }
@@ -248,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
         if(carryText != null)
         {
-            carryText.text = playerCount.ToString("0") + "/" + itemSizeCount.ToString("0");
+            carryText.text = playerCount.ToString("0") + "/" + (itemSizeCount + 1).ToString("0");
         }
 
         if (itemSizeCount == 0)
@@ -306,6 +315,25 @@ public class PlayerController : MonoBehaviour
             else if (playerCount == 4)
             {
                 mySpeed = (moveSpeed * 2.5f) / playerCount;
+            }
+        }
+        else if (itemSizeCount == 3)
+        {
+            if (playerCount == 1)
+            {
+                mySpeed = (moveSpeed * 0.2f) / playerCount;
+            }
+            else if (playerCount == 2)
+            {
+                mySpeed = (moveSpeed * 0.4f) / playerCount;
+            }
+            else if (playerCount == 3)
+            {
+                mySpeed = (moveSpeed * 0.8f) / playerCount;
+            }
+            else if (playerCount == 4)
+            {
+                mySpeed = (moveSpeed * 1.6f) / playerCount;
             }
         }
     }

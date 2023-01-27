@@ -26,7 +26,8 @@ public class CarryCannon : MonoBehaviour
     {
         Small,
         Medium,
-        Large
+        Large,
+        XL
     }
 
     [SerializeField]
@@ -41,15 +42,18 @@ public class CarryCannon : MonoBehaviour
 
         switch (myItemSize)
         {
-            case ItemSize.Small:
-                myItemSizeCount = (int)ItemSize.Small;
+            default:
+                myItemSizeCount = (int)myItemSize;
                 break;
-            case ItemSize.Medium:
-                myItemSizeCount = (int)ItemSize.Medium;
-                break;
-            case ItemSize.Large:
-                myItemSizeCount = (int)ItemSize.Large;
-                break;
+                //case ItemSize.Small:
+                //    myItemSizeCount = (int)ItemSize.Small;
+                //    break;
+                //case ItemSize.Medium:
+                //    myItemSizeCount = (int)ItemSize.Medium;
+                //    break;
+                //case ItemSize.Large:
+                //    myItemSizeCount = (int)ItemSize.Large;
+                //    break;
         }
     }
 
@@ -78,7 +82,7 @@ public class CarryCannon : MonoBehaviour
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(myItemSizeCount, 1, this.gameObject);
+                playercontroller.GetItemSize(myItemSizeCount, 2, this.gameObject);
 
                 InGroup = true;
                 break;
