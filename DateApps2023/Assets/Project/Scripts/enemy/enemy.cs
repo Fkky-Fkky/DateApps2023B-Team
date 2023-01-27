@@ -294,21 +294,31 @@ public class enemy : MonoBehaviour
 
         Vector3 rangeApos = spderpositionA.position;
         Vector3 rangeDpos = spderpositionD.position;
-        if (rangeApos.x <= pos.x && gameState == summon.end ||
-            rangeApos.x <= pos.z && gameState == summon.end)
+
+        if(gameState == summon.end)
+        {
+
+        
+        if (rangeApos.x <= pos.x  ||
+            rangeApos.x <= pos.z)
             rb.useGravity = true;
 
-        if (rangeDpos.x >= pos.x && gameState == summon.end ||
-            rangeDpos.x >= pos.z && gameState == summon.end)
+        if (rangeDpos.x >= pos.x ||
+            rangeDpos.x >= pos.z)
             rb.useGravity = true;
 
-        if (pos.x >= ex_x && gameState == summon.end||
-            pos.z >= ex_z && gameState == summon.end)
+
+        if (pos.x >= ex_x ||
+            pos.z >= ex_z )
             ex_flag = true;
 
-        if (pos.x <= ex_mx && gameState == summon.end ||
-            pos.z <= ex_mz && gameState == summon.end )
+        else if (pos.x <= ex_mx ||
+                  pos.z <= ex_mz)
             ex_flag = true;
+        else
+            ex_flag = false;
+
+        }
         #endregion
 
     }
