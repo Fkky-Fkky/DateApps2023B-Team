@@ -369,11 +369,17 @@ public class enemy : MonoBehaviour
             gameState == summon.end &&
             noattck == true)
         {
-            
             myCollider.enabled=false;
             Debug.Log("Wall");
             _agent.enabled = false;
             StartCoroutine(Onex());
+        }
+
+        if (collision.gameObject.CompareTag("thin wall") &&
+            gameState == summon.landing)    
+        {
+            Vector3 force = new Vector3(0.0f, 0.0f, 3.0f);
+            rb.AddForce(force, ForceMode.Impulse);
         }
     }
 
