@@ -35,6 +35,12 @@ public class BossDamage : MonoBehaviour
 
     float effectPosY = -40.0f;
 
+    private bool isInvincible = false;
+    private float invincibleTime = 0.0f;
+    [SerializeField]
+    private float invincibleTimeMax = 10.0f;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +53,7 @@ public class BossDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isKnockback)
         {
             knockbackTime += Time.deltaTime;
@@ -77,8 +84,19 @@ public class BossDamage : MonoBehaviour
             {
                 AnimationImage.SetTrigger("Die");
             }
+            isInvincible= true;
             bossMove.DamageFalse();
             isDamage = false;
+        }
+
+        if(isInvincible)
+        {
+            invincibleTime += Time.deltaTime;
+            if(invincibleTime>=invincibleTimeMax)
+            {
+                isInvincible= false;
+                invincibleTime = 0.0f;
+            }
         }
 
         if (bossMove.bossHp <= 0)
@@ -110,9 +128,14 @@ public class BossDamage : MonoBehaviour
     {
         if (isKnockback)
             return;
-        isKnockback = true;
-        isDamage = true;
-        bossMove.DamageTrue();
+
+        if (!isInvincible)
+        {
+            isKnockback = true;
+            isDamage = true;
+            bossMove.DamageTrue();
+        }
+
     }
 
 }
