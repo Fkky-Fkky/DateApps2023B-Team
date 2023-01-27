@@ -285,7 +285,10 @@ public class PlayerDamage : MonoBehaviour
             }
         }
 
-
+        if (other.gameObject.CompareTag("BossAttack"))
+        {
+            CallDamage();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -301,10 +304,6 @@ public class PlayerDamage : MonoBehaviour
             {
                 enemyScript = null;
             }
-        }
-        if (other.gameObject.CompareTag("BossAttack"))
-        {
-            CallDamage();
         }
     }
 
