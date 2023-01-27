@@ -217,8 +217,9 @@ public class PlayerDamage : MonoBehaviour
         DamagePosX = transform.position.x;
         DamagePosZ = transform.position.z;
 
-
+        time = 0;
         knockCount = 0;
+        doCouroutine = false;
 
         if (currentCapture)
         {
@@ -257,8 +258,9 @@ public class PlayerDamage : MonoBehaviour
         cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
         audioSource.PlayOneShot(stanSound);
 
-
+        time = 0;
         knockCount = 0;
+        doCouroutine = false;
 
         if (currentDamage)
         {
@@ -294,7 +296,10 @@ public class PlayerDamage : MonoBehaviour
             {
                 enemyScript = null;
             }
-
+        }
+        if (other.gameObject.CompareTag("BossAttack"))
+        {
+            CallDamage();
         }
     }
 
