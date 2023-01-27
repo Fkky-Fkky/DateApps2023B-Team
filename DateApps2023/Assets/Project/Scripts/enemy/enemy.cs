@@ -91,7 +91,7 @@ public class enemy : MonoBehaviour
 
     NavMeshAgent _agent;
 
-    public int rnd =0;
+    public int rnd;
 
     int x;
     int z;
@@ -113,7 +113,7 @@ public class enemy : MonoBehaviour
         animator.SetTrigger("idle");
 
         //プレイヤーのランダム変数
-        //rnd = Random.Range(0, 3);
+        rnd = Random.Range(0, 3);
         //Navを取得
        _agent = this.GetComponent<NavMeshAgent>();
         //NavMeshAgent nav = this. GetComponent<NavMeshAgent>();
