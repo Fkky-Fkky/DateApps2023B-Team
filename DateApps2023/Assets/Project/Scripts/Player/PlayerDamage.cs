@@ -287,19 +287,33 @@ public class PlayerDamage : MonoBehaviour
 
         if (other.gameObject.CompareTag("Enemy"))
         {
-            enemyScript = other.gameObject.GetComponent<enemy>();
-            if (!currentDamage && myPlayerNo == enemyScript.rnd)
-            {
-                CallCapture();
-            }
-            else
-            {
-                enemyScript = null;
-            }
+            //enemyScript = other.gameObject.GetComponent<enemy>();
+            //if (!currentDamage && myPlayerNo == enemyScript.rnd)
+            //{
+            //    CallCapture();
+            //}
+            //else
+            //{
+            //    enemyScript = null;
+            //}
+            JudgeCapture(other.gameObject);
         }
         if (other.gameObject.CompareTag("BossAttack"))
         {
             CallDamage();
+        }
+    }
+
+    public void JudgeCapture(GameObject enemy)
+    {
+        enemyScript = enemy.GetComponent<enemy>();
+        if (!currentDamage && myPlayerNo == enemyScript.rnd)
+        {
+            CallCapture();
+        }
+        else
+        {
+            enemyScript = null;
         }
     }
 

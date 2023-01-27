@@ -78,7 +78,7 @@ public class CarryCannon : MonoBehaviour
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(myItemSizeCount, 1);
+                playercontroller.GetItemSize(myItemSizeCount, 1, this.gameObject);
 
                 InGroup = true;
                 break;

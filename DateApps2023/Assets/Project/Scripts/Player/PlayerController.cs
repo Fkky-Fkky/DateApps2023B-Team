@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private float AnimationSpeed = 0.001f;
 
     public bool HaveItem = false;
+
+    private TextMeshPro carryText = null;
+    private Outline outline = null;
 
     // Start is called before the first frame update
     void Start()
@@ -116,9 +120,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void GetItemSize(int itemSize, int itemType)
+    public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
     {
         itemSizeCount = itemSize;
+        carryText = gameObject.GetComponentInChildren<TextMeshPro>();
+        outline = gameObject.GetComponent<Outline>();
+        outline.enabled = false;
         if (itemType == 1) //ñCë‰ÇÃÉpÅ[Éc
         {
             HaveItem = true;
@@ -135,8 +142,13 @@ public class PlayerController : MonoBehaviour
             {
                 transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
             }
+            if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
+            }
             transform.GetChild(i).gameObject.transform.parent = null;
         }
+
 
         for (int i = 0; i < ChildPlayer.Length; i++)
         {
@@ -150,6 +162,24 @@ public class PlayerController : MonoBehaviour
         AllFragFalse();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                if (transform.GetChild(i).gameObject.CompareTag("Player"))
+                {
+                    transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().JudgeCapture(other.gameObject);
+                }
+            }
+        }
+        if (other.gameObject.CompareTag("BossAttack"))
+        {
+            DamageChild();
+        }
+    }
+
     public void DamageChild()
     {
         for (int i = 0; i < this.transform.childCount; i++)
@@ -161,6 +191,10 @@ public class PlayerController : MonoBehaviour
             if (transform.GetChild(i).gameObject.CompareTag("item"))
             {
                 transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
             }
             //transform.GetChild(i).gameObject.transform.parent = null;
         }
@@ -193,6 +227,10 @@ public class PlayerController : MonoBehaviour
         controlFrag = false;
         playerCount = 0;
         HaveItem = false;
+        outline.enabled = true;
+        outline = null;
+        carryText.text = null;
+        carryText = null;
         groupVec = Vector3.zero;
         rb.velocity = groupVec;
     }
@@ -203,9 +241,14 @@ public class PlayerController : MonoBehaviour
         {
             playerCount = 0;
         }
-        if (playerCount > 4)
+        else if (playerCount > 4)
         {
             playerCount = 4;
+        }
+
+        if(carryText != null)
+        {
+            carryText.text = playerCount.ToString("0") + "/" + itemSizeCount.ToString("0");
         }
 
         if (itemSizeCount == 0)
@@ -214,53 +257,53 @@ public class PlayerController : MonoBehaviour
             {
                 mySpeed = (moveSpeed * 1.0f) / playerCount;
             }
-            if (playerCount == 2)
+            else if (playerCount == 2)
             {
                 mySpeed = (moveSpeed * 1.3f) / playerCount;
             }
-            if (playerCount == 3)
+            else if (playerCount == 3)
             {
                 mySpeed = (moveSpeed * 1.7f) / playerCount;
             }
-            if (playerCount == 4)
+            else if (playerCount == 4)
             {
                 mySpeed = (moveSpeed * 2.3f) / playerCount;
             }
         }
-        if (itemSizeCount == 1)
+        else if (itemSizeCount == 1)
         {
             if (playerCount == 1)
             {
                 mySpeed = (moveSpeed * 0.5f) / playerCount;
             }
-            if (playerCount == 2)
+            else if (playerCount == 2)
             {
                 mySpeed = (moveSpeed * 1.0f) / playerCount;
             }
-            if (playerCount == 3)
+            else if (playerCount == 3)
             {
                 mySpeed = (moveSpeed * 1.5f) / playerCount;
             }
-            if (playerCount == 4)
+            else if (playerCount == 4)
             {
                 mySpeed = (moveSpeed * 2.0f) / playerCount;
             }
         }
-        if (itemSizeCount == 2)
+        else if (itemSizeCount == 2)
         {
             if (playerCount == 1)
             {
                 mySpeed = (moveSpeed * 0.3f) / playerCount;
             }
-            if (playerCount == 2)
+            else if (playerCount == 2)
             {
                 mySpeed = (moveSpeed * 0.5f) / playerCount;
             }
-            if (playerCount == 3)
+            else if (playerCount == 3)
             {
                 mySpeed = (moveSpeed * 1.0f) / playerCount;
             }
-            if (playerCount == 4)
+            else if (playerCount == 4)
             {
                 mySpeed = (moveSpeed * 2.5f) / playerCount;
             }
