@@ -12,7 +12,7 @@ public class CannonManager : MonoBehaviour
 
     public bool IsShooting
     {
-        get { return cannonShot.IsShotting; }
+        get { return cannonShot.IsNowShot; }
     }
 
     public int DoConnectingPos
