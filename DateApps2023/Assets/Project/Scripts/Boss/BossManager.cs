@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class BossManager : MonoBehaviour
 {
+    [SerializeField]
+    private CannonManager cannonManager = null;
 
     public BossDamage bossDamage;
 
+    float bossGenerationTime = 0.0f;
+    [SerializeField]
+    float bossIntervalTime = 10.0f;
+
+    public bool isGanerat;
     private void Start()
     {
-        
+        isGanerat = false;
     }
 
     void Update()
     {
-        Debugging();
+        bossGenerationTime += Time.deltaTime;
+        if (bossGenerationTime >= bossIntervalTime)
+        {
+            isGanerat = true;
+            bossGenerationTime = 0.0f;
+        }
+
+        BossDamage();
     }
 
-    void Debugging()
+    void BossDamage()
     {
-        //デバック用
-        if (Input.GetKeyDown(KeyCode.K))//<-ifの中に大砲を発射したフラグと大砲がいるレーンの情報
+        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
         {
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
             foreach (GameObject boss in objects)
@@ -29,7 +42,7 @@ public class BossManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
         {
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
             foreach (GameObject boss in objects)
@@ -38,7 +51,7 @@ public class BossManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
         {
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
             foreach (GameObject boss in objects)

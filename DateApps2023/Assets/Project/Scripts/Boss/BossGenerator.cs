@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BossGenerator : MonoBehaviour
 {
+    public BossManager bossManager;
+
     [SerializeField]
     GameObject bossModel;
 
@@ -11,38 +13,46 @@ public class BossGenerator : MonoBehaviour
     GameObject bossR;
     GameObject bossL;
 
-    float intervalTime =  0.0f;
-    [SerializeField]
-    float bossInterval = 10.0f;
+    //float intervalTime = 0.0f;
+    //[SerializeField]
+    //float bossInterval = 10.0f;
 
 
-    Vector3 bossPositionCenter = new Vector3(    0.0f, -51.4f, 210.7f);
-    Vector3 bossPositionLeft   = new Vector3(-100.0f, -51.4f, 210.7f);
-    Vector3 bossPositionRight  = new Vector3( 100.0f, -51.4f, 210.7f);
+    Vector3 bossPositionCenter = new Vector3(0.0f, -51.4f, 210.7f);
+    Vector3 bossPositionLeft = new Vector3(-100.0f, -51.4f, 210.7f);
+    Vector3 bossPositionRight = new Vector3(100.0f, -51.4f, 210.7f);
 
     int bossPattern;
 
     int patternNumber;
     int start = 1;
-    int end   = 4;
+    int end = 4;
 
     int bossCount;
+
+    
 
     void Start()
     {
         bossCount = 1;
-        intervalTime = 9.0f;
+        // intervalTime = 0.0f;
         bossModel.tag = "Boss";
     }
 
     void Update()
     {
-        intervalTime += Time.deltaTime;
+        //intervalTime += Time.deltaTime;
 
-        if (intervalTime >= bossInterval)
+        //if (intervalTime >= bossInterval)
+        //{
+        //    BossRandomGeneration();
+        //    intervalTime=0.0f;
+        //}
+        if (bossManager.isGanerat)
         {
             BossRandomGeneration();
         }
+
     }
 
     int GetRandomValue(int oldnum)
@@ -72,34 +82,27 @@ public class BossGenerator : MonoBehaviour
             bossPattern = GetRandomValue(bossPattern);
         }
 
-
-        switch (bossPattern) {
+        switch (bossPattern)
+        {
             case 1:
                 bossC = Instantiate(bossModel);
                 bossC.transform.position = bossPositionCenter;
                 bossCount++;
-                intervalTime = 0.0f;
-
+                bossManager.isGanerat = false;
                 break;
             case 2:
                 bossL = Instantiate(bossModel);
                 bossL.transform.position = bossPositionLeft;
                 bossCount++;
-                intervalTime = 0.0f;
+                bossManager.isGanerat = false;
                 break;
             case 3:
                 bossR = Instantiate(bossModel);
                 bossR.transform.position = bossPositionRight;
                 bossCount++;
-                intervalTime = 0.0f;
+                bossManager.isGanerat = false;
                 break;
         }
 
     }
-
-    public GameObject BossModle()
-    {
-        return bossModel;
-    }
-
 }

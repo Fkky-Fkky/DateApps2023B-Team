@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbb8be069dd0424c9ff07afe3721995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossManager: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
   bossModel: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
-  bossInterval: 10
 --- !u!114 &8262618935548590350
 MonoBehaviour:
   m_ObjectHideFlags: 0
