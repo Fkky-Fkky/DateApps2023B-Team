@@ -14,13 +14,14 @@ GameObject:
   - component: {fileID: 989744109513928701}
   - component: {fileID: 989744109513928689}
   - component: {fileID: 989744109513928688}
-  - component: {fileID: 3615913176234195302}
+  - component: {fileID: 3579590258024967657}
+  - component: {fileID: 3051379974199049164}
   m_Layer: 0
   m_Name: EnergyResource
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &989744109513928690
 Transform:
@@ -116,7 +117,7 @@ MonoBehaviour:
   playerCarryDowns: []
   groupNumber: 1
   defaultPosY: 0
-  carryPosY: 0.2
+  carryPosY: 0.8
   myItemSize: 2
 --- !u!114 &989744109513928688
 MonoBehaviour:
@@ -136,7 +137,23 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &3615913176234195302
+--- !u!208 &3579590258024967657
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989744109513928702}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &3051379974199049164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
