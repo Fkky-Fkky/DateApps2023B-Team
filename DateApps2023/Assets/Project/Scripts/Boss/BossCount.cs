@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossCount : MonoBehaviour
 {
     public int bossKillCount;
+    public static int killCount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,8 +15,13 @@ public class BossCount : MonoBehaviour
 
     // Update is called once per frame
 
-    public int BossFellDownCount()
+    public void SetBossKillCount()
     {
-        return bossKillCount;
+        killCount = bossKillCount;
+    }
+
+    public static int GetKillCount()
+    {
+        return killCount;
     }
 }

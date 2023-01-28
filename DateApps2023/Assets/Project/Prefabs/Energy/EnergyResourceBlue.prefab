@@ -14,14 +14,13 @@ GameObject:
   - component: {fileID: 989744109513928701}
   - component: {fileID: 989744109513928689}
   - component: {fileID: 989744109513928688}
-  - component: {fileID: 3579590258024967657}
-  - component: {fileID: 3051379974199049164}
+  - component: {fileID: 3615913176234195302}
   m_Layer: 0
-  m_Name: EnergyResource
+  m_Name: EnergyResourceBlue
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &989744109513928690
 Transform:
@@ -32,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 989744109513928702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7473993607105685865}
@@ -67,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9caa035300dacdc4995ecdc9bca3cf7e, type: 2}
+  - {fileID: 2100000, guid: 89d56d65a5509a7469ed6ef54661b478, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,8 +117,8 @@ MonoBehaviour:
   playerCarryDowns: []
   groupNumber: 1
   defaultPosY: 0
-  carryPosY: 0.8
-  myItemSize: 2
+  carryPosY: 0.2
+  myItemSize: 3
 --- !u!114 &989744109513928688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,23 +137,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!208 &3579590258024967657
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989744109513928702}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 0
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
---- !u!114 &3051379974199049164
+--- !u!114 &3615913176234195302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

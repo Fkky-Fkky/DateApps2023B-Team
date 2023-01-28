@@ -13,7 +13,7 @@ public class PlayerDamage : MonoBehaviour
     private bool currentCapture;
 
     [SerializeField]
-    private float stanTime = 1.0f;
+    private float stanTime = 5.0f;
 
     [SerializeField]
     private float captureTime = 5.0f;
@@ -285,25 +285,35 @@ public class PlayerDamage : MonoBehaviour
             }
         }
 
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            //enemyScript = other.gameObject.GetComponent<enemy>();
+            //if (!currentDamage && myPlayerNo == enemyScript.rnd)
+            //{
+            //    CallCapture();
+            //}
+            //else
+            //{
+            //    enemyScript = null;
+            //}
+            JudgeCapture(other.gameObject);
+        }
         if (other.gameObject.CompareTag("BossAttack"))
         {
             CallDamage();
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void JudgeCapture(GameObject enemy)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        enemyScript = enemy.GetComponent<enemy>();
+        if (!currentDamage && myPlayerNo == enemyScript.rnd)
         {
-            enemyScript = collision.gameObject.GetComponent<enemy>();
-            if (!currentDamage && myPlayerNo == enemyScript.rnd)
-            {
-                CallCapture();
-            }
-            else
-            {
-                enemyScript = null;
-            }
+            CallCapture();
+        }
+        else
+        {
+            enemyScript = null;
         }
     }
 

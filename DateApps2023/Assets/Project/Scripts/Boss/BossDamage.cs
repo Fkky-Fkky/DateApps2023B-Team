@@ -102,6 +102,7 @@ public class BossDamage : MonoBehaviour
         if (bossMove.bossHp <= 0)
         {
             bossCount.bossKillCount++;
+            bossCount.SetBossKillCount();
             bossDestroyTime += Time.deltaTime;
             if (bossDestroyTime >= bossDestroyTimeMax)
             {

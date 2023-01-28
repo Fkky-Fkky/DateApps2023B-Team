@@ -28,7 +28,8 @@ public class hantei : MonoBehaviour
     {
         Small,
         Medium,
-        Large
+        Large,
+        XL
     }
 
     [SerializeField]
@@ -43,15 +44,18 @@ public class hantei : MonoBehaviour
 
         switch (myItemSize)
         {
-            case ItemSize.Small:
-                myItemSizeCount = (int)ItemSize.Small;
+            default:
+                myItemSizeCount = (int)myItemSize;
                 break;
-            case ItemSize.Medium:
-                myItemSizeCount = (int)ItemSize.Medium;
-                break;
-            case ItemSize.Large:
-                myItemSizeCount = (int)ItemSize.Large;
-                break;
+            //case ItemSize.Small:
+            //    myItemSizeCount = (int)ItemSize.Small;
+            //    break;
+            //case ItemSize.Medium:
+            //    myItemSizeCount = (int)ItemSize.Medium;
+            //    break;
+            //case ItemSize.Large:
+            //    myItemSizeCount = (int)ItemSize.Large;
+            //    break;
         }
     }
 
@@ -80,7 +84,7 @@ public class hantei : MonoBehaviour
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(myItemSizeCount, 1);
+                playercontroller.GetItemSize(myItemSizeCount, 1, this.gameObject);
                 
                 InGroup = true;
                 break;
