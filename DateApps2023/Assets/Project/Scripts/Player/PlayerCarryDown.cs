@@ -18,7 +18,7 @@ public class PlayerCarryDown : MonoBehaviour
     private int myPlayerNo = 5;
 
     private PlayerMove playermove = null;
-    private hantei energyItem;
+    private CarryEnergy energyItem;
     private CarryCannon cannonItem;
 
     private int myGroupNo = 1;
@@ -48,7 +48,7 @@ public class PlayerCarryDown : MonoBehaviour
                         canUsed = false;
                         if (carryItem.CompareTag("item"))
                         {
-                            energyItem = carryItem.GetComponent<hantei>();
+                            energyItem = carryItem.GetComponent<CarryEnergy>();
                             energyItem.GetGrabPoint(this.gameObject);
                             myGroupNo = energyItem.groupNumber;
                         }
