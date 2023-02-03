@@ -5,7 +5,7 @@ using UnityEngine;
 public class GenerateEnergy : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] energy = null;
+    private GameObject[] energies = new GameObject[2];
 
     [SerializeField]
     private Transform generatePosMin = null;
@@ -17,14 +17,16 @@ public class GenerateEnergy : MonoBehaviour
     private Vector3 halfExtents = Vector3.zero;
     private List<Vector3> createPositionList = new List<Vector3>();
 
-    const int MAX_GENERATE = 4;
+    const int MAX_GENERATE = 5;
     const int MAX_AREA = 6;
+    const int RANDOM_MAX = 101;
     const float GENERATE_POS_Y = 20.0f;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        halfExtents = energy[0].transform.localScale / 2;
+        halfExtents = energies[1].transform.localScale / 2;
         float fiveDivide = ((generatePosMin.position.x - generatePosMax.position.x) / 5) * -1;
         for (int i = 0; i < MAX_AREA; i++)
         {
@@ -72,7 +74,13 @@ public class GenerateEnergy : MonoBehaviour
         for (int i = 0; i < createPositionList.Count; i++)
         {
             Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
-            Instantiate(energy[i], position, Quaternion.identity);
+            int type = 0;
+            int energyNum = Random.Range(0, RANDOM_MAX);
+            if (energyNum <= 20)
+            {
+                type = 1;
+            }
+            Instantiate(energies[type], position, Quaternion.identity);
         }
         createPositionList.Clear();
     }
