@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using UnityEngine;
 
-public class hantei : MonoBehaviour
+public class CarryEnergy : MonoBehaviour
 {
     #region
     public GameObject[] myGrabPoint = null;
@@ -34,7 +34,7 @@ public class hantei : MonoBehaviour
 
     [SerializeField]
     ItemSize myItemSize = ItemSize.Small;
-    private int myItemSizeCount = 0;
+    public int MyItemSizeCount { get; private set; }
     #endregion
 
     // Start is called before the first frame update
@@ -45,7 +45,7 @@ public class hantei : MonoBehaviour
         switch (myItemSize)
         {
             default:
-                myItemSizeCount = (int)myItemSize;
+                MyItemSizeCount = (int)myItemSize;
                 break;
             //case ItemSize.Small:
             //    myItemSizeCount = (int)ItemSize.Small;
@@ -84,7 +84,7 @@ public class hantei : MonoBehaviour
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(myItemSizeCount, 1, this.gameObject);
+                playercontroller.GetItemSize(MyItemSizeCount, 1, this.gameObject);
                 
                 InGroup = true;
                 break;
