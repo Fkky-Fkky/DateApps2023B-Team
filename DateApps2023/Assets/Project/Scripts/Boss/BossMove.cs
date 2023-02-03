@@ -12,7 +12,6 @@ public class BossMove : MonoBehaviour
     public int bossHp;
 
     public BossAttack bossAttack;
-    public BossCount bossCount;
 
     [SerializeField]
     [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]

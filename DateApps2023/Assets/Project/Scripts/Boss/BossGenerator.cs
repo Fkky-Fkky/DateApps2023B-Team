@@ -13,10 +13,6 @@ public class BossGenerator : MonoBehaviour
     GameObject bossR;
     GameObject bossL;
 
-    //float intervalTime = 0.0f;
-    //[SerializeField]
-    //float bossInterval = 10.0f;
-
 
     Vector3 bossPositionCenter = new Vector3(0.0f, -51.4f, 210.7f);
     Vector3 bossPositionLeft = new Vector3(-100.0f, -51.4f, 210.7f);
@@ -28,26 +24,25 @@ public class BossGenerator : MonoBehaviour
     int start = 1;
     int end = 4;
 
-    int bossCount;
+    private int bossCount = 1;
 
-    
+    public bool isCenterLine = false;
+    public bool isRightLine = false;
+    public bool isLeftLine = false;
 
     void Start()
     {
         bossCount = 1;
-        // intervalTime = 0.0f;
         bossModel.tag = "Boss";
+
+        isCenterLine = false;
+        isRightLine = false;
+        isLeftLine = false;
+
     }
 
-    void Update()
+void Update()
     {
-        //intervalTime += Time.deltaTime;
-
-        //if (intervalTime >= bossInterval)
-        //{
-        //    BossRandomGeneration();
-        //    intervalTime=0.0f;
-        //}
         if (bossManager.isGanerat)
         {
             BossRandomGeneration();
@@ -85,22 +80,34 @@ public class BossGenerator : MonoBehaviour
         switch (bossPattern)
         {
             case 1:
-                bossC = Instantiate(bossModel);
-                bossC.transform.position = bossPositionCenter;
-                bossCount++;
-                bossManager.isGanerat = false;
+                if (!isCenterLine)
+                {
+                    bossC = Instantiate(bossModel);
+                    bossC.transform.position = bossPositionCenter;
+                    bossCount++;
+                    bossManager.isGanerat = false;
+                    isCenterLine = true;
+                }
                 break;
             case 2:
-                bossL = Instantiate(bossModel);
-                bossL.transform.position = bossPositionLeft;
-                bossCount++;
-                bossManager.isGanerat = false;
+                if (!isLeftLine)
+                {
+                    bossL = Instantiate(bossModel);
+                    bossL.transform.position = bossPositionLeft;
+                    bossCount++;
+                    bossManager.isGanerat = false;
+                    isLeftLine = true;
+                }
                 break;
             case 3:
-                bossR = Instantiate(bossModel);
-                bossR.transform.position = bossPositionRight;
-                bossCount++;
-                bossManager.isGanerat = false;
+                if (!isRightLine)
+                {
+                    bossR = Instantiate(bossModel);
+                    bossR.transform.position = bossPositionRight;
+                    bossCount++;
+                    bossManager.isGanerat = false;
+                    isRightLine = true;
+                }
                 break;
         }
 

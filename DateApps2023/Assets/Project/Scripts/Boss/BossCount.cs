@@ -7,10 +7,20 @@ public class BossCount : MonoBehaviour
     public int bossKillCount;
     public static int killCount;
 
-    // Start is called before the first frame update
+    public BossDamage bossDamage = null;
+
     void Start()
     {
         bossKillCount = 0;
+    }
+
+    private void Update()
+    {
+        if(bossDamage.isBossFellDown)
+        {
+            bossKillCount++;
+            bossDamage.isBossFellDown = false;
+        }
     }
 
     // Update is called once per frame

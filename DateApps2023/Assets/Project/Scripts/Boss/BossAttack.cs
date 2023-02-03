@@ -56,7 +56,7 @@ public class BossAttack : MonoBehaviour
     void Update()
     {
         time+= Time.deltaTime;
-        if (!bossDamage.isDamage)
+        if (!bossDamage.IsDamage())
         {
             AttackAnimation();
         }
