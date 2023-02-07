@@ -8,7 +8,7 @@ public class TankManager : MonoBehaviour
     private EnergyCharge energyCharge = null;
 
     [SerializeField]
-    private TankCharge[] energyTanks = new TankCharge[3];
+    private TankCharge energyTank = null;
 
     private int oldEnergy = 0;
 
@@ -17,12 +17,12 @@ public class TankManager : MonoBehaviour
     {
         if (energyCharge.Energy > oldEnergy)
         {
-            energyTanks[oldEnergy].Charge();
+            energyTank.Charge();
             oldEnergy = energyCharge.Energy;
         }
         else if(energyCharge.Energy < oldEnergy)
         {
-            energyTanks[energyCharge.Energy].DisCharge();
+            energyTank.DisCharge();
             oldEnergy = energyCharge.Energy;
         }
     }

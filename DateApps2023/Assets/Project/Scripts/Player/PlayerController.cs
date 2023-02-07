@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (transform.GetChild(0).gameObject.CompareTag("item"))
                 {
-                    transform.GetChild(0).gameObject.GetComponent<hantei>().OutGroup();
+                    transform.GetChild(0).gameObject.GetComponent<CarryEnergy>().OutGroup();
                 }
                 else if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
                 {
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
         {
             if (transform.GetChild(i).gameObject.CompareTag("item"))
             {
-                transform.GetChild(i).gameObject.GetComponent<hantei>().DoHanteiEnter();
+                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().DoHanteiEnter();
             }
             if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
             {
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
             }
             if (transform.GetChild(i).gameObject.CompareTag("item"))
             {
-                transform.GetChild(i).gameObject.GetComponent<hantei>().OutGroup();
+                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
             }
             if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
             {

@@ -15,10 +15,11 @@ public class EnergyCharge : MonoBehaviour
 
     private BoxCollider boxCol = null;
     private AudioSource audioSource = null;
-    private const int MAX_ENERGY = 3;
+    private const int MAX_ENERGY = 1;
     private const int ADD_ENERGY = 1;
     
     public int Energy { get; private set; }
+    public int ChrgeEnergyType { get; private set; }
 
     private void Start()
     {
@@ -38,7 +39,16 @@ public class EnergyCharge : MonoBehaviour
         {
             return;
         }
-        other.GetComponent<hantei>().DestroyMe();
+        
+        if (other.GetComponent<CarryEnergy>().MyItemSizeCount == 1)
+        {
+            ChrgeEnergyType = 0;
+        }
+        else
+        {
+            ChrgeEnergyType = 1;
+        }
+        other.GetComponent<CarryEnergy>().DestroyMe();
         ChargeEnergy();
     }
 
