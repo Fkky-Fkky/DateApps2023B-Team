@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossManager: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
   bossModel: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  isCenterLine: 0
+  isRightLine: 0
+  isLeftLine: 0
 --- !u!114 &7051107079401279416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,5 +62,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
   bossKillCount: 0
+  bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}

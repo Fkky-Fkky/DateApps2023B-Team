@@ -6,6 +6,8 @@ public class BossManager : MonoBehaviour
 {
     [SerializeField]
     private CannonManager cannonManager = null;
+    [SerializeField]
+    private BossGenerator bossGenerator = null;
 
     public BossDamage bossDamage;
 
@@ -16,11 +18,17 @@ public class BossManager : MonoBehaviour
     public bool isGanerat;
 
     [SerializeField]
-    private int bullet; 
+    private int bullet;
+
+    private GameObject centerBoss;
+    private GameObject leftBoss;
+    private GameObject rightBoss;
     private void Start()
     {
         isGanerat = false;
-        bullet = -1;
+        bullet = 1;
+
+
     }
 
     void Update()
@@ -35,9 +43,10 @@ public class BossManager : MonoBehaviour
         BossDamage();
         BossDevack();
 
+        BossFellDown();
     }
 
-    void BossDevack()
+    private void BossDevack()
     {
         if (bullet == 0)
         {
@@ -102,7 +111,7 @@ public class BossManager : MonoBehaviour
 
     }
 
-    void BossDamage()
+    private void BossDamage()
     {
         if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
         {
@@ -133,5 +142,37 @@ public class BossManager : MonoBehaviour
 
     }
 
+    private void BossFellDown()
+    {
+        centerBoss = GameObject.FindGameObjectWithTag("Center");
+        if (centerBoss == null)
+        {
+            bossGenerator.IsCenterLineFalse();
+        }
+        else
+        {
+            bossGenerator.IsCenterLineTrue();
+        }
 
+        leftBoss = GameObject.FindGameObjectWithTag("Left");
+        if (leftBoss == null)
+        {
+            bossGenerator.IsLeftLineFalse();
+        }
+        else
+        {
+            bossGenerator.IsLeftLineTrue();
+        }
+
+        rightBoss = GameObject.FindGameObjectWithTag("Right");
+        if (rightBoss == null)
+        {
+            bossGenerator.IsRightLineFalse();
+        }
+        else
+        {
+            bossGenerator.IsRightLineTrue();
+        }
+
+    }
 }

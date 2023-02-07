@@ -22,6 +22,9 @@ public class BossMove : MonoBehaviour
 
     private bool damageFlag = false;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,10 +73,6 @@ public class BossMove : MonoBehaviour
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
 
-        if(Input.GetMouseButtonDown(1))
-        {
-            bossHp -= 1;
-        }
     }
 
     public void DamageTrue()
@@ -85,4 +84,5 @@ public class BossMove : MonoBehaviour
     {
         damageFlag = false;
     }
+
 }

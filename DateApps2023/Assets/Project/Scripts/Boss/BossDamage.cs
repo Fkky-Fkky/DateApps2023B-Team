@@ -7,7 +7,7 @@ public class BossDamage : MonoBehaviour
 {
     private Rigidbody rb;
 
-    public BossGenerator bossGenerator = null;
+    BossGenerator bossGenerator = null;
     public BossCount bossCount = null;
     BossMove bossMove;
 
@@ -52,29 +52,20 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     GameObject hpBarObject= null;
 
-    [SerializeField]
-    bool isHp;
 
     [SerializeField]
     Slider hpBar;
-
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         bossMove = GetComponent<BossMove>();
+        bossGenerator = GetComponent<BossGenerator>();
 
         isDamage = false;
 
-        if (isHp)
-        {
-            hpBarObject.SetActive(false);
-        }
-        else
-        {
-            hpBarObject.SetActive(true);
-        }
+        hpBarObject.SetActive(true);
 
         hpBar.value = bossMove.bossHp;
     }
@@ -103,7 +94,6 @@ public class BossDamage : MonoBehaviour
 
         if (isDamage)
         {
-            BossHp();
             Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
 
             if (!isBullet)
@@ -139,7 +129,7 @@ public class BossDamage : MonoBehaviour
             }
         }
 
-        if (bossMove.bossHp == 0)
+        if (bossMove.bossHp <= 0)
         {
             bossCount.bossKillCount++;
             bossCount.SetBossKillCount();
@@ -148,33 +138,14 @@ public class BossDamage : MonoBehaviour
             {
                 Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
-                isBossFellDown = true;
-
+                isBossFellDown = true;                
                 Destroy(gameObject);
-                //LineFellDown();
                 bossDestroyTime = 0.0f;
             }
         }
 
     }
 
-    private void LineFellDown()
-    {
-        if (gameObject.tag == "Ceneter")
-        {
-            bossGenerator.isCenterLine = false;
-        }
-        if (gameObject.tag == "Left")
-        {
-            bossGenerator.isLeftLine = false;
-        }
-        if (gameObject.tag == "Right")
-        {
-            bossGenerator.isRightLine = false;
-        }
-
-
-    }
     public void KnockbackTrue()
     {
         if (isKnockback)
@@ -201,14 +172,6 @@ public class BossDamage : MonoBehaviour
             bossMove.DamageTrue();
         }
 
-    }
-
-    private void BossHp()
-    {
-        if (isHp)
-        {
-            hpBarObject.SetActive(true);
-        }
     }
 
     public bool IsDamage()

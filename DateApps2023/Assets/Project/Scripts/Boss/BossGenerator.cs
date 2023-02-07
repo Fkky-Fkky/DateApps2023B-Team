@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossGenerator : MonoBehaviour
 {
     public BossManager bossManager;
+    BossMove bossMove;
 
     [SerializeField]
     GameObject bossModel;
@@ -26,9 +27,12 @@ public class BossGenerator : MonoBehaviour
 
     private int bossCount = 1;
 
-    public bool isCenterLine = false;
-    public bool isRightLine = false;
-    public bool isLeftLine = false;
+    [SerializeField]
+    private bool isCenterLine = false;
+    [SerializeField]
+    private bool isRightLine = false;
+    [SerializeField]
+    private bool isLeftLine = false;
 
     void Start()
     {
@@ -39,15 +43,15 @@ public class BossGenerator : MonoBehaviour
         isRightLine = false;
         isLeftLine = false;
 
+        bossMove = GetComponent<BossMove>();
     }
 
-void Update()
+    void Update()
     {
         if (bossManager.isGanerat)
         {
             BossRandomGeneration();
         }
-
     }
 
     int GetRandomValue(int oldnum)
@@ -112,4 +116,36 @@ void Update()
         }
 
     }
+
+    public void IsCenterLineFalse()
+    {
+        isCenterLine = false;
+    }
+
+    public void IsCenterLineTrue()
+    {
+        isCenterLine = true;
+    }
+
+
+    public void IsLeftLineFalse()
+    {
+        isLeftLine = false;
+    }
+
+    public void IsLeftLineTrue()
+    {
+        isLeftLine = true;
+    }
+
+    public void IsRightLineFalse()
+    {
+        isRightLine = false;
+    }
+
+    public void IsRightLineTrue()
+    {
+        isRightLine = true;
+    }
+
 }
