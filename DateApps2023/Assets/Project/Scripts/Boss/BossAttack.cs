@@ -31,6 +31,9 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     private GameObject chargeEffect;
     private int effectStop = 0;
+    private float effectY = -2.5f;
+    private float effectZ = 2.0f;
+
 
     int areaCount;
     int areaCountMax = 1;
@@ -42,12 +45,6 @@ public class BossAttack : MonoBehaviour
 
     private float beamTime    = 0.0f;
     private float beamTimeMax = 2.0f;
-
-
-    float animationtime = 0.0f;
-    float animationtimeMax = 2.0f;
-
-
 
 
     public BossMove bossMove;
@@ -64,17 +61,13 @@ public class BossAttack : MonoBehaviour
 
     void Update()
     {
-        time+= Time.deltaTime;
-        if (bossMove.bossHp > 0)
+        time += Time.deltaTime;
+        if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
         {
             if (time >= attackIntervalTime)
             {
                 attackAnimation.SetBool("Attack", true);
-                if (effectStop < 1)
-                {
-                    Instantiate(chargeEffect, transform);
-                    effectStop++;
-                }
+                Charge();
                 AttackAnimation();
             }
         }
@@ -82,18 +75,31 @@ public class BossAttack : MonoBehaviour
         {
             isAttack = false;
         }
-
     }
 
+    private void Charge()
+    {
+        if (effectStop < 1)
+        {
+            effectZ = transform.position.z - 50.0f;
+            Vector3 pos = new Vector3(transform.position.x, effectY, effectZ);
+            Instantiate(chargeEffect, pos, Quaternion.identity);
+            effectStop++;
+        }
+
+    }
     void AttackAnimation()
     {
 
          beamTime += Time.deltaTime;
-        if (beamTime >= beamTimeMax)
+        if (beamTime >= beamTimeMax && !bossDamage.IsDamage())
         {
-            Destroy(chargeEffect);
             isAttack = true;
             DamageAreaControl();
+        }
+        else
+        {
+            isAttack = false;
         }
 
     }
@@ -129,15 +135,20 @@ public class BossAttack : MonoBehaviour
         areaDestroyTime += Time.deltaTime;
         if (areaDestroyTime >= areaDestroyTimeMax)
         {
-            isAttack= false;
-            effectStop = 0;
-            attackAnimation.SetBool("Attack", false);
-            areaDestroyTime = 0.0f;
-            animationtime = 0.0f;
-            areaCount = 0;
-            time = 0.0f;
+            AttackOff();
         }
 
     }
 
+    private void AttackOff()
+    {
+        isAttack = false;
+        effectStop = 0;
+        attackAnimation.SetBool("Attack", false);
+        beamTime = 0.0f;
+        areaDestroyTime = 0.0f;
+        areaCount = 0;
+        time = 0.0f;
+
+    }
 }

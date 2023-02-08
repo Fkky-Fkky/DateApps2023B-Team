@@ -7,7 +7,6 @@ public class BossDamage : MonoBehaviour
 {
     private Rigidbody rb;
 
-    BossGenerator bossGenerator = null;
     public BossCount bossCount = null;
     BossMove bossMove;
 
@@ -61,7 +60,6 @@ public class BossDamage : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         bossMove = GetComponent<BossMove>();
-        bossGenerator = GetComponent<BossGenerator>();
 
         isDamage = false;
 

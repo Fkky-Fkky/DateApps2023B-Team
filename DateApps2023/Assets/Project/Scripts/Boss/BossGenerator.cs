@@ -5,7 +5,6 @@ using UnityEngine;
 public class BossGenerator : MonoBehaviour
 {
     public BossManager bossManager;
-    BossMove bossMove;
 
     [SerializeField]
     GameObject bossModel;
@@ -43,7 +42,6 @@ public class BossGenerator : MonoBehaviour
         isRightLine = false;
         isLeftLine = false;
 
-        bossMove = GetComponent<BossMove>();
     }
 
     void Update()

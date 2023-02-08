@@ -26,9 +26,6 @@ public class BossManager : MonoBehaviour
     private void Start()
     {
         isGanerat = false;
-        bullet = 1;
-
-
     }
 
     void Update()
@@ -113,33 +110,66 @@ public class BossManager : MonoBehaviour
 
     private void BossDamage()
     {
-        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
+        if (cannonManager.IsShotEnergyType == 0)
         {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
-            foreach (GameObject boss in objects)
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
             {
-                boss.GetComponent<BossDamage>().KnockbackTrue();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
             }
         }
 
-        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
+        if (cannonManager.IsShotEnergyType == 1)
         {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
-            foreach (GameObject boss in objects)
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
             {
-                boss.GetComponent<BossDamage>().KnockbackTrue();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
             }
-        }
 
-        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
-        {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
-            foreach (GameObject boss in objects)
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
             {
-                boss.GetComponent<BossDamage>().KnockbackTrue();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
             }
-        }
 
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
+            }
+
+        }
     }
 
     private void BossFellDown()
