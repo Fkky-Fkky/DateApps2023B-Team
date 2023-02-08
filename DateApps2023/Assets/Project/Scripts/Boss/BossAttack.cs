@@ -28,11 +28,15 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     GameObject damageAreaLeft;
 
+    [SerializeField]
+    private GameObject chargeEffect;
+    private int effectStop = 0;
+
     int areaCount;
     int areaCountMax = 1;
 
     float areaDestroyTime    = 0.0f;
-    float areaDestroyTimeMax = 3.0f;
+    float areaDestroyTimeMax = 2.0f;
 
     public bool isAttack;
 
@@ -44,6 +48,8 @@ public class BossAttack : MonoBehaviour
     float animationtimeMax = 2.0f;
 
 
+
+
     public BossMove bossMove;
 
     public BossDamage bossDamage;
@@ -52,47 +58,44 @@ public class BossAttack : MonoBehaviour
     {
         areaCount= 0;
         isAttack = false;
+
+        effectStop = 0;
     }
 
     void Update()
     {
         time+= Time.deltaTime;
-        if (!bossDamage.IsDamage())
-        {
-            AttackAnimation();
-        }
-        else
-        {
-            isAttack = false;
-        }
-    }
-
-    void AttackAnimation()
-    {
         if (bossMove.bossHp > 0)
         {
             if (time >= attackIntervalTime)
             {
-                attackAnimation.SetTrigger("Stand-By");
-
-                animationtime += Time.deltaTime;
-                if (animationtime >= animationtimeMax)
+                attackAnimation.SetBool("Attack", true);
+                if (effectStop < 1)
                 {
-                    attackAnimation.SetTrigger("Attack");
-
-                    beamTime+= Time.deltaTime;
-                    if (beamTime >= beamTimeMax)
-                    {
-                        isAttack = true;
-                        DamageAreaControl();
-                    }
+                    Instantiate(chargeEffect, transform);
+                    effectStop++;
                 }
+                AttackAnimation();
             }
         }
         else
         {
             isAttack = false;
         }
+
+    }
+
+    void AttackAnimation()
+    {
+
+         beamTime += Time.deltaTime;
+        if (beamTime >= beamTimeMax)
+        {
+            Destroy(chargeEffect);
+            isAttack = true;
+            DamageAreaControl();
+        }
+
     }
 
     void DamageAreaControl()
@@ -127,6 +130,8 @@ public class BossAttack : MonoBehaviour
         if (areaDestroyTime >= areaDestroyTimeMax)
         {
             isAttack= false;
+            effectStop = 0;
+            attackAnimation.SetBool("Attack", false);
             areaDestroyTime = 0.0f;
             animationtime = 0.0f;
             areaCount = 0;
