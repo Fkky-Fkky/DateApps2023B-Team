@@ -26,6 +26,7 @@ public class BossManager : MonoBehaviour
     private void Start()
     {
         isGanerat = false;
+
     }
 
     void Update()
@@ -110,6 +111,7 @@ public class BossManager : MonoBehaviour
 
     private void BossDamage()
     {
+        
         if (cannonManager.IsShotEnergyType == 0)
         {
             if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
@@ -117,7 +119,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
                 }
             }
 
@@ -126,7 +128,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
                 }
             }
 
@@ -135,7 +137,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
                 }
             }
         }
@@ -147,7 +149,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
                 }
             }
 
@@ -156,7 +158,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
                 }
             }
 
@@ -165,7 +167,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
                 }
             }
 

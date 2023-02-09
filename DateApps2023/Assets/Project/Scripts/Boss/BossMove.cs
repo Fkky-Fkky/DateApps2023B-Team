@@ -22,6 +22,7 @@ public class BossMove : MonoBehaviour
 
     private bool damageFlag = false;
 
+    BossDamage bossDamage;
 
 
 
@@ -44,6 +45,8 @@ public class BossMove : MonoBehaviour
         {
             tag = "Left";
         }
+
+        bossDamage = GetComponent<BossDamage>();
     }
 
     // Update is called once per frame

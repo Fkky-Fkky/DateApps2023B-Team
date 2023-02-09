@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BossDamage : MonoBehaviour
 {
-    private Rigidbody rb;
-
     public BossCount bossCount = null;
     BossMove bossMove;
 
@@ -46,6 +45,13 @@ public class BossDamage : MonoBehaviour
     private float bossDestroyTime = 0.0f;
     private float bossDestroyTimeMax = 2.5f;
 
+    private bool isTrance = false; 
+
+    private float tranceTime = 0.0f;
+    [SerializeField]
+    private float tranceTimeMax;
+    private float timeMax = 0.0f;
+
     private bool isBullet = false;
 
     [SerializeField]
@@ -58,7 +64,6 @@ public class BossDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         bossMove = GetComponent<BossMove>();
 
         isDamage = false;
@@ -66,6 +71,8 @@ public class BossDamage : MonoBehaviour
         hpBarObject.SetActive(true);
 
         hpBar.value = bossMove.bossHp;
+
+        timeMax = tranceTime;
     }
 
     // Update is called once per frame
@@ -112,12 +119,12 @@ public class BossDamage : MonoBehaviour
                 AnimationImage.SetTrigger("Die");
             }
             isInvincible= true;
-            bossMove.DamageFalse();
-            isBullet= false;
+            isTrance = true;
+            isBullet = false;
             isDamage = false;
         }
 
-        if(isInvincible)
+        if (isInvincible)
         {
             invincibleTime += Time.deltaTime;
             if(invincibleTime>=invincibleTimeMax)
@@ -142,6 +149,19 @@ public class BossDamage : MonoBehaviour
             }
         }
 
+        Trance();
+    }
+
+    private void Trance() {
+        if (isTrance)
+        {
+            tranceTime += Time.deltaTime;
+            if (tranceTime >= timeMax)
+            {
+                bossMove.DamageFalse();
+                tranceTime = 0.0f;
+            }
+        }
     }
 
     public void KnockbackTrue()

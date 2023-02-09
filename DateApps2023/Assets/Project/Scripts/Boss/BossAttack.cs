@@ -44,6 +44,7 @@ public class BossAttack : MonoBehaviour
     public bool isAttack;
 
     private float beamTime    = 0.0f;
+    [SerializeField]
     private float beamTimeMax = 2.0f;
 
 
@@ -92,7 +93,7 @@ public class BossAttack : MonoBehaviour
     {
 
          beamTime += Time.deltaTime;
-        if (beamTime >= beamTimeMax && !bossDamage.IsDamage())
+        if (beamTime >= beamTimeMax)
         {
             isAttack = true;
             DamageAreaControl();

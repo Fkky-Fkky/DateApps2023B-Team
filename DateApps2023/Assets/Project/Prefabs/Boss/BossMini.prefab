@@ -749,6 +749,7 @@ MonoBehaviour:
   fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
   invincibleTimeMax: 4
   isBossFellDown: 0
+  tranceTimeMax: 10
   hpBarObject: {fileID: 5627866453996605656}
   hpBar: {fileID: 569137416015138302}
 --- !u!114 &1648196746715476545
@@ -786,6 +787,7 @@ MonoBehaviour:
   damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
   chargeEffect: {fileID: 0}
   isAttack: 0
+  beamTimeMax: 2
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
 --- !u!1 &1647311298263044417
