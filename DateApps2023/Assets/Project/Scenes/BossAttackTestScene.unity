@@ -1413,6 +1413,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 131905478442208737, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: m_TagString
+      value: BossFellDownCount
+      objectReference: {fileID: 0}
     - target: {fileID: 131905478442208739, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -1455,6 +1459,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 131905478442208739, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051107079401279416, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossKillCount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1762,6 +1770,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
+      propertyPath: bullet
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: isGanerat
       value: 0

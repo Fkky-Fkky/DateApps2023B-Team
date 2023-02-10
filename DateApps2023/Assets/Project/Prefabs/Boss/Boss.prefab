@@ -748,7 +748,6 @@ MonoBehaviour:
   explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
   fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
   invincibleTimeMax: 4
-  isBossFellDown: 0
   isTrance: 0
   tranceTimeMax: 10
   hpBarObject: {fileID: 5627866453996605656}

@@ -37,7 +37,7 @@ public class BossDamage : MonoBehaviour
     float knockbackTime = 0.0f;
     float knockbackTimeMax = 1.5f;
 
-    public bool isBossFellDown;
+   private bool isBossFellDown = false;
 
 
 
@@ -59,6 +59,7 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     Slider hpBar;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +70,6 @@ public class BossDamage : MonoBehaviour
         hpBarObject.SetActive(true);
 
         hpBar.value = bossMove.bossHp;
-
     }
 
     // Update is called once per frame
@@ -132,9 +132,14 @@ public class BossDamage : MonoBehaviour
 
         if (bossMove.bossHp <= 0)
         {
-            //bossCount.bossKillCount++;
+            //if (!fellDownOff)
+            //{
+            //    bossCount.bossKillCount++;
+            //    //isBossFellDown = true;
+            //    fellDownOff = true;
+            //}
+
             isBossFellDown = true;
-            bossCount.SetBossKillCount();
             bossDestroyTime += Time.deltaTime;
             if (bossDestroyTime >= bossDestroyTimeMax)
             {
@@ -186,6 +191,10 @@ public class BossDamage : MonoBehaviour
             bossMove.DamageTrue();
         }
 
+    }
+    public bool IsFellDown()
+    {
+        return isBossFellDown;
     }
 
     public bool IsDamage()
