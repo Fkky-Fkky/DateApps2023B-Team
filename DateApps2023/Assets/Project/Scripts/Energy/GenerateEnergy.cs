@@ -13,6 +13,8 @@ public class GenerateEnergy : MonoBehaviour
     [SerializeField]
     private Transform generatePosMax = null;
 
+    private int minSize = -1;
+    private int maxSize = -1;
     private float[] createArea = new float[6];
     private Vector3 halfExtents = Vector3.zero;
     private List<Vector3> createPositionList = new List<Vector3>();
@@ -21,12 +23,22 @@ public class GenerateEnergy : MonoBehaviour
     const int MAX_AREA = 6;
     const int RANDOM_MAX = 101;
     const float GENERATE_POS_Y = 20.0f;
-    
 
     // Start is called before the first frame update
     void Start()
     {
-        halfExtents = energies[1].transform.localScale / 2;
+        int size = -1;
+        for (int i = 0; i < energies.Length; i++)
+        {
+            int mySize = energies[i].GetComponent<CarryEnergy>().MyItemSizeCount;
+            if (size < mySize)
+            {
+                size = mySize;
+                maxSize = i;
+            }
+        }
+        minSize = (maxSize == 0) ? 1 : 0;
+        halfExtents = energies[maxSize].transform.localScale / 2;
         float fiveDivide = ((generatePosMin.position.x - generatePosMax.position.x) / 5) * -1;
         for (int i = 0; i < MAX_AREA; i++)
         {
@@ -74,11 +86,11 @@ public class GenerateEnergy : MonoBehaviour
         for (int i = 0; i < createPositionList.Count; i++)
         {
             Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
-            int type = 0;
+            int type = minSize;
             int energyNum = Random.Range(0, RANDOM_MAX);
             if (energyNum <= 20)
             {
-                type = 1;
+                type = maxSize;
             }
             Instantiate(energies[type], position, Quaternion.identity);
         }
