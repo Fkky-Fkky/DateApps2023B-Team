@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: moveSpeed
-      value: 500
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
@@ -743,10 +743,6 @@ PrefabInstance:
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: rimitPosZ.y
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
-      propertyPath: playerNumber
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Constraints
@@ -887,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: moveSpeed
-      value: 500
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
@@ -978,10 +974,6 @@ PrefabInstance:
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: rimitPosZ.y
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
-      propertyPath: playerNumber
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_Constraints
@@ -1175,7 +1167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: moveSpeed
-      value: 500
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
@@ -1249,7 +1241,7 @@ PrefabInstance:
     - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
       propertyPath: bgm1.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 03be6ac1c75540247a3d7a9e22eddbc3, type: 3}
+      objectReference: {fileID: 8300000, guid: 7c472f922cddc7f4bafed1d987768612, type: 3}
     - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
       propertyPath: bgm2.Array.data[0]
       value: 
@@ -1688,10 +1680,6 @@ PrefabInstance:
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: rimitPosZ.y
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
-      propertyPath: playerNumber
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_Constraints
@@ -2199,10 +2187,6 @@ PrefabInstance:
     - target: {fileID: 6544279265657264574, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
-      propertyPath: moveSpeed
-      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
