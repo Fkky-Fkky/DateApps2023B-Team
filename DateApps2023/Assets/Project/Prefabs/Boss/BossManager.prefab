@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89449f665048514590b47d95021cdaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonManager: {fileID: 0}
   bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
-  bossGenerator: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
   bossIntervalTime: 10
   isGanerat: 0

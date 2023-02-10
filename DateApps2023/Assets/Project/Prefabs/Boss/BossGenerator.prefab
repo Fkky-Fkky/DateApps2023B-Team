@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131905478442208739}
   - component: {fileID: 131905478442208736}
-  - component: {fileID: 8262618935548590350}
+  - component: {fileID: 7051107079401279416}
   m_Layer: 0
   m_Name: BossGenerator
   m_TagString: Untagged
@@ -47,7 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossManager: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
   bossModel: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
---- !u!114 &8262618935548590350
+  isCenterLine: 0
+  isRightLine: 0
+  isLeftLine: 0
+--- !u!114 &7051107079401279416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,3 +63,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossKillCount: 0
+  bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}

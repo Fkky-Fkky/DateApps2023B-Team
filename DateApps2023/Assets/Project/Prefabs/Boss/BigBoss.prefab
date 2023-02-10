@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 1648196746715476545}
   - component: {fileID: 1763202426801422486}
   m_Layer: 0
-  m_Name: Boss
+  m_Name: BigBoss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -670,8 +670,8 @@ Transform:
   m_GameObject: {fileID: 1647289903949419459}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 18, y: 20, z: 18}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 27, y: 29.999998, z: 27}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1643745053203628095}
   - {fileID: 1643880345261233121}
@@ -764,9 +764,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8cc92c29a0b84faa73b36b8d3d196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHp: 3
+  bossHp: 10
   bossAttack: {fileID: 1763202426801422486}
-  moveSpeed: 2
+  moveSpeed: 1
   target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
 --- !u!114 &1763202426801422486
 MonoBehaviour:
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackIntervalTime: 2
+  attackIntervalTime: 5
   attackAnimation: {fileID: 1697093568606495979}
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
@@ -1351,6 +1351,10 @@ PrefabInstance:
       value: BossLaser
       objectReference: {fileID: 0}
     - target: {fileID: 1816696194101710, guid: b5500c6a260bba4428170ed292aec624, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1874146327162074, guid: b5500c6a260bba4428170ed292aec624, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

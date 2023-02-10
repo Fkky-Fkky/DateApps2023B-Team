@@ -12,7 +12,6 @@ public class BossMove : MonoBehaviour
     public int bossHp;
 
     public BossAttack bossAttack;
-    public BossCount bossCount;
 
     [SerializeField]
     [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]
@@ -22,6 +21,11 @@ public class BossMove : MonoBehaviour
     private GameObject target;
 
     private bool damageFlag = false;
+
+    [SerializeField]
+    public BossDamage bossDamage = null;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,8 @@ public class BossMove : MonoBehaviour
         {
             tag = "Left";
         }
+
+        bossDamage = GetComponent<BossDamage>();
     }
 
     // Update is called once per frame
@@ -71,10 +77,6 @@ public class BossMove : MonoBehaviour
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
 
-        if(Input.GetMouseButtonDown(1))
-        {
-            bossHp -= 1;
-        }
     }
 
     public void DamageTrue()
@@ -86,4 +88,5 @@ public class BossMove : MonoBehaviour
     {
         damageFlag = false;
     }
+
 }

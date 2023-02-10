@@ -6,6 +6,8 @@ public class BossManager : MonoBehaviour
 {
     [SerializeField]
     private CannonManager cannonManager = null;
+    [SerializeField]
+    private BossGenerator bossGenerator = null;
 
     public BossDamage bossDamage;
 
@@ -14,9 +16,17 @@ public class BossManager : MonoBehaviour
     float bossIntervalTime = 10.0f;
 
     public bool isGanerat;
+
+    [SerializeField]
+    private int bullet;
+
+    private GameObject centerBoss;
+    private GameObject leftBoss;
+    private GameObject rightBoss;
     private void Start()
     {
         isGanerat = false;
+
     }
 
     void Update()
@@ -29,35 +39,171 @@ public class BossManager : MonoBehaviour
         }
 
         BossDamage();
+        BossDevack();
+
+        BossFellDown();
     }
 
-    void BossDamage()
+    private void BossDevack()
     {
-        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
+        if (bullet == 0)
         {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
-            foreach (GameObject boss in objects)
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                boss.GetComponent<BossDamage>().KnockbackTrueSub();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
             }
         }
 
-        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
+        if (bullet == 1)
         {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
-            foreach (GameObject boss in objects)
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                boss.GetComponent<BossDamage>().KnockbackTrueSub();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+        }
+
+    }
+
+    private void BossDamage()
+    {
+        
+        if (cannonManager.IsShotEnergyType == 0)
+        {
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                }
             }
         }
 
-        if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
+        if (cannonManager.IsShotEnergyType == 1)
         {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
-            foreach (GameObject boss in objects)
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
             {
-                boss.GetComponent<BossDamage>().KnockbackTrueSub();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
             }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                }
+            }
+
+        }
+    }
+
+    private void BossFellDown()
+    {
+        centerBoss = GameObject.FindGameObjectWithTag("Center");
+        if (centerBoss == null)
+        {
+            bossGenerator.IsCenterLineFalse();
+        }
+        else
+        {
+            bossGenerator.IsCenterLineTrue();
+        }
+
+        leftBoss = GameObject.FindGameObjectWithTag("Left");
+        if (leftBoss == null)
+        {
+            bossGenerator.IsLeftLineFalse();
+        }
+        else
+        {
+            bossGenerator.IsLeftLineTrue();
+        }
+
+        rightBoss = GameObject.FindGameObjectWithTag("Right");
+        if (rightBoss == null)
+        {
+            bossGenerator.IsRightLineFalse();
+        }
+        else
+        {
+            bossGenerator.IsRightLineTrue();
         }
 
     }
