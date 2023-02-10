@@ -5,19 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private BossCount bossCount = null;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(bossCount.bossKillCount >= 10)
+        if(BossCount.GetKillCount() >= 10)
         {
             SceneManager.LoadScene("ClearScene");
         }

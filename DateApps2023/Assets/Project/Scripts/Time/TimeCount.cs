@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Reflection;
 
 public class TimeCount : MonoBehaviour
@@ -16,8 +15,6 @@ public class TimeCount : MonoBehaviour
 
     [SerializeField]
     private string sceneName = "New Scene";
-
-    [SerializeField] Animator AnimationImage = null;
 
     // Start is called before the first frame update
     void Start()
@@ -38,22 +35,8 @@ public class TimeCount : MonoBehaviour
 
         if (secondsCount >= 180)
         {
-            AnimationImage.SetBool("Die", true);
             isMain = false;
-
-            float animTime = AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            if (animTime > 1.0f)
-            {
-                SceneManager.LoadScene(sceneName);
-            }
         }
-
-        if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Die") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f)
-        {
-            AnimationImage.SetBool("Die", false);
-        }
-
-
     }
 
     public static float GetTime()
