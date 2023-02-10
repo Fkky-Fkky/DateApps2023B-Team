@@ -39,7 +39,6 @@ public class BossDamage : MonoBehaviour
 
 
 
-    public bool isBossFellDown = false;
 
 
     private float bossDestroyTime = 0.0f;
@@ -140,7 +139,6 @@ public class BossDamage : MonoBehaviour
             {
                 Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
-                isBossFellDown = true;                
                 Destroy(gameObject);
                 bossDestroyTime = 0.0f;
             }

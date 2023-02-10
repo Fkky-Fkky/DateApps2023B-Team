@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8509660137296539539}
   - component: {fileID: 8383523380211922345}
   - component: {fileID: 472234791295660159}
-  - component: {fileID: -3258859256280371238}
+  - component: {fileID: -7730692312921549652}
   m_Layer: 0
   m_Name: DangerZone
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-3258859256280371238
+--- !u!114 &-7730692312921549652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4271847066460393594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71986d329306f114787edddf9d8461a2, type: 3}
+  m_Script: {fileID: 11500000, guid: f485b5e12c257d74db69dd4b4b4722b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}

@@ -749,6 +749,7 @@ MonoBehaviour:
   fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
   invincibleTimeMax: 4
   isBossFellDown: 0
+  isTrance: 0
   tranceTimeMax: 10
   hpBarObject: {fileID: 5627866453996605656}
   hpBar: {fileID: 569137416015138302}
@@ -768,6 +769,7 @@ MonoBehaviour:
   bossAttack: {fileID: 1763202426801422486}
   moveSpeed: 1
   target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
+  bossDamage: {fileID: 0}
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,7 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackIntervalTime: 5
+  attackIntervalTime: 20
   attackAnimation: {fileID: 1697093568606495979}
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
