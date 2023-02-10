@@ -37,7 +37,7 @@ public class BossDamage : MonoBehaviour
     float knockbackTime = 0.0f;
     float knockbackTimeMax = 1.5f;
 
-
+    public bool isBossFellDown;
 
 
 
@@ -132,7 +132,8 @@ public class BossDamage : MonoBehaviour
 
         if (bossMove.bossHp <= 0)
         {
-            bossCount.bossKillCount++;
+            //bossCount.bossKillCount++;
+            isBossFellDown = true;
             bossCount.SetBossKillCount();
             bossDestroyTime += Time.deltaTime;
             if (bossDestroyTime >= bossDestroyTimeMax)

@@ -729,7 +729,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.5, y: 3.5, z: 3}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0, y: 2, z: 0.5}
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,7 +769,6 @@ MonoBehaviour:
   bossAttack: {fileID: 1763202426801422486}
   moveSpeed: 2
   target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
-  bossDamage: {fileID: 0}
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
