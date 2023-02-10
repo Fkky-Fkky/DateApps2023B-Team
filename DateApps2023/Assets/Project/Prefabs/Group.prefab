@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d9d963d5da4484494b8098025642d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 150
+  moveSpeed: 200
   ChildPlayer: []
   AnimationImage: []
   AnimationSpeed: 0.01
