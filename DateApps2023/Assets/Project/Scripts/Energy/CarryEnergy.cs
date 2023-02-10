@@ -34,7 +34,11 @@ public class CarryEnergy : MonoBehaviour
 
     [SerializeField]
     ItemSize myItemSize = ItemSize.Small;
-    public int MyItemSizeCount { get; private set; }
+    public int MyItemSizeCount
+    {
+        get { return (int)myItemSize; }
+        private set { MyItemSizeCount = (int)myItemSize; }
+    }
     #endregion
 
     // Start is called before the first frame update
@@ -45,7 +49,7 @@ public class CarryEnergy : MonoBehaviour
         switch (myItemSize)
         {
             default:
-                MyItemSizeCount = (int)myItemSize;
+                //MyItemSizeCount = (int)myItemSize;
                 break;
             //case ItemSize.Small:
             //    myItemSizeCount = (int)ItemSize.Small;

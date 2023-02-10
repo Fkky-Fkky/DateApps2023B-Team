@@ -8,9 +8,6 @@ public class EnergyCharge : MonoBehaviour
     private GameObject energyChargeEffect = null;
 
     [SerializeField]
-    private Transform chargeEffectPos = null;
-
-    [SerializeField]
     private AudioClip chargeSe = null;
 
     private BoxCollider boxCol = null;

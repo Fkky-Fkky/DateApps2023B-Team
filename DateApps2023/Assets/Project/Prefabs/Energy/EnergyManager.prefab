@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723698e368539a7438b2b70f8096de67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
+  energies:
+  - {fileID: 989744109513928702, guid: 8882423c885f0134b91110b65c663a4d, type: 3}
+  - {fileID: 989744109513928702, guid: f1bcfb00fc9b189498c201f48f182e7c, type: 3}
   generatePosMin: {fileID: 0}
   generatePosMax: {fileID: 0}
