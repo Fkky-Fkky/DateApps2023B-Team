@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3319014651833614888}
   - component: {fileID: 3319014651833614889}
   - component: {fileID: 3319014651833614890}
-  - component: {fileID: 780705001}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,26 +102,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!95 &780705001
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3319014651833614891}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dd5df2b04a66b6419f6788c3a4d0fc6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3319014652303712277
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,4 +506,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: ClearScene
-  AnimationImage: {fileID: 0}
