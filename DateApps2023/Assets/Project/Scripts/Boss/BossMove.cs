@@ -22,8 +22,6 @@ public class BossMove : MonoBehaviour
 
     private bool damageFlag = false;
 
-    [SerializeField]
-    public BossDamage bossDamage = null;
 
 
 
@@ -47,7 +45,6 @@ public class BossMove : MonoBehaviour
             tag = "Left";
         }
 
-        bossDamage = GetComponent<BossDamage>();
     }
 
     // Update is called once per frame

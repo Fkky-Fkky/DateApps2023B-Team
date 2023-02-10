@@ -4,30 +4,22 @@ using UnityEngine;
 
 public class BossCount : MonoBehaviour
 {
-    public int bossKillCount;
+    public int bossKillCount = 0;
     public static int killCount;
 
     public BossDamage bossDamage = null;
 
+
     void Start()
     {
-        bossKillCount = 0;
-    }
-
-    private void Update()
-    {
-        if(bossDamage.isBossFellDown)
-        {
-            bossKillCount++;
-            bossDamage.isBossFellDown = false;
-        }
+        killCount = bossKillCount;
     }
 
     // Update is called once per frame
 
     public void SetBossKillCount()
     {
-        killCount = bossKillCount;
+        killCount++;
     }
 
     public static int GetKillCount()
