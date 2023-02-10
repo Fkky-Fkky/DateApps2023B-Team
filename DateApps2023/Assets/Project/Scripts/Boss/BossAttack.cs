@@ -34,6 +34,14 @@ public class BossAttack : MonoBehaviour
     private float effectY = -2.5f;
     private float effectZ = 2.0f;
 
+    [SerializeField]
+    private GameObject dangerZone;
+
+    private Vector3 dangerCenter = new Vector3(  0.0f, 1.0f, 0.0f);
+    private Vector3 dangerLeft   = new Vector3(-10.0f, 1.0f, 0.0f);
+    private Vector3 dangerRigth  = new Vector3( 10.0f, 1.0f, 0.0f);
+
+    private float dangerAngle = 180.0f;
 
     int areaCount;
     int areaCountMax = 1;
@@ -62,19 +70,22 @@ public class BossAttack : MonoBehaviour
 
     void Update()
     {
-        time += Time.deltaTime;
-        if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
+        if(!bossDamage.isTrance)
         {
-            if (time >= attackIntervalTime)
+            time += Time.deltaTime;
+            if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
             {
-                attackAnimation.SetBool("Attack", true);
-                Charge();
-                AttackAnimation();
+                if (time >= attackIntervalTime)
+                {
+                    attackAnimation.SetBool("Attack", true);
+                    Charge();
+                    AttackAnimation();
+                }
             }
-        }
-        else
-        {
-            isAttack = false;
+            else
+            {
+                isAttack = false;
+            }
         }
     }
 
@@ -85,9 +96,28 @@ public class BossAttack : MonoBehaviour
             effectZ = transform.position.z - 50.0f;
             Vector3 pos = new Vector3(transform.position.x, effectY, effectZ);
             Instantiate(chargeEffect, pos, Quaternion.identity);
+            DangerZone();
             effectStop++;
         }
 
+    }
+
+    private void DangerZone()
+    {
+        if (gameObject.tag == "Center")
+        {
+            Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, dangerAngle, 0.0f));
+        }
+
+        if (gameObject.tag == "Left")
+        {
+            Instantiate(dangerZone, dangerLeft, Quaternion.Euler(0.0f, dangerAngle, 0.0f));
+        }
+
+        if (gameObject.tag == "Right")
+        {
+            Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, dangerAngle, 0.0f));
+        }
     }
     void AttackAnimation()
     {
@@ -98,10 +128,14 @@ public class BossAttack : MonoBehaviour
             isAttack = true;
             DamageAreaControl();
         }
-        else
-        {
-            isAttack = false;
-        }
+        //else
+        //{
+        //    //if (bossDamage.IsDamage())
+        //    //{
+        //    //    bossDamage.isTrance = true;
+        //    //    AttackOff();
+        //    //}
+        //}
 
     }
 
@@ -151,5 +185,10 @@ public class BossAttack : MonoBehaviour
         areaCount = 0;
         time = 0.0f;
 
+    }
+
+    public float BeamTimeMax()
+    {
+        return beamTimeMax;
     }
 }

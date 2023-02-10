@@ -22,7 +22,8 @@ public class BossMove : MonoBehaviour
 
     private bool damageFlag = false;
 
-    BossDamage bossDamage;
+    [SerializeField]
+    public BossDamage bossDamage = null;
 
 
 

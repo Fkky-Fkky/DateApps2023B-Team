@@ -45,12 +45,11 @@ public class BossDamage : MonoBehaviour
     private float bossDestroyTime = 0.0f;
     private float bossDestroyTimeMax = 2.5f;
 
-    private bool isTrance = false; 
+    public bool isTrance = false; 
 
     private float tranceTime = 0.0f;
     [SerializeField]
     private float tranceTimeMax;
-    private float timeMax = 0.0f;
 
     private bool isBullet = false;
 
@@ -72,7 +71,6 @@ public class BossDamage : MonoBehaviour
 
         hpBar.value = bossMove.bossHp;
 
-        timeMax = tranceTime;
     }
 
     // Update is called once per frame
@@ -119,7 +117,6 @@ public class BossDamage : MonoBehaviour
                 AnimationImage.SetTrigger("Die");
             }
             isInvincible= true;
-            isTrance = true;
             isBullet = false;
             isDamage = false;
         }
@@ -156,7 +153,7 @@ public class BossDamage : MonoBehaviour
         if (isTrance)
         {
             tranceTime += Time.deltaTime;
-            if (tranceTime >= timeMax)
+            if (tranceTime >= tranceTimeMax)
             {
                 bossMove.DamageFalse();
                 tranceTime = 0.0f;

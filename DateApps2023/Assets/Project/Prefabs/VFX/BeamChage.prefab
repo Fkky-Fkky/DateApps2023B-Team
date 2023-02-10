@@ -4831,6 +4831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f485b5e12c257d74db69dd4b4b4722b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!1001 &2034245894933951984
 PrefabInstance:
   m_ObjectHideFlags: 0
