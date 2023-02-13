@@ -5,10 +5,10 @@ using UnityEngine;
 public class CannonShot : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] smokeEffects = new GameObject[2];
+    private GameObject[] smokeEffects = new GameObject[3];
 
     [SerializeField]
-    private GameObject[] shotChargeEffects = new GameObject[2];
+    private GameObject[] shotChargeEffects = new GameObject[3];
 
     [SerializeField]
     private Transform smokePosition = null;

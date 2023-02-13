@@ -5,7 +5,7 @@ using UnityEngine;
 public class TankCharge : MonoBehaviour
 {
     [SerializeField]
-    private Material[] materials = new Material[2];
+    private Material[] materials = new Material[3];
 
     private GameObject inner = null;
     private Material material = null;
