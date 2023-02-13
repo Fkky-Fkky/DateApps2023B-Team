@@ -4846,7 +4846,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 98cc821a6b46e7c488562c8df10ed5fc, type: 2}
+  - {fileID: 2100000, guid: c5751d9717766254ca70ed779c9c3d33, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9743,7 +9743,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ec40d363a9d8e1488ed1143853f26f6, type: 2}
+  - {fileID: 2100000, guid: 1784909c37563b647b18329415824c77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14640,7 +14640,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 525794ae4215fef4fa17a3309c172ebc, type: 2}
+  - {fileID: 2100000, guid: 6530aa64e5d5d1243a37c617bd65ac3d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14703,7 +14703,7 @@ GameObject:
   - component: {fileID: 3650019593508849853}
   - component: {fileID: 4136496214357132849}
   m_Layer: 0
-  m_Name: EnergyChargeEffect
+  m_Name: EnergyChargeEffectMedium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

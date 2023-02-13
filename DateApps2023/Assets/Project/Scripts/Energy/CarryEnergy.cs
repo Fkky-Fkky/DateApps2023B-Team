@@ -24,7 +24,7 @@ public class CarryEnergy : MonoBehaviour
     BoxCollider boxCol = null;
 
 
-    enum ItemSize
+    public enum ItemSize
     {
         Small,
         Medium,

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyCharge : MonoBehaviour
 {
     [SerializeField]
-    private GameObject energyChargeEffect = null;
+    private GameObject[] energyChargeEffect = new GameObject[3];
 
     [SerializeField]
     private AudioClip chargeSe = null;
@@ -21,7 +21,8 @@ public class EnergyCharge : MonoBehaviour
     public enum EnergyType
     {
         SMALL,
-        LARGE
+        MEDIUM,
+        LARGE,
     }
 
     private void Start()
@@ -42,14 +43,21 @@ public class EnergyCharge : MonoBehaviour
         {
             return;
         }
-        
-        if (other.GetComponent<CarryEnergy>().MyItemSizeCount == 1)
+
+        int itemSize = other.GetComponent<CarryEnergy>().MyItemSizeCount;
+        switch (itemSize)
         {
-            ChrgeEnergyType = (int)EnergyType.SMALL;
-        }
-        else
-        {
-            ChrgeEnergyType = (int)EnergyType.LARGE;
+            case (int)CarryEnergy.ItemSize.Small:
+                ChrgeEnergyType = (int)EnergyType.SMALL;
+                break;
+
+            case (int)CarryEnergy.ItemSize.Medium:
+                ChrgeEnergyType = (int)EnergyType.MEDIUM;
+                break;
+
+            case (int)CarryEnergy.ItemSize.XL:
+                ChrgeEnergyType = (int)EnergyType.LARGE;
+                break;
         }
         other.GetComponent<CarryEnergy>().DestroyMe();
         ChargeEnergy();
@@ -58,7 +66,7 @@ public class EnergyCharge : MonoBehaviour
     private void ChargeEnergy()
     {
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
-        Instantiate(energyChargeEffect, transform.position, Quaternion.identity);
+        Instantiate(energyChargeEffect[ChrgeEnergyType], transform.position, Quaternion.identity);
         audioSource.PlayOneShot(chargeSe);
         if (Energy >= MAX_ENERGY)
         {

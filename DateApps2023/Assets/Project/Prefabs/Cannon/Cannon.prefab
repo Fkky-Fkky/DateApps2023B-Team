@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18541fd01e3c3554a8fef40e8a883a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyChargeEffect: {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
+  energyChargeEffect:
+  - {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
+  - {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
+  - {fileID: 7358680883832252254, guid: d92362905d020f84596d91f04129ac22, type: 3}
   chargeSe: {fileID: 8300000, guid: b17165e5376f4ab43ae13df612607253, type: 3}
 --- !u!65 &608408025037340663
 BoxCollider:
@@ -671,9 +674,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smokeEffects:
   - {fileID: 3102745252890071952, guid: a59319f2c82a6244e8e01128a010a454, type: 3}
+  - {fileID: 3102745252890071952, guid: 1fb31ecda9ffbd646a358fdb49aa4435, type: 3}
   - {fileID: 3102745252890071952, guid: 0fa7914f42d3e754b9a4a5ebfadf8418, type: 3}
   shotChargeEffects:
   - {fileID: 7370199869646859276, guid: 3062b40825aab3b4abece4d845f873ee, type: 3}
+  - {fileID: 7370199869646859276, guid: 8b0976b2e70540244a8dded4779fdbcc, type: 3}
   - {fileID: 7370199869646859276, guid: 7daf18ee7bb8259448d30fe64fac2e0e, type: 3}
   smokePosition: {fileID: 608408026505789374}
   energyCharge: {fileID: 608408025037340662}
@@ -719,8 +724,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.84941745, y: 1.0183183, z: 0.9000314}
-  m_Center: {x: -0.048064478, y: 0.3969914, z: 0.06996607}
+  m_Size: {x: 0.6089273, y: 1.0183183, z: 0.58811736}
+  m_Center: {x: 0, y: 0.39699143, z: 0}
 --- !u!82 &7146034521712002724
 AudioSource:
   m_ObjectHideFlags: 0
@@ -925,6 +930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materials:
+  - {fileID: 2100000, guid: 845f69d690c342f42a3d419346995c7e, type: 2}
   - {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
   - {fileID: 2100000, guid: 03874c9e151f222488ac41332e51d59c, type: 2}
 --- !u!1001 &5741313187892393587
