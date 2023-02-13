@@ -265,11 +265,9 @@ public class enemy : MonoBehaviour
             }
         }
         #endregion
-        //ex_flag = true;
-
+       
         if (-25 >= pos.y )
         {
-            //attck_flag = false;
             Destroy(gameObject);
         }
 
@@ -344,12 +342,6 @@ public class enemy : MonoBehaviour
             this.transform.position += new Vector3(0, 0, -0.5f);
             yield return new WaitForSeconds(0.05f);
         }
-    }
-
-    //•Ç‚Æ‚Ì”»’è
-    private void OnTriggerEnter(Collider other)
-    {
-        
     }
 
     //ƒvƒŒƒCƒ„[‚Æ‚Ì”»’è
