@@ -15,12 +15,13 @@ GameObject:
   - component: {fileID: 989744109513928689}
   - component: {fileID: 989744109513928688}
   - component: {fileID: 3615913176234195302}
+  - component: {fileID: 3415548643128593543}
   m_Layer: 0
   m_Name: EnergyResourceYellow
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &989744109513928690
 Transform:
@@ -149,6 +150,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891b9a9635d67944eb809f7d4bb3f6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &3415548643128593543
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989744109513928702}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4843439796175321687
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +182,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!224 &7473993607105685865
 RectTransform:
