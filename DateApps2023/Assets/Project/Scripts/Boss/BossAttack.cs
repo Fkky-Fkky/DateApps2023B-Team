@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -34,6 +35,8 @@ public class BossAttack : MonoBehaviour
     private float effectY = -2.5f;
     private float effectZ = 2.0f;
 
+    private List<GameObject> effectList = new List<GameObject>();
+
     [SerializeField]
     private GameObject dangerZone;
 
@@ -41,20 +44,21 @@ public class BossAttack : MonoBehaviour
     private Vector3 dangerLeft   = new Vector3(-10.0f, 1.0f, 0.0f);
     private Vector3 dangerRigth  = new Vector3( 10.0f, 1.0f, 0.0f);
 
+    private List<GameObject> dangerAreaList = new List<GameObject>();
+
     private float dangerAngle = 180.0f;
 
     int areaCount;
     int areaCountMax = 1;
 
-    float areaDestroyTime    = 0.0f;
-    float areaDestroyTimeMax = 2.0f;
+    float beamOffTime    = 0.0f;
+    float beamOffTimeMax = 2.0f;
 
     public bool isAttack;
 
     private float beamTime    = 0.0f;
     [SerializeField]
-    private float beamTimeMax = 2.0f;
-
+    private float beamTimeMax = 10.0f;
 
     public BossMove bossMove;
 
@@ -64,8 +68,6 @@ public class BossAttack : MonoBehaviour
     {
         areaCount= 0;
         isAttack = false;
-
-        effectStop = 0;
     }
 
     void Update()
@@ -82,11 +84,23 @@ public class BossAttack : MonoBehaviour
                     AttackAnimation();
                 }
             }
-            else
+        }
+
+        if (bossDamage.isTrance)
+        {
+            for(int i = 0; i < effectList.Count; i++)
             {
-                isAttack = false;
+                Destroy(effectList[i]);
+                effectList.RemoveAt(i);
+            }
+
+            for (int i = 0; i < dangerAreaList.Count; i++)
+            {
+                Destroy(dangerAreaList[i]);
+                dangerAreaList.RemoveAt(i);
             }
         }
+
     }
 
     private void Charge()
@@ -95,7 +109,9 @@ public class BossAttack : MonoBehaviour
         {
             effectZ = transform.position.z - 50.0f;
             Vector3 pos = new Vector3(transform.position.x, effectY, effectZ);
-            Instantiate(chargeEffect, pos, Quaternion.identity);
+
+            effectList.Add(Instantiate(chargeEffect, pos, Quaternion.identity));
+
             DangerZone();
             effectStop++;
         }
@@ -106,17 +122,17 @@ public class BossAttack : MonoBehaviour
     {
         if (gameObject.tag == "Center")
         {
-            Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, dangerAngle, 0.0f));
+            dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
         }
 
         if (gameObject.tag == "Left")
         {
-            Instantiate(dangerZone, dangerLeft, Quaternion.Euler(0.0f, dangerAngle, 0.0f));
+            dangerAreaList.Add(Instantiate(dangerZone, dangerLeft,   Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
         }
 
         if (gameObject.tag == "Right")
         {
-            Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, dangerAngle, 0.0f));
+            dangerAreaList.Add(Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
         }
     }
     void AttackAnimation()
@@ -128,14 +144,11 @@ public class BossAttack : MonoBehaviour
             isAttack = true;
             DamageAreaControl();
         }
-        //else
-        //{
-        //    //if (bossDamage.IsDamage())
-        //    //{
-        //    //    bossDamage.isTrance = true;
-        //    //    AttackOff();
-        //    //}
-        //}
+        else if (beamTime < beamTimeMax&& bossDamage.IsBossDamage())
+        {
+            AttackOff();
+            bossDamage.isTrance = true;
+        }
 
     }
 
@@ -167,8 +180,8 @@ public class BossAttack : MonoBehaviour
                 areaCount++;
             }
         }
-        areaDestroyTime += Time.deltaTime;
-        if (areaDestroyTime >= areaDestroyTimeMax)
+        beamOffTime += Time.deltaTime;
+        if (beamOffTime >= beamOffTimeMax)
         {
             AttackOff();
         }
@@ -181,7 +194,7 @@ public class BossAttack : MonoBehaviour
         effectStop = 0;
         attackAnimation.SetBool("Attack", false);
         beamTime = 0.0f;
-        areaDestroyTime = 0.0f;
+        beamOffTime = 0.0f;
         areaCount = 0;
         time = 0.0f;
 

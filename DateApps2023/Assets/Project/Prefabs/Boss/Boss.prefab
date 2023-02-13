@@ -678,6 +678,7 @@ Transform:
   - {fileID: 3490875008881636801}
   - {fileID: 5787170837169423892}
   - {fileID: 1162212111539250085}
+  - {fileID: 8376872536337460165}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -750,6 +751,8 @@ MonoBehaviour:
   invincibleTimeMax: 4
   isTrance: 0
   tranceTimeMax: 10
+  stunPos: {fileID: 8376872536337460165}
+  stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
   hpBarObject: {fileID: 5627866453996605656}
   hpBar: {fileID: 569137416015138302}
 --- !u!114 &1648196746715476545
@@ -765,7 +768,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHp: 3
-  bossAttack: {fileID: 1763202426801422486}
   moveSpeed: 2
   target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
 --- !u!114 &1763202426801422486
@@ -780,7 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackIntervalTime: 10
+  attackIntervalTime: 5
   attackAnimation: {fileID: 1697093568606495979}
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
@@ -1073,6 +1075,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3361146547246162671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8376872536337460165}
+  m_Layer: 0
+  m_Name: StunPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8376872536337460165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361146547246162671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1643879179760658977}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5627866453996605656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1379,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1643879179760658977}
     m_Modifications:
+    - target: {fileID: 1096382790367456, guid: b5500c6a260bba4428170ed292aec624, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1816696194101710, guid: b5500c6a260bba4428170ed292aec624, type: 3}
       propertyPath: m_Name
       value: BossLaser
