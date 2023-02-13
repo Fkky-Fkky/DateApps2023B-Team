@@ -744,6 +744,10 @@ PrefabInstance:
       propertyPath: rimitPosZ.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
+      propertyPath: playerNumber
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Constraints
       value: 112
@@ -974,6 +978,10 @@ PrefabInstance:
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: rimitPosZ.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
+      propertyPath: playerNumber
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_Constraints
@@ -1241,7 +1249,7 @@ PrefabInstance:
     - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
       propertyPath: bgm1.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 7c472f922cddc7f4bafed1d987768612, type: 3}
+      objectReference: {fileID: 8300000, guid: dc7f08f203c72e94e9761d12325ee473, type: 3}
     - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
       propertyPath: bgm2.Array.data[0]
       value: 
@@ -1680,6 +1688,10 @@ PrefabInstance:
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: rimitPosZ.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
+      propertyPath: playerNumber
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_Constraints

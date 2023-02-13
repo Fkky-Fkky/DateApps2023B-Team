@@ -5,10 +5,10 @@ using UnityEngine;
 public class CannonShot : MonoBehaviour
 {
     [SerializeField]
-    private GameObject smokeEffect = null;
+    private GameObject[] smokeEffects = new GameObject[2];
 
     [SerializeField]
-    private GameObject chargeShotEffect = null;
+    private GameObject[] shotChargeEffects = new GameObject[2];
 
     [SerializeField]
     private Transform smokePosition = null;
@@ -29,6 +29,7 @@ public class CannonShot : MonoBehaviour
     public bool IsNowShot { get; private set; }
 
     private int shotNum = 0;
+    private int energyType = 0;
     private float coolTime = 0.0f;
     private bool isCoolTime = false;
     private AudioSource audioSource = null;
@@ -70,6 +71,7 @@ public class CannonShot : MonoBehaviour
     public void Shot()
     {
         IsShotting = true;
+        energyType = energyCharge.ChrgeEnergyType;
         energyCharge.DisChargeEnergy();
         CreateChageEffect();
         Invoke(nameof(CreateSmoke), INVOKE_TIME);
@@ -78,13 +80,13 @@ public class CannonShot : MonoBehaviour
 
     private void CreateChageEffect()
     {
-        Instantiate(chargeShotEffect, smokePosition);
+        Instantiate(shotChargeEffects[energyType], smokePosition);
         audioSource.PlayOneShot(shotChargeSe);
     }
 
     private void CreateSmoke()
     {
-        Instantiate(smokeEffect, smokePosition);
+        Instantiate(smokeEffects[energyType], smokePosition);
         audioSource.Stop();
         audioSource.PlayOneShot(shotSe);
         coolTime = MAX_COOL_TIME;

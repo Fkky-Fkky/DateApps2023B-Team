@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class TankCharge : MonoBehaviour
 {
+    [SerializeField]
+    private Material[] materials = new Material[2];
+
     private GameObject inner = null;
+    private Material material = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,8 +16,10 @@ public class TankCharge : MonoBehaviour
         inner.SetActive(false);
     }
 
-    public void Charge()
+    public void Charge(int energyType)
     {
+        material = materials[energyType];
+        inner.GetComponent<MeshRenderer>().material = material;
         inner.SetActive(true);
     }
 

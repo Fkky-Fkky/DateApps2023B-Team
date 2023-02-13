@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3010980404042106144}
   - component: {fileID: 3012543280077348108}
   m_Layer: 0
-  m_Name: ShotSmoke
+  m_Name: ShotSmokeSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4782,7 +4782,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aa6b46938c44450aa7e233dfb8509b1b, type: 2}
+  - {fileID: 2100000, guid: f186d7048d82b48418aebb642024014d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

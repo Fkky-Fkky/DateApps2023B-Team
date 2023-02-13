@@ -17,7 +17,7 @@ public class TankManager : MonoBehaviour
     {
         if (energyCharge.Energy > oldEnergy)
         {
-            energyTank.Charge();
+            energyTank.Charge(energyCharge.ChrgeEnergyType);
             oldEnergy = energyCharge.Energy;
         }
         else if(energyCharge.Energy < oldEnergy)

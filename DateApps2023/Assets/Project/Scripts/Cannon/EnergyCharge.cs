@@ -18,6 +18,12 @@ public class EnergyCharge : MonoBehaviour
     public int Energy { get; private set; }
     public int ChrgeEnergyType { get; private set; }
 
+    public enum EnergyType
+    {
+        SMALL,
+        LARGE
+    }
+
     private void Start()
     {
         boxCol = GetComponent<BoxCollider>();
@@ -39,11 +45,11 @@ public class EnergyCharge : MonoBehaviour
         
         if (other.GetComponent<CarryEnergy>().MyItemSizeCount == 1)
         {
-            ChrgeEnergyType = 0;
+            ChrgeEnergyType = (int)EnergyType.SMALL;
         }
         else
         {
-            ChrgeEnergyType = 1;
+            ChrgeEnergyType = (int)EnergyType.LARGE;
         }
         other.GetComponent<CarryEnergy>().DestroyMe();
         ChargeEnergy();

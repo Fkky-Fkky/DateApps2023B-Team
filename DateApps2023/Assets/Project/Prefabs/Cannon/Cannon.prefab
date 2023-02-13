@@ -669,8 +669,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d52537b7f5856c498dd5eaee025652a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smokeEffect: {fileID: 3102745252890071952, guid: 0fa7914f42d3e754b9a4a5ebfadf8418, type: 3}
-  chargeShotEffect: {fileID: 7370199869646859276, guid: 7daf18ee7bb8259448d30fe64fac2e0e, type: 3}
+  smokeEffects:
+  - {fileID: 3102745252890071952, guid: a59319f2c82a6244e8e01128a010a454, type: 3}
+  - {fileID: 3102745252890071952, guid: 0fa7914f42d3e754b9a4a5ebfadf8418, type: 3}
+  shotChargeEffects:
+  - {fileID: 7370199869646859276, guid: 3062b40825aab3b4abece4d845f873ee, type: 3}
+  - {fileID: 7370199869646859276, guid: 7daf18ee7bb8259448d30fe64fac2e0e, type: 3}
   smokePosition: {fileID: 608408026505789374}
   energyCharge: {fileID: 608408025037340662}
   generateEnergy: {fileID: 0}
@@ -880,6 +884,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23147901958354126, guid: f09606f034e5f254f8d29524bbefc362, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
+    - target: {fileID: 23223666411303616, guid: f09606f034e5f254f8d29524bbefc362, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
+    - target: {fileID: 23263503292113932, guid: f09606f034e5f254f8d29524bbefc362, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
+    - target: {fileID: 23299295491166518, guid: f09606f034e5f254f8d29524bbefc362, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f09606f034e5f254f8d29524bbefc362, type: 3}
 --- !u!4 &603738395263554724 stripped
@@ -904,6 +924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b9def8cda7a374fb014909379fc5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
+  - {fileID: 2100000, guid: 03874c9e151f222488ac41332e51d59c, type: 2}
 --- !u!1001 &5741313187892393587
 PrefabInstance:
   m_ObjectHideFlags: 0
