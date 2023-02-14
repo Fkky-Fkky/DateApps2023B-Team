@@ -204,4 +204,9 @@ public class BossAttack : MonoBehaviour
     {
         return beamTimeMax;
     }
+
+    public float BeamOffTimeMax()
+    {
+        return beamOffTimeMax;
+    }
 }
