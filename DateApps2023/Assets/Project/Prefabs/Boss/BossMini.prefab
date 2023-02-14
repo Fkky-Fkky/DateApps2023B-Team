@@ -653,6 +653,7 @@ GameObject:
   - component: {fileID: 1648196746715476573}
   - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
+  - component: {fileID: 131829114075476459}
   m_Layer: 0
   m_Name: BossMini
   m_TagString: Boss
@@ -676,6 +677,7 @@ Transform:
   - {fileID: 1643880345261233121}
   - {fileID: 3490875008881636801}
   - {fileID: 1162212111539250085}
+  - {fileID: 3889724675711877409}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -748,7 +750,7 @@ MonoBehaviour:
   invincibleTimeMax: 4
   isTrance: 0
   tranceTimeMax: 10
-  stunPos: {fileID: 0}
+  stunPos: {fileID: 3889724675711877409}
   stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
   hpBarObject: {fileID: 5627866453996605656}
   hpBar: {fileID: 569137416015138302}
@@ -767,6 +769,29 @@ MonoBehaviour:
   bossHp: 1
   moveSpeed: 4
   target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
+--- !u!114 &131829114075476459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIntervalTime: 20
+  attackAnimation: {fileID: 1697093568606495979}
+  dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
+  damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
+  damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
+  chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
+  dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
+  isAttack: 0
+  beamTimeMax: 10
+  bossMove: {fileID: 1648196746715476545}
+  bossDamage: {fileID: 1648196746715476574}
 --- !u!1 &1647311298263044417
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +897,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -80.1039, y: -2.447403, z: 17.706985}
     m_Extent: {x: 241.08421, y: 215.05971, z: 397.3723}
   m_DirtyAABB: 0
+--- !u!1 &1719593813702279276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3889724675711877409}
+  m_Layer: 0
+  m_Name: StunPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3889724675711877409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719593813702279276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1643879179760658977}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3212842425040879715
 GameObject:
   m_ObjectHideFlags: 0

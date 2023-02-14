@@ -9,7 +9,7 @@ public class BossGenerator : MonoBehaviour
 
 
     [SerializeField]
-    private GameObject bossModel;
+    private GameObject nomalBoss;
 
     [SerializeField]
     private GameObject miniBoss;
@@ -21,6 +21,7 @@ public class BossGenerator : MonoBehaviour
     GameObject bossR;
     GameObject bossL;
 
+    private int bossRandom = 0;
 
     Vector3 bossPositionCenter = new Vector3(0.0f, -51.4f, 210.7f);
     Vector3 bossPositionLeft = new Vector3(-100.0f, -51.4f, 210.7f);
@@ -43,7 +44,7 @@ public class BossGenerator : MonoBehaviour
     void Start()
     {
         bossCountOne = 1;
-        bossModel.tag = "Boss";
+        nomalBoss.tag = "Boss";
 
         isCenterLine = false;
         isRightLine = false;
@@ -51,6 +52,7 @@ public class BossGenerator : MonoBehaviour
 
         bossCount = GetComponent<BossCount>();
         BossRandomGeneration();
+        BossRandom();
     }
 
     void Update()
@@ -60,6 +62,7 @@ public class BossGenerator : MonoBehaviour
             if (bossManager.isGanerat)
             {
                 BossRandomGeneration();
+                bossManager.isGanerat = false;
             }
         }
 
@@ -95,7 +98,7 @@ public class BossGenerator : MonoBehaviour
         {
             bossPattern = 1;
         }
-        if (bossCountOne == 2)
+        if (bossCountOne > 1)
         {
             bossPattern = GetRandomValue(bossPattern);
         }
@@ -105,7 +108,7 @@ public class BossGenerator : MonoBehaviour
             case 1:
                 if (!isCenterLine)
                 {
-                    bossC = Instantiate(bossModel);
+                    bossC = Instantiate(BossRandom());
                     bossC.transform.position = bossPositionCenter;
                     bossList.Add(bossC.GetComponent<BossDamage>());
                     bossCountOne++;
@@ -116,7 +119,7 @@ public class BossGenerator : MonoBehaviour
             case 2:
                 if (!isLeftLine)
                 {
-                    bossL = Instantiate(bossModel);
+                    bossL = Instantiate(BossRandom());
                     bossL.transform.position = bossPositionLeft;
                     bossList.Add(bossL.GetComponent<BossDamage>());
                     bossCountOne++;
@@ -127,7 +130,7 @@ public class BossGenerator : MonoBehaviour
             case 3:
                 if (!isRightLine)
                 {
-                    bossR = Instantiate(bossModel);
+                    bossR = Instantiate(BossRandom());
                     bossR.transform.position = bossPositionRight;
                     bossList.Add(bossR.GetComponent<BossDamage>());
                     bossCountOne++;
@@ -138,6 +141,38 @@ public class BossGenerator : MonoBehaviour
         }
 
     }
+
+    private GameObject BossRandom()
+    {
+        if (bossCountOne == 1)
+        {
+            bossRandom = 1;
+
+        }
+        if (bossCountOne > 1)
+        {
+            bossRandom = GetRandomValue(bossRandom);
+        }
+
+        if (bossRandom == 1)
+        {
+            return nomalBoss;
+        }
+
+        if (bossRandom == 2)
+        {
+            return miniBoss;
+        }
+        
+        if(bossRandom== 3)
+        {
+            return bigBoss;
+        }
+     
+
+        return BossRandom();
+    }
+
 
     public void IsCenterLineFalse()
     {
