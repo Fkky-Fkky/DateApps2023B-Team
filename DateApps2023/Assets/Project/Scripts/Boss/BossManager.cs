@@ -53,7 +53,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                 }
             }
 
@@ -62,7 +62,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                 }
             }
 
@@ -71,7 +71,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                 }
             }
         }
@@ -83,7 +83,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                 }
             }
 
@@ -92,7 +92,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                 }
             }
 
@@ -101,25 +101,57 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                 }
             }
 
         }
+
+        if (bullet == 2)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                }
+            }
+
+        }
+
 
     }
 
     private void BossDamage()
     {
         
-        if (cannonManager.IsShotEnergyType == 0)
+        if (cannonManager.IsShotEnergyType == (int)EnergyCharge.EnergyType.SMALL)
         {
             if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
             {
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                 }
             }
 
@@ -128,7 +160,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                 }
             }
 
@@ -137,19 +169,19 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrue();
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                 }
             }
         }
 
-        if (cannonManager.IsShotEnergyType == 1)
+        if (cannonManager.IsShotEnergyType == (int)EnergyCharge.EnergyType.MEDIUM)
         {
             if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
             {
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                 }
             }
 
@@ -158,7 +190,7 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                 }
             }
 
@@ -167,7 +199,38 @@ public class BossManager : MonoBehaviour
                 GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
                 foreach (GameObject boss in objects)
                 {
-                    boss.GetComponent<BossDamage>().KnockbackTrueTwo();
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
+                }
+            }
+
+        }
+
+        if (cannonManager.IsShotEnergyType == (int)EnergyCharge.EnergyType.LARGE)
+        {
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 1)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 0)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                }
+            }
+
+            if (cannonManager.IsShooting && cannonManager.DoConnectingPos == 2)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
+                foreach (GameObject boss in objects)
+                {
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
                 }
             }
 

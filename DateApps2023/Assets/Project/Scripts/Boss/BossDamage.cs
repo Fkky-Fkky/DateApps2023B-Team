@@ -63,7 +63,7 @@ public class BossDamage : MonoBehaviour
     private int stunEffectCount = 0;
 
 
-    private bool isBullet = false;
+    private int isBullet = -1;
 
     [SerializeField]
     GameObject hpBarObject= null;
@@ -110,31 +110,10 @@ public class BossDamage : MonoBehaviour
         {
             Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
 
-            if (!isBullet)
-            {
-                if (!isTrance)
-                {
-                    bossMove.bossHp--;
-                }
-                else
-                {
-                    bossMove.bossHp -= 2;
-                }
-            }
-            else
-            {
-                if (!isTrance)
-                {
-                    bossMove.bossHp -= 2;
-                }
-                else
-                {
-                    bossMove.bossHp -= 4;
-                }
-            }
+            IsBullet();
 
             hpBar.value = bossMove.bossHp;
-            if (bossMove.bossHp >= 1)
+            if (bossMove.bossHp > 0.0f)
             {
                 AnimationImage.SetTrigger("Damage");
             }
@@ -144,7 +123,7 @@ public class BossDamage : MonoBehaviour
             }
 
             isInvincible = true;
-            isBullet = false;
+            isBullet = -1;
             isDamage = false;
         }
         
@@ -160,7 +139,7 @@ public class BossDamage : MonoBehaviour
             }
         }
 
-        if (bossMove.bossHp <= 0)
+        if (bossMove.bossHp <= 0.0f)
         {
             isBossFellDown = true;
             bossDestroyTime += Time.deltaTime;
@@ -186,6 +165,45 @@ public class BossDamage : MonoBehaviour
         }
 
         Trance();
+    }
+
+    private void IsBullet()
+    {
+        if (isBullet == 0)
+        {
+            if (!isTrance)
+            {
+                bossMove.bossHp -= 0.5f;
+            }
+            else
+            {
+                bossMove.bossHp -= 1.0f;
+            }
+        }
+        else if (isBullet == 1)
+        {
+            if (!isTrance)
+            {
+                bossMove.bossHp -= 1.0f;
+            }
+            else
+            {
+                bossMove.bossHp -= 2.0f;
+            }
+        }
+        else if (isBullet == 2)
+        {
+            if (!isTrance)
+            {
+                bossMove.bossHp -= 2.0f;
+            }
+            else
+            {
+                bossMove.bossHp -= 4.0f;
+            }
+
+        }
+
     }
 
     private void Trance() {
@@ -226,7 +244,7 @@ public class BossDamage : MonoBehaviour
 
     }
 
-    public void KnockbackTrue()
+    public void KnockbackTrueSmall()
     {
         if (isKnockback)
             return;
@@ -236,11 +254,12 @@ public class BossDamage : MonoBehaviour
             isKnockback = true;
             isDamage = true;
             isBossDamage = true;
+            isBullet = 0;
             bossMove.DamageTrue();
         }
 
     }
-    public void KnockbackTrueTwo()
+    public void KnockbackTrueMedium()
     {
         if (isKnockback)
             return;
@@ -250,11 +269,30 @@ public class BossDamage : MonoBehaviour
             isKnockback = true;
             isDamage = true;
             isBossDamage = true;
-            isBullet = true;
+            isBullet = 1;
             bossMove.DamageTrue();
         }
 
     }
+
+    public void KnockbackTrueLarge()
+    {
+        if (isKnockback)
+            return;
+
+        if (!isInvincible)
+        {
+            isKnockback = true;
+            isDamage = true;
+            isBossDamage = true;
+            isBullet = 2;
+            bossMove.DamageTrue();
+        }
+
+    }
+
+
+
     public bool IsFellDown()
     {
         return isBossFellDown;

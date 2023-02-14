@@ -748,6 +748,7 @@ MonoBehaviour:
   invincibleTimeMax: 4
   isTrance: 0
   tranceTimeMax: 10
+  stunPos: {fileID: 0}
   stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
   hpBarObject: {fileID: 5627866453996605656}
   hpBar: {fileID: 569137416015138302}
@@ -1241,7 +1242,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
