@@ -1185,7 +1185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8241050366122842857}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.62, y: -16.13, z: 2.1}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -1207,7 +1207,7 @@ Transform:
   - {fileID: 8241050366123001489}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1413706645459310227
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1223,10 +1223,10 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.92
+  m_Height: 3
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -1254,11 +1254,14 @@ MonoBehaviour:
   - {fileID: 0}
   Centerpoint: {fileID: 0}
   rirurnTransform: {fileID: 0}
+  spderpositionA: {fileID: 0}
+  spderpositionD: {fileID: 0}
   ex_x: 17
   ex_mx: -17
   ex_z: 10
   ex_mz: -10
   climbing_speed: 3
+  rnd: 0
 --- !u!136 &4194858472674933786
 CapsuleCollider:
   m_ObjectHideFlags: 0
