@@ -12,7 +12,11 @@ public class opretar : MonoBehaviour
 
         idle,
 
-       
+        boss_attck,
+
+        boss_attck_stop,
+
+        warning,
 
         end,
     }
@@ -24,7 +28,6 @@ public class opretar : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -34,5 +37,8 @@ public class opretar : MonoBehaviour
        
     }
 
-    
+    public void boss()
+    {
+        animator.SetTrigger("boss");
+    }
 }
