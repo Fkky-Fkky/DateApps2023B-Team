@@ -13,17 +13,12 @@ public class BossMove : MonoBehaviour
     private BossDamage bossDamage;
 
     [SerializeField]
-    [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]
     private float moveSpeed = 2.0f;
-
-    private float minispeed = 4.0f;
 
     [SerializeField]
     private GameObject target;
 
     private bool damageFlag = false;
-
-
 
 
     // Start is called before the first frame update
@@ -60,8 +55,6 @@ public class BossMove : MonoBehaviour
                 Move();
             }
         }
-
-        
     }
 
     private void Move()
@@ -80,8 +73,6 @@ public class BossMove : MonoBehaviour
             pos,
             moveSpeed * Time.deltaTime
             );
-
-
     }
 
     public void DamageTrue()

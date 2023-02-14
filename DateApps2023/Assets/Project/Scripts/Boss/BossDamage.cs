@@ -9,8 +9,6 @@ public class BossDamage : MonoBehaviour
     public BossCount bossCount = null;
     BossMove bossMove;
 
-
-
     [SerializeField] Animator AnimationImage = null;
 
     [SerializeField]
@@ -102,7 +100,6 @@ public class BossDamage : MonoBehaviour
             {
                 knockbackTime= 0.0f;
                 isKnockback = false;
-
             }
         }
 
@@ -155,7 +152,6 @@ public class BossDamage : MonoBehaviour
 
         if (isBossDamage && !isTrance)
         {
-            //AnimationImage.SetBool("Trance", false);
             BossDamgeOffTime += Time.deltaTime;
             if (BossDamgeOffTime >= BossDamgeOffTimeMax)
             {
@@ -290,8 +286,6 @@ public class BossDamage : MonoBehaviour
         }
 
     }
-
-
 
     public bool IsFellDown()
     {

@@ -17,9 +17,6 @@ public class BossManager : MonoBehaviour
 
     public bool isGanerat;
 
-    [SerializeField]
-    private int bullet;
-
     private GameObject centerBoss;
     private GameObject leftBoss;
     private GameObject rightBoss;
@@ -39,107 +36,10 @@ public class BossManager : MonoBehaviour
         }
 
         BossDamage();
-        BossDevack();
 
         BossFellDown();
     }
 
-    private void BossDevack()
-    {
-        if (bullet == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
-                }
-            }
-        }
-
-        if (bullet == 1)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
-                }
-            }
-
-        }
-
-        if (bullet == 2)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Center");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Left");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                GameObject[] objects = GameObject.FindGameObjectsWithTag("Right");
-                foreach (GameObject boss in objects)
-                {
-                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
-                }
-            }
-
-        }
-
-
-    }
 
     private void BossDamage()
     {
@@ -157,7 +57,6 @@ public class BossManager : MonoBehaviour
                 return;
             }
         }
-
 
         if (cannonManager.DoConnectingPos == 0)
         {
