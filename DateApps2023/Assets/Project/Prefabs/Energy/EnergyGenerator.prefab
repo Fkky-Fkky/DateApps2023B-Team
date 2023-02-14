@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 752636907267945283}
   - component: {fileID: 752636907267945280}
   m_Layer: 0
-  m_Name: EnergyManager
+  m_Name: EnergyGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
