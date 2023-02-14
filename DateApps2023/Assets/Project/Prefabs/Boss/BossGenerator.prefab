@@ -47,9 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossManager: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
   bossModel: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
-  isCenterLine: 0
-  isRightLine: 0
-  isLeftLine: 0
+  miniBoss: {fileID: 1647289903949419459, guid: e3012e0cb0841ea448023fc8f17a047d, type: 3}
+  bigBoss: {fileID: 1647289903949419459, guid: 0d8b94d41f4737a4d99084fe99ff9bfe, type: 3}
 --- !u!114 &7051107079401279416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,4 +62,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossKillCount: 0
-  bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}

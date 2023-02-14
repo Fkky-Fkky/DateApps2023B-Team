@@ -9,7 +9,13 @@ public class BossGenerator : MonoBehaviour
 
 
     [SerializeField]
-    GameObject bossModel;
+    private GameObject bossModel;
+
+    [SerializeField]
+    private GameObject miniBoss;
+
+    [SerializeField]
+    private GameObject bigBoss;
 
     GameObject bossC;
     GameObject bossR;
@@ -28,11 +34,8 @@ public class BossGenerator : MonoBehaviour
 
     private int bossCountOne = 1;
 
-    [SerializeField]
     private bool isCenterLine = false;
-    [SerializeField]
     private bool isRightLine = false;
-    [SerializeField]
     private bool isLeftLine = false;
 
     private List<BossDamage> bossList = new List<BossDamage>();
@@ -52,9 +55,12 @@ public class BossGenerator : MonoBehaviour
 
     void Update()
     {
-        if (bossManager.isGanerat)
+        if (bossCountOne <= 10)
         {
-            BossRandomGeneration();
+            if (bossManager.isGanerat)
+            {
+                BossRandomGeneration();
+            }
         }
 
         for (int i = 0; i < bossList.Count; i++)
@@ -89,7 +95,7 @@ public class BossGenerator : MonoBehaviour
         {
             bossPattern = 1;
         }
-        if (bossCountOne >= 2)
+        if (bossCountOne == 2)
         {
             bossPattern = GetRandomValue(bossPattern);
         }

@@ -11,7 +11,8 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     public int bossHp;
 
-    public BossAttack bossAttack;
+    private BossAttack bossAttack;
+    private BossDamage bossDamage;
 
     [SerializeField]
     [Tooltip("ƒ{ƒXˆÚ“®‘¬“x")]
@@ -45,12 +46,15 @@ public class BossMove : MonoBehaviour
             tag = "Left";
         }
 
+        bossAttack = GetComponent<BossAttack>();
+        bossDamage = GetComponent<BossDamage>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!damageFlag)
+        if (!damageFlag && !bossDamage.isTrance)
         {
             if (!bossAttack.isAttack)
             {

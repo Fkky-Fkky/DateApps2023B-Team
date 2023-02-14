@@ -4832,6 +4832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!1001 &2034245894933951984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4842,6 +4843,10 @@ PrefabInstance:
     - target: {fileID: 1687640722635670, guid: 2552c07c911d41dca5e88668930bb1b4, type: 3}
       propertyPath: m_Name
       value: Flare_SP_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1687640722635670, guid: 2552c07c911d41dca5e88668930bb1b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4904881425251216, guid: 2552c07c911d41dca5e88668930bb1b4, type: 3}
       propertyPath: m_RootOrder

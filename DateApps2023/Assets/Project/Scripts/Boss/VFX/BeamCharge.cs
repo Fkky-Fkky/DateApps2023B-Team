@@ -12,17 +12,20 @@ public class BeamCharge : MonoBehaviour
     void Start()
     {
         time = 0.0f;
+
         effectTime = bossAttack.BeamTimeMax();
 
     }
 
-    // Update is called once per frame
     void Update()
     {
+
         time += Time.deltaTime;
-        if(time > effectTime) {
+        if (time > effectTime)
+        {
             Destroy(gameObject);
             time = 0.0f;
         }
+
     }
 }
