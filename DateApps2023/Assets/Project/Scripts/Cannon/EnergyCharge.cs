@@ -10,6 +10,9 @@ public class EnergyCharge : MonoBehaviour
     [SerializeField]
     private AudioClip chargeSe = null;
 
+    [SerializeField]
+    private GenerateEnergy generateEnergy = null;
+
     private BoxCollider boxCol = null;
     private AudioSource audioSource = null;
     private const int MAX_ENERGY = 1;
@@ -68,6 +71,7 @@ public class EnergyCharge : MonoBehaviour
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
         Instantiate(energyChargeEffect[ChrgeEnergyType], transform.position, Quaternion.identity);
         audioSource.PlayOneShot(chargeSe);
+        generateEnergy.Generate();
         if (Energy >= MAX_ENERGY)
         {
             boxCol.enabled = false;
