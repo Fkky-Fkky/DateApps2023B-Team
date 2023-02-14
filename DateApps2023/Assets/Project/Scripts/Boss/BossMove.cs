@@ -9,7 +9,7 @@ public class BossMove : MonoBehaviour
 
 
     [SerializeField]
-    public int bossHp;
+    public float bossHp;
 
     private BossAttack bossAttack;
     private BossDamage bossDamage;
