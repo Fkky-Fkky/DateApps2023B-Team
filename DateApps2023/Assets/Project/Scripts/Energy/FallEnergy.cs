@@ -7,7 +7,7 @@ public class FallEnergy : MonoBehaviour
     private bool isLand = false;
     private Vector3 position = Vector3.zero;
 
-    private const float FALL_SPEED = 10.0f;
+    private const float FALL_SPEED = 15.0f;
 
     // Start is called before the first frame update
     void Start()
