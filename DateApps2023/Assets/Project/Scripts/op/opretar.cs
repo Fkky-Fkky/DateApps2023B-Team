@@ -33,8 +33,11 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-       
+        timer += Time.deltaTime;
+        if (timer >= 10)
+        {
+            boss();
+        }
     }
 
     public void boss()
