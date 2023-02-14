@@ -86,9 +86,9 @@ public class BossAttack : MonoBehaviour
             }
         }
 
-        if (bossDamage.isTrance)
+        if (bossDamage.isTrance || bossMove.bossHp <= 0)
         {
-            for(int i = 0; i < effectList.Count; i++)
+            for (int i = 0; i < effectList.Count; i++)
             {
                 Destroy(effectList[i]);
                 effectList.RemoveAt(i);

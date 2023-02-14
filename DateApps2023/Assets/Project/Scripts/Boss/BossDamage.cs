@@ -168,6 +168,7 @@ public class BossDamage : MonoBehaviour
             {
                 Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
+                StunEffectDestroy();
                 Destroy(gameObject);
                 bossDestroyTime = 0.0f;
             }
@@ -175,6 +176,7 @@ public class BossDamage : MonoBehaviour
 
         if (isBossDamage && !isTrance)
         {
+            //AnimationImage.SetBool("Trance", false);
             BossDamgeOffTime += Time.deltaTime;
             if (BossDamgeOffTime >= BossDamgeOffTimeMax)
             {
@@ -203,16 +205,23 @@ public class BossDamage : MonoBehaviour
                 bossMove.DamageFalse();
                 AnimationImage.SetBool("Trance", false);
 
-                for(int i = 0; i < stunEffectList.Count; i++)
-                {
-                    Destroy(stunEffectList[i]);
-                    stunEffectList.RemoveAt(i);
-                }
+                StunEffectDestroy();
+
                 stunEffectCount = 0;
                 isBossDamage = false;
                 isTrance = false;
                 tranceTime = 0.0f;
             }
+        }
+
+    }
+
+    private void StunEffectDestroy()
+    {
+        for (int i = 0; i < stunEffectList.Count; i++)
+        {
+            Destroy(stunEffectList[i]);
+            stunEffectList.RemoveAt(i);
         }
 
     }
