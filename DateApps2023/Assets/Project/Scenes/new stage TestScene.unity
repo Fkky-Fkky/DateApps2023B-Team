@@ -4173,11 +4173,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: stanTime
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: captureTime
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7916477825766917937, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: AnimationImage
