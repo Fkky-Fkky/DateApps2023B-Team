@@ -24,6 +24,8 @@ public class opretar : MonoBehaviour
 
     float timer = 0;
 
+    int flag =0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,15 +35,56 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= 10)
-        {
-            boss();
-        }
+        //timer += Time.deltaTime;
+
+        //if(timer >= 10 &&flag==0)
+        //{
+        //    summonboss();
+        //    flag = 1;
+        //}
     }
 
-    public void boss()
+    //通常ボス出現時
+    public void summonboss()
     {
         animator.SetTrigger("boss");
+    }
+
+    //ミニボス出現時
+    public void summonminiboss()
+    {
+        animator.SetTrigger("miniboss");
+    }
+
+    //ビッグボス出現時
+    public void summonbigboss()
+    {
+        animator.SetTrigger("bigboss");
+    }
+
+    //ボス撃破時
+    public void bosskill()
+    {
+        animator.SetTrigger("kill");
+    }
+    //ボスの攻撃のチャージ
+    public void boss_attck_charge()
+    {
+        animator.SetTrigger("charge");
+    }
+    //ボスの攻撃チャージキャンセル
+    public void boss_attck_charge_stop()
+    {
+        animator.SetTrigger("charge stop");
+    }
+    //ボスの攻撃キャンセルせずに攻撃が発動した場合
+    public void boss_charge_stop_miss()
+    {
+        animator.SetTrigger("charge stop miss");
+    }
+    //エネルギー物資出現時
+    public void energy_charge()
+    {
+        animator.SetTrigger("energycharge");
     }
 }
