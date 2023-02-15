@@ -82,9 +82,17 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("charge stop miss");
     }
+
+    //エネルギー物資出現時
+    public void Approach()
+    {
+        animator.SetTrigger("Approach");
+    }
+
     //エネルギー物資出現時
     public void energy_charge()
     {
         animator.SetTrigger("energycharge");
     }
+
 }
