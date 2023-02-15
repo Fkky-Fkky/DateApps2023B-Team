@@ -270,7 +270,6 @@ public class enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         #region ノックバック
 
         //ノックバック時に場外に行かなかった時の処理
@@ -304,7 +303,6 @@ public class enemy : MonoBehaviour
         if (rangeDpos.x >= pos.x ||
             rangeDpos.x >= pos.z)
             rb.useGravity = true;
-
 
         if (pos.x >= ex_x ||
             pos.z >= ex_z )
