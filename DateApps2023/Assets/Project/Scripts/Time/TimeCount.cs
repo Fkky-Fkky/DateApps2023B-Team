@@ -33,10 +33,10 @@ public class TimeCount : MonoBehaviour
             timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00");
         }
 
-        if (secondsCount >= 180)
-        {
-            isMain = false;
-        }
+        //if (secondsCount >= 180)
+        //{
+        //    isMain = false;
+        //}
     }
 
     public static float GetTime()
