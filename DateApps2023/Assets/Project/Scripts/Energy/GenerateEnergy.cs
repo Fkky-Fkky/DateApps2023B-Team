@@ -20,9 +20,12 @@ public class GenerateEnergy : MonoBehaviour
     private List<float> createTimeList = new List<float>();
     private List<Vector3> createPositionList = new List<Vector3>();
 
-    const int MAX_GENERATE = 5;
+    const int MAX_GENERATE = 4;
     const int MAX_AREA = 6;
     const int RANDOM_MAX = 100;
+    const int MEDIUM_MIN = 20;
+    const int MEDIUM_MAX = 50;
+    const int MAX_MISS_COUNT = 30;
     const float GENERATE_POS_Y = 20.0f;
     const float GENERATE_INTERVAL_TIME = 10.0f;
 
@@ -45,10 +48,10 @@ public class GenerateEnergy : MonoBehaviour
         }
         halfExtents = energies[(int)EnergyCharge.EnergyType.LARGE].transform.localScale / 2;
 
-        float fiveDivide = ((generatePosMin.position.x - generatePosMax.position.x) / 5) * -1;
+        float fourDivide = ((generatePosMin.position.x - generatePosMax.position.x) / MAX_GENERATE) * -1;
         for (int i = 0; i < MAX_AREA; i++)
         {
-            createArea[i] = generatePosMin.position.x + (fiveDivide * i);
+            createArea[i] = generatePosMin.position.x + (fourDivide * i);
         }
         FirstGenerate();
     }
@@ -81,11 +84,11 @@ public class GenerateEnergy : MonoBehaviour
     {
         int type = (int)EnergyCharge.EnergyType.SMALL;
         int energyNum = Random.Range(0, RANDOM_MAX);
-        if (energyNum >= 0 && energyNum < 20)
+        if (energyNum >= 0 && energyNum < MEDIUM_MIN)
         {
             type = (int)EnergyCharge.EnergyType.LARGE;
         }
-        else if (energyNum >= 20 && energyNum < 50)
+        else if (energyNum >= MEDIUM_MIN && energyNum < MEDIUM_MAX)
         {
             type = (int)EnergyCharge.EnergyType.MEDIUM;
         }
@@ -97,7 +100,7 @@ public class GenerateEnergy : MonoBehaviour
         int generateNum = Random.Range(0, MAX_GENERATE);
         Vector3 genaratePos;
         int miss = 0;
-        while (miss < 30)
+        while (miss < MAX_MISS_COUNT)
         {
             float x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
             float z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
@@ -154,7 +157,7 @@ public class GenerateEnergy : MonoBehaviour
                 miss++;
             }
 
-            if (miss > 30)
+            if (miss > MAX_MISS_COUNT)
             {
                 break;
             }
