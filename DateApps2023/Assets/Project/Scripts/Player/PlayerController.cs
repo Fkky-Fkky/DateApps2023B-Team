@@ -258,6 +258,14 @@ public class PlayerController : MonoBehaviour
         if(carryText != null)
         {
             carryText.text = playerCount.ToString("0") + "/" + (itemSizeCount + 1).ToString("0");
+            if(playerCount >= itemSizeCount + 1)
+            {
+                carryText.color = Color.white;
+            }
+            else
+            {
+                carryText.color = Color.red;
+            }
         }
 
         if (itemSizeCount == 0)
