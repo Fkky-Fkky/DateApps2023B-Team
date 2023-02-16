@@ -23,9 +23,13 @@ public class BossGenerator : MonoBehaviour
 
     private int bossRandom = 0;
 
-    Vector3 bossPositionCenter = new Vector3(0.0f, -51.4f, 210.7f);
-    Vector3 bossPositionLeft = new Vector3(-100.0f, -51.4f, 210.7f);
-    Vector3 bossPositionRight = new Vector3(100.0f, -51.4f, 210.7f);
+
+
+    private Vector3 bossPositionCenter;
+    private Vector3 bossPositionLeft;
+    private Vector3 bossPositionRight;
+
+    private float fallPosition = 500.0f;
 
     int bossPattern;
 
@@ -43,12 +47,16 @@ public class BossGenerator : MonoBehaviour
 
     void Start()
     {
-        bossCountOne = 1;
+        bossCountOne  = 1;
         nomalBoss.tag = "Boss";
 
         isCenterLine = false;
-        isRightLine = false;
-        isLeftLine = false;
+        isRightLine  = false;
+        isLeftLine   = false;
+
+        bossPositionCenter = new Vector3(   0.0f, fallPosition, 300.0f);
+        bossPositionLeft   = new Vector3(-100.0f, fallPosition, 300.0f);
+        bossPositionRight  = new Vector3( 100.0f, fallPosition, 300.0f);
 
         bossCount = GetComponent<BossCount>();
         BossRandomGeneration();
