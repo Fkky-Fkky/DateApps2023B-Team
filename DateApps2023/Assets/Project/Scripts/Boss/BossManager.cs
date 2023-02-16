@@ -43,50 +43,53 @@ public class BossManager : MonoBehaviour
 
     private void BossDamage()
     {
-        if (!cannonManager.IsShooting)
+        for (int i = 0; i < cannonManager.IsShooting.Count; i++)
         {
-            return;
-        }
-
-        GameObject boss = null;
-        if (cannonManager.DoConnectingPos == 1)
-        {
-            boss = GameObject.FindGameObjectWithTag("Center");
-            if (boss == null)
+            if (!cannonManager.IsShooting[i])
             {
                 return;
             }
-        }
 
-        if (cannonManager.DoConnectingPos == 0)
-        {
-            boss = GameObject.FindGameObjectWithTag("Left");
-            if (boss == null)
+            GameObject boss = null;
+            if (cannonManager.DoConnectingPos[i] == 1)
             {
-                return;
+                boss = GameObject.FindGameObjectWithTag("Center");
+                if (boss == null)
+                {
+                    return;
+                }
             }
-        }
 
-        if (cannonManager.DoConnectingPos == 2)
-        {
-            boss = GameObject.FindGameObjectWithTag("Right");
-            if (boss == null)
+            if (cannonManager.DoConnectingPos[i] == 0)
             {
-                return;
+                boss = GameObject.FindGameObjectWithTag("Left");
+                if (boss == null)
+                {
+                    return;
+                }
             }
-        }
 
-        switch (cannonManager.IsShotEnergyType)
-        {
-            case (int)EnergyCharge.EnergyType.SMALL:
-                boss.GetComponent<BossDamage>().KnockbackTrueSmall();
-                break;
-            case (int)EnergyCharge.EnergyType.MEDIUM:
-                boss.GetComponent<BossDamage>().KnockbackTrueMedium();
-                break;
-            case (int)EnergyCharge.EnergyType.LARGE:
-                boss.GetComponent<BossDamage>().KnockbackTrueLarge();
-                break;
+            if (cannonManager.DoConnectingPos[i] == 2)
+            {
+                boss = GameObject.FindGameObjectWithTag("Right");
+                if (boss == null)
+                {
+                    return;
+                }
+            }
+
+            switch (cannonManager.IsShotEnergyType[i])
+            {
+                case (int)EnergyCharge.EnergyType.SMALL:
+                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
+                    break;
+                case (int)EnergyCharge.EnergyType.MEDIUM:
+                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
+                    break;
+                case (int)EnergyCharge.EnergyType.LARGE:
+                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                    break;
+            }
         }
 
     }
