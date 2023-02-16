@@ -1007,7 +1007,6 @@ GameObject:
   - component: {fileID: 7644300349639810741}
   - component: {fileID: 8236715742160772441}
   - component: {fileID: 4131557499356175240}
-  - component: {fileID: 2827109212852801690}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -1234,24 +1233,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2827109212852801690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6642304097403980634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.15174358, b: 0, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &6833816593761797089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259576866201751497}
+  - component: {fileID: 8197962652689571186}
   m_Layer: 0
   m_Name: TT_demo_male_A
   m_TagString: Untagged
@@ -1285,6 +1267,24 @@ Transform:
   m_Father: {fileID: 6642304097403980633}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8197962652689571186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6833816593761797089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.15174358, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7012010565697500526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1422,7 @@ GameObject:
   - component: {fileID: 2094978951248840303}
   - component: {fileID: 911247713468284098}
   - component: {fileID: 3229868880437387177}
+  - component: {fileID: 6485000880830452304}
   m_Layer: 0
   m_Name: EmoteIcon
   m_TagString: Untagged
@@ -1518,6 +1519,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6485000880830452304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8010010746178229405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.15174358, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8480831554113762826
 GameObject:
   m_ObjectHideFlags: 0

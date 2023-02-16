@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 8909933312824580550}
   - component: {fileID: 7596930041206532705}
   - component: {fileID: 143162081194356471}
+  - component: {fileID: 3290485979913446441}
   m_Layer: 0
   m_Name: EmoteIcon
   m_TagString: Untagged
@@ -267,6 +268,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3290485979913446441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772377689676857029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88315547, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &999969062537693061
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +755,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2473261990308530853}
+  - component: {fileID: 2494596621792759802}
   m_Layer: 0
   m_Name: TT_demo_male_B
   m_TagString: Untagged
@@ -760,6 +780,24 @@ Transform:
   m_Father: {fileID: 6642304097403980633}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2494596621792759802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794788612931712988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88315547, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &4293980889673328549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1166,6 @@ GameObject:
   - component: {fileID: 7644300349639810741}
   - component: {fileID: 7255117873455938838}
   - component: {fileID: 9186452579463160509}
-  - component: {fileID: 2713005331777868658}
   m_Layer: 0
   m_Name: Player4
   m_TagString: Player
@@ -1355,24 +1392,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2713005331777868658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6642304097403980634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.88315547, b: 0, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &6978133664266429572
 GameObject:
   m_ObjectHideFlags: 0
