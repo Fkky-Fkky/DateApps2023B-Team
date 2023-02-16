@@ -35,13 +35,13 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        //if(timer >= 10 &&flag==0)
-        //{
-        //    summonboss();
-        //    flag = 1;
-        //}
+        if (timer >= 10 && flag == 0)
+        {
+            Approach();
+            flag = 1;
+        }
     }
 
     //í èÌÉ{ÉXèoåªéû
