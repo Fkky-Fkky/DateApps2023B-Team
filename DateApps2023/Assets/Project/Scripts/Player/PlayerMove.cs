@@ -51,6 +51,7 @@ public class PlayerMove : MonoBehaviour
     private Animator AnimationImage;
 
     private PlayerAttack attack;
+    private PlayerEmote emote;
 
     #endregion
 
@@ -76,6 +77,9 @@ public class PlayerMove : MonoBehaviour
 
         attack = GetComponentInChildren<PlayerAttack>();
         attack.GetPlayerNo(playerNo);
+
+        emote = GetComponentInChildren<PlayerEmote>();
+        emote.GetPlayerNo(playerNo);
 
         GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
 
@@ -106,8 +110,6 @@ public class PlayerMove : MonoBehaviour
         {
             moveSpeed = slowMoveSpeed;
         }
-
-       
     }
 
     private void OnCollisionStay(Collision collision)
