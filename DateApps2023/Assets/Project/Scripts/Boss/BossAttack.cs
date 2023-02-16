@@ -72,17 +72,11 @@ public class BossAttack : MonoBehaviour
 
     void Update()
     {
-        if(!bossDamage.isTrance)
+        if (!bossMove.IsAttackOff())
         {
-            time += Time.deltaTime;
-            if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
+            if (!bossDamage.isTrance)
             {
-                if (time >= attackIntervalTime)
-                {
-                    attackAnimation.SetBool("Attack", true);
-                    Charge();
-                    AttackAnimation();
-                }
+                Attack();
             }
         }
 
@@ -98,6 +92,21 @@ public class BossAttack : MonoBehaviour
             {
                 Destroy(dangerAreaList[i]);
                 dangerAreaList.RemoveAt(i);
+            }
+        }
+
+    }
+
+    private void Attack()
+    {
+        time += Time.deltaTime;
+        if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
+        {
+            if (time >= attackIntervalTime)
+            {
+                attackAnimation.SetBool("Attack", true);
+                Charge();
+                AttackAnimation();
             }
         }
 
