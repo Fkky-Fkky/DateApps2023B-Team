@@ -1056,7 +1056,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHp: 9
   moveSpeed: 1
-  target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
+  cenetrTarget: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
+  leftTarget: {fileID: 5361787869608923537, guid: 8e8fe64f0743dde4aa9ad854c3a41e1d, type: 3}
+  rightTarget: {fileID: 5361787869608923537, guid: 5f57609d3392f774d8b893aa664e0991, type: 3}
   AnimationImage: {fileID: 1697093568606495979}
   canvas: {fileID: 2309201643668946977}
   hpGauge: {fileID: 5793764350385881774}

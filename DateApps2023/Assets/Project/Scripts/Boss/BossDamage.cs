@@ -231,7 +231,7 @@ void Update()
                     hpBar[bossMove.bossHp - 2].SetActive(false);
                     hpBar[bossMove.bossHp - 3].SetActive(false);
 
-                    if (maxHp >= 4)
+                    if (maxHp >= 6)
                     {
                         hpBar[bossMove.bossHp - 4].SetActive(false);
                         hpBar[bossMove.bossHp - 5].SetActive(false);

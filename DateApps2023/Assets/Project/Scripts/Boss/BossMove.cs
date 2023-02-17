@@ -18,8 +18,18 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 2.0f;
 
+    //[SerializeField]
+    //private GameObject target;
+
+
     [SerializeField]
-    private GameObject target;
+    private GameObject cenetrTarget;
+    [SerializeField]
+    private GameObject leftTarget;
+    [SerializeField]
+    private GameObject rightTarget;
+
+
 
     [SerializeField] Animator AnimationImage = null;
 
@@ -62,6 +72,20 @@ public class BossMove : MonoBehaviour
         if (transform.position.x == 0.0f)
         {
             tag = "Center";
+
+            if (bossHp == 3)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.15f, 0);
+            }
+            if (bossHp == 1)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.15f, 0);
+            }
+            if (bossHp == 9)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+            }
+
         }
 
         if (transform.position.x >= 0.1f)
@@ -69,11 +93,11 @@ public class BossMove : MonoBehaviour
             tag = "Right";
             if (bossHp == 3)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.0f, 0.0f, 0.0f);
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.8f, 0.15f, 0);
             }
             if (bossHp == 1)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(6.0f, -0.0f, 0.0f);
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(9, -0.15f, 0);
             }
             if (bossHp == 9)
             {
@@ -88,11 +112,11 @@ public class BossMove : MonoBehaviour
 
             if (bossHp == 3)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.0f, 0.0f, 0.0f);
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.8f, 0.15f, 0.0f);
             }
             if (bossHp == 1)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-6.0f, -0.0f, 0.0f);
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-9, -0.15f, 0.0f);
             }
             if (bossHp == 9)
             {
@@ -159,6 +183,52 @@ public class BossMove : MonoBehaviour
             }
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        rb.AddForce((Multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
+    }
+
+    private void Move()
+    {
+        if (!isAppearance && !isNotMove && !isLastAttack)
+        {
+            if (gameObject.tag=="Center")
+            {
+                MoveTarget(cenetrTarget);
+            }
+
+            if (gameObject.tag == "Left")
+            {
+                MoveTarget(leftTarget);
+            }
+
+            if (gameObject.tag == "Right")
+            {
+                MoveTarget(rightTarget);
+            }
+
+        }
+    }
+
+    private void MoveTarget(GameObject target)
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
+
+        lookRotation.z = 0;
+        lookRotation.x = 0;
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
+
+        Vector3 pos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            pos,
+            moveSpeed * Time.deltaTime
+            );
+
+
         if ((transform.position.z - target.transform.position.z) <= 100.0f)
         {
             warningDisplay.SetActive(true);
@@ -175,31 +245,8 @@ public class BossMove : MonoBehaviour
             isLastAttack = true;
             AnimationImage.SetTrigger("LastAttack");
         }
-    }
 
-    private void FixedUpdate()
-    {
-        rb.AddForce((Multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
-    }
 
-    private void Move()
-    {
-        if (!isAppearance && !isNotMove && !isLastAttack)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
-
-            lookRotation.z = 0;
-            lookRotation.x = 0;
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
-
-            Vector3 pos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                pos,
-                moveSpeed * Time.deltaTime
-                );
-        }
     }
 
     public void DamageTrue()
