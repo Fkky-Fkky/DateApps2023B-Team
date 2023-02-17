@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:DateApps2023/Assets/Project/Textures/op/operator.png.meta
+guid: 8dcc6af998cbbe04e89a3fee07949f64
+========
 guid: 30a1f5ad5d4f2ea48b0933743b4952d4
+>>>>>>>> origin/develop:DateApps2023/Assets/Project/Textures/help.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
