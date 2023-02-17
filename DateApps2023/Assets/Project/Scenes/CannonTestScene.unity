@@ -2452,6 +2452,14 @@ PrefabInstance:
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
+    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: energyChargeEffect.Array.data[0]
+      value: 
+      objectReference: {fileID: 7358680883832252254, guid: d92362905d020f84596d91f04129ac22, type: 3}
+    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: energyChargeEffect.Array.data[2]
+      value: 
+      objectReference: {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
     - target: {fileID: 608408025102211635, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: energyTanks.Array.size
       value: 1
