@@ -8,7 +8,7 @@ public class BossMove : MonoBehaviour
 {
 
     [SerializeField]
-    public float bossHp;
+    public int bossHp;
 
     private Rigidbody rb;
 
@@ -30,6 +30,9 @@ public class BossMove : MonoBehaviour
 
     [SerializeField]
     private Canvas canvas;
+
+    [SerializeField]
+    private GameObject hpGauge;
 
     [SerializeField]
     private GameObject warningDisplay;
@@ -59,17 +62,44 @@ public class BossMove : MonoBehaviour
         if (transform.position.x == 0.0f)
         {
             tag = "Center";
-
         }
 
         if (transform.position.x >= 0.1f)
         {
             tag = "Right";
+            if (bossHp == 3)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.0f, 0.0f, 0.0f);
+            }
+            if (bossHp == 1)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(6.0f, -0.0f, 0.0f);
+            }
+            if (bossHp == 9)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4, 0, 0);
+            }
         }
+
 
         if (transform.position.x <= -0.1f)
         {
             tag = "Left";
+
+            if (bossHp == 3)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.0f, 0.0f, 0.0f);
+            }
+            if (bossHp == 1)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-6.0f, -0.0f, 0.0f);
+            }
+            if (bossHp == 9)
+            {
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4, 0, 0);
+            }
+
+
         }
 
         bossAttack = GetComponent<BossAttack>();

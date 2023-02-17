@@ -61,40 +61,42 @@ public class BossDamage : MonoBehaviour
 
     private int isBullet = -1;
 
+    private int maxHp; 
+
 
     [SerializeField]
-    private Slider hpBarGreen;
+    private GameObject[] hpBar = new GameObject[3];
 
-    ////[SerializeField]
-    //private Slider hpBarRed;
+    //[SerializeField]
+    //private GameObject hpBarCore;
 
 
-    private float smallDamage = 0.5f;
+    private int smallDamage = 1;
 
-    private float smallCounterDamage = 1.0f;
+    private int smallCounterDamage = 2;
 
-    private float MediumDamage = 1.0f;
+    private int MediumDamage = 3;
 
-    private float MediumCounterDamage = 2.0f;
+    private int MediumCounterDamage = 6;
 
-    private float LargeDamage = 2.0f;
+    private int LargeDamage = 9;
 
-    private float LargeCounterDamage = 4.0f;
+    private int LargeCounterDamage = 18;
 
 
     void Start()
     {
         bossMove = GetComponent<BossMove>();
 
-
         isDamage = false;
 
-        hpBarGreen.value = bossMove.bossHp;
-        //hpBarRed.value   = bossMove.bossHp;
+        maxHp = bossMove.bossHp;
+
+
     }
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
 
         if (isKnockback)
@@ -121,13 +123,11 @@ public class BossDamage : MonoBehaviour
                 {
                     Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 }
-                else
-                {
-                    Instantiate(null, damagePoint.position, Quaternion.identity);
-                }
+                //else
+                //{
+                //    Instantiate(null, damagePoint.position, Quaternion.identity);
+                //}
                 IsBullet();
-
-                hpBarGreen.value = bossMove.bossHp;
 
 
 
@@ -192,6 +192,7 @@ public class BossDamage : MonoBehaviour
         {
             if (!isTrance)
             {
+                hpBar[bossMove.bossHp - 1].SetActive(false);
                 bossMove.bossHp -= smallDamage;
             }
             else
@@ -203,6 +204,15 @@ public class BossDamage : MonoBehaviour
         {
             if (!isTrance)
             {
+                hpBar[bossMove.bossHp - 1].SetActive(false);
+
+                if (maxHp >= 2)
+                {
+                    hpBar[bossMove.bossHp - 2].SetActive(false);
+                    hpBar[bossMove.bossHp - 3].SetActive(false);
+                }
+
+
                 bossMove.bossHp -= MediumDamage;
             }
             else
@@ -214,6 +224,25 @@ public class BossDamage : MonoBehaviour
         {
             if (!isTrance)
             {
+                hpBar[bossMove.bossHp - 1].SetActive(false);
+
+                if (maxHp >= 3)
+                {
+                    hpBar[bossMove.bossHp - 2].SetActive(false);
+                    hpBar[bossMove.bossHp - 3].SetActive(false);
+
+                    if (maxHp >= 4)
+                    {
+                        hpBar[bossMove.bossHp - 4].SetActive(false);
+                        hpBar[bossMove.bossHp - 5].SetActive(false);
+                        hpBar[bossMove.bossHp - 6].SetActive(false);
+                        hpBar[bossMove.bossHp - 7].SetActive(false);
+                        hpBar[bossMove.bossHp - 8].SetActive(false);
+                        hpBar[bossMove.bossHp - 9].SetActive(false);
+                    }
+                }
+                
+
                 bossMove.bossHp -= LargeDamage;
             }
             else
