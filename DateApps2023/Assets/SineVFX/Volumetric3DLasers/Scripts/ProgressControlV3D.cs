@@ -42,6 +42,11 @@ public class ProgressControlV3D : MonoBehaviour {
     [SerializeField]
     private CannonShot cannonShot;
 
+    [SerializeField]
+    private EnergyCharge energyCharge;
+
+    private bool isColorChage = false;
+
     private void Start()
     {
         globalProgress = 1f;
@@ -119,12 +124,31 @@ public class ProgressControlV3D : MonoBehaviour {
         {
             if (cannonShot.IsNowShot || always == true)
             {
+                if (!isColorChage)
+                {
+                    switch (energyCharge.ChrgeEnergyType)
+                    {
+                        case (int)EnergyCharge.EnergyType.SMALL:
+                            finalColor = new Color(0, 0.7f, 1, 255);
+                            break;
+
+                        case (int)EnergyCharge.EnergyType.MEDIUM:
+                            finalColor = new Color(1, 1, 0, 255);
+
+                            break;
+                        case (int)EnergyCharge.EnergyType.LARGE:
+                            finalColor = new Color(1, 0.3f, 0, 255);
+                            break;
+                    }
+                    isColorChage = true;
+                }
                 globalProgress = 0f;
                 endPointEffect.emit = true;
             }
             else
             {
                 endPointEffect.emit = false;
+                isColorChage = false;
             }
         }
 
