@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06445a0bfa35e2f4e9afb061cc5ee052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 0.025
+  startTime: 0.075
   endTime: 0.4
   intervalTime: 0.3
-  pushForward: 0.4
+  pushForward: 0.6
