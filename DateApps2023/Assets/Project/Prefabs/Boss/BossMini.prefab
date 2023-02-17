@@ -691,7 +691,7 @@ Animator:
   m_GameObject: {fileID: 1647289903949419459}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b2d11d64877f0b4cad5d45ec7d53473, type: 3}
-  m_Controller: {fileID: 9100000, guid: b4d476b81dd6717428073b4869f49610, type: 2}
+  m_Controller: {fileID: 9100000, guid: 300713295084c534cb73e3e5d6e95a30, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -768,7 +768,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHp: 1
   moveSpeed: 8
-  target: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
+  cenetrTarget: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
+  leftTarget: {fileID: 5361787869608923537, guid: 8e8fe64f0743dde4aa9ad854c3a41e1d, type: 3}
+  rightTarget: {fileID: 5361787869608923537, guid: 5f57609d3392f774d8b893aa664e0991, type: 3}
   AnimationImage: {fileID: 1697093568606495979}
   canvas: {fileID: 9112739422148324377}
   hpGauge: {fileID: 8481605770265837695}
