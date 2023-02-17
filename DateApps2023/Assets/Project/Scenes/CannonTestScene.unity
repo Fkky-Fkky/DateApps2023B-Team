@@ -790,7 +790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Constraints
@@ -1025,7 +1025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: playerNumber
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_Constraints
@@ -1914,7 +1914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_Constraints
@@ -2452,6 +2452,14 @@ PrefabInstance:
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
+    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: energyChargeEffect.Array.data[0]
+      value: 
+      objectReference: {fileID: 7358680883832252254, guid: d92362905d020f84596d91f04129ac22, type: 3}
+    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: energyChargeEffect.Array.data[2]
+      value: 
+      objectReference: {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
     - target: {fileID: 608408025102211635, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: energyTanks.Array.size
       value: 1
@@ -2489,16 +2497,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: energyCharge
+      value: 
+      objectReference: {fileID: 80395235}
+    - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: finalColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: finalColor.g
-      value: 0.27450982
+      value: 0.27036548
       objectReference: {fileID: 0}
     - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: finalColor.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4244961312042077683, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_StaticEditorFlags
