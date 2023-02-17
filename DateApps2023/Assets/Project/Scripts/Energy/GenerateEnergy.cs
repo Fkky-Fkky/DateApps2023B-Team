@@ -118,7 +118,7 @@ public class GenerateEnergy : MonoBehaviour
     private void EnergyGenerate()
     {
         Vector3 position = new Vector3(createPositionList[0].x, GENERATE_POS_Y, createPositionList[0].z);
-        Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.identity);
+        Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, 180.0f, 0.0f));
         isGenerate = true;
 
     }
@@ -170,7 +170,7 @@ public class GenerateEnergy : MonoBehaviour
         for (int i = 0; i < createPositionList.Count; i++)
         {
             Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
-            Instantiate(energies[(int)EnergyCharge.EnergyType.MEDIUM], position, Quaternion.identity);
+            Instantiate(energies[(int)EnergyCharge.EnergyType.MEDIUM], position, Quaternion.Euler(0.0f, 180.0f, 0.0f));
         }
         createPositionList.Clear();
     }

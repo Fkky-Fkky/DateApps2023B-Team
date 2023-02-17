@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         itemSizeCount = itemSize;
         carryText = gameObject.GetComponentInChildren<TextMeshPro>();
-        outline = gameObject.GetComponent<Outline>();
+        outline = gameObject.GetComponentInChildren<Outline>();
         outline.enabled = false;
         if (itemType == 1) //ñCë‰ÇÃÉpÅ[Éc
         {
