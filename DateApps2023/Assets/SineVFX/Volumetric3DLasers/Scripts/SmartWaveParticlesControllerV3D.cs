@@ -16,7 +16,11 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
     private Vector4[] controlParticlesPositions;
     private float[] controlParticlesSizes;
 
-    public BossAttack bossAttack;
+    [SerializeField]
+    private ProgressControlV3D.EffectType effectType;
+
+    [SerializeField]
+    private BossAttack bossAttack;
 
     void Start()
     {
@@ -35,7 +39,12 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
     {
         controlParticles = new ParticleSystem.Particle[5];
 
-        if (bossAttack.isAttack )//|| Input.GetMouseButtonDown(0))
+        if(effectType != ProgressControlV3D.EffectType.Boss)
+        {
+            return;
+        }
+
+        if (bossAttack.isAttack)//|| Input.GetMouseButtonDown(0))
         {
             distortionSpherePS.Emit(1);
             controlPS.Emit(1);
