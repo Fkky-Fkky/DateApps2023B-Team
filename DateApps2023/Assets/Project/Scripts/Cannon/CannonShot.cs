@@ -29,6 +29,7 @@ public class CannonShot : MonoBehaviour
     private float coolTime = 0.0f;
     private bool isCoolTime = false;
     private AudioSource audioSource = null;
+    private GameObject shotCharge = null;
 
     private const float MAX_COOL_TIME = 3.0f;
     private const float INVOKE_TIME = 2.0f;
@@ -58,6 +59,15 @@ public class CannonShot : MonoBehaviour
         IsNowShot  = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("BossAttack"))
+        {
+            return;
+        }
+        ShotCancel();
+    }
+
     public void Shot()
     {
         IsShotting = true;
@@ -69,7 +79,7 @@ public class CannonShot : MonoBehaviour
 
     private void CreateChageEffect()
     {
-        Instantiate(shotChargeEffects[energyType], smokePosition);
+        shotCharge = Instantiate(shotChargeEffects[energyType], smokePosition);
         audioSource.PlayOneShot(shotChargeSe);
     }
 
@@ -81,5 +91,16 @@ public class CannonShot : MonoBehaviour
         coolTime   = MAX_COOL_TIME;
         IsNowShot  = true;
         isCoolTime = true;
+    }
+
+    private void ShotCancel()
+    {
+        coolTime   = 0.0f;
+        IsShotting = false;
+        isCoolTime = false;
+        IsNowShot  = false;
+        Destroy(shotCharge);
+        CancelInvoke();
+        audioSource.Stop();
     }
 }

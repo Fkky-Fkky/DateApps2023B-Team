@@ -182,14 +182,14 @@ public class PlayerDamage : MonoBehaviour
         }
 
         ////デバッグ用コマンド　C：拘束　D：ダメージ
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    CallCapture();
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    CallDamage();
-        //}
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CallCapture();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            CallDamage();
+        }
     }
 
     public void CallDamage()

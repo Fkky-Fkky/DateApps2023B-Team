@@ -4825,6 +4825,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireParticles_EP_01_ColorRamp
       objectReference: {fileID: 0}
+    - target: {fileID: 1000437812193674, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405967425662652, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521966242796878, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681618887892250, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4626628030222690, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4890,6 +4906,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198040453125322224, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198040453125322224, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
       propertyPath: ShapeModule.type
       value: 4
       objectReference: {fileID: 0}
@@ -4916,6 +4936,10 @@ PrefabInstance:
     - target: {fileID: 198040453125322224, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198157653256366000, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
+      propertyPath: simulationSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a63b8fad57d62749875894c5f2c7964, type: 3}
@@ -5002,6 +5026,18 @@ PrefabInstance:
     - target: {fileID: 198390277275068496, guid: 7d3745b81367cb4438fa3bc7d15f66df, type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198390277275068496, guid: 7d3745b81367cb4438fa3bc7d15f66df, type: 3}
+      propertyPath: simulationSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198390277275068496, guid: 7d3745b81367cb4438fa3bc7d15f66df, type: 3}
+      propertyPath: SizeModule.curve.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198390277275068496, guid: 7d3745b81367cb4438fa3bc7d15f66df, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199477601218245026, guid: 7d3745b81367cb4438fa3bc7d15f66df, type: 3}
       propertyPath: m_Materials.Array.size

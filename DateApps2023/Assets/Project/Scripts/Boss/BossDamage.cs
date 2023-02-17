@@ -9,8 +9,6 @@ public class BossDamage : MonoBehaviour
     public BossCount bossCount = null;
     BossMove bossMove;
 
-
-
     [SerializeField] Animator AnimationImage = null;
 
     [SerializeField]
@@ -42,8 +40,6 @@ public class BossDamage : MonoBehaviour
 
     private bool isBossFellDown = false;
 
-
-
     private float bossDestroyTime = 0.0f;
     private float bossDestroyTimeMax = 2.5f;
 
@@ -65,28 +61,42 @@ public class BossDamage : MonoBehaviour
 
     private int isBullet = -1;
 
-    [SerializeField]
-    GameObject hpBarObject= null;
+    private int maxHp; 
 
 
     [SerializeField]
-    Slider hpBar;
+    private GameObject[] hpBar = new GameObject[3];
+
+    //[SerializeField]
+    //private GameObject hpBarCore;
 
 
-    // Start is called before the first frame update
+    private int smallDamage = 1;
+
+    private int smallCounterDamage = 2;
+
+    private int MediumDamage = 3;
+
+    private int MediumCounterDamage = 6;
+
+    private int LargeDamage = 9;
+
+    private int LargeCounterDamage = 18;
+
+
     void Start()
     {
         bossMove = GetComponent<BossMove>();
 
         isDamage = false;
 
-        hpBarObject.SetActive(true);
+        maxHp = bossMove.bossHp;
 
-        hpBar.value = bossMove.bossHp;
+
     }
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
 
         if (isKnockback)
@@ -102,29 +112,39 @@ public class BossDamage : MonoBehaviour
             {
                 knockbackTime= 0.0f;
                 isKnockback = false;
-
             }
         }
 
         if (isDamage)
         {
-            Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-
-            IsBullet();
-
-            hpBar.value = bossMove.bossHp;
-            if (bossMove.bossHp > 0.0f)
+            if (!bossMove.IsAppearance())
             {
-                AnimationImage.SetTrigger("Damage");
-            }
-            else
-            {
-                AnimationImage.SetTrigger("Die");
-            }
+                if (!isTrance)
+                {
+                    Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
+                }
+                //else
+                //{
+                //    Instantiate(null, damagePoint.position, Quaternion.identity);
+                //}
+                IsBullet();
 
-            isInvincible = true;
-            isBullet = -1;
-            isDamage = false;
+
+
+
+                if (bossMove.bossHp > 0.0f)
+                {
+                    AnimationImage.SetTrigger("Damage");
+                }
+                else
+                {
+                    AnimationImage.SetTrigger("Die");
+                }
+
+                isInvincible = true;
+                isBullet = -1;
+                isDamage = false;
+            }
         }
         
 
@@ -155,7 +175,6 @@ public class BossDamage : MonoBehaviour
 
         if (isBossDamage && !isTrance)
         {
-            //AnimationImage.SetBool("Trance", false);
             BossDamgeOffTime += Time.deltaTime;
             if (BossDamgeOffTime >= BossDamgeOffTimeMax)
             {
@@ -173,33 +192,62 @@ public class BossDamage : MonoBehaviour
         {
             if (!isTrance)
             {
-                bossMove.bossHp -= 0.5f;
+                hpBar[bossMove.bossHp - 1].SetActive(false);
+                bossMove.bossHp -= smallDamage;
             }
             else
             {
-                bossMove.bossHp -= 1.0f;
+                bossMove.bossHp -= smallCounterDamage;
             }
         }
         else if (isBullet == 1)
         {
             if (!isTrance)
             {
-                bossMove.bossHp -= 1.0f;
+                hpBar[bossMove.bossHp - 1].SetActive(false);
+
+                if (maxHp >= 2)
+                {
+                    hpBar[bossMove.bossHp - 2].SetActive(false);
+                    hpBar[bossMove.bossHp - 3].SetActive(false);
+                }
+
+
+                bossMove.bossHp -= MediumDamage;
             }
             else
             {
-                bossMove.bossHp -= 2.0f;
+                bossMove.bossHp -= MediumCounterDamage;
             }
         }
         else if (isBullet == 2)
         {
             if (!isTrance)
             {
-                bossMove.bossHp -= 2.0f;
+                hpBar[bossMove.bossHp - 1].SetActive(false);
+
+                if (maxHp >= 3)
+                {
+                    hpBar[bossMove.bossHp - 2].SetActive(false);
+                    hpBar[bossMove.bossHp - 3].SetActive(false);
+
+                    if (maxHp >= 6)
+                    {
+                        hpBar[bossMove.bossHp - 4].SetActive(false);
+                        hpBar[bossMove.bossHp - 5].SetActive(false);
+                        hpBar[bossMove.bossHp - 6].SetActive(false);
+                        hpBar[bossMove.bossHp - 7].SetActive(false);
+                        hpBar[bossMove.bossHp - 8].SetActive(false);
+                        hpBar[bossMove.bossHp - 9].SetActive(false);
+                    }
+                }
+                
+
+                bossMove.bossHp -= LargeDamage;
             }
             else
             {
-                bossMove.bossHp -= 4.0f;
+                bossMove.bossHp -= LargeCounterDamage;
             }
 
         }
@@ -246,52 +294,40 @@ public class BossDamage : MonoBehaviour
 
     public void KnockbackTrueSmall()
     {
-        if (isKnockback)
-            return;
-
-        if (!isInvincible)
-        {
-            isKnockback = true;
-            isDamage = true;
-            isBossDamage = true;
-            isBullet = 0;
-            bossMove.DamageTrue();
-        }
+        DamageKnockBack(0);
 
     }
     public void KnockbackTrueMedium()
     {
-        if (isKnockback)
-            return;
-
-        if (!isInvincible)
-        {
-            isKnockback = true;
-            isDamage = true;
-            isBossDamage = true;
-            isBullet = 1;
-            bossMove.DamageTrue();
-        }
+        DamageKnockBack(1);
 
     }
 
     public void KnockbackTrueLarge()
     {
-        if (isKnockback)
-            return;
 
-        if (!isInvincible)
-        {
-            isKnockback = true;
-            isDamage = true;
-            isBossDamage = true;
-            isBullet = 2;
-            bossMove.DamageTrue();
-        }
+        DamageKnockBack(2);
 
     }
 
+    void DamageKnockBack(int Bullet)
+    {
+        if (isKnockback)
+            return;
 
+        if (!bossMove.IsAppearance())
+        {
+            if (!isInvincible)
+            {
+                isKnockback = true;
+                isDamage = true;
+                isBossDamage = true;
+                isBullet = Bullet;
+                bossMove.DamageTrue();
+            }
+        }
+
+    }
 
     public bool IsFellDown()
     {

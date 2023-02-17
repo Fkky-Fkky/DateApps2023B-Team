@@ -5,26 +5,63 @@ using UnityEngine;
 public class CannonManager : MonoBehaviour
 {
     [SerializeField]
-    private CannonConnect cannonConnect = null;
+    private CannonConnect[] cannonConnect = new CannonConnect[2];
 
     [SerializeField]
-    private CannonShot cannonShot = null;
+    private CannonShot[] cannonShot = new CannonShot[2];
 
     [SerializeField]
-    private EnergyCharge energyCharge = null;
+    private EnergyCharge[] energyCharge = new EnergyCharge[2];
 
-    public bool IsShooting
+    private List<int>  isShotEnergyTypeList = new List<int>();
+    private List<int>  connectingPosList    = new List<int>();
+    private List<bool> isShootingList       = new List<bool>();
+
+    private const int CANNON_MAX = 2;
+
+    private void Start()
     {
-        get { return cannonShot.IsNowShot; }
+        for (int i = 0; i < CANNON_MAX; i++)
+        {
+            isShootingList.Add(cannonShot[i].IsNowShot);
+            isShotEnergyTypeList.Add(energyCharge[i].ChrgeEnergyType);
+            connectingPosList.Add(cannonConnect[i].ConnectingPos);
+        }
     }
 
-    public int IsShotEnergyType
+    public List<bool> IsShooting
     {
-        get { return energyCharge.ChrgeEnergyType; }
+        get
+        {
+            for (int i = 0; i < CANNON_MAX; i++)
+            {
+                isShootingList[i] = cannonShot[i].IsNowShot;
+            }
+            return isShootingList;
+        }
     }
 
-    public int DoConnectingPos
+    public List<int> IsShotEnergyType
     {
-        get { return cannonConnect.ConnectingPos; }
+        get
+        {
+            for (int i = 0; i < CANNON_MAX; i++)
+            {
+                isShotEnergyTypeList[i] = energyCharge[i].ChrgeEnergyType;
+            }
+            return isShotEnergyTypeList;
+        }
+    }
+
+    public List<int> DoConnectingPos
+    {
+        get
+        {
+            for (int i = 0; i < CANNON_MAX; i++)
+            {
+                connectingPosList[i] = cannonConnect[i].ConnectingPos;
+            }
+            return connectingPosList;
+        }
     }
 }

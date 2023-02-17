@@ -27,7 +27,25 @@ public class ProgressControlV3D : MonoBehaviour {
     private LightLineV3D[] lils;
     private Renderer[] renderers;
 
-    public BossAttack bossAttack;
+    public enum EffectType
+    {
+        Boss,
+        Cannon
+    }
+
+    [SerializeField]
+    private EffectType effectType = EffectType.Boss;
+
+    [SerializeField]
+    private BossAttack bossAttack;
+
+    [SerializeField]
+    private CannonShot cannonShot;
+
+    [SerializeField]
+    private EnergyCharge energyCharge;
+
+    private bool isColorChage = false;
 
     private void Start()
     {
@@ -90,20 +108,66 @@ public class ProgressControlV3D : MonoBehaviour {
         }
 
         //if (Input.GetMouseButton(0) || always == true)
-        if (bossAttack.isAttack || always == true)
+        if (effectType == EffectType.Boss)
         {
-            globalProgress = 0f;
-            endPointEffect.emit = true;
+            if (bossAttack.isAttack || always == true)
+            {
+                globalProgress = 0f;
+                endPointEffect.emit = true;
+            }
+            else
+            {
+                endPointEffect.emit = false;
+            }
         }
-        else
+        else if (effectType == EffectType.Cannon)
         {
-            endPointEffect.emit = false;
+            if (cannonShot.IsNowShot || always == true)
+            {
+                if (!isColorChage)
+                {
+                    switch (energyCharge.ChrgeEnergyType)
+                    {
+                        case (int)EnergyCharge.EnergyType.SMALL:
+                            finalColor = new Color(0, 0.7f, 1, 255);
+                            break;
+
+                        case (int)EnergyCharge.EnergyType.MEDIUM:
+                            finalColor = new Color(1, 1, 0, 255);
+
+                            break;
+                        case (int)EnergyCharge.EnergyType.LARGE:
+                            finalColor = new Color(1, 0.3f, 0, 255);
+                            break;
+                    }
+                    isColorChage = true;
+                }
+                globalProgress = 0f;
+                endPointEffect.emit = true;
+            }
+            else
+            {
+                endPointEffect.emit = false;
+                isColorChage = false;
+            }
         }
 
+
         //if (Input.GetMouseButtonDown(0))
-        if (bossAttack.isAttack)
+        if (effectType == EffectType.Boss)
         {
-            globalImpactProgress = 0f;
+
+            if (bossAttack.isAttack)
+            {
+                globalImpactProgress = 0f;
+            }
+        }
+        else if (effectType == EffectType.Cannon)
+        {
+            if (cannonShot.IsNowShot)
+            {
+                globalImpactProgress = 0f;
+            }
         }
 
         if (always == true)
