@@ -294,7 +294,6 @@ public class enemy : MonoBehaviour
 
         if(gameState == summon.end)
         {
-
         
         if (rangeApos.x <= pos.x  ||
             rangeApos.x <= pos.z)
