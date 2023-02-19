@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energyChargeEffect:
-  - {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
-  - {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
   - {fileID: 7358680883832252254, guid: d92362905d020f84596d91f04129ac22, type: 3}
+  - {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
+  - {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
   chargeSe: {fileID: 8300000, guid: b17165e5376f4ab43ae13df612607253, type: 3}
   generateEnergy: {fileID: 0}
 --- !u!65 &608408025037340663
@@ -1023,9 +1023,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materials:
-  - {fileID: 2100000, guid: 845f69d690c342f42a3d419346995c7e, type: 2}
-  - {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
   - {fileID: 2100000, guid: 03874c9e151f222488ac41332e51d59c, type: 2}
+  - {fileID: 2100000, guid: dad33730e19ade1428e88514f9ab32a6, type: 2}
+  - {fileID: 2100000, guid: 845f69d690c342f42a3d419346995c7e, type: 2}
 --- !u!1001 &2144887772895775175
 PrefabInstance:
   m_ObjectHideFlags: 0
