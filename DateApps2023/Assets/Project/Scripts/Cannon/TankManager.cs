@@ -7,10 +7,13 @@ public class TankManager : MonoBehaviour
     [SerializeField]
     private EnergyCharge energyCharge = null;
 
-    [SerializeField]
+    private int oldEnergy = 0;
     private TankCharge energyTank = null;
 
-    private int oldEnergy = 0;
+    private void Start()
+    {
+        energyTank = GetComponentInChildren<TankCharge>();
+    }
 
     // Update is called once per frame
     void Update()
