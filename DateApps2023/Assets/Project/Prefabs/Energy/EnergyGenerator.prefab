@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energies:
-  - {fileID: 989744109513928702, guid: 572f3424ec07b314cb90cf87bd5d57b3, type: 3}
-  - {fileID: 989744109513928702, guid: 8882423c885f0134b91110b65c663a4d, type: 3}
-  - {fileID: 989744109513928702, guid: f1bcfb00fc9b189498c201f48f182e7c, type: 3}
+  - {fileID: 987517514826269398, guid: b0178ba7cfb2e0d48b9447bc3e950c6f, type: 3}
+  - {fileID: 9212018859217721654, guid: c3a2ce97a76b1144b9a3448c4348cbd8, type: 3}
+  - {fileID: 3916278884735184843, guid: 66bc35708b956b3478a9b7ccbe6252b2, type: 3}
   generatePosMin: {fileID: 0}
   generatePosMax: {fileID: 0}
