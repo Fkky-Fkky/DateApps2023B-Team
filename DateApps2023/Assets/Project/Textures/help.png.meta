@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:DateApps2023/Assets/Project/Textures/op/operator.png.meta
-guid: 8dcc6af998cbbe04e89a3fee07949f64
-========
-guid: 30a1f5ad5d4f2ea48b0933743b4952d4
->>>>>>>> origin/develop:DateApps2023/Assets/Project/Textures/help.png.meta
+guid: 58312c227029ec944aaed65759d51a19
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -66,15 +62,15 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
-  cookieLightType: 0
+  applyGammaDecoding: 1
+  cookieLightType: 2
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -86,7 +82,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +94,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
