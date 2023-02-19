@@ -17,6 +17,9 @@ public class BossManager : MonoBehaviour
 
     public bool isGanerat;
 
+    [SerializeField]
+    private int bullet = 1;
+
     private GameObject centerBoss;
     private GameObject leftBoss;
     private GameObject rightBoss;
@@ -36,10 +39,59 @@ public class BossManager : MonoBehaviour
         }
 
         BossDamage();
-
+        DebugDamage();
         BossFellDown();
+        
     }
 
+    private void DebugDamage()
+    {
+
+
+        GameObject boss = null;
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            boss = GameObject.FindGameObjectWithTag("Center");
+            if (boss == null)
+            {
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            boss = GameObject.FindGameObjectWithTag("Left");
+            if (boss == null)
+            {
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            boss = GameObject.FindGameObjectWithTag("Right");
+            if (boss == null)
+            {
+                return;
+            }
+        }
+
+
+        switch (bullet)
+        {
+            case 0:
+                boss.GetComponent<BossDamage>().KnockbackTrueSmall();
+                break;
+            case 1:
+                boss.GetComponent<BossDamage>().KnockbackTrueMedium();
+                break;
+            case 2:
+                boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                break;
+        }
+
+    }
 
     private void BossDamage()
     {

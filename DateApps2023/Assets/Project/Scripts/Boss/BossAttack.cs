@@ -30,10 +30,12 @@ public class BossAttack : MonoBehaviour
     GameObject damageAreaLeft;
 
     [SerializeField]
+    private Transform chargePos;
+
+
+    [SerializeField]
     private GameObject chargeEffect;
     private int effectStop = 0;
-    private float effectY = -2.5f;
-    private float effectZ = 2.0f;
 
     private List<GameObject> effectList = new List<GameObject>();
 
@@ -54,7 +56,9 @@ public class BossAttack : MonoBehaviour
     float beamOffTime    = 0.0f;
     float beamOffTimeMax = 2.0f;
 
-    public bool isAttack;
+    public bool isAttack = false;
+
+    private bool isAttackAll = false;
 
     private float beamTime    = 0.0f;
     [SerializeField]
@@ -104,6 +108,7 @@ public class BossAttack : MonoBehaviour
         {
             if (time >= attackIntervalTime)
             {
+                isAttackAll = true;
                 attackAnimation.SetBool("Attack", true);
                 Charge();
                 AttackAnimation();
@@ -116,16 +121,14 @@ public class BossAttack : MonoBehaviour
     {
         if (effectStop < 1)
         {
-            effectZ = transform.position.z - 50.0f;
-            Vector3 pos = new Vector3(transform.position.x, effectY, effectZ);
-
-            effectList.Add(Instantiate(chargeEffect, pos, Quaternion.identity));
+            effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
 
             DangerZone();
             effectStop++;
         }
 
     }
+
 
     private void DangerZone()
     {
@@ -200,6 +203,7 @@ public class BossAttack : MonoBehaviour
     private void AttackOff()
     {
         isAttack = false;
+        isAttackAll = false;
         effectStop = 0;
         attackAnimation.SetBool("Attack", false);
         beamTime = 0.0f;
@@ -217,5 +221,10 @@ public class BossAttack : MonoBehaviour
     public float BeamOffTimeMax()
     {
         return beamOffTimeMax;
+    }
+
+    public bool IsAttackAll()
+    {
+        return isAttackAll;
     }
 }
