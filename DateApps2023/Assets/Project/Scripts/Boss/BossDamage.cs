@@ -9,6 +9,8 @@ public class BossDamage : MonoBehaviour
     public BossCount bossCount = null;
     BossMove bossMove;
 
+    private DamageCSV damageCSV = null;
+
     [SerializeField] Animator AnimationImage = null;
 
     [SerializeField]
@@ -73,15 +75,12 @@ public class BossDamage : MonoBehaviour
 
     private int smallDamage = 1;
 
-    private int smallCounterDamage = 2;
 
     private int MediumDamage = 3;
 
-    private int MediumCounterDamage = 6;
 
     private int LargeDamage = 9;
 
-    private int LargeCounterDamage = 18;
 
 
     void Start()
@@ -92,6 +91,7 @@ public class BossDamage : MonoBehaviour
 
         maxHp = bossMove.bossHp;
 
+        damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
     }
 
@@ -123,10 +123,6 @@ void Update()
                 {
                     Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 }
-                //else
-                //{
-                //    Instantiate(null, damagePoint.position, Quaternion.identity);
-                //}
                 IsBullet();
 
 
@@ -193,11 +189,11 @@ void Update()
             if (!isTrance)
             {
                 hpBar[bossMove.bossHp - 1].SetActive(false);
-                bossMove.bossHp -= smallDamage;
+                bossMove.bossHp -= damageCSV.small;
             }
             else
             {
-                bossMove.bossHp -= smallCounterDamage;
+                bossMove.bossHp -= damageCSV.small * 2;
             }
         }
         else if (isBullet == 1)
@@ -213,11 +209,11 @@ void Update()
                 }
 
 
-                bossMove.bossHp -= MediumDamage;
+                bossMove.bossHp -= damageCSV.medium;
             }
             else
             {
-                bossMove.bossHp -= MediumCounterDamage;
+                bossMove.bossHp -= damageCSV.medium * 2;
             }
         }
         else if (isBullet == 2)
@@ -241,13 +237,13 @@ void Update()
                         hpBar[bossMove.bossHp - 9].SetActive(false);
                     }
                 }
-                
 
-                bossMove.bossHp -= LargeDamage;
+
+                bossMove.bossHp -= damageCSV.large;
             }
             else
             {
-                bossMove.bossHp -= LargeCounterDamage;
+                bossMove.bossHp -= damageCSV.large * 2;
             }
 
         }
