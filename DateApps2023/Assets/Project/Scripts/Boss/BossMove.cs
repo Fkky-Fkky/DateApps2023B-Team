@@ -7,20 +7,16 @@ using static UnityEngine.GraphicsBuffer;
 public class BossMove : MonoBehaviour
 {
 
-    [SerializeField]
     public int bossHp;
 
     private Rigidbody rb;
 
     private BossAttack bossAttack;
     private BossDamage bossDamage;
+    private BossCSVGenerator bossCSVGenerator;
 
     [SerializeField]
     private float moveSpeed = 2.0f;
-
-    //[SerializeField]
-    //private GameObject target;
-
 
     [SerializeField]
     private GameObject cenetrTarget;
@@ -129,6 +125,9 @@ public class BossMove : MonoBehaviour
         bossAttack = GetComponent<BossAttack>();
         bossDamage = GetComponent<BossDamage>();
         rb = GetComponent<Rigidbody>();
+
+        bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
+        bossHp = bossCSVGenerator.BossHP();
 
         camera = Camera.main;
         canvas.worldCamera = camera;

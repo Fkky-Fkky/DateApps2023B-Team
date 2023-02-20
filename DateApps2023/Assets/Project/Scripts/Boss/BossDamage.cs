@@ -9,6 +9,8 @@ public class BossDamage : MonoBehaviour
     public BossCount bossCount = null;
     BossMove bossMove;
 
+    private DamageCSV damageCSV = null;
+
     [SerializeField] Animator AnimationImage = null;
 
     [SerializeField]
@@ -71,17 +73,14 @@ public class BossDamage : MonoBehaviour
     //private GameObject hpBarCore;
 
 
-    private int smallDamage = 1;
+    private int smallDamage;
 
-    private int smallCounterDamage = 2;
 
-    private int MediumDamage = 3;
+    private int MediumDamage;
 
-    private int MediumCounterDamage = 6;
 
-    private int LargeDamage = 9;
+    private int LargeDamage;
 
-    private int LargeCounterDamage = 18;
 
 
     void Start()
@@ -92,12 +91,18 @@ public class BossDamage : MonoBehaviour
 
         maxHp = bossMove.bossHp;
 
+        damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
+
+        smallDamage  = damageCSV.small;
+        MediumDamage = damageCSV.medium;
+        LargeDamage  = damageCSV.large;
     }
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    void Update()
     {
+
 
         if (isKnockback)
         {
@@ -110,7 +115,7 @@ void Update()
             }
             else
             {
-                knockbackTime= 0.0f;
+                knockbackTime = 0.0f;
                 isKnockback = false;
             }
         }
@@ -119,18 +124,8 @@ void Update()
         {
             if (!bossMove.IsAppearance())
             {
-                if (!isTrance)
-                {
-                    Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-                }
-                //else
-                //{
-                //    Instantiate(null, damagePoint.position, Quaternion.identity);
-                //}
+                Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 IsBullet();
-
-
-
 
                 if (bossMove.bossHp > 0.0f)
                 {
@@ -146,14 +141,14 @@ void Update()
                 isDamage = false;
             }
         }
-        
+
 
         if (isInvincible)
         {
             invincibleTime += Time.deltaTime;
-            if(invincibleTime>=invincibleTimeMax)
+            if (invincibleTime >= invincibleTimeMax)
             {
-                isInvincible= false;
+                isInvincible = false;
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
@@ -197,7 +192,7 @@ void Update()
             }
             else
             {
-                bossMove.bossHp -= smallCounterDamage;
+                bossMove.bossHp -= smallDamage * 2;
             }
         }
         else if (isBullet == 1)
@@ -212,12 +207,11 @@ void Update()
                     hpBar[bossMove.bossHp - 3].SetActive(false);
                 }
 
-
                 bossMove.bossHp -= MediumDamage;
             }
             else
             {
-                bossMove.bossHp -= MediumCounterDamage;
+                bossMove.bossHp -= MediumDamage * 2;
             }
         }
         else if (isBullet == 2)
@@ -241,13 +235,13 @@ void Update()
                         hpBar[bossMove.bossHp - 9].SetActive(false);
                     }
                 }
-                
+
 
                 bossMove.bossHp -= LargeDamage;
             }
             else
             {
-                bossMove.bossHp -= LargeCounterDamage;
+                bossMove.bossHp -= LargeDamage * 2;
             }
 
         }

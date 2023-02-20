@@ -14,6 +14,7 @@ public class BossCSV : MonoBehaviour
     public float[] attackIntervalTime = new float[11];
     public int[] appearanceLane = new int[11];
     public float[] positionZ = new float[11];
+    public int[] bossHp = new int[11];
 
     private int height = 0;
     private int i = 1; 
@@ -47,6 +48,7 @@ public class BossCSV : MonoBehaviour
             attackIntervalTime[i] = float.Parse(bossDate[i][2]);
             appearanceLane[i] = int.Parse(bossDate[i][3]);
             positionZ[i] = float.Parse(bossDate[i][4]);
+            bossHp[i] = int.Parse(bossDate[i][5]);
 
 
             Debug.Log("É{ÉXÇì«Ç›çûÇ›Ç‹ÇµÇΩ : " + bossType[i]);
