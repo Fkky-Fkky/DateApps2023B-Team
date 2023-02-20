@@ -17,7 +17,9 @@ public class CannonManager : MonoBehaviour
     private List<int>  connectingPosList    = new List<int>();
     private List<bool> isShootingList       = new List<bool>();
 
-    private const int CANNON_MAX = 2;
+    const int CANNON_MAX = 2;
+
+    public int CanonMax { get { return CANNON_MAX; } }
 
     private void Start()
     {

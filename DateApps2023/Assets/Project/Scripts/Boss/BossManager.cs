@@ -43,11 +43,11 @@ public class BossManager : MonoBehaviour
 
     private void BossDamage()
     {
-        for (int i = 0; i < cannonManager.IsShooting.Count; i++)
+        for (int i = 0; i < cannonManager.CanonMax; i++)
         {
             if (!cannonManager.IsShooting[i])
             {
-                return;
+                continue;
             }
 
             GameObject boss = null;
@@ -56,7 +56,7 @@ public class BossManager : MonoBehaviour
                 boss = GameObject.FindGameObjectWithTag("Center");
                 if (boss == null)
                 {
-                    return;
+                    continue;
                 }
             }
 
@@ -65,7 +65,7 @@ public class BossManager : MonoBehaviour
                 boss = GameObject.FindGameObjectWithTag("Left");
                 if (boss == null)
                 {
-                    return;
+                    continue;
                 }
             }
 
@@ -74,7 +74,7 @@ public class BossManager : MonoBehaviour
                 boss = GameObject.FindGameObjectWithTag("Right");
                 if (boss == null)
                 {
-                    return;
+                    continue;
                 }
             }
 
