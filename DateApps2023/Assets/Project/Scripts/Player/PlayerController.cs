@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
 
     private float defaultMass;
 
+    [SerializeField]
+    private float CarryOverSpeed = 0.1f;
+    private float DefaultCarryOverSpeed = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
         rb.Sleep();
         rb.useGravity = false;
         defaultMass = rb.mass;
+        DefaultCarryOverSpeed = CarryOverSpeed;
 
         Array.Resize(ref ChildPlayer, 4);
         Array.Resize(ref AnimationImage, ChildPlayer.Length);
@@ -57,43 +62,36 @@ public class PlayerController : MonoBehaviour
         {
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-            if(playerCount >= itemSizeCount + 1)
+            for (int i = 0; i < gamepadFrag.Length; i++)
             {
-                for (int i = 0; i < gamepadFrag.Length; i++)
+                if (gamepadFrag[i])
                 {
-                    if (gamepadFrag[i])
+                    var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
+
+                    if (leftStickValue.x != 0.0f)
                     {
-                        var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
-
-                        if (leftStickValue.x != 0.0f)
-                        {
-                            AnimationImage[i].SetBool("CarryMove", true);
-                            before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
-                        }
-                        if (leftStickValue.y != 0.0f)
-                        {
-                            AnimationImage[i].SetBool("CarryMove", true);
-                            before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
-                        }
-
-                        if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
-                        {
-                            AnimationImage[i].SetBool("CarryMove", false);
-                            before[i] = Vector2.zero;
-                        }
-
-                        float walkSpeed = mySpeed * AnimationSpeed;
-                        AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
+                        AnimationImage[i].SetBool("CarryMove", true);
+                        before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
                     }
-                }
+                    if (leftStickValue.y != 0.0f)
+                    {
+                        AnimationImage[i].SetBool("CarryMove", true);
+                        before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
+                    }
 
-                groupVec.x = before[0].x + before[1].x + before[2].x + before[3].x;
-                groupVec.z = before[0].y + before[1].y + before[2].y + before[3].y;
+                    if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+                    {
+                        AnimationImage[i].SetBool("CarryMove", false);
+                        before[i] = Vector2.zero;
+                    }
+
+                    float walkSpeed = mySpeed * AnimationSpeed;
+                    AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
+                }
             }
-            else
-            {
-                groupVec = Vector3.zero;
-            }
+
+            groupVec.x = (before[0].x + before[1].x + before[2].x + before[3].x) * CarryOverSpeed;
+            groupVec.z = (before[0].y + before[1].y + before[2].y + before[3].y) * CarryOverSpeed;
             rb.velocity = groupVec;
 
             if (transform.childCount <= 1)
@@ -267,6 +265,15 @@ public class PlayerController : MonoBehaviour
             {
                 carryText.color = Color.red;
             }
+        }
+
+        if (playerCount >= itemSizeCount + 1)
+        {
+            CarryOverSpeed = 1.0f;
+        }
+        else
+        {
+            CarryOverSpeed = DefaultCarryOverSpeed;
         }
 
         if (itemSizeCount == 0)
