@@ -1438,6 +1438,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+--- !u!114 &1242769392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7900308304247319445, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
+  m_PrefabInstance: {fileID: 1474461628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e825cbe5dae954dbebd3c3e52a974e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1287072193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1509,6 +1520,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossCSV
+      value: 
+      objectReference: {fileID: 1242769392}
+    - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossManager
+      value: 
+      objectReference: {fileID: 131766972}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
 --- !u!114 &1309913363 stripped
@@ -1851,11 +1870,15 @@ PrefabInstance:
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: bossGenerator
       value: 
-      objectReference: {fileID: 1873292070}
+      objectReference: {fileID: 0}
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: cannonManager
       value: 
       objectReference: {fileID: 475256622}
+    - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
+      propertyPath: bossCSVGenerator
+      value: 
+      objectReference: {fileID: 1873292072}
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: bossIntervalTime
       value: 30
@@ -2188,15 +2211,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1873292070 stripped
+--- !u!114 &1873292072 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 131905478442208736, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
   m_PrefabInstance: {fileID: 1287072193}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecbb8be069dd0424c9ff07afe3721995, type: 3}
+  m_Script: {fileID: 11500000, guid: e07c20481f463104cb93ccc5c82807ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1987150380
