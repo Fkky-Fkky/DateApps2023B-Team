@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
     private float CarryOverSpeed = 0.1f;
     private float DefaultCarryOverSpeed = 0.0f;
 
+    private int NeedCarryCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         if (controlFrag)
         {
+            Debug.Log(mySpeed);
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
             for (int i = 0; i < gamepadFrag.Length; i++)
@@ -124,6 +128,7 @@ public class PlayerController : MonoBehaviour
     public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
     {
         itemSizeCount = itemSize;
+
         carryText = gameObject.GetComponentInChildren<TextMeshPro>();
         outline = gameObject.GetComponentInChildren<Outline>();
         outline.enabled = false;
@@ -254,10 +259,23 @@ public class PlayerController : MonoBehaviour
             playerCount = 4;
         }
 
-        if(carryText != null)
+        if (itemSizeCount == 0)
         {
-            carryText.text = playerCount.ToString("0") + "/" + (itemSizeCount + 1).ToString("0");
-            if(playerCount >= itemSizeCount + 1)
+            NeedCarryCount = 1;
+        }
+        else if (itemSizeCount == 1)
+        {
+            NeedCarryCount = 2;
+        }
+        else if (itemSizeCount == 2)
+        {
+            NeedCarryCount = 4;
+        }
+
+        if (carryText != null)
+        {
+            carryText.text = playerCount.ToString("0") + "/" + NeedCarryCount.ToString("0");
+            if(playerCount >= NeedCarryCount)
             {
                 carryText.color = Color.white;
             }
@@ -267,7 +285,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (playerCount >= itemSizeCount + 1)
+        if (playerCount >= NeedCarryCount)
         {
             CarryOverSpeed = 1.0f;
         }
@@ -284,22 +302,22 @@ public class PlayerController : MonoBehaviour
             }
             else if (playerCount == 2)
             {
-                mySpeed = (moveSpeed * 1.3f) / playerCount;
+                mySpeed = (moveSpeed * 1.5f) / playerCount;
             }
             else if (playerCount == 3)
             {
-                mySpeed = (moveSpeed * 1.7f) / playerCount;
+                mySpeed = (moveSpeed * 2.0f) / playerCount;
             }
             else if (playerCount == 4)
             {
-                mySpeed = (moveSpeed * 2.3f) / playerCount;
+                mySpeed = (moveSpeed * 4.0f) / playerCount;
             }
         }
         else if (itemSizeCount == 1)
         {
             if (playerCount == 1)
             {
-                mySpeed = (moveSpeed * 0.5f) / playerCount;
+                mySpeed = (moveSpeed * 0.4f) / playerCount;
             }
             else if (playerCount == 2)
             {
@@ -311,45 +329,26 @@ public class PlayerController : MonoBehaviour
             }
             else if (playerCount == 4)
             {
-                mySpeed = (moveSpeed * 2.0f) / playerCount;
+                mySpeed = (moveSpeed * 3.0f) / playerCount;
             }
         }
         else if (itemSizeCount == 2)
         {
             if (playerCount == 1)
             {
-                mySpeed = (moveSpeed * 0.3f) / playerCount;
+                mySpeed = (moveSpeed * 0.1f) / playerCount;
             }
             else if (playerCount == 2)
-            {
-                mySpeed = (moveSpeed * 0.5f) / playerCount;
-            }
-            else if (playerCount == 3)
-            {
-                mySpeed = (moveSpeed * 1.0f) / playerCount;
-            }
-            else if (playerCount == 4)
-            {
-                mySpeed = (moveSpeed * 2.5f) / playerCount;
-            }
-        }
-        else if (itemSizeCount == 3)
-        {
-            if (playerCount == 1)
             {
                 mySpeed = (moveSpeed * 0.2f) / playerCount;
             }
-            else if (playerCount == 2)
-            {
-                mySpeed = (moveSpeed * 0.4f) / playerCount;
-            }
             else if (playerCount == 3)
             {
-                mySpeed = (moveSpeed * 0.8f) / playerCount;
+                mySpeed = (moveSpeed * 0.5f) / playerCount;
             }
             else if (playerCount == 4)
             {
-                mySpeed = (moveSpeed * 1.6f) / playerCount;
+                mySpeed = (moveSpeed * 1.25f) / playerCount;
             }
         }
     }
