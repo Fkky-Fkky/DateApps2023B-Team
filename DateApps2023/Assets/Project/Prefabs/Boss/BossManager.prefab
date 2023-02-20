@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 954377158567244031}
   - component: {fileID: 954377158567244028}
   - component: {fileID: 7900308304247319445}
+  - component: {fileID: 3804934439928866405}
   m_Layer: 0
   m_Name: BossManager
   m_TagString: Untagged
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannonManager: {fileID: 0}
-  bossGenerator: {fileID: 0}
   bossCSVGenerator: {fileID: 0}
   bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!114 &7900308304247319445
@@ -110,3 +110,19 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  bossHp: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+--- !u!114 &3804934439928866405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954377158567244029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86f20aead63a7442b53e9f8f407fe6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  small: 0
+  medium: 0
+  large: 0
