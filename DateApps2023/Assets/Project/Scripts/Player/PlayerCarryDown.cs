@@ -44,21 +44,27 @@ public class PlayerCarryDown : MonoBehaviour
                 {
                     if (canUsed)
                     {
-                        isCarry = true;
-                        canUsed = false;
                         if (carryItem.CompareTag("item"))
                         {
                             energyItem = carryItem.GetComponent<CarryEnergy>();
                             energyItem.GetGrabPoint(this.gameObject);
                             myGroupNo = energyItem.groupNumber;
+                            isCarry = true;
+                            canUsed = false;
+                            playermove.GetItem(myGroupNo);
                         }
                         if (carryItem.CompareTag("Cannon"))
                         {
-                            cannonItem = carryItem.GetComponent<CarryCannon>();
-                            cannonItem.GetGrabPoint(this.gameObject);
-                            myGroupNo = cannonItem.groupNumber;
+                            if (!carryItem.GetComponent<CannonShot>().IsShotting)
+                            {
+                                cannonItem = carryItem.GetComponent<CarryCannon>();
+                                cannonItem.GetGrabPoint(this.gameObject);
+                                myGroupNo = cannonItem.groupNumber;
+                                isCarry = true;
+                                canUsed = false;
+                                playermove.GetItem(myGroupNo);
+                            }
                         }
-                        playermove.GetItem(myGroupNo);
                     }
                 }
             }

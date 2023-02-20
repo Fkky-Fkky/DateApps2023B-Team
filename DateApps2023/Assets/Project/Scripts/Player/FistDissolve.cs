@@ -40,7 +40,7 @@ public class FistDissolve : MonoBehaviour
         if (isStartDissolve)
         {
             time += Time.deltaTime;
-            renderer.material.SetFloat("_DisAmount", value - time / startTime);
+            //renderer.material.SetFloat("_DisAmount", value - time / startTime);
             transform.position += pushForward * Time.deltaTime * transform.up / startTime;
             if(time >= startTime)
             {

@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270701662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
-  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1.75}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1238008730974303081}
@@ -375,8 +375,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2493759875665189501}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.125, z: 1.15}
-  m_LocalScale: {x: 0.2, y: 0.25, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0.125, z: 1.2}
+  m_LocalScale: {x: 0.3, y: 0.25, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6642304097403980633}
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8574373df7a724045b067c2538519b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LShoulderIcon: {fileID: 21300000, guid: 58312c227029ec944aaed65759d51a19, type: 3}
+  LShoulderIcon: {fileID: 21300000, guid: 30a1f5ad5d4f2ea48b0933743b4952d4, type: 3}
   RShoulderIcon: {fileID: 21300000, guid: f9abae4e17297ec499ac6483224e706d, type: 3}
   emoteTime: 2.4
   startTime: 0.2
@@ -1197,7 +1197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 250
-  slowMoveSpeed: 250
   playerNumber: 1
 --- !u!114 &7916477825766917937
 MonoBehaviour:
@@ -1518,7 +1517,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8483941467416996085}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.3, z: -1}
+  m_LocalPosition: {x: 0, y: -0.3, z: -1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
