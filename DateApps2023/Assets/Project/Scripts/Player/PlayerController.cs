@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         carryText = gameObject.GetComponentInChildren<TextMeshPro>();
         outline = gameObject.GetComponent<Outline>();
         outline.enabled = false;
-        if (itemType == 1) //ñCë‰ÇÃÉpÅ[Éc
+        if (itemType == 1)
         {
             HaveItem = true;
         }
@@ -224,6 +224,7 @@ public class PlayerController : MonoBehaviour
         AnimationImage[outChildNo] = null;
         gamepadFrag[outChildNo] = false;
         playerCount--;
+        CheckPlayerCount();
     }
 
     void AllFragFalse()

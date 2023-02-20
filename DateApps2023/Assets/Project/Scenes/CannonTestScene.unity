@@ -2313,6 +2313,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6450774645731477120, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: m_text
+      value: 1/2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450774645731477120, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6756336597369760009, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_Name
       value: Cannon

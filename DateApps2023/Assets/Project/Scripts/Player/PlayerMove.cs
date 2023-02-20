@@ -17,9 +17,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
     private float moveSpeed = 2000.0f;
-    private float tempMoveSpeed = 0;
-    [SerializeField]
-    private float slowMoveSpeed = 150.0f;
 
     private int playerNo;
 
@@ -83,7 +80,6 @@ public class PlayerMove : MonoBehaviour
 
         GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
 
-        tempMoveSpeed = moveSpeed;
 
         defaultPosY = this.gameObject.transform.position.y;
     }
@@ -104,13 +100,6 @@ public class PlayerMove : MonoBehaviour
         GamepadMove();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Group"))
-        {
-            moveSpeed = slowMoveSpeed;
-        }
-    }
 
     private void OnCollisionStay(Collision collision)
     {
@@ -125,7 +114,6 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("Group4"))
         {
             EnterItem = true;
-            moveSpeed = slowMoveSpeed;
         }
     }
 
@@ -228,16 +216,11 @@ public class PlayerMove : MonoBehaviour
 
                     if (!EnterItem)
                     {
-                        moveSpeed = tempMoveSpeed;
                         if (leftStickValue.x != 0 || leftStickValue.y != 0)
                         {
                             var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
                             transform.localRotation = Quaternion.LookRotation(direction);
                         }
-                    }
-                    else
-                    {
-                        moveSpeed = slowMoveSpeed;
                     }
                 }
 
