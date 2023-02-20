@@ -181,15 +181,6 @@ public class PlayerDamage : MonoBehaviour
             }
         }
 
-        ////デバッグ用コマンド　C：拘束　D：ダメージ
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            CallCapture();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            CallDamage();
-        }
     }
 
     public void CallDamage()
@@ -199,7 +190,7 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
-        playerMove.CallHanteiEnter();
+        playerMove.CallCarryCancel();
 
 
         capsuleCol.enabled = false;
@@ -236,7 +227,7 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
-        playerMove.CallHanteiEnter();
+        playerMove.CallCarryCancel();
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;

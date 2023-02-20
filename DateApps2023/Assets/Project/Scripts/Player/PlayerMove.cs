@@ -260,9 +260,9 @@ public class PlayerMove : MonoBehaviour
         IsAttack = false;
     }
 
-    public void CallHanteiEnter()
+    public void CallCarryCancel()
     {
-        carryDown.HanteiEnter();
+        carryDown.CarryCancel();
     }
 
 }

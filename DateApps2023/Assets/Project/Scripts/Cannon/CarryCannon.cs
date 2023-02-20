@@ -93,7 +93,7 @@ public class CarryCannon : MonoBehaviour
     {
         InGroup = false;
         gameObject.transform.parent = null;
-        DoHanteiEnter();
+        DoCarryCancel();
 
         this.gameObject.transform.position = new Vector3(
             this.gameObject.transform.position.x,
@@ -103,11 +103,11 @@ public class CarryCannon : MonoBehaviour
 
     }
 
-    public void DoHanteiEnter()
+    public void DoCarryCancel()
     {
         for (int i = 0; i < myGrabPoint.Length; i++)
         {
-            playerCarryDowns[i].HanteiEnter();
+            playerCarryDowns[i].CarryCancel();
         }
     }
 }
