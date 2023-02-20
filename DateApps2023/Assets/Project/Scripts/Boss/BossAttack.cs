@@ -9,9 +9,7 @@ public class BossAttack : MonoBehaviour
 
     float time = 0.0f;
 
-    [SerializeField]
-    float attackIntervalTime = 20.0f;
-
+    private float attackIntervalTime;
 
     [SerializeField]
     Animator attackAnimation = null;
@@ -68,10 +66,15 @@ public class BossAttack : MonoBehaviour
 
     public BossDamage bossDamage;
 
+    private BossCSVGenerator bossCSVGenerator;
+
     private void Start()
     {
         areaCount= 0;
         isAttack = false;
+        bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
+
+        attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
     }
 
     void Update()

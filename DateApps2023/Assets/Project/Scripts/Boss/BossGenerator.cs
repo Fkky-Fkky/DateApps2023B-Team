@@ -8,6 +8,7 @@ public class BossGenerator : MonoBehaviour
     private BossCount bossCount;
 
 
+
     [SerializeField]
     private GameObject nomalBoss;
 
@@ -67,11 +68,7 @@ public class BossGenerator : MonoBehaviour
     {
         if (bossCountOne <= 10)
         {
-            if (bossManager.isGanerat)
-            {
-                BossRandomGeneration();
-                bossManager.isGanerat = false;
-            }
+            BossRandomGeneration();
         }
 
         for (int i = 0; i < bossList.Count; i++)
@@ -120,7 +117,6 @@ public class BossGenerator : MonoBehaviour
                     bossC.transform.position = bossPositionCenter;
                     bossList.Add(bossC.GetComponent<BossDamage>());
                     bossCountOne++;
-                    bossManager.isGanerat = false;
                     isCenterLine = true;
                 }
                 break;
@@ -131,7 +127,6 @@ public class BossGenerator : MonoBehaviour
                     bossL.transform.position = bossPositionLeft;
                     bossList.Add(bossL.GetComponent<BossDamage>());
                     bossCountOne++;
-                    bossManager.isGanerat = false;
                     isLeftLine = true;
                 }
                 break;
@@ -142,7 +137,6 @@ public class BossGenerator : MonoBehaviour
                     bossR.transform.position = bossPositionRight;
                     bossList.Add(bossR.GetComponent<BossDamage>());
                     bossCountOne++;
-                    bossManager.isGanerat = false;
                     isRightLine = true;
                 }
                 break;
