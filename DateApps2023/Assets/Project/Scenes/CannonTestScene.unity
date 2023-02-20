@@ -2553,22 +2553,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: energyCharge
-      value: 
-      objectReference: {fileID: 80395235}
-    - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: finalColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: finalColor.g
-      value: 0.27036548
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894873956020440334, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: finalColor.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4244961312042077683, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
