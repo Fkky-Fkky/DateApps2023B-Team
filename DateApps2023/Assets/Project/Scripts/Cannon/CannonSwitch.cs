@@ -21,9 +21,9 @@ public class CannonSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        button = transform.GetChild(0).gameObject;
+        button = transform.GetChild(1).gameObject;
         defaultScale = button.GetComponent<Transform>().localScale;
-        switchOnScale = new Vector3(defaultScale.x, defaultScale.y, 0.0f);
+        switchOnScale = new Vector3(0.5f, defaultScale.y, defaultScale.z);
         boxCollider = GetComponent<BoxCollider>();
         SwitchOn();
     }
