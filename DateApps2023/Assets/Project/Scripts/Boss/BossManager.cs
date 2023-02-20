@@ -6,40 +6,26 @@ public class BossManager : MonoBehaviour
 {
     [SerializeField]
     private CannonManager cannonManager = null;
+
     [SerializeField]
-    private BossGenerator bossGenerator = null;
+    private BossCSVGenerator bossCSVGenerator = null;
 
     public BossDamage bossDamage;
-
-    float bossGenerationTime = 0.0f;
-    [SerializeField]
-    float bossIntervalTime = 10.0f;
-
-    public bool isGanerat;
 
     private GameObject centerBoss;
     private GameObject leftBoss;
     private GameObject rightBoss;
     private void Start()
     {
-        isGanerat = false;
 
     }
 
     void Update()
     {
-        bossGenerationTime += Time.deltaTime;
-        if (bossGenerationTime >= bossIntervalTime)
-        {
-            isGanerat = true;
-            bossGenerationTime = 0.0f;
-        }
-
         BossDamage();
-
         BossFellDown();
+        
     }
-
 
     private void BossDamage()
     {
@@ -99,31 +85,31 @@ public class BossManager : MonoBehaviour
         centerBoss = GameObject.FindGameObjectWithTag("Center");
         if (centerBoss == null)
         {
-            bossGenerator.IsCenterLineFalse();
+            bossCSVGenerator.IsCenterLineFalse();
         }
         else
         {
-            bossGenerator.IsCenterLineTrue();
+            bossCSVGenerator.IsCenterLineTrue();
         }
 
         leftBoss = GameObject.FindGameObjectWithTag("Left");
         if (leftBoss == null)
         {
-            bossGenerator.IsLeftLineFalse();
+            bossCSVGenerator.IsLeftLineFalse();
         }
         else
         {
-            bossGenerator.IsLeftLineTrue();
+            bossCSVGenerator.IsLeftLineTrue();
         }
 
         rightBoss = GameObject.FindGameObjectWithTag("Right");
         if (rightBoss == null)
         {
-            bossGenerator.IsRightLineFalse();
+            bossCSVGenerator.IsRightLineFalse();
         }
         else
         {
-            bossGenerator.IsRightLineTrue();
+            bossCSVGenerator.IsRightLineTrue();
         }
 
     }

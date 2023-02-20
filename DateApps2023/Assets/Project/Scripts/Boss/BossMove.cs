@@ -53,7 +53,7 @@ public class BossMove : MonoBehaviour
     private bool isNotMove = false;
 
     private float moveTime    = 0.0f;
-    private float moveTimeMax = 2.0f;
+    private float moveTimeMax = 3.0f;
 
     [SerializeField]
     private GameObject shockWaveEffect;
@@ -177,7 +177,7 @@ public class BossMove : MonoBehaviour
 
         if (!damageFlag && !bossDamage.isTrance)
         {
-            if (!bossAttack.isAttack)
+            if (!bossAttack.IsAttackAll())
             {
                 Move();
             }
