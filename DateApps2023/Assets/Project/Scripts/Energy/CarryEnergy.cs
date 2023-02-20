@@ -28,8 +28,7 @@ public class CarryEnergy : MonoBehaviour
     {
         Small,
         Medium,
-        Large,
-        XL
+        Large
     }
 
     [SerializeField]
@@ -46,21 +45,6 @@ public class CarryEnergy : MonoBehaviour
     {
         boxCol = GetComponent<BoxCollider>();
 
-        switch (myItemSize)
-        {
-            default:
-                //MyItemSizeCount = (int)myItemSize;
-                break;
-            //case ItemSize.Small:
-            //    myItemSizeCount = (int)ItemSize.Small;
-            //    break;
-            //case ItemSize.Medium:
-            //    myItemSizeCount = (int)ItemSize.Medium;
-            //    break;
-            //case ItemSize.Large:
-            //    myItemSizeCount = (int)ItemSize.Large;
-            //    break;
-        }
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)

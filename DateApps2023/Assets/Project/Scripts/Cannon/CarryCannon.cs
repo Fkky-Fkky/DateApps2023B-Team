@@ -26,8 +26,7 @@ public class CarryCannon : MonoBehaviour
     {
         Small,
         Medium,
-        Large,
-        XL
+        Large
     }
 
     [SerializeField]
@@ -45,15 +44,6 @@ public class CarryCannon : MonoBehaviour
             default:
                 myItemSizeCount = (int)myItemSize;
                 break;
-                //case ItemSize.Small:
-                //    myItemSizeCount = (int)ItemSize.Small;
-                //    break;
-                //case ItemSize.Medium:
-                //    myItemSizeCount = (int)ItemSize.Medium;
-                //    break;
-                //case ItemSize.Large:
-                //    myItemSizeCount = (int)ItemSize.Large;
-                //    break;
         }
     }
 

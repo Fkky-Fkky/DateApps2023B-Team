@@ -58,7 +58,7 @@ public class EnergyCharge : MonoBehaviour
                 ChrgeEnergyType = (int)EnergyType.MEDIUM;
                 break;
 
-            case (int)CarryEnergy.ItemSize.XL:
+            case (int)CarryEnergy.ItemSize.Large:
                 ChrgeEnergyType = (int)EnergyType.LARGE;
                 break;
         }
