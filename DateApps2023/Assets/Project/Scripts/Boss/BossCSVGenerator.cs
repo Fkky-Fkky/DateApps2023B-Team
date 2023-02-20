@@ -26,6 +26,7 @@ public class BossCSVGenerator : MonoBehaviour
     private int bossLane = 0;
     private float attackIntervalDate;
     private float posZ;
+    private int bossHpDate;
 
     private float centerPosX =    0.0f;
     private float leftPosX   = -100.0f;
@@ -68,7 +69,9 @@ public class BossCSVGenerator : MonoBehaviour
                 bossLane = bossCSV.appearanceLane[bossCountOne];
                 attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
                 posZ = bossCSV.positionZ[bossCountOne];
-                
+                bossHpDate = bossCSV.bossHp[bossCountOne];
+
+
 
                 BossTypeGanarate();
             }
@@ -181,4 +184,8 @@ public class BossCSVGenerator : MonoBehaviour
         return attackIntervalDate;
     }
 
+    public int BossHP()
+    {
+        return bossHpDate;
+    }
 }
