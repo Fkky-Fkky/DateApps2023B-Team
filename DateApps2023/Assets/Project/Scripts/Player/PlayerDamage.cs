@@ -190,8 +190,6 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
-        playerMove.CallCarryCancel();
-
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
@@ -202,6 +200,7 @@ public class PlayerDamage : MonoBehaviour
         AnimationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
+        playerCarryDown.CarryCancel();
         playerCarryDown.OnCarryDamage();
         playerAttack.OnIsDamage();
 
@@ -227,7 +226,6 @@ public class PlayerDamage : MonoBehaviour
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
         }
-        playerMove.CallCarryCancel();
 
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
@@ -238,6 +236,7 @@ public class PlayerDamage : MonoBehaviour
         AnimationImage.SetBool("Capture", true);
 
         playerMove.PlayerDamage();
+        playerCarryDown.CarryCancel();
         playerCarryDown.OnCarryDamage();
         playerAttack.OnIsDamage(); 
 
@@ -313,7 +312,7 @@ public class PlayerDamage : MonoBehaviour
         audioSource.PlayOneShot(knockbackSound);
         //var distination = (transform.position - knockPos.position).normalized;
         //transform.position += distination * knockBackPower;
-        rb.velocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
     }
 
     public void GetPlayerNo(int myNumber)

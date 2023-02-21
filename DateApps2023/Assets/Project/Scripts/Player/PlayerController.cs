@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     {
         if (controlFrag)
         {
-            Debug.Log(mySpeed);
             Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
             for (int i = 0; i < gamepadFrag.Length; i++)
@@ -158,10 +157,6 @@ public class PlayerController : MonoBehaviour
         }
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.CompareTag("item"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
-            }
             if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
             {
                 transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
@@ -185,7 +180,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("BossAttack"))
         {
-            ReleaseChild();
+            DamageChild();
         }
     }
 
@@ -202,11 +197,7 @@ public class PlayerController : MonoBehaviour
         }
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.CompareTag("Player"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().CallDamage();
-            }
-            else if (transform.GetChild(i).gameObject.CompareTag("item"))
+            if (transform.GetChild(i).gameObject.CompareTag("item"))
             {
                 transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
             }

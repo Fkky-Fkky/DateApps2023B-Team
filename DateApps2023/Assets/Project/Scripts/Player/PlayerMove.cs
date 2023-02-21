@@ -167,11 +167,14 @@ public class PlayerMove : MonoBehaviour
 
     public void RemoveItem(int groupNo)
     {
-        GameObject group = GameObject.Find("Group" + groupNo);
-        gameObject.transform.parent = null;
-        PlayerController playerController = group.GetComponent<PlayerController>();
-        int sentNumber = playerNo;
-        playerController.PlayerOutGroup(sentNumber);
+        if (InGroup)
+        {
+            GameObject group = GameObject.Find("Group" + groupNo);
+            gameObject.transform.parent = null;
+            PlayerController playerController = group.GetComponent<PlayerController>();
+            int sentNumber = playerNo;
+            playerController.PlayerOutGroup(sentNumber);
+        }
 
         EnterItem = false;
         InGroup = false;
