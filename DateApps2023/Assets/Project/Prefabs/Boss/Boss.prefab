@@ -895,6 +895,7 @@ MonoBehaviour:
   warningDisplay: {fileID: 3711339312594873015}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
+  isLastAttack: 0
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
