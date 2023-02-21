@@ -26,7 +26,7 @@ public class SceneMove : MonoBehaviour
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
-                if (gamepad.startButton.wasPressedThisFrame)
+                if (gamepad.aButton.wasPressedThisFrame)
                 {
                     SceneManager.LoadScene(sceneName);
                     SceneChangeFlag = true;
