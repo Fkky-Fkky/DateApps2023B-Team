@@ -18,6 +18,7 @@ public class CannonConnect : MonoBehaviour
 
     private Transform standTransform = null;
     private AudioSource audioSource = null;
+    private BoxCollider standCollision = null;
 
     private const float CANNON_POS_Y = -0.3f;
 
@@ -45,7 +46,8 @@ public class CannonConnect : MonoBehaviour
         {
             return;
         }
-        ConnectingPos = other.GetComponent<CannonStand>().ConnectingPos;
+        standCollision = other.gameObject.GetComponent<BoxCollider>();
+        ConnectingPos  = other.GetComponent<CannonStand>().ConnectingPos;
         standTransform = other.transform;
         CannontConnect();
     }
@@ -53,6 +55,7 @@ public class CannonConnect : MonoBehaviour
     private void CannontConnect()
     {
         IsConnect = true;
+        standCollision.enabled = false;
         transform.rotation = standTransform.rotation;
         Instantiate(connectEffect, effectPos.position, Quaternion.identity);
         audioSource.PlayOneShot(connectSe);
@@ -61,6 +64,7 @@ public class CannonConnect : MonoBehaviour
     private void CannonCut()
     {
         IsConnect = false;
+        standCollision.enabled = true;
         transform.rotation = Quaternion.identity;
         standTransform = null;
         ConnectingPos = -1;
