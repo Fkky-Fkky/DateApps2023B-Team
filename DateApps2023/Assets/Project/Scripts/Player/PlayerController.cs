@@ -147,20 +147,6 @@ public class PlayerController : MonoBehaviour
 
     public void ReleaseChild()
     {
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            if (transform.GetChild(i).gameObject.CompareTag("item"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().DoHanteiEnter();
-            }
-            if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
-            }
-            transform.GetChild(i).gameObject.transform.parent = null;
-        }
-
-
         for (int i = 0; i < ChildPlayer.Length; i++)
         {
             if (ChildPlayer[i] != null || AnimationImage[i] != null)
@@ -169,6 +155,18 @@ public class PlayerController : MonoBehaviour
                 ChildPlayer[i] = null;
                 AnimationImage[i] = null;
             }
+        }
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.CompareTag("item"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
+            }
+            if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
+            }
+            transform.GetChild(i).gameObject.transform.parent = null;
         }
         AllFragFalse();
     }
@@ -187,28 +185,12 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("BossAttack"))
         {
-            DamageChild();
+            ReleaseChild();
         }
     }
 
     public void DamageChild()
     {
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            if (transform.GetChild(i).gameObject.CompareTag("Player"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().CallDamage();
-            }
-            if (transform.GetChild(i).gameObject.CompareTag("item"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
-            }
-            if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
-            }
-            //transform.GetChild(i).gameObject.transform.parent = null;
-        }
         for (int i = 0; i < ChildPlayer.Length; i++)
         {
             if (ChildPlayer[i] != null || AnimationImage[i] != null)
@@ -218,7 +200,24 @@ public class PlayerController : MonoBehaviour
                 AnimationImage[i] = null;
             }
         }
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.CompareTag("Player"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().CallDamage();
+            }
+            else if (transform.GetChild(i).gameObject.CompareTag("item"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
+            }
+            else if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
+            {
+                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
+            }
+            //transform.GetChild(i).gameObject.transform.parent = null;
+        }
         AllFragFalse();
+
     }
 
     public void PlayerOutGroup(int outChildNo)
@@ -241,6 +240,7 @@ public class PlayerController : MonoBehaviour
         HaveItem = false;
         outline.enabled = true;
         outline = null;
+        CheckPlayerCount();
         carryText.text = null;
         carryText = null;
         rb.mass = defaultMass;
@@ -279,11 +279,16 @@ public class PlayerController : MonoBehaviour
             {
                 carryText.color = Color.white;
             }
+            else if (playerCount <= 0)
+            {
+                carryText.text = null;
+            }
             else
             {
                 carryText.color = Color.red;
             }
         }
+        
 
         if (playerCount >= NeedCarryCount)
         {

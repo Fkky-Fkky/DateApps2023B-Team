@@ -72,7 +72,7 @@ public class PlayerCarryDown : MonoBehaviour
             {
                 if (isCarry)
                 {
-                    HanteiEnter();
+                    CarryCancel();
                 }
             }
 
@@ -116,7 +116,7 @@ public class PlayerCarryDown : MonoBehaviour
         }
     }
 
-    public void HanteiEnter()
+    public void CarryCancel()
     {
         playermove.RemoveItem(myGroupNo);
         rb = GetComponentInParent<Rigidbody>();
