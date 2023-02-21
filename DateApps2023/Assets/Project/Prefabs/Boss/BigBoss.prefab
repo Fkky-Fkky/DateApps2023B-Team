@@ -1035,16 +1035,7 @@ MonoBehaviour:
   stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
   maxHp: 0
   hpBar: []
-  hpMemori:
-  - {fileID: 8714391739070088121}
-  - {fileID: 4872820380709997989}
-  - {fileID: 7808282442513585404}
-  - {fileID: 6133416746199228358}
-  - {fileID: 1521302198776576838}
-  - {fileID: 4441024315028026696}
-  - {fileID: 4257785353035036898}
-  - {fileID: 5420664016034269783}
-  - {fileID: 7017444213541244991}
+  hpMemori: {fileID: 8714391739070088121}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
