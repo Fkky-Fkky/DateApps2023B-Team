@@ -62,6 +62,14 @@ public class BossMove : MonoBehaviour
     private bool isAttackOff = false;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
+        bossHp = bossCSVGenerator.BossHP();
+    }
+
+
     void Start()
     {
 
@@ -69,7 +77,7 @@ public class BossMove : MonoBehaviour
         {
             tag = "Center";
 
-            if (bossHp == 3)
+            if (bossHp >= 3 && bossHp <= 8)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.15f, 0);
             }
@@ -77,7 +85,7 @@ public class BossMove : MonoBehaviour
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.15f, 0);
             }
-            if (bossHp == 9)
+            if (bossHp >= 9)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             }
@@ -87,7 +95,7 @@ public class BossMove : MonoBehaviour
         if (transform.position.x >= 0.1f)
         {
             tag = "Right";
-            if (bossHp == 3)
+            if (bossHp >= 3 && bossHp <= 8)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.8f, 0.15f, 0);
             }
@@ -95,7 +103,7 @@ public class BossMove : MonoBehaviour
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(9, -0.15f, 0);
             }
-            if (bossHp == 9)
+            if (bossHp >= 9)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4, 0, 0);
             }
@@ -105,8 +113,7 @@ public class BossMove : MonoBehaviour
         if (transform.position.x <= -0.1f)
         {
             tag = "Left";
-
-            if (bossHp == 3)
+            if (bossHp >= 3 && bossHp <= 8)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.8f, 0.15f, 0.0f);
             }
@@ -114,7 +121,7 @@ public class BossMove : MonoBehaviour
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-9, -0.15f, 0.0f);
             }
-            if (bossHp == 9)
+            if (bossHp >= 9)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4, 0, 0);
             }
@@ -125,9 +132,6 @@ public class BossMove : MonoBehaviour
         bossAttack = GetComponent<BossAttack>();
         bossDamage = GetComponent<BossDamage>();
         rb = GetComponent<Rigidbody>();
-
-        bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
-        bossHp = bossCSVGenerator.BossHP();
 
         camera = Camera.main;
         canvas.worldCamera = camera;
@@ -173,7 +177,6 @@ public class BossMove : MonoBehaviour
             }
         }
 
-
         if (!damageFlag && !bossDamage.isTrance)
         {
             if (!bossAttack.IsAttackAll())
@@ -181,7 +184,6 @@ public class BossMove : MonoBehaviour
                 Move();
             }
         }
-
     }
 
     private void FixedUpdate()
@@ -221,11 +223,7 @@ public class BossMove : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
 
         Vector3 pos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            pos,
-            moveSpeed * Time.deltaTime
-            );
+        transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);
 
 
         if ((transform.position.z - target.transform.position.z) <= 100.0f)
