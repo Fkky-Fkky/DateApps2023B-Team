@@ -6,6 +6,7 @@ public class BossCSVGenerator : MonoBehaviour
 {
     public BossManager bossManager;
     private BossCount bossCount;
+    private opretar opretar;
 
     [SerializeField]
     private BossCSV bossCSV = null;
@@ -27,6 +28,7 @@ public class BossCSVGenerator : MonoBehaviour
     private float attackIntervalDate;
     private float posZ;
     private int bossHpDate;
+    private float moveSpeedDate;
 
     private float centerPosX =    0.0f;
     private float leftPosX   = -100.0f;
@@ -54,27 +56,25 @@ public class BossCSVGenerator : MonoBehaviour
         isLeftLine   = false;
 
         bossCount = GetComponent<BossCount>();
+        opretar = GetComponent<opretar>();
     }
 
     void Update()
     {
 
-        if (bossCountOne <= 10)
+        time += Time.deltaTime;
+        if (time >= bossCSV.appearanceTime[bossCountOne])
         {
-            time += Time.deltaTime;
-
-            if (time >= bossCSV.appearanceTime[bossCountOne])
-            {
-                bossTypeDate = bossCSV.bossType[bossCountOne];
-                bossLane = bossCSV.appearanceLane[bossCountOne];
-                attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
-                posZ = bossCSV.positionZ[bossCountOne];
-                bossHpDate = bossCSV.bossHp[bossCountOne];
+            bossTypeDate = bossCSV.bossType[bossCountOne];
+            bossLane = bossCSV.appearanceLane[bossCountOne];
+            attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
+            posZ = bossCSV.positionZ[bossCountOne];
+            bossHpDate = bossCSV.bossHp[bossCountOne];
+            moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
 
 
 
-                BossTypeGanarate();
-            }
+            BossTypeGanarate();
         }
 
         for (int i = 0; i < bossList.Count; i++)
@@ -98,12 +98,15 @@ public class BossCSVGenerator : MonoBehaviour
         {
             case "Nomal":
                 boss = Instantiate(nomalBoss);
+                //opretar.summonboss();
                 break;
             case "Mini":
                 boss = Instantiate(miniBoss);
+                //opretar.summonminiboss();
                 break;
             case "Big":
                 boss = Instantiate(bigBoss);
+                //opretar.summonbigboss();
                 break;
         }
     }
@@ -187,5 +190,10 @@ public class BossCSVGenerator : MonoBehaviour
     public int BossHP()
     {
         return bossHpDate;
+    }
+
+    public float BossMoveSpeed()
+    {
+        return moveSpeedDate;
     }
 }

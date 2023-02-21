@@ -15,6 +15,7 @@ public class BossCSV : MonoBehaviour
     public int[] appearanceLane = new int[11];
     public float[] positionZ = new float[11];
     public int[] bossHp = new int[11];
+    public float[] bossSpeed = new float[11];
 
     private int height = 0;
     private int i = 1; 
@@ -49,12 +50,14 @@ public class BossCSV : MonoBehaviour
             appearanceLane[i] = int.Parse(bossDate[i][3]);
             positionZ[i] = float.Parse(bossDate[i][4]);
             bossHp[i] = int.Parse(bossDate[i][5]);
+            bossSpeed[i] = float.Parse(bossDate[i][6]);
 
 
             Debug.Log("ボスを読み込みました : " + bossType[i]);
             Debug.Log("ボスの出現時間を読み込みました : " + appearanceTime[i]);
             Debug.Log("ボスの攻撃時間を読み込みました : " + attackIntervalTime[i]);
             Debug.Log("ボスの出現レーンを読み込みました : " + appearanceLane[i]);
+            Debug.Log("ボスの移動スピードを読み込みました : " + bossSpeed[i]);
 
 
         }

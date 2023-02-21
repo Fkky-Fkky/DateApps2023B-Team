@@ -754,7 +754,8 @@ MonoBehaviour:
   stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
   maxHp: 0
   hpBar: []
-  hpMemori: {fileID: 8455852809812342072}
+  hpMemori:
+  - {fileID: 8455852809812342072}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
