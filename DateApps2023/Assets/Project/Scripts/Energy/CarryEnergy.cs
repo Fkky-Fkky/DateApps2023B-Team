@@ -89,15 +89,6 @@ public class CarryEnergy : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("SteelFrame"))
-        {
-            var heading = this.gameObject.transform.position - collision.gameObject.transform.position;
-            this.gameObject.transform.position += new Vector3(heading.x * 0.5f, 0.0f, heading.z * 0.5f);
-        }
-    }
-
     public void OutGroup()
     {
         InGroup = false;

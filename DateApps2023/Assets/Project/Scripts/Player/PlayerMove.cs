@@ -165,19 +165,16 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    public void RemoveItem(int groupNo)
+    public void RemoveItem()
     {
         if (InGroup)
         {
-            GameObject group = GameObject.Find("Group" + groupNo);
+            gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
             gameObject.transform.parent = null;
-            PlayerController playerController = group.GetComponent<PlayerController>();
-            int sentNumber = playerNo;
-            playerController.PlayerOutGroup(sentNumber);
+            EnterItem = false;
+            InGroup = false;
         }
-
-        EnterItem = false;
-        InGroup = false;
+        
         attack.OffIsCarry();
 
         rb = this.gameObject.AddComponent<Rigidbody>();

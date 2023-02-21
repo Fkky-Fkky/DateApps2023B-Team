@@ -155,14 +155,6 @@ public class PlayerController : MonoBehaviour
                 AnimationImage[i] = null;
             }
         }
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
-            }
-            transform.GetChild(i).gameObject.transform.parent = null;
-        }
         AllFragFalse();
     }
 
@@ -208,7 +200,6 @@ public class PlayerController : MonoBehaviour
             //transform.GetChild(i).gameObject.transform.parent = null;
         }
         AllFragFalse();
-
     }
 
     public void PlayerOutGroup(int outChildNo)
