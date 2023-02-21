@@ -38,8 +38,8 @@ public class CannonShot : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        laserEndTime[0] = 0.5f;
-        laserEndTime[1] = 1.0f;
+        laserEndTime[0] = 1.0f;
+        laserEndTime[1] = 1.5f;
         laserEndTime[2] = 2.0f;
     }
 
@@ -77,7 +77,7 @@ public class CannonShot : MonoBehaviour
         energyType = energyCharge.ChrgeEnergyType;
         energyCharge.DisChargeEnergy();
         CreateChageEffect();
-        Invoke(nameof(CreateSmoke), laserEndTime[energyType]);
+        Invoke(nameof(CreateSmoke), INVOKE_TIME);
     }
 
     private void CreateChageEffect()
