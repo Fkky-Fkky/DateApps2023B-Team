@@ -62,7 +62,7 @@ public class BossMove : MonoBehaviour
     private bool isLastAttack = false;
 
     private float gameOverTime = 0.0f;
-    private float gameOverTimeCenterMax = 8.0f;
+    private float gameOverTimeCenterMax = 7.0f;
     private float gameOverTimeSideMax = 6.5f;
 
     private bool isAttackOff = false;
