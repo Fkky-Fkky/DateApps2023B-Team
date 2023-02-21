@@ -302,7 +302,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (playerCount == 3)
             {
-                mySpeed = (moveSpeed * 2.0f) / playerCount;
+                mySpeed = (moveSpeed * 3.0f) / playerCount;
             }
             else if (playerCount == 4)
             {
@@ -313,7 +313,7 @@ public class PlayerController : MonoBehaviour
         {
             if (playerCount == 1)
             {
-                mySpeed = (moveSpeed * 0.4f) / playerCount;
+                mySpeed = (moveSpeed * 0.5f) / playerCount;
             }
             else if (playerCount == 2)
             {
@@ -332,19 +332,19 @@ public class PlayerController : MonoBehaviour
         {
             if (playerCount == 1)
             {
-                mySpeed = (moveSpeed * 0.1f) / playerCount;
+                mySpeed = (moveSpeed * 0.25f) / playerCount;
             }
             else if (playerCount == 2)
             {
-                mySpeed = (moveSpeed * 0.2f) / playerCount;
+                mySpeed = (moveSpeed * 0.5f) / playerCount;
             }
             else if (playerCount == 3)
             {
-                mySpeed = (moveSpeed * 0.5f) / playerCount;
+                mySpeed = (moveSpeed * 0.75f) / playerCount;
             }
             else if (playerCount == 4)
             {
-                mySpeed = (moveSpeed * 1.25f) / playerCount;
+                mySpeed = (moveSpeed * 1.5f) / playerCount;
             }
         }
     }

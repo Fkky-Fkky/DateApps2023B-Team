@@ -11,6 +11,10 @@ public class AudioMaster : MonoBehaviour
     [SerializeField]
     private AudioClip[] bgm2;
 
+    [SerializeField]
+    private int changeKillCount = 5;
+
+    private bool FirstHalf = true;
     private int number;
 
     private void Start()
@@ -19,6 +23,19 @@ public class AudioMaster : MonoBehaviour
         number = Random.Range(0, bgm1.Length);
         audioSource.clip = bgm1[number];
         audioSource.Play();
+    }
+
+    private void Update()
+    {
+        if (FirstHalf)
+        {
+            if (BossCount.GetKillCount() >= changeKillCount)
+            {
+                PlayBGM2();
+                FirstHalf = false;
+            }
+        }
+        
     }
 
     public void PlayBGM2()
