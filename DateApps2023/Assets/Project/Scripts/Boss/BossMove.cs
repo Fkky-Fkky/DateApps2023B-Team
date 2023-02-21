@@ -67,6 +67,13 @@ public class BossMove : MonoBehaviour
     {
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
         bossHp = bossCSVGenerator.BossHP();
+
+        if (bossHp > 9)
+        {
+            bossHp = 9;
+        }
+
+        moveSpeed = bossCSVGenerator.BossMoveSpeed();
     }
 
 
