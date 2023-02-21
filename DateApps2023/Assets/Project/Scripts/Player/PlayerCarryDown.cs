@@ -118,7 +118,7 @@ public class PlayerCarryDown : MonoBehaviour
 
     public void CarryCancel()
     {
-        playermove.RemoveItem(myGroupNo);
+        playermove.RemoveItem();
         rb = GetComponentInParent<Rigidbody>();
 
         isCarry = false;

@@ -55,7 +55,6 @@ public class CarryCannon : MonoBehaviour
         playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
         number++;
 
-
         boxCol.isTrigger = false;
 
         while (!InGroup)
