@@ -14,6 +14,7 @@ public class BossMove : MonoBehaviour
     private BossAttack bossAttack;
     private BossDamage bossDamage;
     private BossCSVGenerator bossCSVGenerator;
+    private GameOver gameOver;
 
     [SerializeField]
     private float moveSpeed = 2.0f;
@@ -57,7 +58,12 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private float Multiplier = 50.0f;
 
+    [SerializeField]
     private bool isLastAttack = false;
+
+    private float gameOverTime = 0.0f;
+    private float gameOverTimeCenterMax = 8.0f;
+    private float gameOverTimeSideMax = 6.5f;
 
     private bool isAttackOff = false;
 
@@ -66,7 +72,7 @@ public class BossMove : MonoBehaviour
     private void Awake()
     {
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
-        bossHp = bossCSVGenerator.BossHP();
+        bossHp =  bossCSVGenerator.BossHP();
 
         if (bossHp > 9)
         {
@@ -74,6 +80,8 @@ public class BossMove : MonoBehaviour
         }
 
         moveSpeed = bossCSVGenerator.BossMoveSpeed();
+
+        gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
     }
 
 
@@ -191,6 +199,24 @@ public class BossMove : MonoBehaviour
                 Move();
             }
         }
+
+        if (isLastAttack) {
+            gameOverTime += Time.deltaTime;
+            if ((gameObject.tag == "Right" || gameObject.tag == "Left") && gameOverTime >= gameOverTimeSideMax)
+            {
+                gameOver.GameOverTransition();
+            }
+            if(gameObject.tag== "Center" && gameOverTime >= gameOverTimeCenterMax)
+            {
+                gameOver.GameOverTransition();
+            }
+
+            if ((gameOverTime < gameOverTimeCenterMax || gameOverTime < gameOverTimeSideMax) && damageFlag)
+            {
+                gameOverTime = 0.0f;
+                isLastAttack = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -248,6 +274,10 @@ public class BossMove : MonoBehaviour
             warningDisplay.SetActive(false);
             isLastAttack = true;
             AnimationImage.SetTrigger("LastAttack");
+        }
+        else
+        {
+            isLastAttack = false;
         }
 
 
