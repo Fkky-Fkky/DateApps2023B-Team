@@ -22,8 +22,8 @@ public class CannonSwitch : MonoBehaviour
     void Start()
     {
         button = transform.GetChild(1).gameObject;
-        defaultScale = button.GetComponent<Transform>().localScale;
-        switchOnScale = new Vector3(0.5f, defaultScale.y, defaultScale.z);
+        defaultScale  = button.transform.localScale;
+        switchOnScale = new Vector3(0.0f, defaultScale.y, defaultScale.z);
         boxCollider = GetComponent<BoxCollider>();
         SwitchOn();
     }

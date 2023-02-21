@@ -13,7 +13,10 @@ public class GenerateEnergy : MonoBehaviour
     [SerializeField]
     private Transform generatePosMax = null;
 
-    private float[] createArea = new float[6];
+    [SerializeField]
+    float GENERATE_INTERVAL_TIME = 10.0f;
+
+    private float[] createArea = new float[5];
     private bool isGenerate = false;
     private Vector3 halfExtents = Vector3.zero;
     private List<int> createEnergyTypeList = new List<int>();
@@ -21,13 +24,12 @@ public class GenerateEnergy : MonoBehaviour
     private List<Vector3> createPositionList = new List<Vector3>();
 
     const int MAX_GENERATE = 4;
-    const int MAX_AREA = 6;
+    const int MAX_AREA = 5;
     const int RANDOM_MAX = 100;
-    const int MEDIUM_MIN = 20;
-    const int MEDIUM_MAX = 50;
+    const int MEDIUM_MIN = 40;
+    const int MEDIUM_MAX = 90;
     const int MAX_MISS_COUNT = 30;
     const float GENERATE_POS_Y = 20.0f;
-    const float GENERATE_INTERVAL_TIME = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -84,13 +86,13 @@ public class GenerateEnergy : MonoBehaviour
     {
         int type = (int)EnergyCharge.EnergyType.SMALL;
         int energyNum = Random.Range(0, RANDOM_MAX);
-        if (energyNum >= 0 && energyNum < MEDIUM_MIN)
-        {
-            type = (int)EnergyCharge.EnergyType.LARGE;
-        }
-        else if (energyNum >= MEDIUM_MIN && energyNum < MEDIUM_MAX)
+        if (energyNum >= MEDIUM_MIN && energyNum < MEDIUM_MAX)
         {
             type = (int)EnergyCharge.EnergyType.MEDIUM;
+        }
+        else if (energyNum >= MEDIUM_MAX && energyNum < RANDOM_MAX)
+        {
+            type = (int)EnergyCharge.EnergyType.LARGE;
         }
         createEnergyTypeList.Add(type);
     }
@@ -151,12 +153,10 @@ public class GenerateEnergy : MonoBehaviour
             {
                 createPositionList.Add(genaratePos);
                 generateNum++;
-            }
-            else
-            {
-                miss++;
+                continue;
             }
 
+            miss++;
             if (miss > MAX_MISS_COUNT)
             {
                 break;
@@ -170,7 +170,7 @@ public class GenerateEnergy : MonoBehaviour
         for (int i = 0; i < createPositionList.Count; i++)
         {
             Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
-            Instantiate(energies[(int)EnergyCharge.EnergyType.MEDIUM], position, Quaternion.Euler(0.0f, 180.0f, 0.0f));
+            Instantiate(energies[(int)EnergyCharge.EnergyType.SMALL], position, Quaternion.Euler(0.0f, 180.0f, 0.0f));
         }
         createPositionList.Clear();
     }
