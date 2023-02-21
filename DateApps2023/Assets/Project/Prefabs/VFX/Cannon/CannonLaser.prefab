@@ -58802,6 +58802,7 @@ MonoBehaviour:
   effectType: 1
   bossAttack: {fileID: 0}
   cannonShot: {fileID: 0}
+  energyCharge: {fileID: 0}
 --- !u!1 &3781847508086757507
 GameObject:
   m_ObjectHideFlags: 0

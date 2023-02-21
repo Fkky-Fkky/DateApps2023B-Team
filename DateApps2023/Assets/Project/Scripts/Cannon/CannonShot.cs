@@ -27,6 +27,7 @@ public class CannonShot : MonoBehaviour
 
     private int energyType = 0;
     private float coolTime = 0.0f;
+    private float[] laserEndTime = new float[3];
     private bool isCoolTime = false;
     private AudioSource audioSource = null;
     private GameObject shotCharge = null;
@@ -37,6 +38,9 @@ public class CannonShot : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        laserEndTime[0] = 0.5f;
+        laserEndTime[1] = 1.0f;
+        laserEndTime[2] = 2.0f;
     }
 
     // Update is called once per frame
@@ -56,7 +60,6 @@ public class CannonShot : MonoBehaviour
 
         IsShotting = false;
         isCoolTime = false;
-        IsNowShot  = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -74,7 +77,7 @@ public class CannonShot : MonoBehaviour
         energyType = energyCharge.ChrgeEnergyType;
         energyCharge.DisChargeEnergy();
         CreateChageEffect();
-        Invoke(nameof(CreateSmoke), INVOKE_TIME);
+        Invoke(nameof(CreateSmoke), laserEndTime[energyType]);
     }
 
     private void CreateChageEffect()
@@ -91,6 +94,12 @@ public class CannonShot : MonoBehaviour
         coolTime   = MAX_COOL_TIME;
         IsNowShot  = true;
         isCoolTime = true;
+        Invoke(nameof(LaserEnd), laserEndTime[energyType]);
+    }
+
+    private void LaserEnd()
+    {
+        IsNowShot = false;
     }
 
     private void ShotCancel()

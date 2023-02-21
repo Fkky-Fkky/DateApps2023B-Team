@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
   chargeSe: {fileID: 8300000, guid: b17165e5376f4ab43ae13df612607253, type: 3}
   generateEnergy: {fileID: 0}
+  cannonLaser: {fileID: 3007549720114495770}
 --- !u!65 &608408025037340663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1213,5 +1214,10 @@ PrefabInstance:
 --- !u!4 &3002761047406845186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3778484163495630021, guid: 014e4082c350ba24f92dd0b3b4780d37, type: 3}
+  m_PrefabInstance: {fileID: 2144887772895775175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3007549720114495770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3781012240481126621, guid: 014e4082c350ba24f92dd0b3b4780d37, type: 3}
   m_PrefabInstance: {fileID: 2144887772895775175}
   m_PrefabAsset: {fileID: 0}
