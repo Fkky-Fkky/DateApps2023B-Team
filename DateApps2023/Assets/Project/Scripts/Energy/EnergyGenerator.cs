@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenerateEnergy : MonoBehaviour
+public class EnergyGenerator : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] energies = new GameObject[3];
@@ -55,7 +55,6 @@ public class GenerateEnergy : MonoBehaviour
         {
             createArea[i] = generatePosMin.position.x + (fourDivide * i);
         }
-        FirstGenerate();
     }
 
     private void Update()
@@ -133,7 +132,7 @@ public class GenerateEnergy : MonoBehaviour
         isGenerate = false;
     }
 
-    private void FirstGenerate()
+    public void FirstGenerate()
     {
         FirstGeneratePosition();
         FirstEnergyGenerate();

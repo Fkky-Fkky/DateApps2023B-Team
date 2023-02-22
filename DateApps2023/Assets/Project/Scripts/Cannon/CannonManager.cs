@@ -66,4 +66,9 @@ public class CannonManager : MonoBehaviour
             return connectingPosList;
         }
     }
+
+    public bool IsFirstCharge()
+    {
+        return energyCharge[0].IsEnergyCharged();
+    }
 }
