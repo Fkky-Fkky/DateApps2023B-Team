@@ -267,10 +267,10 @@ public class PlayerDamage : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttackPoint"))
         {
             knockCount++;
+            Instantiate(knockbackEffect, this.transform.position, other.transform.rotation);
 
             if (!currentDamage && !currentCapture)
             {
-                Instantiate(knockbackEffect, this.transform.position, other.transform.rotation);
                 CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
             }
         }

@@ -11,6 +11,15 @@ public class SceneMove : MonoBehaviour
     private string sceneName = "New Scene";
 
     private bool SceneChangeFlag = false;
+    private bool IsAnimation = false;
+
+    [SerializeField]
+    private Animator AnimationImage = null;
+
+    [SerializeField]
+    private float AfterPressTime = 1.0f;
+
+    private float time = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +37,26 @@ public class SceneMove : MonoBehaviour
                 var gamepad = Gamepad.all[i];
                 if (gamepad.aButton.wasPressedThisFrame)
                 {
-                    SceneManager.LoadScene(sceneName);
                     SceneChangeFlag = true;
                 }
+            }
+        }
+        else
+        {
+            if (AnimationImage != null)
+            {
+                IsAnimation = true;
+                AnimationImage.SetTrigger("AcceptStart");
+                time += Time.deltaTime;
+                if (time >= AfterPressTime)
+                {
+                    IsAnimation = false;
+                    time = 0.0f;
+                }
+            }
+            if (!IsAnimation)
+            {
+                SceneManager.LoadScene(sceneName);
             }
         }
         
