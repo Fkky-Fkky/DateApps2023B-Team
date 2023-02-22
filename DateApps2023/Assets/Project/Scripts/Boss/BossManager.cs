@@ -18,7 +18,6 @@ public class BossManager : MonoBehaviour
     private GameObject leftBoss;
     private GameObject rightBoss;
 
-    private bool isFirstMessage = false;
 
     void Update()
     {
