@@ -45,6 +45,9 @@ public class CarryCannon : MonoBehaviour
                 myItemSizeCount = (int)myItemSize;
                 break;
         }
+
+        Array.Resize(ref myGrabPoint, 0);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)
@@ -93,12 +96,15 @@ public class CarryCannon : MonoBehaviour
         InGroup = false;
         gameObject.transform.parent = null;
         DoCarryCancel();
-
+        
         this.gameObject.transform.position = new Vector3(
             this.gameObject.transform.position.x,
             defaultPosY,
             this.gameObject.transform.position.z
             );
+        Array.Resize(ref myGrabPoint, 0);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+        number = 0;
 
     }
 
@@ -107,10 +113,6 @@ public class CarryCannon : MonoBehaviour
         for (int i = 0; i < myGrabPoint.Length; i++)
         {
             playerCarryDowns[i].CarryCancel();
-            playerCarryDowns[i] = null;
-            myGrabPoint[i] = null;
         }
-        Array.Resize(ref myGrabPoint, 0);
-        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
     }
 }
