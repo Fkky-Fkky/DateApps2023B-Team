@@ -15,7 +15,6 @@ public class BossMove : MonoBehaviour
     private BossDamage bossDamage;
     private BossCSVGenerator bossCSVGenerator;
     private GameOver gameOver;
-    private opretar opretar;
 
     [SerializeField]
     private float moveSpeed = 2.0f;
@@ -67,8 +66,11 @@ public class BossMove : MonoBehaviour
     private float gameOverTimeSideMax = 6.5f;
 
     private bool isAttackOff = false;
+    public bool IsLanding { get; private set; }
 
-    // Start is called before the first frame update
+    public bool isHazard { get; private set; }
+
+    private int messageCount = 0;
 
     private void Awake()
     {
@@ -83,7 +85,8 @@ public class BossMove : MonoBehaviour
         moveSpeed = bossCSVGenerator.BossMoveSpeed();
 
         gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
-        opretar = GameObject.Find("opretar").GetComponent<opretar>();
+
+
     }
 
 
@@ -162,6 +165,9 @@ public class BossMove : MonoBehaviour
         isLastAttack = false;
         isAttackOff = false;
 
+        IsLanding = false;
+        isHazard = false;
+
     }
 
     // Update is called once per frame
@@ -174,6 +180,7 @@ public class BossMove : MonoBehaviour
             if (transform.position.y <= underPos)
             {
                 Instantiate(shockWaveEffect, gameObject.transform.position, Quaternion.identity);
+                IsLanding = true;
                 pos.y = underPos;
                 transform.position = pos;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -219,6 +226,7 @@ public class BossMove : MonoBehaviour
                 isLastAttack = false;
             }
         }
+
     }
 
     private void FixedUpdate()
@@ -263,12 +271,23 @@ public class BossMove : MonoBehaviour
 
         if ((transform.position.z - target.transform.position.z) <= 100.0f)
         {
-            warningDisplay.SetActive(true);
+                warningDisplay.SetActive(true);
+            if (messageCount == 0)
+            {
+                isHazard = true;
+                messageCount++;
+            }
+            else
+            {
+                isHazard = false;
+            }
         }
-
-        if ((transform.position.z - target.transform.position.z) <= 100.0f)
+        else if((transform.position.z - target.transform.position.z) > 100.0f)
         {
-            //É{ÉXê⁄ãﬂéûÇÃèàóù
+            warningDisplay.SetActive(false);
+            isHazard = false;
+            messageCount = 0;
+
         }
 
 
@@ -287,8 +306,6 @@ public class BossMove : MonoBehaviour
         {
             isLastAttack = false;
         }
-
-
     }
 
     public void DamageTrue()
@@ -310,4 +327,6 @@ public class BossMove : MonoBehaviour
     {
         return isAttackOff;
     }
+
+
 }

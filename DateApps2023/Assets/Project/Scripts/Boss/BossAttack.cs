@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -29,6 +30,8 @@ public class BossAttack : MonoBehaviour
 
     [SerializeField]
     private Transform chargePos;
+
+    public bool IsCharge { get; private set; }
 
 
     [SerializeField]
@@ -67,12 +70,6 @@ public class BossAttack : MonoBehaviour
     public BossDamage bossDamage;
 
     private BossCSVGenerator bossCSVGenerator;
-    private opretar opretar;
-
-    private void Awake()
-    {
-        opretar = GameObject.Find("opretar").GetComponent<opretar>();
-    }
 
     private void Start()
     {
@@ -81,6 +78,8 @@ public class BossAttack : MonoBehaviour
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
 
         attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
+
+        IsCharge = false;
     }
 
     void Update()
@@ -131,11 +130,16 @@ public class BossAttack : MonoBehaviour
         if (effectStop < 1)
         {
             effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
-            opretar.boss_attck_charge();
             DangerZone();
+
+            IsCharge = true;
+
             effectStop++;
         }
-
+        else
+        {
+            IsCharge = false;
+        }
     }
 
 
@@ -158,23 +162,18 @@ public class BossAttack : MonoBehaviour
     }
     void AttackAnimation()
     {
-
          beamTime += Time.deltaTime;
         if (beamTime >= beamTimeMax)
         {
             isAttack = true;
-            opretar.boss_charge_stop_miss();
             DamageAreaControl();
         }
         else if (beamTime < beamTimeMax&& bossDamage.IsBossDamage())
         {
             AttackOff();
-            opretar.boss_attck_charge_stop();
             bossDamage.isTrance = true;
         }
-
     }
-
     void DamageAreaControl()
     {
         if (gameObject.transform.position.x == centerTarget)
@@ -203,12 +202,12 @@ public class BossAttack : MonoBehaviour
                 areaCount++;
             }
         }
+
         beamOffTime += Time.deltaTime;
         if (beamOffTime >= beamOffTimeMax)
         {
             AttackOff();
         }
-
     }
 
     private void AttackOff()

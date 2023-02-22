@@ -159,10 +159,10 @@ public class BossDamage : MonoBehaviour
 
         if (bossMove.bossHp <= 0.0f)
         {
-            isBossFellDown = true;
             bossDestroyTime += Time.deltaTime;
             if (bossDestroyTime >= bossDestroyTimeMax)
             {
+                isBossFellDown = true;
                 Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
                 StunEffectDestroy();

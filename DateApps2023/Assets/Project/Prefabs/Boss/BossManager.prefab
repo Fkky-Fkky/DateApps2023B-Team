@@ -49,6 +49,7 @@ MonoBehaviour:
   cannonManager: {fileID: 0}
   bossCSVGenerator: {fileID: 0}
   bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!114 &7900308304247319445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +112,18 @@ MonoBehaviour:
   - 0
   - 0
   bossHp: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  bossSpeed:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!114 &3804934439928866405
 MonoBehaviour:
   m_ObjectHideFlags: 0

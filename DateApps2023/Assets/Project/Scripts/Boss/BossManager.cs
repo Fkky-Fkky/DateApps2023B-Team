@@ -12,19 +12,18 @@ public class BossManager : MonoBehaviour
 
     public BossDamage bossDamage;
 
+    public BossAttack bossAttack;
+
     private GameObject centerBoss;
     private GameObject leftBoss;
     private GameObject rightBoss;
-    private void Start()
-    {
 
-    }
+    private bool isFirstMessage = false;
 
     void Update()
     {
         BossDamage();
         BossFellDown();
-        
     }
 
     private void BossDamage()
@@ -111,6 +110,43 @@ public class BossManager : MonoBehaviour
         {
             bossCSVGenerator.IsRightLineTrue();
         }
+    }
 
+    public bool IsBossFirstLanding()
+    {
+        //‰öb‚ª’n–Ê‚É’…’n‚µ‚½‚ç
+        return bossCSVGenerator.IsLanding;
+    }
+
+
+    public bool ISBossFirstKill()
+    {
+        //Å‰‚Ì‰öbŒ‚”j
+        return bossCSVGenerator.IsFirstKill;
+    }
+
+    public bool IsBossKill()
+    {
+        //‰öbŒ‚”j
+        return bossCSVGenerator.IsKill;
+    }
+
+
+    public int BossType()
+    {
+        //’† 1, ƒ~ƒj 2, Big 3
+        return bossCSVGenerator.BossTypeDate();
+    }
+
+    public bool Charge()
+    {
+        //”j‰óŒõüƒ`ƒƒ[ƒW
+        return bossCSVGenerator.IsCharge;
+    }
+
+    //Ú‹ß
+    public bool Danger()
+    {
+        return bossCSVGenerator.IsDanger;
     }
 }
