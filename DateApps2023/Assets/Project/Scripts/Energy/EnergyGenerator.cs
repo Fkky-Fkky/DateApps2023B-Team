@@ -17,6 +17,7 @@ public class EnergyGenerator : MonoBehaviour
     float GENERATE_INTERVAL_TIME = 10.0f;
 
     private float[] createArea = new float[5];
+    private bool isFirstGenerate = false;
     private bool isGenerate = false;
     private Vector3 halfExtents = Vector3.zero;
     private List<int> createEnergyTypeList = new List<int>();
@@ -134,8 +135,13 @@ public class EnergyGenerator : MonoBehaviour
 
     public void FirstGenerate()
     {
+        if (isFirstGenerate)
+        {
+            return;
+        }
         FirstGeneratePosition();
         FirstEnergyGenerate();
+        isFirstGenerate = true;
     }
 
     private void FirstGeneratePosition()
