@@ -12,6 +12,7 @@ public class SceneMove : MonoBehaviour
 
     private bool SceneChangeFlag = false;
     private bool IsAnimation = false;
+    private bool IsPlay = false;
 
     [SerializeField]
     private Animator AnimationImage = null;
@@ -30,35 +31,48 @@ public class SceneMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!SceneChangeFlag)
+        if (!IsPlay)
         {
-            for (int i = 0; i < Gamepad.all.Count; i++)
+            if (!SceneChangeFlag)
             {
-                var gamepad = Gamepad.all[i];
-                if (gamepad.aButton.wasPressedThisFrame)
+                for (int i = 0; i < Gamepad.all.Count; i++)
                 {
-                    SceneChangeFlag = true;
+                    var gamepad = Gamepad.all[i];
+                    if (gamepad.aButton.wasPressedThisFrame)
+                    {
+                        SceneChangeFlag = true;
+                    }
                 }
             }
-        }
-        else
-        {
-            if (AnimationImage != null)
+            else
             {
-                IsAnimation = true;
-                AnimationImage.SetTrigger("AcceptStart");
-                time += Time.deltaTime;
-                if (time >= AfterPressTime)
+                if (AnimationImage != null)
                 {
-                    IsAnimation = false;
-                    time = 0.0f;
+                    IsAnimation = true;
+                    AnimationImage.SetTrigger("AcceptStart");
+                    time += Time.deltaTime;
+                    if (time >= AfterPressTime)
+                    {
+                        IsAnimation = false;
+                        time = 0.0f;
+                    }
                 }
-            }
-            if (!IsAnimation)
-            {
-                SceneManager.LoadScene(sceneName);
+                if (!IsAnimation)
+                {
+                    SceneManager.LoadScene(sceneName);
+                }
             }
         }
         
+    }
+
+    public void OnTrueIsPlay()
+    {
+        IsPlay = true;
+    }
+
+    public void OnFalseIsPlay()
+    {
+        IsPlay = false;
     }
 }
