@@ -107,6 +107,10 @@ public class CarryCannon : MonoBehaviour
         for (int i = 0; i < myGrabPoint.Length; i++)
         {
             playerCarryDowns[i].CarryCancel();
+            playerCarryDowns[i] = null;
+            myGrabPoint[i] = null;
         }
+        Array.Resize(ref myGrabPoint, 0);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
     }
 }
