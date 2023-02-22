@@ -67,6 +67,12 @@ public class BossAttack : MonoBehaviour
     public BossDamage bossDamage;
 
     private BossCSVGenerator bossCSVGenerator;
+    private opretar opretar;
+
+    private void Awake()
+    {
+        opretar = GameObject.Find("opretar").GetComponent<opretar>();
+    }
 
     private void Start()
     {
@@ -125,7 +131,7 @@ public class BossAttack : MonoBehaviour
         if (effectStop < 1)
         {
             effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
-
+            opretar.boss_attck_charge();
             DangerZone();
             effectStop++;
         }
@@ -157,11 +163,13 @@ public class BossAttack : MonoBehaviour
         if (beamTime >= beamTimeMax)
         {
             isAttack = true;
+            opretar.boss_charge_stop_miss();
             DamageAreaControl();
         }
         else if (beamTime < beamTimeMax&& bossDamage.IsBossDamage())
         {
             AttackOff();
+            opretar.boss_attck_charge_stop();
             bossDamage.isTrance = true;
         }
 

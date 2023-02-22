@@ -15,6 +15,7 @@ public class BossMove : MonoBehaviour
     private BossDamage bossDamage;
     private BossCSVGenerator bossCSVGenerator;
     private GameOver gameOver;
+    private opretar opretar;
 
     [SerializeField]
     private float moveSpeed = 2.0f;
@@ -82,6 +83,7 @@ public class BossMove : MonoBehaviour
         moveSpeed = bossCSVGenerator.BossMoveSpeed();
 
         gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
+        opretar = GameObject.Find("opretar").GetComponent<opretar>();
     }
 
 
@@ -263,6 +265,12 @@ public class BossMove : MonoBehaviour
         {
             warningDisplay.SetActive(true);
         }
+
+        if ((transform.position.z - target.transform.position.z) <= 100.0f)
+        {
+            //ƒ{ƒXÚ‹ßŽž‚Ìˆ—
+        }
+
 
         if ((transform.position.z - target.transform.position.z) <= 60.0f)
         {

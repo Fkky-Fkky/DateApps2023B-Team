@@ -39,12 +39,19 @@ public class BossCSVGenerator : MonoBehaviour
     private float time = 0.0f;
 
     private int bossCountOne = 1;
+    [SerializeField]
+    private int bossCountMax = 10;
 
     private bool isCenterLine = false;
     private bool isRightLine = false;
     private bool isLeftLine = false;
 
     private List<BossDamage> bossList = new List<BossDamage>();
+
+    private void Awake()
+    {
+        opretar = GameObject.Find("opretar").GetComponent<opretar>();
+    }
 
     void Start()
     {
@@ -56,12 +63,11 @@ public class BossCSVGenerator : MonoBehaviour
         isLeftLine   = false;
 
         bossCount = GetComponent<BossCount>();
-        opretar = GetComponent<opretar>();
     }
 
     void Update()
     {
-
+        
         time += Time.deltaTime;
         if (time >= bossCSV.appearanceTime[bossCountOne])
         {
@@ -75,6 +81,11 @@ public class BossCSVGenerator : MonoBehaviour
 
 
             BossTypeGanarate();
+        }
+
+        if (bossCountOne >= bossCountMax)
+        {
+            bossCountOne = bossCountMax;
         }
 
         for (int i = 0; i < bossList.Count; i++)
@@ -98,15 +109,15 @@ public class BossCSVGenerator : MonoBehaviour
         {
             case "Nomal":
                 boss = Instantiate(nomalBoss);
-                //opretar.summonboss();
+                opretar.summonboss();
                 break;
             case "Mini":
                 boss = Instantiate(miniBoss);
-                //opretar.summonminiboss();
+                opretar.summonminiboss();
                 break;
             case "Big":
                 boss = Instantiate(bigBoss);
-                //opretar.summonbigboss();
+                opretar.summonbigboss();
                 break;
         }
     }
