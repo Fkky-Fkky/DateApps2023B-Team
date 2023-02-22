@@ -11,7 +11,7 @@ public class EnergyCharge : MonoBehaviour
     private AudioClip chargeSe = null;
 
     [SerializeField]
-    private GenerateEnergy generateEnergy = null;
+    private EnergyGenerator generateEnergy = null;
 
     [SerializeField]
     private GameObject cannonLaser = null;
