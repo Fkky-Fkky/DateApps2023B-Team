@@ -15,14 +15,14 @@ public class TitleVideoManager : MonoBehaviour
     private Animator AnimationImage = null;
 
     [SerializeField]
-    private float NonPlayTime = 11.0f;
+    private float StandingTime = 11.0f;
     private float time = 0.0f;
 
-    private SceneMove sceneMove;
+    private TitleSceneMove titleSceneMove;
     private VideoPlayer videoPlayer;
 
     [SerializeField]
-    private GameObject videoImage;
+    private RawImage playVideoScreen;
 
     [SerializeField]
     private Vector2 videoSize = new Vector2(1920.0f, 1080.0f);
@@ -33,17 +33,18 @@ public class TitleVideoManager : MonoBehaviour
     private bool isPlaying = false;
     private bool isFinished = false;
     private RenderTexture renderTexture = null;
-    private RawImage playVideoScreen;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        sceneMove = GetComponent<SceneMove>();
+        time = 0.0f;
+        isPlaying = false; 
+        isFinished = false;
+        titleSceneMove = GetComponent<TitleSceneMove>();
         videoPlayer = GetComponent<VideoPlayer>();
-        sceneMove.OnTrueIsPlay();
+        titleSceneMove.OnTrueIsPlay();
         videoPlayer.Stop();
-        playVideoScreen = videoImage.GetComponent<RawImage>();
         SetRenderTexture();
 
     }
@@ -78,16 +79,16 @@ public class TitleVideoManager : MonoBehaviour
         else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             time += Time.deltaTime;
-            if (time >= NonPlayTime)
+            if (time >= StandingTime)
             {
-                sceneMove.OnTrueIsPlay();
+                titleSceneMove.OnTrueIsPlay();
                 isPlaying = false;
                 AnimationImage.SetTrigger("StartVideo");
                 time = 0.0f;
             }
             else
             {
-                sceneMove.OnFalseIsPlay();
+                titleSceneMove.OnFalseIsPlay();
             }
         }
         else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("StartVideo"))
