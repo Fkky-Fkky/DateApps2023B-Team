@@ -53,7 +53,7 @@ public class UIControllerV3D : MonoBehaviour
             {
                 prefabs[i].gameObject.SetActive(true);
                 pc = prefabs[i].gameObject.GetComponentInChildren<ProgressControlV3D>();
-                text.text = prefabs[i].name;
+                //text.text = prefabs[i].name;
             }
             else
             {

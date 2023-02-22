@@ -1,28 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class opretar : MonoBehaviour
 {
     Animator animator;
 
-    [SerializeField]private Text text_;
-
-    enum summon
-    {
-        stert,
-
-        idle,
-
-        boss_attck,
-
-        boss_attck_stop,
-
-        warning,
-
-        end,
-    }
-    summon gameState = summon.stert;
+    [SerializeField] private Op_text op_text;
 
     float timer = 0;
 
@@ -39,11 +24,12 @@ public class opretar : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        //if (timer >= 10 && flag == 0)
-        //{
-        //    Approach();
-        //    flag = 1;
-        //}
+        if (timer >= 8 && flag == 0)
+        {
+            Approach();
+            op_text.Boss_text();
+            flag = 1;
+        }
     }
 
     //í èÌÉ{ÉXèoåªéû
