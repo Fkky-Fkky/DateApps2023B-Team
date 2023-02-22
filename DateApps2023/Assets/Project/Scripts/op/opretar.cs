@@ -24,10 +24,9 @@ public class opretar : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= 8 && flag == 0)
+        if (timer >= 3 && flag == 0)
         {
             Approach();
-            op_text.Boss_text();
             flag = 1;
         }
     }
@@ -36,29 +35,39 @@ public class opretar : MonoBehaviour
     public void summonboss()
     {
         animator.SetTrigger("boss");
+        op_text.Boss_text();
+        animator.ResetTrigger("boss");
     }
 
     //ミニボス出現時
     public void summonminiboss()
     {
         animator.SetTrigger("miniboss");
+        op_text.Mini_boss_text();
+        animator.ResetTrigger("miniboss");
     }
 
     //ビッグボス出現時
     public void summonbigboss()
     {
         animator.SetTrigger("bigboss");
+        op_text.Bog_boss_text();
+        animator.ResetTrigger("bigboss");
     }
 
     //ボス撃破時
     public void bosskill()
     {
         animator.SetTrigger("kill");
+        op_text.Boss_kill_text();
+        animator.ResetTrigger("kill");
     }
     //ボスの攻撃のチャージ
     public void boss_attck_charge()
     {
         animator.SetTrigger("charge");
+        op_text.Boss_attcK_text();
+        animator.ResetTrigger("charge");
     }
     //ボスの攻撃チャージキャンセル
     public void boss_attck_charge_stop()
@@ -71,10 +80,12 @@ public class opretar : MonoBehaviour
         animator.SetTrigger("charge stop miss");
     }
 
-    //エネルギー物資出現時
+    //ボス接近時
     public void Approach()
     {
         animator.SetTrigger("Approach");
+        op_text.Approach();
+        animator.ResetTrigger("Approach");
     }
 
     //エネルギー物資出現時

@@ -9,44 +9,59 @@ public class Op_text : MonoBehaviour
 {
     private Image op_text_image;
 
-    Sprite op_text;
-    //private Sprite stert_text;
+    public Sprite[] boss_attck_text;
 
-    // Start is called before the first frame update
+    bool text_flag = false;
+
+    
+
+
+
     void Start()
     {
         op_text_image = GetComponent<Image>();
-        op_text = Resources.Load<Sprite>("op/k_text");
+
+        for (int i = 0;i>=10;)
+        {
+            boss_attck_text[i] = GetComponent<Sprite>();
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
       
     }
 
+    public void Approach()
+    {
+       // boss_attck_text[0] = Resources.Load<Sprite>("op_text/OP_ptx_16");
+        op_text_image.sprite = boss_attck_text[0];
+    }
+    public void Boss_kill_text()
+    {
+        //boss_attck_text[1] = Resources.Load<Sprite>("op_text/OP_ptx_17");
+        op_text_image.sprite = boss_attck_text[1];
+    }
+
     public void Boss_text()
     {
-        op_text_image.sprite= op_text;
+        //boss_attck_text[2] = Resources.Load<Sprite>("op_text/OP_ptx_18");
+        op_text_image.sprite = boss_attck_text[2];
     }
-    //public void Mini_boss_text()
-    //{
-    //    op_text_image.sprite = op_text[1];
-    //}
-    //public void Bog_boss_text()
-    //{
-    //    op_text_image.sprite = op_text[2];
-    //}
-    //public void Boss_kill_text()
-    //{
-    //    op_text_image.sprite = op_text[3];
-    //}
-    //public void Approach()
-    //{
-    //    op_text_image.sprite = op_text[4];
-    //}
-    //public void Boss_attcK_text()
-    //{
-    //    op_text_image.sprite = op_text[5];
-    //}
+    public void Mini_boss_text()
+    {
+        //boss_attck_text[3] = Resources.Load<Sprite>("op_text/OP_ptx_19");
+        op_text_image.sprite = boss_attck_text[3];
+    }
+    public void Bog_boss_text()
+    {
+        //boss_attck_text[4] = Resources.Load<Sprite>("op_text/OP_ptx_20");
+        op_text_image.sprite = boss_attck_text[4];
+    }
+    
+    public void Boss_attcK_text()
+    {
+        //boss_attck_text[5] = Resources.Load<Sprite>("op_text/OP_ptx_21");
+        op_text_image.sprite = boss_attck_text[5];
+    }
 }
