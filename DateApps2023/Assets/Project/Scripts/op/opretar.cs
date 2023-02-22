@@ -6,6 +6,8 @@ public class opretar : MonoBehaviour
 {
     Animator animator;
 
+    [SerializeField]private Text text_;
+
     enum summon
     {
         stert,
@@ -37,11 +39,11 @@ public class opretar : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= 10 && flag == 0)
-        {
-            Approach();
-            flag = 1;
-        }
+        //if (timer >= 10 && flag == 0)
+        //{
+        //    Approach();
+        //    flag = 1;
+        //}
     }
 
     //í èÌÉ{ÉXèoåªéû
