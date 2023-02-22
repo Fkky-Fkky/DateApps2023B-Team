@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class BossMove : MonoBehaviour
 {
@@ -209,22 +208,29 @@ public class BossMove : MonoBehaviour
             }
         }
 
-        if (isLastAttack) {
-            gameOverTime += Time.deltaTime;
-            if ((gameObject.tag == "Right" || gameObject.tag == "Left") && gameOverTime >= gameOverTimeSideMax)
-            {
-                gameOver.GameOverTransition();
-            }
-            if(gameObject.tag== "Center" && gameOverTime >= gameOverTimeCenterMax)
-            {
-                gameOver.GameOverTransition();
-            }
+        if (isLastAttack)
+        {
+            //gameOverTime += Time.deltaTime;
+            //if ((gameObject.tag == "Right" || gameObject.tag == "Left") && gameOverTime >= gameOverTimeSideMax)
+            //{
+            //    gameOver.GameOverTransition();
+            //}
+            //if(gameObject.tag== "Center" && gameOverTime >= gameOverTimeCenterMax)
+            //{
+            //    gameOver.GameOverTransition();
+            //}
 
+
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                gameOver.GameOverTransition();
+            }
             if ((gameOverTime < gameOverTimeCenterMax || gameOverTime < gameOverTimeSideMax) && damageFlag)
             {
                 gameOverTime = 0.0f;
                 isLastAttack = false;
             }
+
         }
 
     }
