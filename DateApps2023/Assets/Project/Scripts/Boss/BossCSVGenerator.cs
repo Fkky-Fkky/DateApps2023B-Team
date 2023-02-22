@@ -89,25 +89,21 @@ public class BossCSVGenerator : MonoBehaviour
 
     void Update()
     {
-        
-        time += Time.deltaTime;
-        if (time >= bossCSV.appearanceTime[bossCountOne])
+
+        if (bossCountOne <= bossCountMax)
         {
-            bossTypeDate = bossCSV.bossType[bossCountOne];
-            bossLane = bossCSV.appearanceLane[bossCountOne];
-            attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
-            posZ = bossCSV.positionZ[bossCountOne];
-            bossHpDate = bossCSV.bossHp[bossCountOne];
-            moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
+            time += Time.deltaTime;
+            if (time >= bossCSV.appearanceTime[bossCountOne])
+            {
+                bossTypeDate = bossCSV.bossType[bossCountOne];
+                bossLane = bossCSV.appearanceLane[bossCountOne];
+                attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
+                posZ = bossCSV.positionZ[bossCountOne];
+                bossHpDate = bossCSV.bossHp[bossCountOne];
+                moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
 
-
-
-            BossTypeGanarate();
-        }
-
-        if (bossCountOne >= bossCountMax)
-        {
-            bossCountOne = bossCountMax;
+                BossTypeGanarate();
+            }
         }
 
         for (int i = 0; i < bossList.Count; i++)
