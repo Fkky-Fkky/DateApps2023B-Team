@@ -42,10 +42,6 @@ public class DamageCSV : MonoBehaviour
             small = int.Parse(damageDate[i][0]);
             medium = int.Parse(damageDate[i][1]);
             large = int.Parse(damageDate[i][2]);
-
-            Debug.Log("エネルギー小のダメージを読み込みました : " + small);
-            Debug.Log("エネルギー中のダメージを読み込みました : " + medium);
-            Debug.Log("エネルギー大のダメージを読み込みました : " + large);
         }
     }
 }
