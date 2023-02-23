@@ -1308,6 +1308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioMaster
       objectReference: {fileID: 0}
+    - target: {fileID: 7590760358248956565, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7590760358248956566, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
       propertyPath: m_RootOrder
       value: 6

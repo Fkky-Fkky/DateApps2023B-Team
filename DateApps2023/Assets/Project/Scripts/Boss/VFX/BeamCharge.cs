@@ -19,7 +19,6 @@ public class BeamCharge : MonoBehaviour
 
     void Update()
     {
-
         time += Time.deltaTime;
         if (time > effectTime)
         {

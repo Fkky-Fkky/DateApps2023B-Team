@@ -899,7 +899,7 @@ MonoBehaviour:
   gameOverWarningDisplay: {fileID: 537261317771004103}
   gameOverDisplay: {fileID: 2215697549118671568}
   flashTimeMax: 0.5
-  dangerSE: {fileID: 8300000, guid: 4d00d7be4408fe745a5454daeca249ee, type: 3}
+  dangerSE: {fileID: 8300000, guid: de175710420a85a4ca6e0efcdc3d834f, type: 3}
   audioSource: {fileID: 2131339584734462358}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
@@ -937,7 +937,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4d00d7be4408fe745a5454daeca249ee, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

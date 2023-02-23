@@ -171,6 +171,19 @@ public class BossAttack : MonoBehaviour
         else if (beamTime < beamTimeMax && bossDamage.IsBossDamage())
         {
             AttackOff();
+
+            for (int i = 0; i < effectList.Count; i++)
+            {
+                Destroy(effectList[i]);
+                effectList.RemoveAt(i);
+            }
+
+            for (int i = 0; i < dangerAreaList.Count; i++)
+            {
+                Destroy(dangerAreaList[i]);
+                dangerAreaList.RemoveAt(i);
+            }
+
         }
     }
     void DamageAreaControl()

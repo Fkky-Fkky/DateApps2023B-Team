@@ -25,7 +25,6 @@ public class DangerZoon : MonoBehaviour
 
     void Update()
     {
-
         time += Time.deltaTime;
         if (time > effectTime)
         {
@@ -41,6 +40,5 @@ public class DangerZoon : MonoBehaviour
 
             dangerRenderer.enabled = repeatValue >= flashTimeMax * 0.5f;
         }
-
     }
 }

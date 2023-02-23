@@ -54,8 +54,6 @@ public class BossMove : MonoBehaviour
     private float flashTimeMax = 0.5f;
 
     [SerializeField]
-    public AudioClip dangerSE;
-    [SerializeField]
     private AudioSource audioSource;
 
     private float underPos = -54.5f;
@@ -100,7 +98,8 @@ public class BossMove : MonoBehaviour
 
         gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
 
-        //audioSource = GetComponent<AudioSource>();
+
+        audioSource.Stop();
     }
 
 
@@ -246,7 +245,12 @@ public class BossMove : MonoBehaviour
 
         if (isHazard)
         {
-            audioSource.PlayOneShot(dangerSE);
+            audioSource.Play();
+        }
+
+        if (damageFlag)
+        {
+            audioSource.Stop();
         }
     }
 
