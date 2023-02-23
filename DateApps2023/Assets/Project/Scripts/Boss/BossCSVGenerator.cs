@@ -154,7 +154,7 @@ public class BossCSVGenerator : MonoBehaviour
             }
             else
             {
-                IsDanger= false;
+                IsDanger = false;
             }
         }
 

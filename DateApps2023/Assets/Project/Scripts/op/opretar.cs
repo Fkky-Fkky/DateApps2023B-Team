@@ -9,10 +9,9 @@ public class opretar : MonoBehaviour
 
     [SerializeField] private Op_text op_text;
 
-    float timer = 0;
+    [SerializeField] BossManager boss;
 
-    int flag =0;
-
+    bool flag = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +21,45 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        //summonboss();
+        if (flag == false)
+        {
+            flag = true;
+            boss_attck_charge();
+            op_text.Boss_attcK_text();
+            
+        }
 
-        if (timer >= 3 && flag == 0)
+        //中型ボス
+        if (boss.BossType()== 1 )
+        {
+            summonboss();
+        }
+        //小型ボス
+        if (boss.BossType() == 2 )
+        {
+            summonminiboss();
+        }
+        //大型ボス
+        if (boss.BossType() == 3 )
+        {
+            summonbigboss();
+        }
+        //ボスの攻撃チャージ
+        if (boss.Charge())
+        {
+            
+
+        }
+        //ボス接近時
+        if (boss.Danger())
         {
             Approach();
-            flag = 1;
+        }
+        //ボス討伐
+        if (boss.IsBossKill())
+        {
+            bosskill();
         }
     }
 
@@ -36,7 +68,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("boss");
         op_text.Boss_text();
-        animator.ResetTrigger("boss");
+        //animator.ResetTrigger("boss");
     }
 
     //ミニボス出現時
@@ -66,8 +98,7 @@ public class opretar : MonoBehaviour
     public void boss_attck_charge()
     {
         animator.SetTrigger("charge");
-        op_text.Boss_attcK_text();
-        animator.ResetTrigger("charge");
+        //animator.ResetTrigger("charge");
     }
     //ボスの攻撃チャージキャンセル
     public void boss_attck_charge_stop()
