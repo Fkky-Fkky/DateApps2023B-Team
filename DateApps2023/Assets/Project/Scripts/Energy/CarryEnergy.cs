@@ -44,7 +44,8 @@ public class CarryEnergy : MonoBehaviour
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
-
+        Array.Resize(ref myGrabPoint, 0);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)
@@ -100,7 +101,9 @@ public class CarryEnergy : MonoBehaviour
             defaultPosY,
             this.gameObject.transform.position.z
             );
-
+        Array.Resize(ref myGrabPoint, 0);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+        number = 0;
     }
 
     public void DestroyMe()

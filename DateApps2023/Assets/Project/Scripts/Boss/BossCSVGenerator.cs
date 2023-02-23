@@ -61,14 +61,17 @@ public class BossCSVGenerator : MonoBehaviour
 
     private float landingTime=0.0f;
 
+    private float dangerOffTime = 0.0f;
     private float killOffTime = 0.0f;
     private float MessageOffTimeMax = 0.05f;
 
     private int messageCount = 0;
 
-    private int messageFollDwonCount = 0;
-
     private int landingCount = 0;
+
+    private float bossTypeOffTime = 0.0f;
+    private float bossTypeOffTimeMax = 0.03f;
+
 
     void Start()
     {
@@ -89,48 +92,40 @@ public class BossCSVGenerator : MonoBehaviour
 
     void Update()
     {
-        
-        time += Time.deltaTime;
-        if (time >= bossCSV.appearanceTime[bossCountOne])
+
+        if (bossCountOne <= bossCountMax)
         {
-            bossTypeDate = bossCSV.bossType[bossCountOne];
-            bossLane = bossCSV.appearanceLane[bossCountOne];
-            attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
-            posZ = bossCSV.positionZ[bossCountOne];
-            bossHpDate = bossCSV.bossHp[bossCountOne];
-            moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
+            time += Time.deltaTime;
+            if (time >= bossCSV.appearanceTime[bossCountOne])
+            {
+                bossTypeDate = bossCSV.bossType[bossCountOne];
+                bossLane = bossCSV.appearanceLane[bossCountOne];
+                attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
+                posZ = bossCSV.positionZ[bossCountOne];
+                bossHpDate = bossCSV.bossHp[bossCountOne];
+                moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
 
-
-
-            BossTypeGanarate();
-        }
-
-        if (bossCountOne >= bossCountMax)
-        {
-            bossCountOne = bossCountMax;
+                BossTypeGanarate();
+            }
         }
 
         for (int i = 0; i < bossList.Count; i++)
         {
             if (bossList[i].IsFellDown())
             {
-                if (messageFollDwonCount == 0)
+                //if (messageFollDwonCount == 0)
+                //{
+                //    if (messageCount < 1)
+                //    {
+                //        IsFirstKill = true;
+                //        messageCount++;
+                //        messageFollDwonCount++;
+                //    }
+                //}
+                if (messageCount < 1)
                 {
-                    if (messageCount < 1)
-                    {
-                        IsFirstKill = true;
-                        messageCount++;
-                        messageFollDwonCount++;
-                    }
-                }
-                if (messageFollDwonCount >= 1)
-                {
-                    if (messageCount < 1)
-                    {
-                        IsKill = true;
-                        messageCount++;
-                        messageFollDwonCount++;
-                    }
+                    IsKill = true;
+                    messageCount++;
                 }
                 bossCount.SetBossKillCount();
                 bossMoveList.RemoveAt(i);
@@ -151,10 +146,6 @@ public class BossCSVGenerator : MonoBehaviour
             if (bossMoveList[i].isHazard)
             {
                 IsDanger = true;
-            }
-            else
-            {
-                IsDanger = false;
             }
         }
 
@@ -209,7 +200,25 @@ public class BossCSVGenerator : MonoBehaviour
             }
         }
 
-        
+        if(IsDanger)
+        {
+            dangerOffTime += Time.deltaTime;
+            if (dangerOffTime >= MessageOffTimeMax)
+            {
+                IsDanger = false;
+                dangerOffTime = 0.0f;
+            }
+        }
+
+        if (bossType != 0)
+        {
+            bossTypeOffTime += Time.deltaTime;
+            if (bossTypeOffTime >= bossTypeOffTimeMax)
+            {
+                bossType = 0;
+                bossTypeOffTime = 0.0f;
+            }
+        }
     }
 
     private void BossTypeGanarate()
@@ -250,7 +259,6 @@ public class BossCSVGenerator : MonoBehaviour
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
                     bossCountOne++;
                     time = 0.0f;
-                    bossType= 0;
                     isLeftLine = true;
                 }
                 break;
@@ -264,7 +272,7 @@ public class BossCSVGenerator : MonoBehaviour
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
                     bossCountOne++;
                     time = 0.0f;
-                    bossType = 0;
+                    
                     isCenterLine = true;
                 }
                 break;
@@ -278,7 +286,7 @@ public class BossCSVGenerator : MonoBehaviour
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
                     bossCountOne++;
                     time = 0.0f;
-                    bossType = 0;
+                    
                     isRightLine = true;
                 }
                 break;
