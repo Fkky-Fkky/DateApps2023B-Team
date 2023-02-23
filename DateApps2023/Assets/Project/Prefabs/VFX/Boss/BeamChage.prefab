@@ -4832,7 +4832,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
-  bossDamage: {fileID: 1648196746715476574, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!1001 &2034245894933951984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4904,6 +4903,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 199662139121678650, guid: 2552c07c911d41dca5e88668930bb1b4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7344160b2bbdb4793b40e9ff10a54f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2552c07c911d41dca5e88668930bb1b4, type: 3}
 --- !u!4 &2029570009420910176 stripped
@@ -4921,6 +4924,10 @@ PrefabInstance:
     - target: {fileID: 1687640722635670, guid: cf8ecf1723c54d9b845bf11a8498bf90, type: 3}
       propertyPath: m_Name
       value: Flare_SP_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1687640722635670, guid: cf8ecf1723c54d9b845bf11a8498bf90, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4904881425251216, guid: cf8ecf1723c54d9b845bf11a8498bf90, type: 3}
       propertyPath: m_RootOrder
@@ -4996,6 +5003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackHoleVortexParticles_EP_02
       objectReference: {fileID: 0}
+    - target: {fileID: 1152230478245442, guid: d1794db78cbc4f6c9e668c647e044519, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4030276810579874, guid: d1794db78cbc4f6c9e668c647e044519, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -5066,6 +5077,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackHoleVortexParticles_EP_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1382453722851448, guid: 6e58cab709bf49eb82697e14a5a97274, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4553623492711654, guid: 6e58cab709bf49eb82697e14a5a97274, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -5118,6 +5133,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 199846359564849752, guid: 6e58cab709bf49eb82697e14a5a97274, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02d908ca14ee0434dabeb781d73c1da6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e58cab709bf49eb82697e14a5a97274, type: 3}
 --- !u!4 &6129679323357890078 stripped
@@ -5135,6 +5154,10 @@ PrefabInstance:
     - target: {fileID: 1135817692028646, guid: fbc8a66cdef74687a122cfb9c5b5338c, type: 3}
       propertyPath: m_Name
       value: BlackHoleParticles_EP_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135817692028646, guid: fbc8a66cdef74687a122cfb9c5b5338c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4718957151939992, guid: fbc8a66cdef74687a122cfb9c5b5338c, type: 3}
       propertyPath: m_RootOrder
@@ -5188,6 +5211,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 199093369188241014, guid: fbc8a66cdef74687a122cfb9c5b5338c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a0acb8792a186834ea9c8f4e3ea0f778, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbc8a66cdef74687a122cfb9c5b5338c, type: 3}
 --- !u!4 &6654816134599409186 stripped
@@ -5205,6 +5232,10 @@ PrefabInstance:
     - target: {fileID: 1394724649229940, guid: 6f4ebbf959f84ded9e51327238669e7c, type: 3}
       propertyPath: m_Name
       value: BlackHoleParticles_EP_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394724649229940, guid: 6f4ebbf959f84ded9e51327238669e7c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4114304367580108, guid: 6f4ebbf959f84ded9e51327238669e7c, type: 3}
       propertyPath: m_RootOrder

@@ -68388,6 +68388,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  effectType: 0
   bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!1 &1631578189962318
 GameObject:
@@ -83175,7 +83176,7 @@ MonoBehaviour:
   globalImpactProgressSpeed: 1.5
   always: 0
   colorizeAll: 1
-  finalColor: {r: 0, g: 0.4627451, b: 1, a: 1}
+  finalColor: {r: 0.6666667, g: 0.19607843, b: 0.5882353, a: 1}
   gammaLinear: 1
   meshRend: {fileID: 23312629566171232}
   meshRendPower: 3
@@ -83184,7 +83185,10 @@ MonoBehaviour:
   endPointEffect: {fileID: 114577981929796728}
   smartWaveParticles: {fileID: 114217673638326374}
   sfxcontroller: {fileID: 114492244017647478}
+  effectType: 0
   bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  cannonShot: {fileID: 0}
+  energyCharge: {fileID: 0}
 --- !u!1 &1932616054674454
 GameObject:
   m_ObjectHideFlags: 0
