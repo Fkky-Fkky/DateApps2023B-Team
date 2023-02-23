@@ -691,7 +691,7 @@ Animator:
   m_GameObject: {fileID: 1647289903949419459}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b2d11d64877f0b4cad5d45ec7d53473, type: 3}
-  m_Controller: {fileID: 9100000, guid: 300713295084c534cb73e3e5d6e95a30, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2a477f577b123f844a10ca7a2cacfd9a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -752,9 +752,9 @@ MonoBehaviour:
   tranceTimeMax: 10
   stunPos: {fileID: 3889724675711877409}
   stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
-  maxHp: 0
   hpBar: []
-  hpMemori: {fileID: 8455852809812342072}
+  hpMemori:
+  - {fileID: 8455852809812342072}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,6 +778,7 @@ MonoBehaviour:
   warningDisplay: {fileID: 3008235584495518477}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
+  isLastAttack: 0
 --- !u!114 &131829114075476459
 MonoBehaviour:
   m_ObjectHideFlags: 0

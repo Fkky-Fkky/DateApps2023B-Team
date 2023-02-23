@@ -168,10 +168,9 @@ public class BossAttack : MonoBehaviour
             isAttack = true;
             DamageAreaControl();
         }
-        else if (beamTime < beamTimeMax&& bossDamage.IsBossDamage())
+        else if (beamTime < beamTimeMax && bossDamage.IsBossDamage())
         {
             AttackOff();
-            bossDamage.isTrance = true;
         }
     }
     void DamageAreaControl()
