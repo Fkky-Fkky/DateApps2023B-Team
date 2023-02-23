@@ -7,7 +7,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BossAttack : MonoBehaviour
 {
-    [SerializeField]
     private float time = 0.0f;
 
     private float attackIntervalTime;
@@ -15,6 +14,7 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     Animator attackAnimation = null;
 
+    BossCount bossCount;
 
     float centerTarget = 0.0f;
     float rightTarget = 0.1f;

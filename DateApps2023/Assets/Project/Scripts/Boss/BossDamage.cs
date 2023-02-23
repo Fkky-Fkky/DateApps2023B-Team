@@ -51,16 +51,16 @@ public class BossDamage : MonoBehaviour
     private Transform stunPos;
 
     private int isBullet = -1;
-
+    [SerializeField]
     private int maxHp = 0;
 
-    private int minusHp = 0;
 
     [SerializeField]
     private GameObject[] hpBar = new GameObject[9];
 
     [SerializeField]
     private GameObject[] hpMemori =new GameObject[9];
+
  
     private int smallDamage;
 
@@ -132,8 +132,8 @@ public class BossDamage : MonoBehaviour
                 }
 
                 isInvincible = true;
+                //damageCount= 0;
                 isBullet = -1;
-                minusHp = 0;
                 isDamage = false;
             }
         }
@@ -173,7 +173,10 @@ public class BossDamage : MonoBehaviour
                 BossDamgeOffTime = 0.0f;
             }
         }
-
+        if (bossMove.bossHp < 0)
+        {
+            bossMove.bossHp = 0;
+        }
 
     }
 
@@ -182,35 +185,49 @@ public class BossDamage : MonoBehaviour
         if (isBullet == 0)
         {
             bossMove.bossHp -= smallDamage;
-            hpBar[bossMove.bossHp - 0].SetActive(false);
+            hpBar[bossMove.bossHp + 0].SetActive(false);
         }
         else if (isBullet == 1)
         {
             bossMove.bossHp -= MediumDamage;
-            minusHp = bossMove.bossHp;
-            HpBarActive();
+
+            if (bossMove.bossHp < 0)
+            {
+                bossMove.bossHp = 0;
+            }
+
+            
+            HpBarMediumActive();
         }
         else if (isBullet == 2)
         {
             bossMove.bossHp -= LargeDamage;
-            minusHp = bossMove.bossHp;
-            HpBarActive();
-        }
 
-    }
-
-    private void HpBarActive()
-    {
-        for (int i = 0; i <= minusHp; i++)
-        {
-            if (bossMove.bossHp >= 1)
+            if (bossMove.bossHp < 0)
             {
-                hpBar[bossMove.bossHp - i].SetActive(false);
+                bossMove.bossHp = 0;
             }
+
+            HpBarLargeActive();
+        }
+
+    }
+
+    private void HpBarMediumActive()
+    {
+        for(int i = 0; i < MediumDamage; i++)
+        {
+            hpBar[bossMove.bossHp + i].SetActive(false);
         }
     }
 
-
+    private void HpBarLargeActive()
+    {
+        for(int i = 0; i < maxHp; i++)
+        {
+            hpBar[bossMove.bossHp + i].SetActive(false);
+        }
+    }
 
     public void KnockbackTrueSmall()
     {
