@@ -106,6 +106,11 @@ public class CannonShot : MonoBehaviour
     private void LaserEnd()
     {
         IsNowShot = false;
+        CreateCoolDownEffects();
+    }
+
+    private void CreateCoolDownEffects()
+    {
         for (int i = 0; i < coolTimePos.Length; i++)
         {
             Instantiate(coolDownEffect, coolTimePos[i].position, Quaternion.identity);
@@ -121,5 +126,6 @@ public class CannonShot : MonoBehaviour
         Destroy(shotCharge);
         CancelInvoke();
         audioSource.Stop();
+        CreateCoolDownEffects();
     }
 }
