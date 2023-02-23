@@ -88,6 +88,7 @@ public class BossCSVGenerator : MonoBehaviour
         IsKill = false;
 
         IsLanding = false;
+
     }
 
     void Update()
@@ -113,15 +114,6 @@ public class BossCSVGenerator : MonoBehaviour
         {
             if (bossList[i].IsFellDown())
             {
-                //if (messageFollDwonCount == 0)
-                //{
-                //    if (messageCount < 1)
-                //    {
-                //        IsFirstKill = true;
-                //        messageCount++;
-                //        messageFollDwonCount++;
-                //    }
-                //}
                 if (messageCount < 1)
                 {
                     IsKill = true;
@@ -149,16 +141,14 @@ public class BossCSVGenerator : MonoBehaviour
             }
         }
 
-        for(int i = 0; i<bossAttackList.Count; i++)
+        for (int i = 0; i < bossAttackList.Count; i++)
         {
             if (bossAttackList[i].IsCharge)
             {
                 IsCharge = true;
+                break;
             }
-            else
-            {
-                IsCharge = false;
-            }
+            IsCharge = false;
         }
 
         MessageCancel();
@@ -219,6 +209,7 @@ public class BossCSVGenerator : MonoBehaviour
                 bossTypeOffTime = 0.0f;
             }
         }
+
     }
 
     private void BossTypeGanarate()

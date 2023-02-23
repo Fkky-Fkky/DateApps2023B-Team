@@ -63,15 +63,16 @@ public class BossDamage : MonoBehaviour
 
     private int isBullet = -1;
 
-    [SerializeField]
     private int maxHp = 0;
 
-    [SerializeField]
-    private GameObject[] hpBar;
+    private int minusHp = 0;
 
     [SerializeField]
-    private GameObject hpMemori;
+    private GameObject[] hpBar = new GameObject[9];
 
+    [SerializeField]
+    private GameObject[] hpMemori =new GameObject[9];
+ 
     private int smallDamage;
 
     private int MediumDamage;
@@ -98,7 +99,7 @@ public class BossDamage : MonoBehaviour
 
         for(int i = 0; i < maxHp; i++)
         {
-            hpBar[i] = hpMemori;
+            hpBar[i] = hpMemori[i];
         }
 
     }
@@ -141,6 +142,7 @@ public class BossDamage : MonoBehaviour
 
                 isInvincible = true;
                 isBullet = -1;
+                minusHp = 0;
                 isDamage = false;
             }
         }
@@ -152,6 +154,7 @@ public class BossDamage : MonoBehaviour
             if (invincibleTime >= invincibleTimeMax)
             {
                 isInvincible = false;
+                AnimationImage.SetTrigger("Walk");
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
@@ -171,7 +174,7 @@ public class BossDamage : MonoBehaviour
             }
         }
 
-        if (isBossDamage && !isTrance)
+        if (isBossDamage)
         {
             BossDamgeOffTime += Time.deltaTime;
             if (BossDamgeOffTime >= BossDamgeOffTimeMax)
@@ -182,55 +185,33 @@ public class BossDamage : MonoBehaviour
         }
 
 
-        Trance();
     }
 
     private void IsBullet()
     {
         if (isBullet == 0)
         {
-            if (!isTrance)
-            {
-                hpBar[bossMove.bossHp - 1].SetActive(false);
-                bossMove.bossHp -= smallDamage;
-            }
-            else
-            {
-                bossMove.bossHp -= smallDamage * 2;
-            }
+            bossMove.bossHp -= smallDamage;
+            hpBar[bossMove.bossHp - 0].SetActive(false);
         }
         else if (isBullet == 1)
         {
-            if (!isTrance)
-            {
-                HpBarActive();
-                bossMove.bossHp -= MediumDamage;
-            }
-            else
-            {
-                bossMove.bossHp -= MediumDamage * 2;
-            }
+            bossMove.bossHp -= MediumDamage;
+            minusHp = bossMove.bossHp;
+            HpBarActive();
         }
         else if (isBullet == 2)
         {
-            if (!isTrance)
-            {
-                HpBarActive();
-
-                bossMove.bossHp -= LargeDamage;
-            }
-            else
-            {
-                bossMove.bossHp -= LargeDamage * 2;
-            }
-
+            bossMove.bossHp -= LargeDamage;
+            minusHp = bossMove.bossHp;
+            HpBarActive();
         }
 
     }
 
     private void HpBarActive()
     {
-        for (int i = 1; i < bossMove.bossHp; i++)
+        for (int i = 0; i <= minusHp; i++)
         {
             if (bossMove.bossHp >= i)
             {
@@ -239,33 +220,6 @@ public class BossDamage : MonoBehaviour
         }
     }
 
-    private void Trance() {
-        if (isTrance)
-        {
-            AnimationImage.SetBool("Trance", true);
-
-
-            if (stunEffectCount <= 0)
-            {
-                stunEffectList.Add(Instantiate(stunEffct, stunPos.position, Quaternion.identity));
-                stunEffectCount++;
-            }
-            tranceTime += Time.deltaTime;
-            if (tranceTime >= tranceTimeMax)
-            {
-                bossMove.DamageFalse();
-                AnimationImage.SetBool("Trance", false);
-
-                StunEffectDestroy();
-
-                stunEffectCount = 0;
-                isBossDamage = false;
-                isTrance = false;
-                tranceTime = 0.0f;
-            }
-        }
-
-    }
 
     private void StunEffectDestroy()
     {
