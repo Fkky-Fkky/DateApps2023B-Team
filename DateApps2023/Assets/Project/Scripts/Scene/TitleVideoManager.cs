@@ -15,6 +15,9 @@ public class TitleVideoManager : MonoBehaviour
     private Animator AnimationImage = null;
 
     [SerializeField]
+    private bool CanLogoSkip = true;
+
+    [SerializeField]
     private float StandingTime = 11.0f;
     private float time = 0.0f;
 
@@ -46,7 +49,6 @@ public class TitleVideoManager : MonoBehaviour
         titleSceneMove.OnTrueIsPlay();
         videoPlayer.Stop();
         SetRenderTexture();
-
     }
 
     // Update is called once per frame
@@ -55,85 +57,106 @@ public class TitleVideoManager : MonoBehaviour
 
         if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Start"))
         {
-            AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
-            if (isFinished)
-            {
-                AnimationImage.Play(stateInfo.fullPathHash, 0, 0);
-                OnEndVideo();
-                SetRenderTexture();
-                isFinished = false;
-            }
-            if (stateInfo.normalizedTime >= 1.0f)
-            {
-                AnimationImage.SetTrigger("EndLogoAnim");
-            }
-            for (int i = 0; i < Gamepad.all.Count; i++)
-            {
-                var gamepad = Gamepad.all[i];
-                if (gamepad.aButton.wasPressedThisFrame)
-                {
-                    AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
-                }
-            }
+            InStart();
         }
         else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            time += Time.deltaTime;
-            if (time >= StandingTime)
-            {
-                titleSceneMove.OnTrueIsPlay();
-                isPlaying = false;
-                AnimationImage.SetTrigger("StartVideo");
-                time = 0.0f;
-            }
-            else
-            {
-                titleSceneMove.OnFalseIsPlay();
-            }
+            InIdle();
         }
         else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("StartVideo"))
         {
-            for (int i = 0; i < Gamepad.all.Count; i++)
-            {
-                var gamepad = Gamepad.all[i];
-                if (gamepad.aButton.wasPressedThisFrame)
-                {
-                    AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
-                    AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
-                    AnimationImage.SetTrigger("EndVideo");
-                }
-            }
+            InStartVideo();
         }
         else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("PlayVideo"))
         {
-            if (isFinished)
-            {
-                AnimationImage.SetTrigger("EndVideo");
+            InPlayVideo();
+        }
+    }
 
-            }
-            if (!isPlaying)
-            {
-                videoPlayer.Play();
-                videoPlayer.loopPointReached += FinishPlayingVideo;
-
-                isPlaying = true;
-            }
-
+    private void InStart()
+    {
+        AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
+        if (isFinished)
+        {
+            AnimationImage.Play(stateInfo.fullPathHash, 0, 0);
+            OnEndVideo();
+            SetRenderTexture();
+            isFinished = false;
+        }
+        if (stateInfo.normalizedTime >= 1.0f)
+        {
+            AnimationImage.SetTrigger("EndLogoAnim");
+        }
+        if (CanLogoSkip)
+        {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
-                if (gamepad.aButton.wasPressedThisFrame)
+                if (gamepad.bButton.wasPressedThisFrame)
                 {
-                    if (isPlaying)
-                    {
-                        OnEndVideo();
-                    }
-                    isFinished = true;
+                    AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
                 }
             }
         }
+    }
 
-    
+    private void InIdle()
+    {
+        time += Time.deltaTime;
+        if (time >= StandingTime)
+        {
+            titleSceneMove.OnTrueIsPlay();
+            isPlaying = false;
+            AnimationImage.SetTrigger("StartVideo");
+            time = 0.0f;
+        }
+        else
+        {
+            titleSceneMove.OnFalseIsPlay();
+        }
+    }
+
+    private void InStartVideo()
+    {
+        for (int i = 0; i < Gamepad.all.Count; i++)
+        {
+            var gamepad = Gamepad.all[i];
+            if (gamepad.bButton.wasPressedThisFrame)
+            {
+                AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
+                AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
+                AnimationImage.SetTrigger("EndVideo");
+            }
+        }
+    }
+
+    private void InPlayVideo()
+    {
+        if (isFinished)
+        {
+            AnimationImage.SetTrigger("EndVideo");
+
+        }
+        if (!isPlaying)
+        {
+            videoPlayer.Play();
+            videoPlayer.loopPointReached += FinishPlayingVideo;
+
+            isPlaying = true;
+        }
+
+        for (int i = 0; i < Gamepad.all.Count; i++)
+        {
+            var gamepad = Gamepad.all[i];
+            if (gamepad.bButton.wasPressedThisFrame)
+            {
+                if (isPlaying)
+                {
+                    OnEndVideo();
+                }
+                isFinished = true;
+            }
+        }
     }
 
     public void FinishPlayingVideo(VideoPlayer vp)

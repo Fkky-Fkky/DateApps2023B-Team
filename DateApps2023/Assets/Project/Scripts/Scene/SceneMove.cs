@@ -38,7 +38,7 @@ public class SceneMove : MonoBehaviour
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
-                if (gamepad.aButton.wasPressedThisFrame)
+                if (gamepad.bButton.wasPressedThisFrame)
                 {
                     SceneChangeFlag = true;
                 }
