@@ -24,18 +24,21 @@ public class SceneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SceneChangeFlag = false;
+        IsAnimation = false;
+        time = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (!SceneChangeFlag)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
-                if (gamepad.aButton.wasPressedThisFrame)
+                if (gamepad.bButton.wasPressedThisFrame)
                 {
                     SceneChangeFlag = true;
                 }
@@ -59,6 +62,5 @@ public class SceneMove : MonoBehaviour
                 SceneManager.LoadScene(sceneName);
             }
         }
-        
     }
 }

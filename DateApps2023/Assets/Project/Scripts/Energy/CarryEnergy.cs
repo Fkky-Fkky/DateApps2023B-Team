@@ -8,8 +8,8 @@ using UnityEngine;
 public class CarryEnergy : MonoBehaviour
 {
     #region
-    public GameObject[] myGrabPoint = null;
-    public PlayerCarryDown[] playerCarryDowns = null;
+    private GameObject[] myGrabPoint = null;
+    private PlayerCarryDown[] playerCarryDowns = null;
     private PlayerController playercontroller;
     int number = 0;
     public int groupNumber = 1;
