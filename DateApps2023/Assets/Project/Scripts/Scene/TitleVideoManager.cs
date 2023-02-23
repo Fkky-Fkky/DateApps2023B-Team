@@ -15,9 +15,6 @@ public class TitleVideoManager : MonoBehaviour
     private Animator AnimationImage = null;
 
     [SerializeField]
-    private bool CanLogoSkip = true;
-
-    [SerializeField]
     private float StandingTime = 11.0f;
     private float time = 0.0f;
 
@@ -36,6 +33,9 @@ public class TitleVideoManager : MonoBehaviour
     private bool isPlaying = false;
     private bool isFinished = false;
     private RenderTexture renderTexture = null;
+
+    [SerializeField]
+    private bool CanLogoSkip = true;
 
 
     // Start is called before the first frame update

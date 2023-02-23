@@ -26,6 +26,17 @@ public class TitleSceneMove : MonoBehaviour
     [SerializeField]
     private bool CanSkip = true;
 
+    [SerializeField]
+    private AudioClip pressButtonSound = null;
+
+    [SerializeField]
+    private AudioClip[] acceptSound = null;
+
+    [SerializeField]
+    private AudioClip[] cancelSound = null;
+
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +49,7 @@ public class TitleSceneMove : MonoBehaviour
             PlayerImage[i].alpha = 0;
             IsAccept[i] = false;
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -76,6 +88,7 @@ public class TitleSceneMove : MonoBehaviour
             if (gamepad.bButton.wasPressedThisFrame)
             {
                 AnimationImage.SetTrigger("AcceptStart");
+                audioSource.PlayOneShot(pressButtonSound);
             }
         }
     }
@@ -155,6 +168,7 @@ public class TitleSceneMove : MonoBehaviour
                 if (!IsAccept[i])
                 {
                     PlayerImage[i].alpha = 1;
+                    audioSource.PlayOneShot(acceptSound[i]);
 
                     acceptCount++;
                     IsAccept[i] = true;
@@ -162,6 +176,7 @@ public class TitleSceneMove : MonoBehaviour
                 else
                 {
                     PlayerImage[i].alpha = 0;
+                    audioSource.PlayOneShot(cancelSound[i]);
 
                     acceptCount--;
                     IsAccept[i] = false;
