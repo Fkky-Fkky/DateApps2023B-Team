@@ -146,7 +146,11 @@ public class TitleSceneMove : MonoBehaviour
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
             var gamepad = Gamepad.all[i];
-            if (gamepad.bButton.wasPressedThisFrame)
+            if (gamepad.aButton.wasPressedThisFrame)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else if (gamepad.bButton.wasPressedThisFrame)
             {
                 if (!IsAccept[i])
                 {
