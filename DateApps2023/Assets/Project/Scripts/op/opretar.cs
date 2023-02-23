@@ -22,13 +22,7 @@ public class opretar : MonoBehaviour
     void Update()
     {
         //summonboss();
-        if (flag == false)
-        {
-            flag = true;
-            boss_attck_charge();
-            op_text.Boss_attcK_text();
-            
-        }
+        
 
         //中型ボス
         if (boss.BossType()== 1 )
@@ -48,8 +42,7 @@ public class opretar : MonoBehaviour
         //ボスの攻撃チャージ
         if (boss.Charge())
         {
-            
-
+            boss_attck_charge();
         }
         //ボス接近時
         if (boss.Danger())
@@ -66,6 +59,11 @@ public class opretar : MonoBehaviour
     //通常ボス出現時
     public void summonboss()
     {
+        if (flag == false)
+        {
+            flag = true;
+            
+        }
         animator.SetTrigger("boss");
         op_text.Boss_text();
         //animator.ResetTrigger("boss");
@@ -99,6 +97,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("charge");
         //animator.ResetTrigger("charge");
+        op_text.Boss_attcK_text();
     }
     //ボスの攻撃チャージキャンセル
     public void boss_attck_charge_stop()
@@ -115,8 +114,8 @@ public class opretar : MonoBehaviour
     public void Approach()
     {
         animator.SetTrigger("Approach");
-        op_text.Approach();
         animator.ResetTrigger("Approach");
+        op_text.Approach();
     }
 
     //エネルギー物資出現時

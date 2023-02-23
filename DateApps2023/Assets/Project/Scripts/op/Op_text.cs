@@ -31,7 +31,7 @@ public class Op_text : MonoBehaviour
 
     void Update()
     {
-      
+
     }
 
     public void Approach()
@@ -47,7 +47,6 @@ public class Op_text : MonoBehaviour
 
     public void Boss_text()
     {
-        //boss_attck_text[2] = Resources.Load<Sprite>("op_text/OP_ptx_18");
         op_text_image.sprite = op_boss_text[2];
     }
     public void Mini_boss_text()
