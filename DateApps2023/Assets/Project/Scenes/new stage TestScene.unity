@@ -213,7 +213,7 @@ PrefabInstance:
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Game_voice.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 18e7431959574f94887e014f1c29f135, type: 3}
+      objectReference: {fileID: 8300000, guid: b91793429a8951b45b11b3f7ca180f17, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Game_voice.Array.data[2]
       value: 
@@ -232,7 +232,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 97f4688b1ea613443b5ded45eb049d8e, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[0]
@@ -277,7 +277,7 @@ PrefabInstance:
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[10]
       value: 
-      objectReference: {fileID: 8300000, guid: 07a286892beb9f141a9d214ee9b9aca8, type: 3}
+      objectReference: {fileID: 8300000, guid: 1d1b20ea396f76a439856b26b465ca7e, type: 3}
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 

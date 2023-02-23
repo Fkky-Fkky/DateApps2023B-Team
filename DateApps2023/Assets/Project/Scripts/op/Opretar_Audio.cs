@@ -67,6 +67,16 @@ public class Opretar_Audio : MonoBehaviour
     {
         Source.PlayOneShot(Tutorial_Voice[9]);
     }
+
+    void Op_vice11()
+    {
+        Source.PlayOneShot(Tutorial_Voice[10]);
+    }
+    void Op_vice12()
+    {
+        Source.PlayOneShot(Tutorial_Voice[11]);
+    }
+
     void Game_vice1()
     {
         Source.PlayOneShot(Game_voice[0]);
