@@ -23,7 +23,7 @@ public class BossDamage : MonoBehaviour
 
     float effectPosY = -40.0f;
 
-    private bool isInvincible = false;
+    public bool isInvincible { get; private set; }
     private float invincibleTime = 0.0f;
     [SerializeField]
     private float invincibleTimeMax = 4.0f;
@@ -47,19 +47,8 @@ public class BossDamage : MonoBehaviour
 
     public bool isTrance = false; 
 
-    private float tranceTime = 0.0f;
-    [SerializeField]
-    private float tranceTimeMax;
-
     [SerializeField]
     private Transform stunPos;
-
-    [SerializeField]
-    private GameObject stunEffct;
-
-    private List<GameObject> stunEffectList = new List<GameObject>();
-    private int stunEffectCount = 0;
-
 
     private int isBullet = -1;
 
@@ -92,6 +81,8 @@ public class BossDamage : MonoBehaviour
         smallDamage  = damageCSV.small;
         MediumDamage = damageCSV.medium;
         LargeDamage  = damageCSV.large;
+
+        isInvincible = false;
 
         maxHp = bossMove.bossHp;
 
@@ -168,7 +159,6 @@ public class BossDamage : MonoBehaviour
                 isBossFellDown = true;
                 Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
-                StunEffectDestroy();
                 Destroy(gameObject);
                 bossDestroyTime = 0.0f;
             }
@@ -213,7 +203,7 @@ public class BossDamage : MonoBehaviour
     {
         for (int i = 0; i <= minusHp; i++)
         {
-            if (bossMove.bossHp >= i)
+            if (bossMove.bossHp >= 1)
             {
                 hpBar[bossMove.bossHp - i].SetActive(false);
             }
@@ -221,15 +211,6 @@ public class BossDamage : MonoBehaviour
     }
 
 
-    private void StunEffectDestroy()
-    {
-        for (int i = 0; i < stunEffectList.Count; i++)
-        {
-            Destroy(stunEffectList[i]);
-            stunEffectList.RemoveAt(i);
-        }
-
-    }
 
     public void KnockbackTrueSmall()
     {

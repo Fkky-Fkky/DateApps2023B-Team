@@ -7,8 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BossAttack : MonoBehaviour
 {
-
-    float time = 0.0f;
+    [SerializeField]
+    private float time = 0.0f;
 
     private float attackIntervalTime;
 
@@ -43,9 +43,9 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     private GameObject dangerZone;
 
-    private Vector3 dangerCenter = new Vector3(  0.0f, 1.0f, 0.0f);
-    private Vector3 dangerLeft   = new Vector3(-10.0f, 1.0f, 0.0f);
-    private Vector3 dangerRigth  = new Vector3( 10.0f, 1.0f, 0.0f);
+    private Vector3 dangerCenter = new Vector3(  0.0f, -1.2f, 0.0f);
+    private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
+    private Vector3 dangerRigth  = new Vector3( 10.0f, -1.2f, 0.0f);
 
     private List<GameObject> dangerAreaList = new List<GameObject>();
 
@@ -81,18 +81,19 @@ public class BossAttack : MonoBehaviour
 
         IsCharge = false;
     }
-
+    
     void Update()
     {
         if (!bossMove.IsAttackOff())
         {
-            if (!bossDamage.isTrance)
+            if (!bossDamage.isInvincible)
             {
                 Attack();
             }
+
         }
 
-        if (bossDamage.isTrance || bossMove.bossHp <= 0)
+        if (bossDamage.isTrance || bossMove.bossHp <= 0||bossDamage.isInvincible)
         {
             for (int i = 0; i < effectList.Count; i++)
             {
@@ -122,7 +123,6 @@ public class BossAttack : MonoBehaviour
                 AttackAnimation();
             }
         }
-
     }
 
     private void Charge()
@@ -171,6 +171,19 @@ public class BossAttack : MonoBehaviour
         else if (beamTime < beamTimeMax && bossDamage.IsBossDamage())
         {
             AttackOff();
+
+            for (int i = 0; i < effectList.Count; i++)
+            {
+                Destroy(effectList[i]);
+                effectList.RemoveAt(i);
+            }
+
+            for (int i = 0; i < dangerAreaList.Count; i++)
+            {
+                Destroy(dangerAreaList[i]);
+                dangerAreaList.RemoveAt(i);
+            }
+
         }
     }
     void DamageAreaControl()

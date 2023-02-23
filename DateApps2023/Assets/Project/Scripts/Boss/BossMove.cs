@@ -43,6 +43,19 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private GameObject warningDisplay;
 
+    [SerializeField]
+    private GameObject gameOverWarningDisplay;
+
+    [SerializeField]
+    private Renderer gameOverDisplay;
+
+    private float flashTime = 0.0f;
+    [SerializeField]
+    private float flashTimeMax = 0.5f;
+
+    [SerializeField]
+    private AudioSource audioSource;
+
     private float underPos = -54.5f;
 
     private bool isAppearance = false;
@@ -86,6 +99,7 @@ public class BossMove : MonoBehaviour
         gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
 
 
+        audioSource.Stop();
     }
 
 
@@ -156,6 +170,7 @@ public class BossMove : MonoBehaviour
         canvas.worldCamera = camera;
 
         warningDisplay.SetActive(false);
+        gameOverWarningDisplay.SetActive(false);
 
         isAppearance = true;
         isNotMove = true;
@@ -210,16 +225,12 @@ public class BossMove : MonoBehaviour
 
         if (isLastAttack)
         {
-            //gameOverTime += Time.deltaTime;
-            //if ((gameObject.tag == "Right" || gameObject.tag == "Left") && gameOverTime >= gameOverTimeSideMax)
-            //{
-            //    gameOver.GameOverTransition();
-            //}
-            //if(gameObject.tag== "Center" && gameOverTime >= gameOverTimeCenterMax)
-            //{
-            //    gameOver.GameOverTransition();
-            //}
+            gameOverWarningDisplay.SetActive(true);
+            flashTime += Time.deltaTime;
 
+            var repeatValue = Mathf.Repeat(flashTime, flashTimeMax);
+
+            gameOverDisplay.enabled = repeatValue >= flashTimeMax * 0.5f;
 
             if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
@@ -230,9 +241,17 @@ public class BossMove : MonoBehaviour
                 gameOverTime = 0.0f;
                 isLastAttack = false;
             }
-
         }
 
+        if (isHazard)
+        {
+            audioSource.Play();
+        }
+
+        if (damageFlag)
+        {
+            audioSource.Stop();
+        }
     }
 
     private void FixedUpdate()
@@ -277,7 +296,7 @@ public class BossMove : MonoBehaviour
 
         if ((transform.position.z - target.transform.position.z) <= 100.0f)
         {
-                warningDisplay.SetActive(true);
+            warningDisplay.SetActive(true);
             if (messageCount == 0)
             {
                 isHazard = true;
@@ -288,7 +307,7 @@ public class BossMove : MonoBehaviour
                 isHazard = false;
             }
         }
-        else if((transform.position.z - target.transform.position.z) > 100.0f)
+        else if ((transform.position.z - target.transform.position.z) > 100.0f)
         {
             warningDisplay.SetActive(false);
             isHazard = false;
@@ -297,7 +316,7 @@ public class BossMove : MonoBehaviour
         }
 
 
-        if ((transform.position.z - target.transform.position.z) <= 60.0f)
+        if ((transform.position.z - target.transform.position.z) <= 50.0f)
         {
             isAttackOff = true;
         }
@@ -307,10 +326,13 @@ public class BossMove : MonoBehaviour
             warningDisplay.SetActive(false);
             isLastAttack = true;
             AnimationImage.SetTrigger("LastAttack");
+
+
         }
         else
         {
             isLastAttack = false;
+            gameOverWarningDisplay.SetActive(false);
         }
     }
 
