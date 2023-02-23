@@ -12,6 +12,7 @@ public class opretar : MonoBehaviour
     [SerializeField] BossManager boss;
 
     bool flag = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,11 +60,11 @@ public class opretar : MonoBehaviour
     //通常ボス出現時
     public void summonboss()
     {
-        if (flag == false)
-        {
-            flag = true;
+        //if (flag == false)
+        //{
+        //    flag = true;
             
-        }
+        //}
         animator.SetTrigger("boss");
         op_text.Boss_text();
         //animator.ResetTrigger("boss");
@@ -74,7 +75,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("miniboss");
         op_text.Mini_boss_text();
-        animator.ResetTrigger("miniboss");
+        //animator.ResetTrigger("miniboss");
     }
 
     //ビッグボス出現時
@@ -82,7 +83,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("bigboss");
         op_text.Bog_boss_text();
-        animator.ResetTrigger("bigboss");
+       // animator.ResetTrigger("bigboss");
     }
 
     //ボス撃破時
@@ -90,8 +91,23 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("kill");
         op_text.Boss_kill_text();
-        animator.ResetTrigger("kill");
+        //animator.ResetTrigger("kill");
     }
+    //ボス接近時
+    public void Approach()
+    {
+        animator.SetTrigger("Approach");
+        //animator.ResetTrigger("Approach");
+        op_text.Approach();
+    }
+
+    //エネルギー物資出現時
+    public void energy_charge()
+    {
+        animator.SetTrigger("energycharge");
+    }
+
+
     //ボスの攻撃のチャージ
     public void boss_attck_charge()
     {
@@ -110,18 +126,8 @@ public class opretar : MonoBehaviour
         animator.SetTrigger("charge stop miss");
     }
 
-    //ボス接近時
-    public void Approach()
-    {
-        animator.SetTrigger("Approach");
-        animator.ResetTrigger("Approach");
-        op_text.Approach();
-    }
+    
 
-    //エネルギー物資出現時
-    public void energy_charge()
-    {
-        animator.SetTrigger("energycharge");
-    }
+    
 
 }
