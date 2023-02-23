@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     private float CarryOverSpeed = 0.1f;
     private float DefaultCarryOverSpeed = 0.0f;
 
+    [SerializeField]
+    private int CarryTextOrderInLayer = 0;
+
     private int NeedCarryCount = 0;
 
     // Start is called before the first frame update
@@ -129,6 +132,7 @@ public class PlayerController : MonoBehaviour
         itemSizeCount = itemSize;
 
         carryText = gameObject.GetComponentInChildren<TextMeshPro>();
+        carryText.gameObject.GetComponent<MeshRenderer>().sortingOrder = CarryTextOrderInLayer;
         outline = gameObject.GetComponentInChildren<Outline>();
         outline.enabled = false;
         if (itemType == 1)
