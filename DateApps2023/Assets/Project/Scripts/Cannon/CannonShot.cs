@@ -22,6 +22,12 @@ public class CannonShot : MonoBehaviour
     [SerializeField]
     private AudioClip shotSe = null;
 
+    [SerializeField]
+    private GameObject coolDownEffect = null;
+
+    [SerializeField]
+    private Transform coolTimePos = null;
+
     public bool IsShotting { get; private set; }
     public bool IsNowShot { get; private set; }
 
@@ -75,7 +81,6 @@ public class CannonShot : MonoBehaviour
     {
         IsShotting = true;
         energyType = energyCharge.ChrgeEnergyType;
-        energyCharge.DisChargeEnergy();
         CreateChageEffect();
         Invoke(nameof(CreateSmoke), INVOKE_TIME);
     }
@@ -95,11 +100,13 @@ public class CannonShot : MonoBehaviour
         IsNowShot  = true;
         isCoolTime = true;
         Invoke(nameof(LaserEnd), laserEndTime[energyType]);
+        energyCharge.DisChargeEnergy();
     }
 
     private void LaserEnd()
     {
         IsNowShot = false;
+        Instantiate(coolDownEffect, coolTimePos.position, Quaternion.identity);
     }
 
     private void ShotCancel()
