@@ -11,7 +11,9 @@ public class opretar : MonoBehaviour
 
     [SerializeField] BossManager boss;
 
-    bool flag = false;
+    bool op_flag = false;
+
+    float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -22,38 +24,54 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //summonboss();
-        
+        if(op_flag)
+        {
+            //中型ボス
+            if (boss.BossType()== 1 )
+            {
+                summonboss();
+                op_flag = false;
+            }
+            //小型ボス
+            if (boss.BossType() == 2 )
+            {
+                summonminiboss();
+                op_flag = false;
+            }
+            //大型ボス
+            if (boss.BossType() == 3 )
+            {
+                summonbigboss();
+                op_flag = false;
+            }
+            //ボスの攻撃チャージ
+            if (boss.Charge())
+            {
+                boss_attck_charge();
+                op_flag = false;
+            }
+            //ボス接近時
+            if (boss.Danger())
+            {
+                Approach();
+                op_flag = false;
+            }
+            //ボス討伐
+            if (boss.IsBossKill())
+            {
+                bosskill();
+                op_flag = false;
+            }
+        }
 
-        //中型ボス
-        if (boss.BossType()== 1 )
+        if(!op_flag)
         {
-            summonboss();
-        }
-        //小型ボス
-        if (boss.BossType() == 2 )
-        {
-            summonminiboss();
-        }
-        //大型ボス
-        if (boss.BossType() == 3 )
-        {
-            summonbigboss();
-        }
-        //ボスの攻撃チャージ
-        if (boss.Charge())
-        {
-            boss_attck_charge();
-        }
-        //ボス接近時
-        if (boss.Danger())
-        {
-            Approach();
-        }
-        //ボス討伐
-        if (boss.IsBossKill())
-        {
-            bosskill();
+            time += Time.deltaTime;
+
+            if(time>=2)
+            {
+                op_flag= true;
+            }
         }
     }
 
@@ -63,7 +81,6 @@ public class opretar : MonoBehaviour
         //if (flag == false)
         //{
         //    flag = true;
-            
         //}
         animator.SetTrigger("boss");
         op_text.Boss_text();
@@ -101,13 +118,6 @@ public class opretar : MonoBehaviour
         op_text.Approach();
     }
 
-    //エネルギー物資出現時
-    public void energy_charge()
-    {
-        animator.SetTrigger("energycharge");
-    }
-
-
     //ボスの攻撃のチャージ
     public void boss_attck_charge()
     {
@@ -115,6 +125,17 @@ public class opretar : MonoBehaviour
         //animator.ResetTrigger("charge");
         op_text.Boss_attcK_text();
     }
+
+    //エネルギー物資出現時
+    public void energy_charge()
+    {
+        animator.SetTrigger("energycharge");
+    }
+
+
+
+    //ここから使ってないけど一応残している処理
+
     //ボスの攻撃チャージキャンセル
     public void boss_attck_charge_stop()
     {
@@ -125,9 +146,4 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("charge stop miss");
     }
-
-    
-
-    
-
 }
