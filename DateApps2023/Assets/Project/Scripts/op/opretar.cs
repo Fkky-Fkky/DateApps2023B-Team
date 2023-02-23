@@ -7,11 +7,25 @@ public class opretar : MonoBehaviour
 {
     Animator animator;
 
+    enum gamestate
+    {
+        tutorial,
+
+        game,
+    }
+    gamestate gameState = gamestate.tutorial;
+
     [SerializeField] private Op_text op_text;
 
-    float timer = 0;
+    [SerializeField] private EnergyGenerator energy;
 
-    int flag =0;
+    [SerializeField] private CannonManager cannon;
+
+    [SerializeField] BossManager boss;
+
+    bool op_flag = false;
+
+    float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -22,21 +36,106 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= 3 && flag == 0)
+        if(gameState==gamestate.tutorial)
         {
-            Approach();
-            flag = 1;
+            time+= Time.deltaTime;
+
+            if(cannon.IsFirstCharge())
+            {
+                animator.SetTrigger("Button_ON");
+            }
+
+            if (time >= 45)
+            {
+                animator.SetTrigger("monster_light");
+            }
+
+            if (time >= 50)
+            {
+                animator.SetTrigger("monter_left");
+            }
+        }
+        
+
+
+        if (gameState == gamestate.game)
+        {
+            game();
+        }
+      
+    }
+
+    void tutorial_energy()
+    {
+        energy.FirstGenerate();
+    }
+
+    #region ゲーム中のオペ子のセリフ
+  
+    void game()
+    {
+        if (op_flag)
+        {
+            //中型ボス
+            if (boss.BossType() == 1)
+            {
+                op_flag = false;
+                summonboss();
+            }
+            //小型ボス
+            if (boss.BossType() == 2)
+            {
+                op_flag = false;
+                summonminiboss();
+
+            }
+            //大型ボス
+            if (boss.BossType() == 3)
+            {
+                op_flag = false;
+                summonbigboss();
+            }
+            //ボスの攻撃チャージ
+            if (boss.Charge())
+            {
+                op_flag = false;
+                boss_attck_charge();
+            }
+            //ボス接近時
+            if (boss.Danger())
+            {
+                op_flag = false;
+                Approach();
+            }
+            //ボス討伐
+            if (boss.IsBossKill())
+            {
+                op_flag = false;
+                bosskill();
+            }
+        }
+
+        if (!op_flag)
+        {
+            time += Time.deltaTime;
+
+            if (time >= 2)
+            {
+                op_flag = true;
+            }
         }
     }
 
     //通常ボス出現時
     public void summonboss()
     {
+        //if (flag == false)
+        //{
+        //    flag = true;
+        //}
         animator.SetTrigger("boss");
         op_text.Boss_text();
-        animator.ResetTrigger("boss");
+        //animator.ResetTrigger("boss");
     }
 
     //ミニボス出現時
@@ -44,7 +143,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("miniboss");
         op_text.Mini_boss_text();
-        animator.ResetTrigger("miniboss");
+        //animator.ResetTrigger("miniboss");
     }
 
     //ビッグボス出現時
@@ -52,7 +151,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("bigboss");
         op_text.Bog_boss_text();
-        animator.ResetTrigger("bigboss");
+       // animator.ResetTrigger("bigboss");
     }
 
     //ボス撃破時
@@ -60,15 +159,34 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("kill");
         op_text.Boss_kill_text();
-        animator.ResetTrigger("kill");
+        //animator.ResetTrigger("kill");
     }
+    //ボス接近時
+    public void Approach()
+    {
+        animator.SetTrigger("Approach");
+        //animator.ResetTrigger("Approach");
+        op_text.Approach();
+    }
+
     //ボスの攻撃のチャージ
     public void boss_attck_charge()
     {
         animator.SetTrigger("charge");
+        //animator.ResetTrigger("charge");
         op_text.Boss_attcK_text();
-        animator.ResetTrigger("charge");
     }
+
+    //エネルギー物資出現時
+    public void energy_charge()
+    {
+        animator.SetTrigger("energycharge");
+    }
+
+
+
+    //ここから使ってないけど一応残している処理
+
     //ボスの攻撃チャージキャンセル
     public void boss_attck_charge_stop()
     {
@@ -79,19 +197,5 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("charge stop miss");
     }
-
-    //ボス接近時
-    public void Approach()
-    {
-        animator.SetTrigger("Approach");
-        op_text.Approach();
-        animator.ResetTrigger("Approach");
-    }
-
-    //エネルギー物資出現時
-    public void energy_charge()
-    {
-        animator.SetTrigger("energycharge");
-    }
-
 }
+#endregion

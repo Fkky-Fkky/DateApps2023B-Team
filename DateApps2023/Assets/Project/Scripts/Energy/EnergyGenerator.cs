@@ -56,7 +56,7 @@ public class EnergyGenerator : MonoBehaviour
         {
             createArea[i] = generatePosMin.position.x + (fourDivide * i);
         }
-        FirstGenerate();
+        //FirstGenerate();
     }
 
     private void Update()
