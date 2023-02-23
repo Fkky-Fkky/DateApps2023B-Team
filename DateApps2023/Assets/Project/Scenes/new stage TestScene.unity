@@ -202,6 +202,82 @@ PrefabInstance:
       propertyPath: voice.Array.data[4]
       value: 
       objectReference: {fileID: 8300000, guid: b82112a608de85a4283d508045c47b3e, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: c677db91eb2ee6c4c8530f05efeb71e2, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 18e7431959574f94887e014f1c29f135, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4e536907fee99184490fd2564761577c, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: b15bf5a18aa8da84795543df23f0fb77, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ebcb526c5024154e95d5d0f635afa03, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Game_voice.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 97f4688b1ea613443b5ded45eb049d8e, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 309a9a9a03123b0419db471fe7127c47, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 325b363cd38af954db8c637db2bd28f1, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4dc1eb3699c2b354fa9635b4fb0d838e, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 380b650a4c9837041be2b7cdbc7505c9, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: b82112a608de85a4283d508045c47b3e, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8031bd18fa010544a99b3b5db64f0713, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: c79125aa3c9a6e64d9e0e0cc63ffb7be, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1bfe0e82949e5d4458a24106228d781c, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: 98bd2740420db904ab23a0560d479947, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: e1a597a2c5f7bab4aa190cba11a17edf, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[10]
+      value: 
+      objectReference: {fileID: 8300000, guid: 07a286892beb9f141a9d214ee9b9aca8, type: 3}
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 
