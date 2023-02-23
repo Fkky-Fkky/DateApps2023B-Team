@@ -25,7 +25,11 @@ public class opretar : MonoBehaviour
 
     bool op_flag = false;
 
+    bool game_stert_flag = false;
+
     float time = 0;
+
+    [SerializeField] float game_stert_time = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +58,14 @@ public class opretar : MonoBehaviour
             {
                 animator.SetTrigger("monter_left");
             }
+
+            if (time >= game_stert_time)
+            {
+                gameState = gamestate.game;
+                //game_stert_flag = true;
+            }
         }
         
-
-
         if (gameState == gamestate.game)
         {
             game();
@@ -134,7 +142,7 @@ public class opretar : MonoBehaviour
         //    flag = true;
         //}
         animator.SetTrigger("boss");
-        op_text.Boss_text();
+        //op_text.Boss_text();
         //animator.ResetTrigger("boss");
     }
 
@@ -142,7 +150,7 @@ public class opretar : MonoBehaviour
     public void summonminiboss()
     {
         animator.SetTrigger("miniboss");
-        op_text.Mini_boss_text();
+        //op_text.Mini_boss_text();
         //animator.ResetTrigger("miniboss");
     }
 
@@ -150,7 +158,7 @@ public class opretar : MonoBehaviour
     public void summonbigboss()
     {
         animator.SetTrigger("bigboss");
-        op_text.Bog_boss_text();
+        //op_text.Bog_boss_text();
        // animator.ResetTrigger("bigboss");
     }
 
@@ -158,7 +166,7 @@ public class opretar : MonoBehaviour
     public void bosskill()
     {
         animator.SetTrigger("kill");
-        op_text.Boss_kill_text();
+       // op_text.Boss_kill_text();
         //animator.ResetTrigger("kill");
     }
     //ボス接近時
@@ -166,7 +174,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("Approach");
         //animator.ResetTrigger("Approach");
-        op_text.Approach();
+        //op_text.Approach();
     }
 
     //ボスの攻撃のチャージ
@@ -174,7 +182,7 @@ public class opretar : MonoBehaviour
     {
         animator.SetTrigger("charge");
         //animator.ResetTrigger("charge");
-        op_text.Boss_attcK_text();
+       // op_text.Boss_attcK_text();
     }
 
     //エネルギー物資出現時
