@@ -7,8 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BossAttack : MonoBehaviour
 {
-
-    float time = 0.0f;
+    [SerializeField]
+    private float time = 0.0f;
 
     private float attackIntervalTime;
 
@@ -81,18 +81,19 @@ public class BossAttack : MonoBehaviour
 
         IsCharge = false;
     }
-
+    
     void Update()
     {
         if (!bossMove.IsAttackOff())
         {
-            if (!bossDamage.isTrance)
+            if (!bossDamage.isInvincible)
             {
                 Attack();
             }
+
         }
 
-        if (bossDamage.isTrance || bossMove.bossHp <= 0)
+        if (bossDamage.isTrance || bossMove.bossHp <= 0||bossDamage.isInvincible)
         {
             for (int i = 0; i < effectList.Count; i++)
             {
@@ -122,7 +123,6 @@ public class BossAttack : MonoBehaviour
                 AttackAnimation();
             }
         }
-
     }
 
     private void Charge()
