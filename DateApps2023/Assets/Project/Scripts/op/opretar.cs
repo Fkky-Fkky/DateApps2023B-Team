@@ -7,7 +7,19 @@ public class opretar : MonoBehaviour
 {
     Animator animator;
 
+    enum gamestate
+    {
+        tutorial,
+
+        game,
+    }
+    gamestate gameState = gamestate.tutorial;
+
     [SerializeField] private Op_text op_text;
+
+    [SerializeField] private EnergyGenerator energy;
+
+    [SerializeField] private CannonManager cannon;
 
     [SerializeField] BossManager boss;
 
@@ -24,53 +36,92 @@ public class opretar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(op_flag)
+        if(gameState==gamestate.tutorial)
+        {
+            time+= Time.deltaTime;
+
+            if(cannon.IsFirstCharge())
+            {
+                animator.SetTrigger("Button_ON");
+            }
+
+            if (time >= 45)
+            {
+                animator.SetTrigger("monster_light");
+            }
+
+            if (time >= 50)
+            {
+                animator.SetTrigger("monter_left");
+            }
+        }
+        
+
+
+        if (gameState == gamestate.game)
+        {
+            game();
+        }
+      
+    }
+
+    void tutorial_energy()
+    {
+        energy.FirstGenerate();
+    }
+
+    #region ゲーム中のオペ子のセリフ
+  
+    void game()
+    {
+        if (op_flag)
         {
             //中型ボス
-            if (boss.BossType()== 1 )
+            if (boss.BossType() == 1)
             {
-                summonboss();
                 op_flag = false;
+                summonboss();
             }
             //小型ボス
-            if (boss.BossType() == 2 )
+            if (boss.BossType() == 2)
             {
-                summonminiboss();
                 op_flag = false;
+                summonminiboss();
+
             }
             //大型ボス
-            if (boss.BossType() == 3 )
+            if (boss.BossType() == 3)
             {
-                summonbigboss();
                 op_flag = false;
+                summonbigboss();
             }
             //ボスの攻撃チャージ
             if (boss.Charge())
             {
-                boss_attck_charge();
                 op_flag = false;
+                boss_attck_charge();
             }
             //ボス接近時
             if (boss.Danger())
             {
-                Approach();
                 op_flag = false;
+                Approach();
             }
             //ボス討伐
             if (boss.IsBossKill())
             {
-                bosskill();
                 op_flag = false;
+                bosskill();
             }
         }
 
-        if(!op_flag)
+        if (!op_flag)
         {
             time += Time.deltaTime;
 
-            if(time>=2)
+            if (time >= 2)
             {
-                op_flag= true;
+                op_flag = true;
             }
         }
     }
@@ -147,3 +198,4 @@ public class opretar : MonoBehaviour
         animator.SetTrigger("charge stop miss");
     }
 }
+#endregion

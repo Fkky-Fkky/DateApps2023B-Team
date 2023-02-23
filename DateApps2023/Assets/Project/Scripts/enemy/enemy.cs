@@ -264,8 +264,9 @@ public class enemy : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+      
         #endregion
-       
+
         if (-25 >= pos.y )
         {
             Destroy(gameObject);
