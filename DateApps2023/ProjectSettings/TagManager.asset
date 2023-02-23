@@ -30,6 +30,7 @@ TagManager:
   - TimerText
   - thin wall
   - BossFellDownCount
+  - DangerZoon
   layers:
   - Default
   - TransparentFX

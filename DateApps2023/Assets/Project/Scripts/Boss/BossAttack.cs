@@ -43,9 +43,9 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     private GameObject dangerZone;
 
-    private Vector3 dangerCenter = new Vector3(  0.0f, 1.0f, 0.0f);
-    private Vector3 dangerLeft   = new Vector3(-10.0f, 1.0f, 0.0f);
-    private Vector3 dangerRigth  = new Vector3( 10.0f, 1.0f, 0.0f);
+    private Vector3 dangerCenter = new Vector3(  0.0f, -1.2f, 0.0f);
+    private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
+    private Vector3 dangerRigth  = new Vector3( 10.0f, -1.2f, 0.0f);
 
     private List<GameObject> dangerAreaList = new List<GameObject>();
 
