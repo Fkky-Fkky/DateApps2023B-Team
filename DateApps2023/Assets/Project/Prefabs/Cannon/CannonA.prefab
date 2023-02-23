@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 608408026505789374}
   m_Layer: 0
-  m_Name: SmokePoint
+  m_Name: SomkePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6235379894168220595}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2330898793117845089
 GameObject:
@@ -655,9 +655,11 @@ Transform:
   m_Children:
   - {fileID: 2555842417326366552}
   - {fileID: 608408025037340664}
-  - {fileID: 608408026505789374}
-  - {fileID: 390897643533887379}
   - {fileID: 3002761047406845186}
+  - {fileID: 390897643533887379}
+  - {fileID: 608408026505789374}
+  - {fileID: 390078139655551619}
+  - {fileID: 1799508560690613775}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -673,8 +675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce8c99cbdca86e42958addc9153c996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myGrabPoint: []
-  playerCarryDowns: []
   groupNumber: 1
   defaultPosY: -0.3
   carryPosY: 0.2
@@ -703,6 +703,10 @@ MonoBehaviour:
   energyCharge: {fileID: 608408025037340662}
   shotChargeSe: {fileID: 8300000, guid: bfdc067b87b859649b4ee9d50a587d58, type: 3}
   shotSe: {fileID: 8300000, guid: 0e6d738edeb64154898350b452b38735, type: 3}
+  coolDownEffect: {fileID: 6304585585383082989, guid: 89b08b50e70ad124eb0707a45dfebd7d, type: 3}
+  coolTimePos:
+  - {fileID: 390078139655551619}
+  - {fileID: 1799508560690613775}
 --- !u!114 &1228524025749394180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +844,68 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &6797256531656434751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 390078139655551619}
+  m_Layer: 0
+  m_Name: CoolDownPointA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &390078139655551619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6797256531656434751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6235379894168220595}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8079870671631083720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799508560690613775}
+  m_Layer: 0
+  m_Name: CoolDownPointB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1799508560690613775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079870671631083720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6235379894168220595}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &386107556071838175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1151,7 +1217,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3778484163495630021, guid: 014e4082c350ba24f92dd0b3b4780d37, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3778484163495630021, guid: 014e4082c350ba24f92dd0b3b4780d37, type: 3}
       propertyPath: m_LocalPosition.x

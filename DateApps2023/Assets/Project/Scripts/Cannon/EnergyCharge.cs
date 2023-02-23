@@ -16,6 +16,8 @@ public class EnergyCharge : MonoBehaviour
     [SerializeField]
     private GameObject cannonLaser = null;
 
+    private float coolTime = 0.0f;
+    private bool isCoolTime = false;
     private Vector3[] laserScale = new Vector3[3];
 
     private BoxCollider boxCol = null;
@@ -25,6 +27,7 @@ public class EnergyCharge : MonoBehaviour
     private const float SMALL_LASER_SCALE = 0.3f;
     private const float LARGE_LASER_SCALE = 1.0f;
     private const float MEDIUM_LASER_SCALE = 1.5f;
+    private const float COOL_TIME_MAX = 3.0f;
 
     public int Energy { get; private set; }
     public int ChrgeEnergyType { get; private set; }
@@ -44,6 +47,21 @@ public class EnergyCharge : MonoBehaviour
         laserScale[0] = new Vector3(SMALL_LASER_SCALE, SMALL_LASER_SCALE, SMALL_LASER_SCALE);
         laserScale[1] = new Vector3(LARGE_LASER_SCALE, LARGE_LASER_SCALE, LARGE_LASER_SCALE);
         laserScale[2] = new Vector3(MEDIUM_LASER_SCALE, MEDIUM_LASER_SCALE, MEDIUM_LASER_SCALE);
+    }
+
+    private void Update()
+    {
+        if (!isCoolTime)
+        {
+            return;
+        }
+
+        coolTime = Mathf.Max(coolTime - Time.deltaTime, 0.0f);
+        if (coolTime <= 0.0f)
+        {
+            isCoolTime = false;
+            boxCol.enabled = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -93,11 +111,12 @@ public class EnergyCharge : MonoBehaviour
     public void DisChargeEnergy()
     {
         Energy = Mathf.Max(Energy - ADD_ENERGY, 0);
-        if (boxCol.enabled)
+        if (isCoolTime)
         {
             return;
         }
-        boxCol.enabled = true;
+        isCoolTime = true;
+        coolTime = COOL_TIME_MAX;
     }
 
     public bool IsEnergyCharged()
