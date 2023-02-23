@@ -93,8 +93,12 @@ public class BossAttack : MonoBehaviour
 
         }
 
+        
+
         if (bossDamage.isTrance || bossMove.bossHp <= 0||bossDamage.isInvincible)
         {
+
+            AttackOff();
             for (int i = 0; i < effectList.Count; i++)
             {
                 Destroy(effectList[i]);
