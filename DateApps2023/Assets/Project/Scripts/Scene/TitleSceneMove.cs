@@ -43,7 +43,6 @@ public class TitleSceneMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(acceptCount);
         if (!IsPlay)
         {
             if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
