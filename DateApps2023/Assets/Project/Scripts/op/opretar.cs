@@ -29,6 +29,8 @@ public class opretar : MonoBehaviour
 
     float time = 0;
 
+   
+
     [SerializeField] float game_stert_time = 100;
 
     // Start is called before the first frame update

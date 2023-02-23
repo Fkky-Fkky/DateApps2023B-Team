@@ -867,9 +867,7 @@ MonoBehaviour:
   fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
   invincibleTimeMax: 4
   isTrance: 0
-  tranceTimeMax: 10
   stunPos: {fileID: 8376872536337460165}
-  stunEffct: {fileID: 5659291355382750488, guid: 30ba7cb196bf19549afa4bfc3447dd4b, type: 3}
   hpBar: []
   hpMemori:
   - {fileID: 789059881321242861}
@@ -899,7 +897,6 @@ MonoBehaviour:
   gameOverWarningDisplay: {fileID: 537261317771004103}
   gameOverDisplay: {fileID: 2215697549118671568}
   flashTimeMax: 0.5
-  dangerSE: {fileID: 8300000, guid: de175710420a85a4ca6e0efcdc3d834f, type: 3}
   audioSource: {fileID: 2131339584734462358}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
@@ -916,6 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 0
   attackAnimation: {fileID: 1697093568606495979}
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
