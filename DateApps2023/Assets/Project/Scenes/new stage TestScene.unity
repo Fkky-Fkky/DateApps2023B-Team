@@ -3744,6 +3744,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 731306188}
+    - target: {fileID: 6651277262274826888, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: generateEnergy
+      value: 
+      objectReference: {fileID: 661935786}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
 --- !u!1001 &1342934107
@@ -6129,7 +6133,7 @@ PrefabInstance:
     - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: generateEnergy
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 661935786}
     - target: {fileID: 608408025102211633, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8

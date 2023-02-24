@@ -23,6 +23,8 @@ public class opretar : MonoBehaviour
 
     [SerializeField] private CannonManager cannon;
 
+    [SerializeField] private BossCSVGenerator csv;
+
     //[SerializeField] private BossCount bosscount;
 
     [SerializeField] BossManager boss;
@@ -80,12 +82,22 @@ public class opretar : MonoBehaviour
                 animator.SetTrigger("boss_second_kill");
             }
         }
-
+        
         if (gameState == gamestate.game)
         {
             game();
         }
         #endregion
+    }
+
+    void First()
+    {
+        csv.FirstBossGanaretar();
+    }
+
+    void scond()
+    {
+        csv.SecondBossGanaretar();
     }
 
     void tutorial_end()
