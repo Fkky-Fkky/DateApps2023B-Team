@@ -8,6 +8,8 @@ public class BossCSVGenerator : MonoBehaviour
 {
     public BossManager bossManager;
     private BossCount bossCount;
+    [SerializeField]
+    private opretar opretar;
 
     [SerializeField]
     private BossCSV bossCSV = null;
@@ -105,10 +107,10 @@ public class BossCSVGenerator : MonoBehaviour
     void Update()
     {
         //スタートフラグ
-        //if (!)
-        //{
-        //    return;
-        //}
+        if (!opretar.Getstartflag())
+        {
+            return;
+        }
 
         if (bossCountOne <= bossCountMax)
         {
