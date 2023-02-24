@@ -61,7 +61,6 @@ public class opretar : MonoBehaviour
             if (BossCount.GetKillCount() == 1)
             {
                 animator.SetTrigger("firing");
-
             }
             
 
