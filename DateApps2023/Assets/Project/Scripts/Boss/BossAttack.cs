@@ -67,6 +67,8 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     private AudioClip beamSE;
 
+    private int seCount = 0;
+
     public BossMove bossMove;
 
     public BossDamage bossDamage;
@@ -196,7 +198,11 @@ public class BossAttack : MonoBehaviour
     }
     void DamageAreaControl()
     {
-        audioSource.PlayOneShot(beamSE);
+        if (seCount < 1)
+        {
+            audioSource.PlayOneShot(beamSE);
+            seCount++;
+        }
 
         if (gameObject.transform.position.x == centerTarget)
         {
@@ -238,6 +244,7 @@ public class BossAttack : MonoBehaviour
         isAttackAll = false;
         effectStop = 0;
         attackAnimation.SetBool("Attack", false);
+        seCount = 0;
         beamTime = 0.0f;
         beamOffTime = 0.0f;
         areaCount = 0;
