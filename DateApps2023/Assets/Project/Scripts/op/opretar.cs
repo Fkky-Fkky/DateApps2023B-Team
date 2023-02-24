@@ -207,7 +207,6 @@ public class opretar : MonoBehaviour
         //}
 
         animator.SetTrigger("kill");
-       // op_text.Boss_kill_text();
         //animator.ResetTrigger("kill");
     }
     //ƒ{ƒXÚ‹ß
