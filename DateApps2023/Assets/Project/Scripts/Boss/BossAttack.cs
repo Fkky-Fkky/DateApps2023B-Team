@@ -7,14 +7,12 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BossAttack : MonoBehaviour
 {
-    [SerializeField]
     private float time = 0.0f;
 
     private float attackIntervalTime;
 
     [SerializeField]
     Animator attackAnimation = null;
-
 
     float centerTarget = 0.0f;
     float rightTarget = 0.1f;
@@ -93,8 +91,12 @@ public class BossAttack : MonoBehaviour
 
         }
 
+        
+
         if (bossDamage.isTrance || bossMove.bossHp <= 0||bossDamage.isInvincible)
         {
+
+            AttackOff();
             for (int i = 0; i < effectList.Count; i++)
             {
                 Destroy(effectList[i]);
