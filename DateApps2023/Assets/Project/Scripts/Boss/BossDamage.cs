@@ -132,13 +132,6 @@ public class BossDamage : MonoBehaviour
                 break;
         }
 
-
-        //if (maxHp == 3)
-        //{
-        //    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(-0.4f, -0.7f, 0);
-
-        //}
-
     }
 
     void Update()
@@ -167,7 +160,6 @@ public class BossDamage : MonoBehaviour
             {
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 IsBullet();
-
                 if (bossMove.bossHp > 0.0f)
                 {
                     AnimationImage.SetTrigger("Damage");
@@ -178,7 +170,6 @@ public class BossDamage : MonoBehaviour
                 }
 
                 isInvincible = true;
-                //damageCount= 0;
                 isBullet = -1;
                 isDamage = false;
             }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossCSVGenerator : MonoBehaviour
@@ -44,6 +45,8 @@ public class BossCSVGenerator : MonoBehaviour
     private int bossCountOne = 1;
     [SerializeField]
     private int bossCountMax = 10;
+
+    public int BossCountOpe { get; private set; }
 
     private bool isCenterLine = false;
     private bool isRightLine = false;
@@ -93,6 +96,7 @@ public class BossCSVGenerator : MonoBehaviour
 
         IsLanding = false;
 
+
         leftPosX = -sidePos;
         rightPosX = sidePos;
 
@@ -100,6 +104,11 @@ public class BossCSVGenerator : MonoBehaviour
 
     void Update()
     {
+        //スタートフラグ
+        //if (!)
+        //{
+        //    return;
+        //}
 
         if (bossCountOne <= bossCountMax)
         {
@@ -351,4 +360,29 @@ public class BossCSVGenerator : MonoBehaviour
     {
         return bossType;
     }
+
+    public void FirstBossGanaretar()
+    {
+        bossTypeDate = "Nomal";
+        bossLane = 2;
+        attackIntervalDate = 10000.0f;
+        posZ = 345.0f;
+        bossHpDate = 3;
+        moveSpeedDate = 3;
+
+        BossTypeGanarate();
+    }
+
+    public void SecondBossGanaretar()
+    {
+        bossTypeDate = "Nomal";
+        bossLane = 3;
+        attackIntervalDate = 10000.0f;
+        posZ = 345.0f;
+        bossHpDate = 3;
+        moveSpeedDate = 3;
+
+        BossTypeGanarate();
+    }
+
 }
