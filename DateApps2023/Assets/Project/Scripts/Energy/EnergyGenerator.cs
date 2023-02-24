@@ -232,10 +232,7 @@ public class EnergyGenerator : MonoBehaviour
             return;
         }
         isSecondGenerate = false;
-        for (int i = 0; i < 3; i++)
-        {
-            Generate();
-        }
+        Generate();
         isTutorialEnd = true;
     }
 }
