@@ -275,7 +275,7 @@ public class BossMove : MonoBehaviour
             }
 
 
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f)
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
             {
                 //ゲームオーバーフラグ
                 IsGameOver = true;
