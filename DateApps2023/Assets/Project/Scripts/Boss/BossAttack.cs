@@ -14,8 +14,6 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     Animator attackAnimation = null;
 
-    BossCount bossCount;
-
     float centerTarget = 0.0f;
     float rightTarget = 0.1f;
     float leftTarget = -0.1f;

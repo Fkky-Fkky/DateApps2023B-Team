@@ -110,15 +110,21 @@ public class BossMove : MonoBehaviour
         {
             tag = "Center";
 
-            if (bossHp >= 3 && bossHp <= 8)
+            if (bossHp >= 2 && bossHp <= 5)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.15f, 0);
+                if (gameObject.transform.localScale.y > 18.0f)
+                {
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.055f, 0);
+                }
             }
-            if (bossHp == 1)
+            if (bossHp >= 1 && bossHp <= 2)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.15f, 0);
+                if (gameObject.transform.localScale.y < 18.0f)
+                {
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.5f, 0);
+                }
             }
-            if (bossHp >= 9)
+            if (bossHp >= 7 && bossHp <= 9)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             }
@@ -128,15 +134,21 @@ public class BossMove : MonoBehaviour
         if (transform.position.x >= 0.1f)
         {
             tag = "Right";
-            if (bossHp >= 3 && bossHp <= 8)
+            if (bossHp >= 2 && bossHp <= 5)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.8f, 0.15f, 0);
+                if (gameObject.transform.localScale.y > 18.0f)
+                {
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.9f, 0.055f, 0);
+                }
             }
-            if (bossHp == 1)
+            if (bossHp >= 1 && bossHp <= 2)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(9, -0.15f, 0);
+                if (gameObject.transform.localScale.y < 18.0f)
+                {
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(8.6f, -0.5f, 0);
+                }
             }
-            if (bossHp >= 9)
+            if (bossHp >= 7 && bossHp <= 9)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4, 0, 0);
             }
@@ -146,15 +158,21 @@ public class BossMove : MonoBehaviour
         if (transform.position.x <= -0.1f)
         {
             tag = "Left";
-            if (bossHp >= 3 && bossHp <= 8)
+            if (bossHp >= 2 && bossHp <= 5)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.8f, 0.15f, 0.0f);
+                if (gameObject.transform.localScale.y > 18.0f)
+                {
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.9f, 0.055f, 0.0f);
+                }
             }
-            if (bossHp == 1)
+            if (bossHp >= 1 && bossHp <= 2)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-9, -0.15f, 0.0f);
+                if (gameObject.transform.localScale.y < 18.0f)
+                {
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-8.6f, -0.5f, 0.0f);
+                }
             }
-            if (bossHp >= 9)
+            if (bossHp >= 7 && bossHp <= 9)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4, 0, 0);
             }

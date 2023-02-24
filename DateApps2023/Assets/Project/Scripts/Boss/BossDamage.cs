@@ -51,15 +51,16 @@ public class BossDamage : MonoBehaviour
     private Transform stunPos;
 
     private int isBullet = -1;
-    [SerializeField]
     private int maxHp = 0;
 
+    [SerializeField]
+    private GameObject hpCores;
 
     [SerializeField]
     private GameObject[] hpBar = new GameObject[9];
 
     [SerializeField]
-    private GameObject[] hpMemori =new GameObject[9];
+    private GameObject[] hpMemori = new GameObject[9];
 
  
     private int smallDamage;
@@ -88,10 +89,48 @@ public class BossDamage : MonoBehaviour
 
         hpBar = new GameObject[maxHp];
 
-        for(int i = 0; i < maxHp; i++)
+        for (int i = 0; i < hpMemori.Length; i++)
+        {
+            hpMemori[i].SetActive(false);
+        }
+
+        for (int i = 0; i < maxHp; i++)
         {
             hpBar[i] = hpMemori[i];
+            hpMemori[i].SetActive(true);
         }
+
+        switch (maxHp) 
+        {
+            case 1:
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, 0.7f, 0);
+                break;
+            case 2:
+                if (gameObject.transform.localScale.y > 18.0f)
+                {
+                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, -0.7f, 0);
+                }
+                break;
+            case 3:
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.4f, -0.7f, 0);
+                break;
+            case 4:
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.2f, -0.7f, 0);
+                break;
+            case 7:
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.4f, 0, 0);
+                break;
+            case 8:
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.2f, 0, 0);
+                break;
+        }
+
+
+        //if (maxHp == 3)
+        //{
+        //    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(-0.4f, -0.7f, 0);
+
+        //}
 
     }
 
@@ -215,12 +254,14 @@ public class BossDamage : MonoBehaviour
 
     private void HpBarMediumActive()
     {
-        for(int i = 0; i < MediumDamage; i++)
+        for (int i = 0; i < MediumDamage; i++)
         {
-            hpBar[bossMove.bossHp + i].SetActive(false);
+            if (bossMove.bossHp + i < maxHp)
+            {
+                hpBar[bossMove.bossHp + i].SetActive(false);
+            }
         }
     }
-
     private void HpBarLargeActive()
     {
         for(int i = 0; i < maxHp; i++)
