@@ -21,7 +21,7 @@ public class BossCSV : MonoBehaviour
     private int i = 1;
 
     [SerializeField]
-    private int BossMaxCount;
+    private int BossMaxCount = 11;
 
     private void Awake()
     {

@@ -103,7 +103,14 @@ public class BossDamage : MonoBehaviour
         switch (maxHp) 
         {
             case 1:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, 0.7f, 0);
+                if (gameObject.transform.localScale.y < 180.0f)
+                {
+                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, 0.7f, 0);
+                }
+                if (gameObject.transform.localScale.y > 18.0f)
+                {
+                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.8f, -0.7f, 0);
+                }
                 break;
             case 2:
                 if (gameObject.transform.localScale.y > 18.0f)

@@ -781,6 +781,7 @@ MonoBehaviour:
   gameOverDisplay: {fileID: 8355823795949604782}
   flashTimeMax: 0.5
   audioSource: {fileID: 7804359188918254647}
+  fallSE: {fileID: 8300000, guid: 1eb97ab64c84cb1419c622028b5bbe85, type: 3}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
   isLastAttack: 0
@@ -817,7 +818,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4d00d7be4408fe745a5454daeca249ee, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1070,7 +1071,7 @@ RectTransform:
   - {fileID: 2118709371036909866}
   - {fileID: 3717904986542946809}
   m_Father: {fileID: 1628488084290616346}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1203,7 +1204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8089810166445154182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: -45}
+  m_LocalPosition: {x: 0, y: 1.2, z: -45}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1375,9 +1376,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1365344263494961178}
+  - {fileID: 5771789586200659016}
   - {fileID: 6869575331465584760}
   - {fileID: 2077316153871757004}
-  - {fileID: 5771789586200659016}
   m_Father: {fileID: 2547945030391244385}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1510,7 +1511,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalScale.x
@@ -1598,7 +1599,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalScale.x

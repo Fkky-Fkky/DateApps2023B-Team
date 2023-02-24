@@ -32,8 +32,10 @@ public class BossCSVGenerator : MonoBehaviour
     private float moveSpeedDate;
 
     private float centerPosX =    0.0f;
-    private float leftPosX   = -100.0f;
-    private float rightPosX  =  100.0f;
+    [SerializeField]
+    private float sidePos;
+    private float leftPosX;
+    private float rightPosX;
 
     private float fallPosition = 500.0f;
 
@@ -88,6 +90,9 @@ public class BossCSVGenerator : MonoBehaviour
         IsKill = false;
 
         IsLanding = false;
+
+        leftPosX = -sidePos;
+        rightPosX = sidePos;
 
     }
 

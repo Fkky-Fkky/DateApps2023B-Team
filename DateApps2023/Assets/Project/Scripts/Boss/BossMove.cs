@@ -55,6 +55,11 @@ public class BossMove : MonoBehaviour
 
     [SerializeField]
     private AudioSource audioSource;
+    private AudioClip dangerSE;
+    private string songName;
+
+    [SerializeField]
+    private AudioClip fallSE;
 
     private float underPos = -54.5f;
 
@@ -98,7 +103,9 @@ public class BossMove : MonoBehaviour
 
         gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
 
-
+        songName = "FirstDanger";
+        dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
+        audioSource.clip = dangerSE;
         audioSource.Stop();
     }
 
@@ -110,18 +117,18 @@ public class BossMove : MonoBehaviour
         {
             tag = "Center";
 
-            if (bossHp >= 2 && bossHp <= 5)
+            if (bossHp >= 1 && bossHp <= 5)
             {
                 if (gameObject.transform.localScale.y > 18.0f)
                 {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.055f, 0);
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.1f, 0);
                 }
             }
             if (bossHp >= 1 && bossHp <= 2)
             {
                 if (gameObject.transform.localScale.y < 18.0f)
                 {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.5f, 0);
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.7f, 0);
                 }
             }
             if (bossHp >= 7 && bossHp <= 9)
@@ -134,23 +141,23 @@ public class BossMove : MonoBehaviour
         if (transform.position.x >= 0.1f)
         {
             tag = "Right";
-            if (bossHp >= 2 && bossHp <= 5)
+            if (bossHp >= 1 && bossHp <= 5)
             {
                 if (gameObject.transform.localScale.y > 18.0f)
                 {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(2.9f, 0.055f, 0);
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4.0f, 0.05f, 0);
                 }
             }
             if (bossHp >= 1 && bossHp <= 2)
             {
                 if (gameObject.transform.localScale.y < 18.0f)
                 {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(8.6f, -0.5f, 0);
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(13.0f, -0.7f, 0);
                 }
             }
             if (bossHp >= 7 && bossHp <= 9)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4, 0, 0);
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4.2f, 0, 0);
             }
         }
 
@@ -158,23 +165,23 @@ public class BossMove : MonoBehaviour
         if (transform.position.x <= -0.1f)
         {
             tag = "Left";
-            if (bossHp >= 2 && bossHp <= 5)
+            if (bossHp >= 1 && bossHp <= 5)
             {
                 if (gameObject.transform.localScale.y > 18.0f)
                 {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-2.9f, 0.055f, 0.0f);
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4.0f, 0.05f, 0.0f);
                 }
             }
             if (bossHp >= 1 && bossHp <= 2)
             {
                 if (gameObject.transform.localScale.y < 18.0f)
                 {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-8.6f, -0.5f, 0.0f);
+                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-13.0f, -0.7f, 0.0f);
                 }
             }
             if (bossHp >= 7 && bossHp <= 9)
             {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4, 0, 0);
+                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4.2f, 0, 0);
             }
 
 
@@ -208,6 +215,7 @@ public class BossMove : MonoBehaviour
         if (isAppearance)
         {
             Vector3 pos = transform.position;
+            audioSource.PlayOneShot(fallSE);
 
             if (transform.position.y <= underPos)
             {
@@ -263,6 +271,9 @@ public class BossMove : MonoBehaviour
 
         if (isHazard)
         {
+            songName = "FirstDanger";
+            dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
+            audioSource.clip = dangerSE;
             audioSource.Play();
         }
 
@@ -342,6 +353,12 @@ public class BossMove : MonoBehaviour
         if ((transform.position.z - target.transform.position.z) <= 40.0f)
         {
             warningDisplay.SetActive(false);
+
+            songName = "SecondDanger";
+            dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
+            audioSource.clip = dangerSE;
+            audioSource.Play();
+
             isLastAttack = true;
             AnimationImage.SetTrigger("LastAttack");
 
