@@ -215,9 +215,13 @@ public class EnergyGenerator : MonoBehaviour
         {
             return;
         }
+        
         isSecondGenerateSet = true;
         isSecondGenerate = true;
         isFirstGenerate = false;
+
+        Generate();
+        EnergyGenerate();
         RemoveList();
     }
 
