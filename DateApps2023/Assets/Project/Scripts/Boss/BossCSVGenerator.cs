@@ -8,6 +8,8 @@ public class BossCSVGenerator : MonoBehaviour
 {
     public BossManager bossManager;
     private BossCount bossCount;
+    [SerializeField]
+    private opretar opretar;
 
     [SerializeField]
     private BossCSV bossCSV = null;
@@ -104,11 +106,27 @@ public class BossCSVGenerator : MonoBehaviour
 
     void Update()
     {
+
+        for (int i = 0; i < bossList.Count; i++)
+        {
+            if (bossList[i].IsFellDown())
+            {
+                if (messageCount < 1)
+                {
+                    IsKill = true;
+                    messageCount++;
+                }
+                bossCount.SetBossKillCount();
+                bossMoveList.RemoveAt(i);
+                bossList.RemoveAt(i);
+            }
+        }
+
         //スタートフラグ
-        //if (!)
-        //{
-        //    return;
-        //}
+        if (!opretar.Getstartflag())
+        {
+            return;
+        }
 
         if (bossCountOne <= bossCountMax)
         {
@@ -126,20 +144,6 @@ public class BossCSVGenerator : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < bossList.Count; i++)
-        {
-            if (bossList[i].IsFellDown())
-            {
-                if (messageCount < 1)
-                {
-                    IsKill = true;
-                    messageCount++;
-                }
-                bossCount.SetBossKillCount();
-                bossMoveList.RemoveAt(i);
-                bossList.RemoveAt(i);
-            }
-        }
 
         for (int i = 0; i < bossMoveList.Count; i++)
         {

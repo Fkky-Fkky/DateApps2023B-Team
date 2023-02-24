@@ -134,6 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fab438bd946e747a2641c1416b49b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &44600255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4434604464453913848, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+  m_PrefabInstance: {fileID: 58838497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7db3069f6dd404b9cbe990458175b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &54425070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -290,22 +301,6 @@ PrefabInstance:
       propertyPath: Tutorial_Voice.Array.data[13]
       value: 
       objectReference: {fileID: 8300000, guid: a3810e83023de624ba626c60ff505756, type: 3}
-    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_Color.a
-      value: 0.7019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 
@@ -321,10 +316,6 @@ PrefabInstance:
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: game_stert_time
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2243992625522767654, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3319014651833614871, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_Pivot.x
@@ -531,6 +522,10 @@ PrefabInstance:
       value: 199
       objectReference: {fileID: 0}
     - target: {fileID: 4434604464453913848, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: csv
+      value: 
+      objectReference: {fileID: 747484196}
+    - target: {fileID: 4434604464453913848, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 
       objectReference: {fileID: 1092352434}
@@ -629,14 +624,6 @@ PrefabInstance:
     - target: {fileID: 7585505331500987242, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8001364115260951915, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 800.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8001364115260951915, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 8040884745114899642, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1457,7 +1444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 783028921152418487, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2521,7 +2508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: playerNumber
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 399546639685665297, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3744,6 +3731,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 731306188}
+    - target: {fileID: 6651277262274826888, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: generateEnergy
+      value: 
+      objectReference: {fileID: 661935786}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
 --- !u!1001 &1342934107
@@ -4704,7 +4695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 270701662, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6002,6 +5993,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1092352433}
     - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: opretar
+      value: 
+      objectReference: {fileID: 44600255}
+    - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossManager
       value: 
       objectReference: {fileID: 1092352434}
@@ -6129,7 +6124,7 @@ PrefabInstance:
     - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: generateEnergy
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 661935786}
     - target: {fileID: 608408025102211633, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8

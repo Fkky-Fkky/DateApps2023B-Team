@@ -94,7 +94,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4137900642250499913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -689,6 +689,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3319014651833614871}
     m_Modifications:
+    - target: {fileID: 2195490011255618016, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
+      propertyPath: m_Color.a
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195490011255618016, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195490011255618016, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195490011255618016, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7201806305272966744, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -736,6 +752,14 @@ PrefabInstance:
     - target: {fileID: 8050553208651720822, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
       propertyPath: m_Name
       value: Operator_text 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665655045012439895, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665655045012439895, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4733c98002fa8014f97f507063f5ce44, type: 3}

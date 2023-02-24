@@ -355,7 +355,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -8204339821761588002}
-    m_Position: {x: 0, y: -640, z: 0}
+    m_Position: {x: 20, y: -1740, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 655490370261632663}
     m_Position: {x: 30, y: 330, z: 0}
@@ -418,62 +418,62 @@ AnimatorStateMachine:
     m_Position: {x: 700, y: 720, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 255330253989073846}
-    m_Position: {x: 0, y: -560, z: 0}
+    m_Position: {x: 20, y: -1660, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2711569876045147101}
-    m_Position: {x: 0, y: -490, z: 0}
+    m_Position: {x: 20, y: -1590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7209442249761936114}
-    m_Position: {x: 0, y: -420, z: 0}
+    m_Position: {x: 20, y: -1520, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9127878368021011349}
-    m_Position: {x: 0, y: -280, z: 0}
+    m_Position: {x: 20, y: -1380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6005640066882267318}
-    m_Position: {x: 590, y: -520, z: 0}
+    m_Position: {x: 20, y: -800, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3642775550371174579}
-    m_Position: {x: 590, y: -440, z: 0}
+    m_Position: {x: 20, y: -720, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1426480887732543628}
-    m_Position: {x: 590, y: -360, z: 0}
+    m_Position: {x: 20, y: -640, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7567609820294666296}
-    m_Position: {x: 590, y: -280, z: 0}
+    m_Position: {x: 20, y: -560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8561382522380519887}
-    m_Position: {x: 590, y: -200, z: 0}
+    m_Position: {x: 20, y: -480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1691851302146197314}
-    m_Position: {x: 590, y: -120, z: 0}
+    m_Position: {x: 20, y: -400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3751413790810313631}
-    m_Position: {x: 0, y: -350, z: 0}
+    m_Position: {x: 20, y: -1450, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5677026514501275441}
-    m_Position: {x: -320, y: -120, z: 0}
+    m_Position: {x: 30, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7819292650028871065}
-    m_Position: {x: -320, y: -30, z: 0}
+    m_Position: {x: 30, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8722615544652814329}
-    m_Position: {x: -320, y: 50, z: 0}
+    m_Position: {x: 30, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2089504933009331601}
-    m_Position: {x: -320, y: 140, z: 0}
+    m_Position: {x: 30, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4045099815396048361}
-    m_Position: {x: 280, y: -390, z: 0}
+    m_Position: {x: 20, y: -1140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2510871998528908602}
-    m_Position: {x: 430, y: -610, z: 0}
+    m_Position: {x: 20, y: -880, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 20, y: -800, z: 0}
-  m_EntryPosition: {x: 20, y: -700, z: 0}
+  m_AnyStatePosition: {x: 40, y: -1900, z: 0}
+  m_EntryPosition: {x: 40, y: -1800, z: 0}
   m_ExitPosition: {x: 500, y: 130, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -8204339821761588002}
@@ -685,7 +685,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: miniboss
+    m_ConditionEvent: tutorial_end
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 655490370261632663}
@@ -696,7 +696,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 1
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1237,79 +1237,91 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: bigboss
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: boss
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: charge
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: charge stop
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: kill
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: energycharge
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: charge stop miss
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Approach
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Button_ON
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: monster_light
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: monter_left
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: firing
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: tutorial_end
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: boss_second_kill
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -2020,7 +2032,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: boss_second_kill
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8722615544652814329}
   m_Solo: 0
