@@ -2242,17 +2242,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49215fd0572030140b540e6752f3ffb7, type: 3}
---- !u!114 &1873292069 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7051107079401279416, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
-  m_PrefabInstance: {fileID: 1287072193}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1873292072 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
@@ -2625,6 +2614,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMax
       value: 
       objectReference: {fileID: 67748172}
@@ -2826,10 +2819,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
-      propertyPath: bossCount
-      value: 
-      objectReference: {fileID: 1873292069}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: bossManager
       value: 
