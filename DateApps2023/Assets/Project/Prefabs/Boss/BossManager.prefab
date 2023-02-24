@@ -124,6 +124,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  BossMaxCount: 11
 --- !u!114 &3804934439928866405
 MonoBehaviour:
   m_ObjectHideFlags: 0
