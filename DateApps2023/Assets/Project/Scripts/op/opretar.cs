@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,22 +22,32 @@ public class opretar : MonoBehaviour
 
     [SerializeField] private CannonManager cannon;
 
+    //[SerializeField] private BossCount bosscount;
+
     [SerializeField] BossManager boss;
 
     bool op_flag = false;
 
+    bool []game_one_flag;
+
+
     float time = 0;
+
+    [SerializeField] float game_stert_time = 100;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        for (int i = 0; i >= 6; i++)
+            game_one_flag[i] = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gameState==gamestate.tutorial)
+        #region オペ子チュートリアル
+        if (gameState==gamestate.tutorial)
         {
             time+= Time.deltaTime;
 
@@ -44,6 +55,12 @@ public class opretar : MonoBehaviour
             {
                 animator.SetTrigger("Button_ON");
             }
+
+            if (BossCount.GetKillCount() == 1)
+            {
+                animator.SetTrigger("firing");
+            }
+
 
             if (time >= 45)
             {
@@ -54,20 +71,19 @@ public class opretar : MonoBehaviour
             {
                 animator.SetTrigger("monter_left");
             }
+
+
+            if (BossCount.GetKillCount() == 3)
+            {
+                gameState = gamestate.game;
+            }
         }
         
-
-
         if (gameState == gamestate.game)
         {
             game();
         }
-      
-    }
-
-    void tutorial_energy()
-    {
-        energy.FirstGenerate();
+        #endregion
     }
 
     #region ゲーム中のオペ子のセリフ
@@ -87,7 +103,6 @@ public class opretar : MonoBehaviour
             {
                 op_flag = false;
                 summonminiboss();
-
             }
             //大型ボス
             if (boss.BossType() == 3)
@@ -129,52 +144,106 @@ public class opretar : MonoBehaviour
     //通常ボス出現時
     public void summonboss()
     {
-        //if (flag == false)
+        //if (game_one_flag[0] == false)
         //{
-        //    flag = true;
+        //    game_one_flag[0] = true;
+        //    animator.SetTrigger("boss");
+        //}
+        //else
+        //{
+        //    game_one_flag[0] = false;
         //}
         animator.SetTrigger("boss");
-        op_text.Boss_text();
+        //op_text.Boss_text();
         //animator.ResetTrigger("boss");
     }
 
     //ミニボス出現時
     public void summonminiboss()
     {
+        //if (game_one_flag[1] == false)
+        //{
+        //    game_one_flag[1] = true;
+        //    animator.SetTrigger("miniboss");
+        //}
+        //else
+        //{
+        //    game_one_flag[1] = false;
+        //}
         animator.SetTrigger("miniboss");
-        op_text.Mini_boss_text();
+        //op_text.Mini_boss_text();
         //animator.ResetTrigger("miniboss");
     }
 
     //ビッグボス出現時
     public void summonbigboss()
     {
+        //if (game_one_flag[2] == false)
+        //{
+        //    game_one_flag[2] = true;
+        //    animator.SetTrigger("bigboss");
+        //}
+        //else
+        //{
+        //    game_one_flag[2] = false;
+        //}
+
         animator.SetTrigger("bigboss");
-        op_text.Bog_boss_text();
+        //op_text.Bog_boss_text();
        // animator.ResetTrigger("bigboss");
     }
 
     //ボス撃破時
     public void bosskill()
     {
+        //if (game_one_flag[3] == false)
+        //{
+        //    game_one_flag[3] = true;
+        //    animator.SetTrigger("kill");
+        //}
+        //else
+        //{
+        //    game_one_flag[3] = false;
+        //}
+
         animator.SetTrigger("kill");
-        op_text.Boss_kill_text();
+       // op_text.Boss_kill_text();
         //animator.ResetTrigger("kill");
     }
     //ボス接近時
     public void Approach()
     {
+        //if (game_one_flag[4] == false)
+        //{
+        //    game_one_flag[4] = true;
+        //    animator.SetTrigger("Approach");
+        //}
+        //else
+        //{
+        //    game_one_flag[4] = false;
+        //}
+
         animator.SetTrigger("Approach");
         //animator.ResetTrigger("Approach");
-        op_text.Approach();
+        //op_text.Approach();
     }
 
     //ボスの攻撃のチャージ
     public void boss_attck_charge()
     {
+        //if (game_one_flag[5] == false)
+        //{
+        //    game_one_flag[5] = true;
+        //    animator.SetTrigger("boss");
+        //}
+        //else
+        //{
+        //    game_one_flag[5] = false;
+        //}
+
         animator.SetTrigger("charge");
         //animator.ResetTrigger("charge");
-        op_text.Boss_attcK_text();
+       // op_text.Boss_attcK_text();
     }
 
     //エネルギー物資出現時
@@ -196,6 +265,11 @@ public class opretar : MonoBehaviour
     public void boss_charge_stop_miss()
     {
         animator.SetTrigger("charge stop miss");
+    }
+
+    void tutorial_energy()
+    {
+        energy.FirstGenerate();
     }
 }
 #endregion
