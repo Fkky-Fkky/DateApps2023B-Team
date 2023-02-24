@@ -1280,11 +1280,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66bc35708b956b3478a9b7ccbe6252b2, type: 3}
---- !u!95 &1052278471 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4214984062470163724, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
-  m_PrefabInstance: {fileID: 58838497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1092139473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2991,7 +2986,7 @@ PrefabInstance:
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: FadeOutAnimator
       value: 
-      objectReference: {fileID: 1052278471}
+      objectReference: {fileID: 0}
     - target: {fileID: 4091322566786009454, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: m_Name
       value: GameManager
