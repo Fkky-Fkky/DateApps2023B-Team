@@ -334,6 +334,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 199
       objectReference: {fileID: 0}
+    - target: {fileID: 4691568883525180066, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2af270b39d6ebb242a259a3c09f70e44, type: 3}
     - target: {fileID: 7585505330635320247, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -851,7 +855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2494596621792759802, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Enabled
@@ -1094,7 +1098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: playerNumber
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 493151460955342680, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1276,6 +1280,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66bc35708b956b3478a9b7ccbe6252b2, type: 3}
+--- !u!95 &1052278471 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4214984062470163724, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+  m_PrefabInstance: {fileID: 58838497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1092139473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1983,7 +1992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114753801796912019, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2975,6 +2984,14 @@ PrefabInstance:
       propertyPath: bossCount
       value: 
       objectReference: {fileID: 1873292069}
+    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
+      propertyPath: MoveKillCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
+      propertyPath: FadeOutAnimator
+      value: 
+      objectReference: {fileID: 1052278471}
     - target: {fileID: 4091322566786009454, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: m_Name
       value: GameManager

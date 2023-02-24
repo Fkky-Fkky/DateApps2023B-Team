@@ -11,6 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private BossManager bossManager = null;
 
+    [SerializeField]
+    private float AfterTime = 2.0f;
+    private float time = 0.0f;
+    private bool IsFade = false;
+    [SerializeField]
+    private Animator FadeOutAnimator = null;
+
     private float sceneMoveTime = 0.0f;
     public bool IsGameOver { get { return bossManager.IsGameOver(); } }
 
@@ -26,7 +33,19 @@ public class GameManager : MonoBehaviour
     {
         if(BossCount.GetKillCount() >= MoveKillCount)
         {
-            SceneManager.LoadScene("ClearScene");
+            if (!IsFade)
+            {
+                FadeOutAnimator.SetTrigger("FadeOut");
+                IsFade = true;
+            }
+            else
+            {
+                time += Time.deltaTime;
+                if (time >= AfterTime)
+                {
+                    SceneManager.LoadScene("ClearScene");
+                }
+            }
         }
 
         if (IsGameOver)
