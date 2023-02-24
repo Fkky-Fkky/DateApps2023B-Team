@@ -1346,7 +1346,7 @@ MonoBehaviour:
   damageStanPoint: {fileID: 2157883639207442247}
   damageEffectPosY: -2
   captureEffectPosY: -1
-  stanSound: {fileID: 8300000, guid: 403f3593a66c77c44adb8b13932ebee0, type: 3}
+  stanSound: {fileID: 8300000, guid: 7a86a89bae6edb44583b4049eb7957a0, type: 3}
   knockbackSound: {fileID: 8300000, guid: 5085e4785f1fed94e85533beba9841c0, type: 3}
 --- !u!136 &7644300349639810741
 CapsuleCollider:

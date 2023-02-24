@@ -31,6 +31,9 @@ public class SceneMove : MonoBehaviour
     [SerializeField]
     private float beforeVoiceTime = 1.0f;
 
+    [SerializeField]
+    private float changeTime = 20.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,9 +54,14 @@ public class SceneMove : MonoBehaviour
         
         if (!SceneChangeFlag)
         {
+            time += Time.deltaTime;
+            if(time >= changeTime)
+            {
+                SceneChangeFlag = true;
+                time = 0.0f;
+            }
             if (isPlaying)
             {
-                time += Time.deltaTime;
                 if (time >= beforeVoiceTime)
                 {
                     audioSource.PlayOneShot(sceneVoice);
