@@ -22,11 +22,15 @@ public class EnergyGenerator : MonoBehaviour
     private float[] createArea = new float[5];
     private bool isFirstGenerate = false;
     private bool isGenerate = false;
+    private bool isSecondGenerate = false;
+    private bool isSecondGenerateSet = false;
+    private bool isTutorialEnd = false;
     private Vector3 halfExtents = Vector3.zero;
     private List<int> createEnergyTypeList = new List<int>();
     private List<float> createTimeList = new List<float>();
     private List<Vector3> createPositionList = new List<Vector3>();
 
+    const int FIRST_GENERATE_NUM = 2;
     const int MAX_GENERATE = 4;
     const int MAX_AREA = 4;
     const int RANDOM_MAX = 100;
@@ -39,6 +43,11 @@ public class EnergyGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isFirstGenerate = false;
+        isGenerate = false;
+        isSecondGenerate = false;
+        isSecondGenerateSet = false;
+        isTutorialEnd = false;
         for (int i = 0; i < energies.Length -1; i++)
         {
             int mySize = energies[i].GetComponent<CarryEnergy>().MyItemSizeCount;
@@ -93,6 +102,12 @@ public class EnergyGenerator : MonoBehaviour
 
     private void GenerateEnergyType()
     {
+        if (isSecondGenerate)
+        {
+            createEnergyTypeList.Add((int)EnergyCharge.EnergyType.MEDIUM);
+            return;
+        }
+
         int type = (int)EnergyCharge.EnergyType.SMALL;
         int energyNum = Random.Range(0, RANDOM_MAX);
         if (energyNum >= MEDIUM_MIN && energyNum < MEDIUM_MAX)
@@ -180,11 +195,36 @@ public class EnergyGenerator : MonoBehaviour
 
     private void FirstEnergyGenerate()
     {
-        for (int i = 0; i < createPositionList.Count; i++)
+        for (int i = 0; i < FIRST_GENERATE_NUM; i++)
         {
-            Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
+            Vector3 position = new Vector3(createPositionList[i + 1].x, GENERATE_POS_Y, createPositionList[i + 1].z);
             Instantiate(energies[(int)EnergyCharge.EnergyType.SMALL], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
         }
         createPositionList.Clear();
+    }
+
+    public void SecondGenerate()
+    {
+        if (isSecondGenerateSet)
+        {
+            return;
+        }
+        isSecondGenerateSet = true;
+        isSecondGenerate = true;
+        RemoveList();
+    }
+
+    public void TutorialEnd()
+    {
+        if (isTutorialEnd)
+        {
+            return;
+        }
+        isSecondGenerate = false;
+        for (int i = 0; i < 3; i++)
+        {
+            Generate();
+        }
+        isTutorialEnd = true;
     }
 }
