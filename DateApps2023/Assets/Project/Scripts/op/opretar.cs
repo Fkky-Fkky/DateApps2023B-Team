@@ -27,6 +27,8 @@ public class opretar : MonoBehaviour
 
     [SerializeField] BossManager boss;
 
+    private bool start_flag = false;
+
     bool op_flag = false;
 
     bool game_one_flag = false;
@@ -91,6 +93,12 @@ public class opretar : MonoBehaviour
         energy.TutorialEnd();
         animator.SetTrigger("tutorial_end");
         gameState = gamestate.game;
+        start_flag = true;
+    }
+
+    public bool Getstartflag()
+    {
+        return start_flag;
     }
 
     void Second_energy_generate()
