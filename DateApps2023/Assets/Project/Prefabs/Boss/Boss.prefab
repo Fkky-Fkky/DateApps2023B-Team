@@ -2110,7 +2110,7 @@ PrefabInstance:
       objectReference: {fileID: 1763202426801422486}
     - target: {fileID: 114870908765572648, guid: b5500c6a260bba4428170ed292aec624, type: 3}
       propertyPath: finalColor.b
-      value: 1
+      value: 0.7254902
       objectReference: {fileID: 0}
     - target: {fileID: 114870908765572648, guid: b5500c6a260bba4428170ed292aec624, type: 3}
       propertyPath: finalColor.g
@@ -2118,7 +2118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114870908765572648, guid: b5500c6a260bba4428170ed292aec624, type: 3}
       propertyPath: finalColor.r
-      value: 0.8235294
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8740279556228552420, guid: b5500c6a260bba4428170ed292aec624, type: 3}
       propertyPath: bossPosition
