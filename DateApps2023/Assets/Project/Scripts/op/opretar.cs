@@ -28,19 +28,16 @@ public class opretar : MonoBehaviour
 
     bool op_flag = false;
 
-    bool []game_one_flag;
-
+    bool game_one_flag = false;
 
     float time = 0;
 
-    [SerializeField] float game_stert_time = 100;
+    //[SerializeField] float game_stert_time = 100;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        for (int i = 0; i >= 6; i++)
-            game_one_flag[i] = false;
     }
 
     // Update is called once per frame
@@ -96,37 +93,62 @@ public class opretar : MonoBehaviour
             if (boss.BossType() == 1)
             {
                 op_flag = false;
-                summonboss();
+                if (game_one_flag == false)
+                {
+                    game_one_flag = true;
+                    summonboss();
+                }
             }
             //小型ボス
             if (boss.BossType() == 2)
             {
                 op_flag = false;
-                summonminiboss();
+                if (game_one_flag == false)
+                {
+                    game_one_flag = true;
+                    summonminiboss();
+                }
+                
             }
             //大型ボス
             if (boss.BossType() == 3)
             {
                 op_flag = false;
-                summonbigboss();
+                if (game_one_flag == false)
+                {
+                    game_one_flag = true;
+                    summonbigboss();
+                }
             }
             //ボスの攻撃チャージ
             if (boss.Charge())
             {
                 op_flag = false;
-                boss_attck_charge();
+                if (game_one_flag == false)
+                {
+                    game_one_flag = true;
+                    boss_attck_charge();
+                }
             }
             //ボス接近時
             if (boss.Danger())
             {
                 op_flag = false;
-                Approach();
+                if (game_one_flag == false)
+                {
+                    game_one_flag = true;
+                    Approach();
+                }
             }
             //ボス討伐
             if (boss.IsBossKill())
             {
-                op_flag = false;
-                bosskill();
+                op_flag = false; 
+                if (game_one_flag == false)
+                {
+                    game_one_flag = true;
+                    bosskill();
+                }
             }
         }
 
@@ -137,6 +159,7 @@ public class opretar : MonoBehaviour
             if (time >= 2)
             {
                 op_flag = true;
+                game_one_flag = false;
             }
         }
     }
@@ -207,7 +230,6 @@ public class opretar : MonoBehaviour
         //}
 
         animator.SetTrigger("kill");
-       // op_text.Boss_kill_text();
         //animator.ResetTrigger("kill");
     }
     //ボス接近時

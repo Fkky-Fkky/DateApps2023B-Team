@@ -24,6 +24,12 @@ public class Opretar_Audio : MonoBehaviour
         
     }
 
+    void voice_stop()
+    {
+        Source.Stop();
+    }
+
+    #region É{ÉCÉXçƒê∂
     void Op_vice1()
     {
         Source.PlayOneShot(Tutorial_Voice[0]);
@@ -102,4 +108,5 @@ public class Opretar_Audio : MonoBehaviour
     {
         Source.PlayOneShot(Game_voice[5]);
     }
+#endregion
 }
