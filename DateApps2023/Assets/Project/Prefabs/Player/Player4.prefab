@@ -65,7 +65,7 @@ MonoBehaviour:
   effectPos: {fileID: 1288940421590001855}
   fistObject: {fileID: 8692326370387051740, guid: 71feb589912087e46beaa3904ceb1cbe, type: 3}
   fistPos: {fileID: 2583457654801406461}
-  attackSound: {fileID: 8300000, guid: 96ce62a57e0bb834ebc573f169faf0cd, type: 3}
+  attackSound: {fileID: 8300000, guid: 4c824af2f06126643b4e01574eca6850, type: 3}
 --- !u!1 &97687718823558519
 GameObject:
   m_ObjectHideFlags: 0
