@@ -102,6 +102,12 @@ public class EnergyGenerator : MonoBehaviour
 
     private void GenerateEnergyType()
     {
+        if (isFirstGenerate)
+        {
+            createEnergyTypeList.Add((int)EnergyCharge.EnergyType.SMALL);
+            return;
+        }
+
         if (isSecondGenerate)
         {
             createEnergyTypeList.Add((int)EnergyCharge.EnergyType.MEDIUM);
@@ -209,8 +215,13 @@ public class EnergyGenerator : MonoBehaviour
         {
             return;
         }
+        
         isSecondGenerateSet = true;
         isSecondGenerate = true;
+        isFirstGenerate = false;
+
+        Generate();
+        EnergyGenerate();
         RemoveList();
     }
 
@@ -221,10 +232,7 @@ public class EnergyGenerator : MonoBehaviour
             return;
         }
         isSecondGenerate = false;
-        for (int i = 0; i < 3; i++)
-        {
-            Generate();
-        }
+        Generate();
         isTutorialEnd = true;
     }
 }

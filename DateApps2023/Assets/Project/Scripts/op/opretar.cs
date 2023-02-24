@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class opretar : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class opretar : MonoBehaviour
 
     [SerializeField] BossManager boss;
 
+    private bool start_flag = false;
+
     bool op_flag = false;
 
     bool game_one_flag = false;
@@ -44,11 +47,11 @@ public class opretar : MonoBehaviour
     void Update()
     {
         #region オペ子チュートリアル
-        if (gameState==gamestate.tutorial)
+        if (gameState == gamestate.tutorial)
         {
-            time+= Time.deltaTime;
+            time += Time.deltaTime;
 
-            if(cannon.IsFirstCharge())
+            if (cannon.IsFirstCharge())
             {
                 animator.SetTrigger("Button_ON");
             }
@@ -56,26 +59,28 @@ public class opretar : MonoBehaviour
             if (BossCount.GetKillCount() == 1)
             {
                 animator.SetTrigger("firing");
+
             }
+            
 
 
-            if (time >= 45)
+            //if (time >= 45)
+            //{
+            //    animator.SetTrigger("monster_light");
+            //}
+
+            //if (time >= 50)
+            //{
+            //    animator.SetTrigger("monter_left");
+            //}
+
+
+            if (BossCount.GetKillCount() == 2)
             {
-                animator.SetTrigger("monster_light");
-            }
-
-            if (time >= 50)
-            {
-                animator.SetTrigger("monter_left");
-            }
-
-
-            if (BossCount.GetKillCount() == 3)
-            {
-                gameState = gamestate.game;
+                animator.SetTrigger("boss_second_kill");
             }
         }
-        
+
         if (gameState == gamestate.game)
         {
             game();
@@ -83,8 +88,26 @@ public class opretar : MonoBehaviour
         #endregion
     }
 
+    void tutorial_end()
+    {
+        energy.TutorialEnd();
+        animator.SetTrigger("tutorial_end");
+        gameState = gamestate.game;
+        start_flag = true;
+    }
+
+    public bool Getstartflag()
+    {
+        return start_flag;
+    }
+
+    void Second_energy_generate()
+    {
+         energy.SecondGenerate();
+    }
+
     #region ゲーム中のオペ子のセリフ
-  
+
     void game()
     {
         if (op_flag)
@@ -108,7 +131,7 @@ public class opretar : MonoBehaviour
                     game_one_flag = true;
                     summonminiboss();
                 }
-                
+
             }
             //大型ボス
             if (boss.BossType() == 3)
@@ -143,7 +166,7 @@ public class opretar : MonoBehaviour
             //ボス討伐
             if (boss.IsBossKill())
             {
-                op_flag = false; 
+                op_flag = false;
                 if (game_one_flag == false)
                 {
                     game_one_flag = true;
@@ -213,7 +236,7 @@ public class opretar : MonoBehaviour
 
         animator.SetTrigger("bigboss");
         //op_text.Bog_boss_text();
-       // animator.ResetTrigger("bigboss");
+        // animator.ResetTrigger("bigboss");
     }
 
     //ボス撃破時
@@ -265,7 +288,7 @@ public class opretar : MonoBehaviour
 
         animator.SetTrigger("charge");
         //animator.ResetTrigger("charge");
-       // op_text.Boss_attcK_text();
+        // op_text.Boss_attcK_text();
     }
 
     //エネルギー物資出現時
