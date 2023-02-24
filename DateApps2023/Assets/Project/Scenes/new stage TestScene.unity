@@ -290,6 +290,22 @@ PrefabInstance:
       propertyPath: Tutorial_Voice.Array.data[13]
       value: 
       objectReference: {fileID: 8300000, guid: a3810e83023de624ba626c60ff505756, type: 3}
+    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_Color.a
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666510293788604380, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 
@@ -614,6 +630,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8001364115260951915, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001364115260951915, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 8040884745114899642, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -624,6 +648,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8040884745193560925, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245744819852757471, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -741,6 +769,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
+      propertyPath: bossManager
+      value: 
+      objectReference: {fileID: 1092352434}
     - target: {fileID: 4091322566786009454, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -2343,6 +2375,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
+--- !u!114 &731306188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
+  m_PrefabInstance: {fileID: 127772735}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c4e3932a36b1e49ae68b224fe1ceb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &747484196 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
@@ -3086,6 +3129,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 731306188}
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMax
       value: 
       objectReference: {fileID: 67748172}
@@ -3693,6 +3740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CannonB
       objectReference: {fileID: 0}
+    - target: {fileID: 5669519291030049210, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 731306188}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
 --- !u!1001 &1342934107
@@ -6190,6 +6241,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1914389724312435908, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 731306188}
     - target: {fileID: 2193822944324508592, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
@@ -6283,6 +6338,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 731306188}
     - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMax
       value: 

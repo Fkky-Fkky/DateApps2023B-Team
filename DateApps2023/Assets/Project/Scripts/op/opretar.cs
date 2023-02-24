@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class opretar : MonoBehaviour
 {
@@ -44,11 +45,11 @@ public class opretar : MonoBehaviour
     void Update()
     {
         #region オペ子チュートリアル
-        if (gameState==gamestate.tutorial)
+        if (gameState == gamestate.tutorial)
         {
-            time+= Time.deltaTime;
+            time += Time.deltaTime;
 
-            if(cannon.IsFirstCharge())
+            if (cannon.IsFirstCharge())
             {
                 animator.SetTrigger("Button_ON");
             }
@@ -56,6 +57,7 @@ public class opretar : MonoBehaviour
             if (BossCount.GetKillCount() == 1)
             {
                 animator.SetTrigger("firing");
+                energy.SecondGenerate();
             }
 
 
@@ -75,7 +77,7 @@ public class opretar : MonoBehaviour
                 gameState = gamestate.game;
             }
         }
-        
+
         if (gameState == gamestate.game)
         {
             game();
@@ -83,8 +85,10 @@ public class opretar : MonoBehaviour
         #endregion
     }
 
+
+
     #region ゲーム中のオペ子のセリフ
-  
+
     void game()
     {
         if (op_flag)
@@ -108,7 +112,7 @@ public class opretar : MonoBehaviour
                     game_one_flag = true;
                     summonminiboss();
                 }
-                
+
             }
             //大型ボス
             if (boss.BossType() == 3)
@@ -143,7 +147,7 @@ public class opretar : MonoBehaviour
             //ボス討伐
             if (boss.IsBossKill())
             {
-                op_flag = false; 
+                op_flag = false;
                 if (game_one_flag == false)
                 {
                     game_one_flag = true;
@@ -213,7 +217,7 @@ public class opretar : MonoBehaviour
 
         animator.SetTrigger("bigboss");
         //op_text.Bog_boss_text();
-       // animator.ResetTrigger("bigboss");
+        // animator.ResetTrigger("bigboss");
     }
 
     //ボス撃破時
@@ -265,7 +269,7 @@ public class opretar : MonoBehaviour
 
         animator.SetTrigger("charge");
         //animator.ResetTrigger("charge");
-       // op_text.Boss_attcK_text();
+        // op_text.Boss_attcK_text();
     }
 
     //エネルギー物資出現時
