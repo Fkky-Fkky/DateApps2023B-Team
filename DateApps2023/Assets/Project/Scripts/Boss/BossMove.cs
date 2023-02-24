@@ -80,6 +80,8 @@ public class BossMove : MonoBehaviour
     private bool isLastAttack = false;
 
     [SerializeField]
+    private AudioSource lastAttackAudio;
+    [SerializeField]
     private AudioClip lastAttackSE;
 
     public bool IsGameOver { get; private set; }
@@ -269,7 +271,7 @@ public class BossMove : MonoBehaviour
             {
                 if (seCount < 1)
                 {
-                    audioSource.PlayOneShot(lastAttackSE);
+                    lastAttackAudio.PlayOneShot(lastAttackSE);
                     seCount++;
                 }
             }
