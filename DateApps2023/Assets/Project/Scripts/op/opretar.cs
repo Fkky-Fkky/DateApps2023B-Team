@@ -57,7 +57,7 @@ public class opretar : MonoBehaviour
             if (BossCount.GetKillCount() == 1)
             {
                 animator.SetTrigger("firing");
-                energy.SecondGenerate();
+
             }
 
 
@@ -85,7 +85,10 @@ public class opretar : MonoBehaviour
         #endregion
     }
 
-
+    void Second_energy_generate()
+    {
+         energy.SecondGenerate();
+    }
 
     #region ゲーム中のオペ子のセリフ
 
