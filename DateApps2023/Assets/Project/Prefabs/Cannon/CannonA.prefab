@@ -701,8 +701,10 @@ MonoBehaviour:
   - {fileID: 7370199869646859276, guid: 7daf18ee7bb8259448d30fe64fac2e0e, type: 3}
   smokePosition: {fileID: 608408026505789374}
   energyCharge: {fileID: 608408025037340662}
-  shotChargeSe: {fileID: 8300000, guid: bfdc067b87b859649b4ee9d50a587d58, type: 3}
-  shotSe: {fileID: 8300000, guid: 0e6d738edeb64154898350b452b38735, type: 3}
+  beamSe:
+  - {fileID: 8300000, guid: bd215cc07a793b945843eb8df41189cb, type: 3}
+  - {fileID: 8300000, guid: 57cfb0d8543e4f9458095793223274fe, type: 3}
+  - {fileID: 8300000, guid: 4b2f9b8cc9155084ea2660975759e2ba, type: 3}
   coolDownEffect: {fileID: 6304585585383082989, guid: 89b08b50e70ad124eb0707a45dfebd7d, type: 3}
   coolTimePos:
   - {fileID: 390078139655551619}
