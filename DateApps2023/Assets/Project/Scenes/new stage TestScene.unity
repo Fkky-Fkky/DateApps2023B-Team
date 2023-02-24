@@ -232,52 +232,64 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 97f4688b1ea613443b5ded45eb049d8e, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.size
-      value: 11
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 309a9a9a03123b0419db471fe7127c47, type: 3}
+      objectReference: {fileID: 8300000, guid: f05d6311a5a54bd44bb87602dca12850, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 325b363cd38af954db8c637db2bd28f1, type: 3}
+      objectReference: {fileID: 8300000, guid: f59ca82e960aeea42b8c7701d07db832, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: 4dc1eb3699c2b354fa9635b4fb0d838e, type: 3}
+      objectReference: {fileID: 8300000, guid: afa3e7116fa0c494c99829e72a3247e4, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[3]
       value: 
-      objectReference: {fileID: 8300000, guid: 380b650a4c9837041be2b7cdbc7505c9, type: 3}
+      objectReference: {fileID: 8300000, guid: 5ab2fba8c1ef98245869f2d7c8a0f943, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[4]
       value: 
-      objectReference: {fileID: 8300000, guid: b82112a608de85a4283d508045c47b3e, type: 3}
+      objectReference: {fileID: 8300000, guid: 09d6511b2ebc13d4f9fcd2aaea539861, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[5]
       value: 
-      objectReference: {fileID: 8300000, guid: 8031bd18fa010544a99b3b5db64f0713, type: 3}
+      objectReference: {fileID: 8300000, guid: cbd234de48909ba4097b40030a3095ad, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[6]
       value: 
-      objectReference: {fileID: 8300000, guid: c79125aa3c9a6e64d9e0e0cc63ffb7be, type: 3}
+      objectReference: {fileID: 8300000, guid: 00fa21d0f94437049a3754cfd96fa8d5, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[7]
       value: 
-      objectReference: {fileID: 8300000, guid: 1bfe0e82949e5d4458a24106228d781c, type: 3}
+      objectReference: {fileID: 8300000, guid: 43f2781994c8b1248825e379d0d0670e, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[8]
       value: 
-      objectReference: {fileID: 8300000, guid: 98bd2740420db904ab23a0560d479947, type: 3}
+      objectReference: {fileID: 8300000, guid: 711ae1e9e9d1ccb4cb1b6d9fad323102, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[9]
       value: 
-      objectReference: {fileID: 8300000, guid: e1a597a2c5f7bab4aa190cba11a17edf, type: 3}
+      objectReference: {fileID: 8300000, guid: 005639683b6cd5546aa4f6a59d7700b9, type: 3}
     - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: Tutorial_Voice.Array.data[10]
       value: 
-      objectReference: {fileID: 8300000, guid: 1d1b20ea396f76a439856b26b465ca7e, type: 3}
+      objectReference: {fileID: 8300000, guid: 0375902c1cbade345acbcbcd8938195c, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[11]
+      value: 
+      objectReference: {fileID: 8300000, guid: cc6c8f77f44c669459dc2efe149ee5f4, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[12]
+      value: 
+      objectReference: {fileID: 8300000, guid: d2a3f89c22d213d46a62629a0604b35b, type: 3}
+    - target: {fileID: 234340499062908189, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: Tutorial_Voice.Array.data[13]
+      value: 
+      objectReference: {fileID: 8300000, guid: a3810e83023de624ba626c60ff505756, type: 3}
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 
@@ -293,6 +305,10 @@ PrefabInstance:
     - target: {fileID: 783126698942951093, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: game_stert_time
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2243992625522767654, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3319014651833614871, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_Pivot.x
