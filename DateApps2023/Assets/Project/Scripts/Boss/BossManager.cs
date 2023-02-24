@@ -148,4 +148,10 @@ public class BossManager : MonoBehaviour
     {
         return bossCSVGenerator.IsDanger;
     }
+    
+    //ゲームオーバーフラグ
+    public bool IsGameOver()
+    {
+        return bossCSVGenerator.IsGameOver;
+    }
 }

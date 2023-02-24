@@ -75,6 +75,8 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private bool isLastAttack = false;
 
+    public bool IsGameOver { get; private set; }
+
     private float gameOverTime = 0.0f;
     private float gameOverTimeCenterMax = 7.0f;
     private float gameOverTimeSideMax = 6.5f;
@@ -204,6 +206,7 @@ public class BossMove : MonoBehaviour
         IsLanding = false;
         isHazard = false;
 
+        IsGameOver = false;
     }
 
     // Update is called once per frame
@@ -256,7 +259,8 @@ public class BossMove : MonoBehaviour
 
             if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                gameOver.GameOverTransition();
+                //ゲームオーバーフラグ
+                IsGameOver = true;
             }
             if ((gameOverTime < gameOverTimeCenterMax || gameOverTime < gameOverTimeSideMax) && damageFlag)
             {
