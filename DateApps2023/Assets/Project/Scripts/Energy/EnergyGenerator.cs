@@ -25,12 +25,13 @@ public class EnergyGenerator : MonoBehaviour
     private List<Vector3> createPositionList = new List<Vector3>();
 
     const int MAX_GENERATE = 4;
-    const int MAX_AREA = 5;
+    const int MAX_AREA = 4;
     const int RANDOM_MAX = 100;
     const int MEDIUM_MIN = 40;
     const int MEDIUM_MAX = 90;
     const int MAX_MISS_COUNT = 30;
     const float GENERATE_POS_Y = 20.0f;
+    const float GENERATE_ROT_Y = 180.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +52,11 @@ public class EnergyGenerator : MonoBehaviour
         }
         halfExtents = energies[(int)EnergyCharge.EnergyType.LARGE].transform.localScale / 2;
 
-        float fourDivide = ((generatePosMin.position.x - generatePosMax.position.x) / MAX_GENERATE) * -1;
-        for (int i = 0; i < MAX_AREA; i++)
+        float fourDivide = ((generatePosMin.position.x - generatePosMax.position.x) / MAX_AREA) * -1;
+        for (int i = 0; i <= MAX_AREA; i++)
         {
             createArea[i] = generatePosMin.position.x + (fourDivide * i);
         }
-        //FirstGenerate();
     }
 
     private void Update()
@@ -100,14 +100,13 @@ public class EnergyGenerator : MonoBehaviour
 
     private void GeneratePosition()
     {
-        int generateNum = Random.Range(0, MAX_GENERATE);
-        Vector3 genaratePos;
+        int areaIndex = Random.Range(0, MAX_AREA);
+        Vector3 genaratePos = Vector3.one;
         int miss = 0;
         while (miss < MAX_MISS_COUNT)
         {
-            float x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
-            float z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            genaratePos = new Vector3(x, generatePosMax.position.y, z);
+            genaratePos.x = Random.Range(createArea[areaIndex], createArea[areaIndex + 1]);
+            genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
             if (!Physics.CheckBox(genaratePos, halfExtents))
             {
                 createPositionList.Add(genaratePos);
@@ -121,9 +120,8 @@ public class EnergyGenerator : MonoBehaviour
     private void EnergyGenerate()
     {
         Vector3 position = new Vector3(createPositionList[0].x, GENERATE_POS_Y, createPositionList[0].z);
-        Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
         isGenerate = true;
-
     }
 
     private void RemoveList()
@@ -149,16 +147,17 @@ public class EnergyGenerator : MonoBehaviour
     {
         int generateNum = 0;
         int miss = 0;
-        Vector3 genaratePos;
+        Vector3 genaratePos = Vector3.one;
         while (generateNum < MAX_GENERATE)
         {
-            float x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
-            float z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            genaratePos = new Vector3(x, generatePosMax.position.y, z);
+            genaratePos.x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
+            genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
             if (!Physics.CheckBox(genaratePos, halfExtents))
             {
                 createPositionList.Add(genaratePos);
                 generateNum++;
+                Debug.Log(miss);
+                miss = 0;
                 continue;
             }
 
@@ -176,7 +175,7 @@ public class EnergyGenerator : MonoBehaviour
         for (int i = 0; i < createPositionList.Count; i++)
         {
             Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
-            Instantiate(energies[(int)EnergyCharge.EnergyType.SMALL], position, Quaternion.Euler(0.0f, 180.0f, 0.0f));
+            Instantiate(energies[(int)EnergyCharge.EnergyType.SMALL], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
         }
         createPositionList.Clear();
     }
