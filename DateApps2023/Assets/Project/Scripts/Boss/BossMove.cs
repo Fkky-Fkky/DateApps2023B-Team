@@ -43,13 +43,18 @@ public class BossMove : MonoBehaviour
     private GameObject warningDisplay;
 
     [SerializeField]
+    private Renderer warningRenderer;
+
+    private float warningFlashTime = 0.0f;
+    private float warningFlashTimeMax = 1.0f;
+
+    [SerializeField]
     private GameObject gameOverWarningDisplay;
 
     [SerializeField]
     private Renderer gameOverDisplay;
 
     private float flashTime = 0.0f;
-    [SerializeField]
     private float flashTimeMax = 0.5f;
 
     [SerializeField]
@@ -74,6 +79,9 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private bool isLastAttack = false;
 
+    [SerializeField]
+    private AudioClip lastAttackSE;
+
     public bool IsGameOver { get; private set; }
 
     private float gameOverTime = 0.0f;
@@ -86,6 +94,8 @@ public class BossMove : MonoBehaviour
     public bool isHazard { get; private set; }
 
     private int messageCount = 0;
+
+    private int seCount = 0;
 
     private void Awake()
     {
@@ -254,7 +264,18 @@ public class BossMove : MonoBehaviour
 
             gameOverDisplay.enabled = repeatValue >= flashTimeMax * 0.5f;
 
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f)
+
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+            {
+                if (seCount < 1)
+                {
+                    audioSource.PlayOneShot(lastAttackSE);
+                    seCount++;
+                }
+            }
+
+
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
             {
                 //ゲームオーバーフラグ
                 IsGameOver = true;
@@ -262,6 +283,8 @@ public class BossMove : MonoBehaviour
             if ((gameOverTime < gameOverTimeCenterMax || gameOverTime < gameOverTimeSideMax) && damageFlag)
             {
                 gameOverTime = 0.0f;
+                audioSource.Stop();
+                seCount = 0;
                 isLastAttack = false;
             }
         }
@@ -323,6 +346,14 @@ public class BossMove : MonoBehaviour
         if ((transform.position.z - target.transform.position.z) <= 100.0f)
         {
             warningDisplay.SetActive(true);
+
+            
+
+            warningFlashTime += Time.deltaTime;
+            var repeatValue = Mathf.Repeat(warningFlashTime, warningFlashTimeMax);
+
+            warningRenderer.enabled = repeatValue >= warningFlashTimeMax * 0.5f;
+
             if (messageCount == 0)
             {
                 isHazard = true;

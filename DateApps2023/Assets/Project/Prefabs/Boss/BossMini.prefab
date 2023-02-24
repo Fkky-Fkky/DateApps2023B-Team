@@ -777,14 +777,14 @@ MonoBehaviour:
   canvas: {fileID: 9112739422148324377}
   hpGauge: {fileID: 8481605770265837695}
   warningDisplay: {fileID: 3008235584495518477}
+  warningRenderer: {fileID: 3491529065014952218}
   gameOverWarningDisplay: {fileID: 7655793929458388409}
   gameOverDisplay: {fileID: 8355823795949604782}
-  flashTimeMax: 0.5
   audioSource: {fileID: 7804359188918254647}
-  fallSE: {fileID: 8300000, guid: 1eb97ab64c84cb1419c622028b5bbe85, type: 3}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
   isLastAttack: 0
+  lastAttackSE: {fileID: 8300000, guid: 57114c44b6aab894393d0f842374e5d2, type: 3}
 --- !u!114 &131829114075476459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +806,7 @@ MonoBehaviour:
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
   isAttack: 0
   beamTimeMax: 10
+  beamSE: {fileID: 0}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
 --- !u!82 &7804359188918254647
@@ -820,7 +821,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1515,15 +1516,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1531,7 +1532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8
+      value: 2.36
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: 8d6b4f12c205e2d44ad47a96923e9283, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1603,15 +1604,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1619,7 +1620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 358137399965178695, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1661,11 +1662,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: kikenn
       objectReference: {fileID: 0}
+    - target: {fileID: 8219799516786047026, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
 --- !u!1 &3008235584495518477 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8219799516786047026, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
+  m_PrefabInstance: {fileID: 6606215845095815999}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3491529065014952218 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7771411273347316261, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
   m_PrefabInstance: {fileID: 6606215845095815999}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6869575331465584760 stripped
