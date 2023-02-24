@@ -49,6 +49,7 @@ public class PlayerMove : MonoBehaviour
 
     private PlayerAttack attack;
     private PlayerEmote emote;
+    private CarryEmote carryEmote;
 
     #endregion
 
@@ -77,6 +78,9 @@ public class PlayerMove : MonoBehaviour
 
         emote = GetComponentInChildren<PlayerEmote>();
         emote.GetPlayerNo(playerNo);
+
+        carryEmote = GetComponentInChildren<CarryEmote>();
+        carryEmote.GetPlayerNo(playerNo);
 
         GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
 
@@ -169,6 +173,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (InGroup)
         {
+            carryEmote.CallEndCarryEmote();
             gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
             gameObject.transform.parent = null;
             EnterItem = false;
@@ -260,9 +265,14 @@ public class PlayerMove : MonoBehaviour
         IsAttack = false;
     }
 
-    public void CallCarryCancel()
+    public void StartCarryEmote()
     {
-        carryDown.CarryCancel();
+        carryEmote.CallStartCarryEmote();
+    }
+
+    public void EndCarryEmote()
+    {
+        carryEmote.CallEndCarryEmote();
     }
 
 }
