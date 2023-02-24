@@ -63,6 +63,10 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     private float beamTimeMax = 10.0f;
 
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip beamSE;
+
     public BossMove bossMove;
 
     public BossDamage bossDamage;
@@ -74,6 +78,8 @@ public class BossAttack : MonoBehaviour
         areaCount= 0;
         isAttack = false;
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
+
+        audioSource = GetComponent<AudioSource>();
 
         attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
 
@@ -190,6 +196,8 @@ public class BossAttack : MonoBehaviour
     }
     void DamageAreaControl()
     {
+        audioSource.PlayOneShot(beamSE);
+
         if (gameObject.transform.position.x == centerTarget)
         {
             if (areaCount < areaCountMax)

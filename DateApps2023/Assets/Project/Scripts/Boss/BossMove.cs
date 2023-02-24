@@ -58,9 +58,6 @@ public class BossMove : MonoBehaviour
     private AudioClip dangerSE;
     private string songName;
 
-    [SerializeField]
-    private AudioClip fallSE;
-
     private float underPos = -54.5f;
 
     private bool isAppearance = false;
@@ -215,7 +212,6 @@ public class BossMove : MonoBehaviour
         if (isAppearance)
         {
             Vector3 pos = transform.position;
-            audioSource.PlayOneShot(fallSE);
 
             if (transform.position.y <= underPos)
             {
