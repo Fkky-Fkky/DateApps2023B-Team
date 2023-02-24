@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnergyGenerator : MonoBehaviour
 {
     [SerializeField]
+    private GameManager gameManager = null;
+
+    [SerializeField]
     private GameObject[] energies = new GameObject[3];
 
     [SerializeField]
@@ -61,6 +64,11 @@ public class EnergyGenerator : MonoBehaviour
 
     private void Update()
     {
+        if (gameManager.IsGameOver)
+        {
+            return;
+        }
+
         for (int i = 0; i < createTimeList.Count; i++)
         {
             createTimeList[i] -= Time.deltaTime;

@@ -12,6 +12,9 @@ public class CannonSwitch : MonoBehaviour
 
     [SerializeField]
     private CannonConnect cannonConnect = null;
+
+    [SerializeField]
+    private GameManager gameManager = null;
     
     private Vector3 defaultScale;
     private Vector3 switchOnScale;
@@ -31,6 +34,11 @@ public class CannonSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.IsGameOver)
+        {
+            SwitchOn();
+        }
+
         if (!IsShot())
         {
             SwitchOn();
