@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     private float CarryOverSpeed = 0.1f;
     private float DefaultCarryOverSpeed = 0.0f;
 
+    [SerializeField]
+    private int CarryTextOrderInLayer = 0;
+
     private int NeedCarryCount = 0;
 
     // Start is called before the first frame update
@@ -112,6 +115,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
+    {
+        itemSizeCount = itemSize;
+
+        carryText = gameObject.GetComponentInChildren<TextMeshPro>();
+        carryText.gameObject.GetComponent<MeshRenderer>().sortingOrder = CarryTextOrderInLayer;
+        outline = gameObject.GetComponentInChildren<Outline>();
+        outline.enabled = false;
+        if (itemType == 1)
+        {
+            HaveItem = true;
+        }
+        else if (itemType == 2)
+        {
+            HaveItem = true;
+            rb.mass *= 10;
+        }
+        CheckPlayerCount();
+    }
+
     public void GetMyNo(int childNo,GameObject gameObject)
     {
         ChildPlayer[childNo] = gameObject;
@@ -121,27 +144,6 @@ public class PlayerController : MonoBehaviour
         playerCount++;
         controlFrag = true;
         CheckPlayerCount();
-
-    }
-
-    public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
-    {
-        itemSizeCount = itemSize;
-
-        carryText = gameObject.GetComponentInChildren<TextMeshPro>();
-        outline = gameObject.GetComponentInChildren<Outline>();
-        outline.enabled = false;
-        if (itemType == 1)
-        {
-            HaveItem = true;
-        }
-        else if(itemType == 2)
-        {
-            HaveItem = true;
-            rb.mass *= 10;
-        }
-        CheckPlayerCount();
-
     }
 
     public void ReleaseChild()
@@ -151,6 +153,7 @@ public class PlayerController : MonoBehaviour
             if (ChildPlayer[i] != null || AnimationImage[i] != null)
             {
                 AnimationImage[i].SetBool("CarryMove", false);
+
                 ChildPlayer[i] = null;
                 AnimationImage[i] = null;
             }
@@ -183,6 +186,7 @@ public class PlayerController : MonoBehaviour
             if (ChildPlayer[i] != null || AnimationImage[i] != null)
             {
                 AnimationImage[i].SetBool("CarryMove", false);
+
                 ChildPlayer[i] = null;
                 AnimationImage[i] = null;
             }
@@ -260,6 +264,13 @@ public class PlayerController : MonoBehaviour
             if(playerCount >= NeedCarryCount)
             {
                 carryText.color = Color.white;
+                for(int i = 0; i < ChildPlayer.Length; i++)
+                {
+                    if (ChildPlayer[i] != null)
+                    {
+                        ChildPlayer[i].GetComponent<PlayerMove>().EndCarryEmote();
+                    }
+                }
             }
             else if (playerCount <= 0)
             {
@@ -268,6 +279,13 @@ public class PlayerController : MonoBehaviour
             else
             {
                 carryText.color = Color.red;
+                for (int i = 0; i < ChildPlayer.Length; i++)
+                {
+                    if (ChildPlayer[i] != null)
+                    {
+                        ChildPlayer[i].GetComponent<PlayerMove>().StartCarryEmote();
+                    }
+                }
             }
         }
         

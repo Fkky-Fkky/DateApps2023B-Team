@@ -18,6 +18,9 @@ public class TitleSceneMove : MonoBehaviour
     private Animator AnimationImage = null;
 
     [SerializeField]
+    private CanvasGroup[] PlayerBackImage = null;
+
+    [SerializeField]
     private CanvasGroup[] PlayerImage = null;
 
     private bool[] IsAccept = null;
@@ -46,7 +49,6 @@ public class TitleSceneMove : MonoBehaviour
         Array.Resize(ref IsAccept, PlayerImage.Length);
         for(int i = 0; i < PlayerImage.Length; i++)
         {
-            PlayerImage[i].alpha = 0;
             IsAccept[i] = false;
         }
         audioSource = GetComponent<AudioSource>();
@@ -167,16 +169,16 @@ public class TitleSceneMove : MonoBehaviour
             {
                 if (!IsAccept[i])
                 {
-                    PlayerImage[i].alpha = 1;
                     audioSource.PlayOneShot(acceptSound[i]);
+                    AnimationImage.SetBool("ShowP" + (i + 1), true);
 
                     acceptCount++;
                     IsAccept[i] = true;
                 }
                 else
                 {
-                    PlayerImage[i].alpha = 0;
                     audioSource.PlayOneShot(cancelSound[i]);
+                    AnimationImage.SetBool("ShowP" + (i + 1), false);
 
                     acceptCount--;
                     IsAccept[i] = false;
