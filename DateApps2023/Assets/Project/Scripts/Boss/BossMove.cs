@@ -265,7 +265,17 @@ public class BossMove : MonoBehaviour
             gameOverDisplay.enabled = repeatValue >= flashTimeMax * 0.5f;
 
 
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.63f)
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+            {
+                if (seCount < 1)
+                {
+                    audioSource.PlayOneShot(lastAttackSE);
+                    seCount++;
+                }
+            }
+
+
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f)
             {
                 //ゲームオーバーフラグ
                 IsGameOver = true;
@@ -274,6 +284,7 @@ public class BossMove : MonoBehaviour
             {
                 gameOverTime = 0.0f;
                 audioSource.Stop();
+                seCount = 0;
                 isLastAttack = false;
             }
         }
