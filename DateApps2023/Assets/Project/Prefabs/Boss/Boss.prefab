@@ -901,7 +901,6 @@ MonoBehaviour:
   gameOverDisplay: {fileID: 2215697549118671568}
   flashTimeMax: 0.5
   audioSource: {fileID: 2131339584734462358}
-  fallSE: {fileID: 8300000, guid: 1eb97ab64c84cb1419c622028b5bbe85, type: 3}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
   Multiplier: 50
   isLastAttack: 0
@@ -925,7 +924,8 @@ MonoBehaviour:
   chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
   isAttack: 0
-  beamTimeMax: 8
+  beamTimeMax: 7
+  beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
 --- !u!82 &2131339584734462358

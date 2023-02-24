@@ -33,7 +33,7 @@ public class BossCSVGenerator : MonoBehaviour
 
     private float centerPosX =    0.0f;
     [SerializeField]
-    private float sidePos;
+    private float sidePos = 100.0f;
     private float leftPosX;
     private float rightPosX;
 
