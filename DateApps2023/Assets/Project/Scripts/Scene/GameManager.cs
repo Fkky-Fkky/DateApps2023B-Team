@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int MoveKillCount = 10;
 
+    [SerializeField]
+    private BossManager bossManager = null;
+
+    public bool IsGameOver { get { return bossManager.IsGameOver(); } }
+
     // Update is called once per frame
     void Update()
     {
