@@ -61,6 +61,8 @@ public class BossCSVGenerator : MonoBehaviour
 
     public bool IsCharge { get; private set; }
 
+    public bool IsGameOver { get; private set; }
+
     private float landingTime=0.0f;
 
     private float dangerOffTime = 0.0f;
@@ -154,6 +156,16 @@ public class BossCSVGenerator : MonoBehaviour
                 break;
             }
             IsCharge = false;
+        }
+
+        for(int i = 0; i < bossMoveList.Count; i++)
+        {
+            if (bossMoveList[i].IsGameOver)
+            {
+                IsGameOver = true;
+                break;
+            }
+            IsGameOver = false;
         }
 
         MessageCancel();
