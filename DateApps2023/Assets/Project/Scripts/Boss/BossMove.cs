@@ -13,7 +13,6 @@ public class BossMove : MonoBehaviour
     private BossAttack bossAttack;
     private BossDamage bossDamage;
     private BossCSVGenerator bossCSVGenerator;
-    private GameOver gameOver;
 
     [SerializeField]
     private float moveSpeed = 2.0f;
@@ -99,8 +98,6 @@ public class BossMove : MonoBehaviour
         }
 
         moveSpeed = bossCSVGenerator.BossMoveSpeed();
-
-        gameOver = GameObject.Find("TargetLine").GetComponent<GameOver>();
 
         songName = "FirstDanger";
         dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
@@ -257,7 +254,7 @@ public class BossMove : MonoBehaviour
 
             gameOverDisplay.enabled = repeatValue >= flashTimeMax * 0.5f;
 
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f)
             {
                 //ゲームオーバーフラグ
                 IsGameOver = true;
