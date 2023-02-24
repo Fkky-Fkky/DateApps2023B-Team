@@ -17,10 +17,7 @@ public class CannonShot : MonoBehaviour
     private EnergyCharge energyCharge = null;
 
     [SerializeField]
-    private AudioClip shotChargeSe = null;
-
-    [SerializeField]
-    private AudioClip shotSe = null;
+    private AudioClip[] beamSe = new AudioClip[3];
 
     [SerializeField]
     private GameObject coolDownEffect = null;
@@ -88,14 +85,12 @@ public class CannonShot : MonoBehaviour
     private void CreateChageEffect()
     {
         shotCharge = Instantiate(shotChargeEffects[energyType], smokePosition);
-        audioSource.PlayOneShot(shotChargeSe);
+        audioSource.PlayOneShot(beamSe[energyType]);
     }
 
     private void CreateSmoke()
     {
         Instantiate(smokeEffects[energyType], smokePosition);
-        audioSource.Stop();
-        audioSource.PlayOneShot(shotSe);
         coolTime   = MAX_COOL_TIME;
         IsNowShot  = true;
         isCoolTime = true;
