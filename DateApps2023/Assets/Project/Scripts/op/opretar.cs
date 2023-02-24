@@ -59,22 +59,23 @@ public class opretar : MonoBehaviour
                 animator.SetTrigger("firing");
 
             }
+            
 
 
-            if (time >= 45)
+            //if (time >= 45)
+            //{
+            //    animator.SetTrigger("monster_light");
+            //}
+
+            //if (time >= 50)
+            //{
+            //    animator.SetTrigger("monter_left");
+            //}
+
+
+            if (BossCount.GetKillCount() == 2)
             {
-                animator.SetTrigger("monster_light");
-            }
-
-            if (time >= 50)
-            {
-                animator.SetTrigger("monter_left");
-            }
-
-
-            if (BossCount.GetKillCount() == 3)
-            {
-                gameState = gamestate.game;
+                animator.SetTrigger("boss_second_kill");
             }
         }
 
@@ -83,6 +84,13 @@ public class opretar : MonoBehaviour
             game();
         }
         #endregion
+    }
+
+    void tutorial_end()
+    {
+        energy.TutorialEnd();
+        animator.SetTrigger("tutorial_end");
+        gameState = gamestate.game;
     }
 
     void Second_energy_generate()
