@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
 
-    private const string ps_WalkSpeed = "RunSpeed";
+    private const string walkSpeed = "RunSpeed";
     [SerializeField]
     private float animationSpeed = 0.001f;
 
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 float walkSpeed = mySpeed * animationSpeed;
-                AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
+                AnimationImage[i].SetFloat(PlayerController.walkSpeed, walkSpeed);
             }
         }
 
