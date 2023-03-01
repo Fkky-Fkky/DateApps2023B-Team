@@ -1444,7 +1444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 783028921152418487, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3773,6 +3773,10 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
+      propertyPath: playerNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2647251862295182072, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: runSmokePoint
       value: 
       objectReference: {fileID: 0}
@@ -4695,7 +4699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 270701662, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_StaticEditorFlags
