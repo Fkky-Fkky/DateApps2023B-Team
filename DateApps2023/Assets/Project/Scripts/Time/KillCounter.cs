@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class KillCounter : MonoBehaviour
 {
+    #region
     private int killCount;
-    TextMeshProUGUI countTMP;
+    private TextMeshProUGUI countTMP;
 
     [SerializeField]
     private int AllBossCount = 15;
+    #endregion
 
     // Start is called before the first frame update
     void Start()

@@ -12,23 +12,23 @@ public class TitleSceneMove : MonoBehaviour
     [SerializeField]
     private string sceneName = "New Scene";
 
-    private bool IsPlay = false;
-    private bool IsSkip = false;
+    private bool isPlay = false;
+    private bool isSkip = false;
 
     [SerializeField]
-    private Animator AnimationImage = null;
+    private Animator animationImage = null;
 
     [SerializeField]
-    private CanvasGroup[] PlayerBackImage = null;
+    private CanvasGroup[] playerBackImage = null;
 
     [SerializeField]
-    private CanvasGroup[] PlayerImage = null;
+    private CanvasGroup[] playerImage = null;
 
-    private bool[] IsAccept = null;
+    private bool[] iIsAccept = null;
     private int acceptCount = 0;
 
     [SerializeField]
-    private bool CanSkip = true;
+    private bool isCanSkip = true;
 
     [SerializeField]
     private AudioClip pressButtonSound = null;
@@ -46,12 +46,12 @@ public class TitleSceneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        IsPlay = false;
+        isPlay = false;
         acceptCount = 0;
-        Array.Resize(ref IsAccept, PlayerImage.Length);
-        for(int i = 0; i < PlayerImage.Length; i++)
+        Array.Resize(ref iIsAccept, playerImage.Length);
+        for(int i = 0; i < playerImage.Length; i++)
         {
-            IsAccept[i] = false;
+            iIsAccept[i] = false;
         }
         audioSource = GetComponent<AudioSource>();
     }
@@ -59,25 +59,25 @@ public class TitleSceneMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsPlay)
+        if (!isPlay)
         {
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
                 InIdle();
             }
-            else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("PressButton"))
+            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("PressButton"))
             {
                 InPressButton();
             }
-            else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("ShowManual"))
+            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("ShowManual"))
             {
                 InShowManual();
             }
-            else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("WaitPlayer"))
+            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("WaitPlayer"))
             {
                 InWaitPlayer();
             }
-            else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("HideManual"))
+            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("HideManual"))
             {
                 InHideManual();
             }
@@ -91,7 +91,7 @@ public class TitleSceneMove : MonoBehaviour
             var gamepad = Gamepad.all[i];
             if (gamepad.bButton.wasPressedThisFrame)
             {
-                AnimationImage.SetTrigger("AcceptStart");
+                animationImage.SetTrigger("AcceptStart");
                 audioSource.PlayOneShot(pressButtonSound);
             }
         }
@@ -99,61 +99,61 @@ public class TitleSceneMove : MonoBehaviour
 
     private void InPressButton()
     {
-        AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
-        if (CanSkip)
+        AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
+        if (isCanSkip)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
                 if (gamepad.bButton.wasPressedThisFrame)
                 {
-                    AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
-                    IsSkip = true;
+                    animationImage.Play(stateInfo.fullPathHash, 0, 1);
+                    isSkip = true;
                 }
             }
         }
         if (stateInfo.normalizedTime >= 1.0f)
         {
-            AnimationImage.SetTrigger("EndChangeScreen");
+            animationImage.SetTrigger("EndChangeScreen");
         }
     }
 
     private void InShowManual()
     {
-        AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
-        if (CanSkip)
+        AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
+        if (isCanSkip)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
                 if (gamepad.bButton.wasPressedThisFrame)
                 {
-                    IsSkip = true;
+                    isSkip = true;
                 }
             }
-            if (IsSkip)
+            if (isSkip)
             {
-                AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
-                IsSkip = false;
+                animationImage.Play(stateInfo.fullPathHash, 0, 1);
+                isSkip = false;
             }
         }
         if (stateInfo.normalizedTime >= 1.0f)
         {
-            AnimationImage.SetTrigger("EndChangeScreen");
+            animationImage.SetTrigger("EndChangeScreen");
         }
 
     }
 
     private void InWaitPlayer()
     {
-        if (acceptCount >= PlayerImage.Length)
+        if (acceptCount >= playerImage.Length)
         {
-            AnimationImage.SetTrigger("AllAccept");
+            animationImage.SetTrigger("AllAccept");
         }
 
-        if (acceptCount > PlayerImage.Length)
+        if (acceptCount > playerImage.Length)
         {
-            acceptCount = PlayerImage.Length;
+            acceptCount = playerImage.Length;
         }
         else if (acceptCount < 0)
         {
@@ -169,21 +169,21 @@ public class TitleSceneMove : MonoBehaviour
             }
             else if (gamepad.bButton.wasPressedThisFrame)
             {
-                if (!IsAccept[i])
+                if (!iIsAccept[i])
                 {
                     audioSource.PlayOneShot(acceptSound[i]);
-                    AnimationImage.SetBool("ShowP" + (i + 1), true);
+                    animationImage.SetBool("ShowP" + (i + 1), true);
 
                     acceptCount++;
-                    IsAccept[i] = true;
+                    iIsAccept[i] = true;
                 }
                 else
                 {
                     audioSource.PlayOneShot(cancelSound[i]);
-                    AnimationImage.SetBool("ShowP" + (i + 1), false);
+                    animationImage.SetBool("ShowP" + (i + 1), false);
 
                     acceptCount--;
-                    IsAccept[i] = false;
+                    iIsAccept[i] = false;
                 }
             }
         }
@@ -193,7 +193,7 @@ public class TitleSceneMove : MonoBehaviour
 
     private void InHideManual()
     {
-        AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
 
         if (stateInfo.normalizedTime >= 1.0f)
         {
@@ -203,11 +203,11 @@ public class TitleSceneMove : MonoBehaviour
 
     public void OnTrueIsPlay()
     {
-        IsPlay = true;
+        isPlay = true;
     }
 
     public void OnFalseIsPlay()
     {
-        IsPlay = false;
+        isPlay = false;
     }
 }

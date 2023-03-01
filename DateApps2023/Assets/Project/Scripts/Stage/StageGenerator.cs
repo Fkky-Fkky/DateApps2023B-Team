@@ -8,7 +8,7 @@ public class StageGenerator : MonoBehaviour
     private GameObject[] stagePattern;
 
     [SerializeField]
-    private Vector3 GeneratePos = Vector3.zero;
+    private Vector3 generatePos = Vector3.zero;
 
     private int number;
 
@@ -21,6 +21,6 @@ public class StageGenerator : MonoBehaviour
     void OnGenerate()
     {
         number = Random.Range(0, stagePattern.Length);
-        Instantiate(stagePattern[number], GeneratePos, Quaternion.identity);
+        Instantiate(stagePattern[number], generatePos, Quaternion.identity);
     }
 }

@@ -13,7 +13,7 @@ public class PlayerCarryDown : MonoBehaviour
     private Rigidbody rb;
     private BoxCollider myCol;
 
-    private bool canUsed = false;
+    private bool isCanUsed = false;
 
     private int myPlayerNo = 5;
 
@@ -23,7 +23,7 @@ public class PlayerCarryDown : MonoBehaviour
 
     private int myGroupNo = 1;
 
-    private bool carryDamage = false;
+    private bool isCarryDamage = false;
 
     #endregion
 
@@ -36,7 +36,7 @@ public class PlayerCarryDown : MonoBehaviour
     }
     void Update()
     {
-        if (!carryDamage)
+        if (!isCarryDamage)
         {
             if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
             {
@@ -55,7 +55,7 @@ public class PlayerCarryDown : MonoBehaviour
         if (carryItem == null)
         {
             isCarry = false;
-            canUsed = false;
+            isCanUsed = false;
             myCol.enabled = true;
         }
     }
@@ -67,7 +67,7 @@ public class PlayerCarryDown : MonoBehaviour
             if (collision.gameObject.CompareTag("item")
                 || collision.gameObject.CompareTag("Cannon"))
             {
-                canUsed = true;
+                isCanUsed = true;
                 carryItem = collision.gameObject;
             }
         }
@@ -80,7 +80,7 @@ public class PlayerCarryDown : MonoBehaviour
             if (collision.gameObject.CompareTag("item")
                 || collision.gameObject.CompareTag("Cannon"))
             {
-                canUsed = false;
+                isCanUsed = false;
                 carryItem = null;
             }
         }
@@ -88,7 +88,7 @@ public class PlayerCarryDown : MonoBehaviour
 
     void CarryStart()
     {
-        if (!isCarry && canUsed)
+        if (!isCarry && isCanUsed)
         {
             if (carryItem.CompareTag("item"))
             {
@@ -107,7 +107,7 @@ public class PlayerCarryDown : MonoBehaviour
         energyItem.GetGrabPoint(this.gameObject);
         myGroupNo = energyItem.groupNumber;
         isCarry = true;
-        canUsed = false;
+        isCanUsed = false;
         playermove.GetItem(myGroupNo);
     }
 
@@ -119,7 +119,7 @@ public class PlayerCarryDown : MonoBehaviour
             cannonItem.GetGrabPoint(this.gameObject);
             myGroupNo = cannonItem.groupNumber;
             isCarry = true;
-            canUsed = false;
+            isCanUsed = false;
             playermove.GetItem(myGroupNo);
         }
     }
@@ -130,7 +130,7 @@ public class PlayerCarryDown : MonoBehaviour
         rb = GetComponentInParent<Rigidbody>();
 
         isCarry = false;
-        canUsed = false;
+        isCanUsed = false;
         carryItem = null;
         energyItem = null;
         cannonItem = null;
@@ -144,12 +144,12 @@ public class PlayerCarryDown : MonoBehaviour
 
     public void OnCarryDamage()
     {
-        carryDamage = true;
+        isCarryDamage = true;
     }
 
     public void OffCarryDamage()
     {
-        carryDamage = false;
+        isCarryDamage = false;
     }
 
 }

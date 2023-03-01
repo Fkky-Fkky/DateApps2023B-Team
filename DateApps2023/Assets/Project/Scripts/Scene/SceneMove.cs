@@ -12,14 +12,14 @@ public class SceneMove : MonoBehaviour
     [SerializeField]
     private string sceneName = "New Scene";
 
-    private bool SceneChangeFlag = false;
-    private bool IsAnimation = false;
+    private bool isSceneChangeFlag = false;
+    private bool isAnimation = false;
 
     [SerializeField]
-    private Animator AnimationImage = null;
+    private Animator animationImage = null;
 
     [SerializeField]
-    private float AfterPressTime = 1.0f;
+    private float afterPressTime = 1.0f;
 
     private float time = 0.0f;
 
@@ -39,8 +39,8 @@ public class SceneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SceneChangeFlag = false;
-        IsAnimation = false;
+        isSceneChangeFlag = false;
+        isAnimation = false;
         time = 0.0f;
         if(sceneVoice != null )
         {
@@ -54,7 +54,7 @@ public class SceneMove : MonoBehaviour
     void Update()
     {
         
-        if (!SceneChangeFlag)
+        if (!isSceneChangeFlag)
         {
             NotPressButton();
         }
@@ -69,7 +69,7 @@ public class SceneMove : MonoBehaviour
         time += Time.deltaTime;
         if (time >= changeTime)
         {
-            SceneChangeFlag = true;
+            isSceneChangeFlag = true;
             time = 0.0f;
         }
         if (isPlaying)
@@ -85,7 +85,7 @@ public class SceneMove : MonoBehaviour
             var gamepad = Gamepad.all[i];
             if (gamepad.bButton.wasPressedThisFrame)
             {
-                SceneChangeFlag = true;
+                isSceneChangeFlag = true;
                 time = 0.0f;
             }
         }
@@ -95,22 +95,22 @@ public class SceneMove : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (AnimationImage != null)
+        if (animationImage != null)
         {
-            IsAnimation = true;
-            AnimationImage.SetTrigger("AcceptStart");
-            if (time >= AfterPressTime)
+            isAnimation = true;
+            animationImage.SetTrigger("AcceptStart");
+            if (time >= afterPressTime)
             {
-                IsAnimation = false;
+                isAnimation = false;
                 time = 0.0f;
             }
         }
         if (sceneVoice != null)
         {
-            audioSource.volume = (float)(1.0 - time / AfterPressTime);
+            audioSource.volume = (float)(1.0 - time / afterPressTime);
 
         }
-        if (!IsAnimation)
+        if (!isAnimation)
         {
             SceneManager.LoadScene(sceneName);
         }

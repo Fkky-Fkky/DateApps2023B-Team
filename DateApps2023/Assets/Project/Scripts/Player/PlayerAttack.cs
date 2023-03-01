@@ -15,10 +15,10 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerMove playerMove;
 
-    Animator animator;
-    float time = 0;
+    private Animator animator;
+    private float time = 0;
 
-    private bool myAttack = false;
+    private bool isMyAttack = false;
     private bool isCarry = false;
     private bool isDamage = false;
 
@@ -57,18 +57,18 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!isCarry && !isDamage)
         {
-            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame && !myAttack)
+            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame && !isMyAttack)
             {
                 FistAttack();
             }
-            if (myAttack)
+            if (isMyAttack)
             {
                 OnMyAttack();
             }
         }
         else if(isCarry || isDamage)
         {
-            if (myAttack)
+            if (isMyAttack)
             {
                 instantPunch.GetComponent<FistDissolve>().OnEndDissolve();
                 EndAttack();
@@ -96,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
         instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
         audioSource.PlayOneShot(attackSound);
 
-        myAttack = true;
+        isMyAttack = true;
     }
 
     private void EndAttack()
@@ -106,7 +106,7 @@ public class PlayerAttack : MonoBehaviour
         playerMove.EndAttack();
         instantPunch = null;
 
-        myAttack = false;
+        isMyAttack = false;
     }
 
     public void GetPlayerNo(int parentNumber)

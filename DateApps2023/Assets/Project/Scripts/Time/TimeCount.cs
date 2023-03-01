@@ -12,7 +12,7 @@ public class TimeCount : MonoBehaviour
     public static float secondsCount;
     private bool isMain = true;
 
-    TextMeshProUGUI timeCdTMP;
+    private TextMeshProUGUI timeCdTMP;
 
     [SerializeField]
     private string sceneName = "New Scene";

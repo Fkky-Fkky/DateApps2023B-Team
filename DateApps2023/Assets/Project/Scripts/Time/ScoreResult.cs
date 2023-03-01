@@ -7,7 +7,7 @@ public class ScoreResult : MonoBehaviour
 {
     private float scoreSecondsTime;
     private int killCount;
-    TextMeshProUGUI scoreTMP;
+    private TextMeshProUGUI scoreTMP;
 
     // Start is called before the first frame update
     void Start()

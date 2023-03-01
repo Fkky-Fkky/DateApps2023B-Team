@@ -22,11 +22,11 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody rb;
 
-    private bool InGroup = false;
-    private bool EnterItem = false;
-    private bool IsAttack = false;
+    private bool isInGroup = false;
+    private bool isEnterItem = false;
+    private bool isAttack = false;
 
-    private GameObject ItemOfEnter = null;
+    private GameObject enterItem = null;
 
     public enum PlayerNumber
     {
@@ -42,10 +42,10 @@ public class PlayerMove : MonoBehaviour
 
     PlayerCarryDown carryDown;
 
-    private bool playerMoveDamage = false;
+    private bool isPlayerMoveDamage = false;
     private float defaultPosY = 54.0f;
 
-    private Animator AnimationImage;
+    private Animator animationImage;
 
     private PlayerAttack attack;
     private PlayerEmote emote;
@@ -57,7 +57,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        AnimationImage = GetComponent<Animator>();
+        animationImage = GetComponent<Animator>();
 
         switch (playerNumber)
         {
@@ -90,11 +90,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if (EnterItem)
+        if (isEnterItem)
         {
-            if(ItemOfEnter == null)
+            if(enterItem == null)
             {
-                EnterItem = false;
+                isEnterItem = false;
             }
         }
     }
@@ -108,15 +108,15 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("item"))
         {
-            EnterItem = true;
-            ItemOfEnter = collision.gameObject;
+            isEnterItem = true;
+            enterItem = collision.gameObject;
         }
         else if (collision.gameObject.CompareTag("Group1")
            || collision.gameObject.CompareTag("Group2")
            || collision.gameObject.CompareTag("Group3")
            || collision.gameObject.CompareTag("Group4"))
         {
-            EnterItem = true;
+            isEnterItem = true;
         }
     }
 
@@ -129,8 +129,8 @@ public class PlayerMove : MonoBehaviour
            || collision.gameObject.CompareTag("Group4")
            )
         {
-            EnterItem = false;
-            ItemOfEnter = null;
+            isEnterItem = false;
+            enterItem = null;
             this.gameObject.transform.position = new Vector3(
                 this.gameObject.transform.position.x,
                 defaultPosY,
@@ -144,11 +144,11 @@ public class PlayerMove : MonoBehaviour
         gameObject.transform.SetParent(group.gameObject.transform);
         group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
 
-        InGroup = true;
+        isInGroup = true;
         attack.OnIsCarry();
 
-        AnimationImage.SetBool("Move", false);
-        AnimationImage.SetBool("Carry", true);
+        animationImage.SetBool("Move", false);
+        animationImage.SetBool("Carry", true);
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         Destroy(rigidbody);
@@ -158,13 +158,13 @@ public class PlayerMove : MonoBehaviour
 
     public void RemoveItem()
     {
-        if (InGroup)
+        if (isInGroup)
         {
             carryEmote.CallEndCarryEmote();
             gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
             gameObject.transform.parent = null;
-            EnterItem = false;
-            InGroup = false;
+            isEnterItem = false;
+            isInGroup = false;
         }
         
         attack.OffIsCarry();
@@ -179,13 +179,13 @@ public class PlayerMove : MonoBehaviour
                    defaultPosY,
                    this.gameObject.transform.position.z);
 
-        AnimationImage.SetBool("Carry", false);
-        AnimationImage.SetBool("CarryMove", false);
+        animationImage.SetBool("Carry", false);
+        animationImage.SetBool("CarryMove", false);
     }
 
     void GamepadMove()
     {
-        if (!playerMoveDamage && !InGroup)
+        if (!isPlayerMoveDamage && !isInGroup)
         {
             OnStickValue();
         }
@@ -196,20 +196,20 @@ public class PlayerMove : MonoBehaviour
         var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
         Vector3 vec = new Vector3(0, 0, 0);
 
-        if (!IsAttack)
+        if (!isAttack)
         {
             if (leftStickValue.x != 0.0f)
             {
-                AnimationImage.SetBool("Move", true);
+                animationImage.SetBool("Move", true);
                 vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
             }
             if (leftStickValue.y != 0.0f)
             {
-                AnimationImage.SetBool("Move", true);
+                animationImage.SetBool("Move", true);
                 vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
             }
 
-            if (!EnterItem)
+            if (!isEnterItem)
             {
                 if (leftStickValue.x != 0 || leftStickValue.y != 0)
                 {
@@ -221,7 +221,7 @@ public class PlayerMove : MonoBehaviour
 
         if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
         {
-            AnimationImage.SetBool("Move", false);
+            animationImage.SetBool("Move", false);
         }
 
         rb.velocity = vec;
@@ -229,28 +229,28 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerDamage()
     {
-        playerMoveDamage = true;
-        InGroup = false;
-        IsAttack = false;
-        EnterItem = false;
+        isPlayerMoveDamage = true;
+        isInGroup = false;
+        isAttack = false;
+        isEnterItem = false;
     }
 
     public void NotPlayerDamage()
     {
-        playerMoveDamage = false;
-        InGroup = false;
-        IsAttack = false;
-        EnterItem = false;
+        isPlayerMoveDamage = false;
+        isInGroup = false;
+        isAttack = false;
+        isEnterItem = false;
     }
 
     public void StartAttack()
     {
-        IsAttack = true;
+        isAttack = true;
     }
 
     public void EndAttack()
     {
-        IsAttack = false;
+        isAttack = false;
     }
 
     public void StartCarryEmote()

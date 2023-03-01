@@ -7,8 +7,8 @@ public class CarryEmote : MonoBehaviour
 {
     #region
     private int myPlayerNo;
-    float time = 0;
-    float scaleTime = 0;
+    private float time = 0;
+    private float scaleTime = 0;
 
     private SpriteRenderer spriteRenderer;
     private Transform cameraPos;
@@ -37,10 +37,10 @@ public class CarryEmote : MonoBehaviour
     [SerializeField]
     private float startSizeChange = 0.2f;
 
-    private bool IsEmote = false;
-    private bool IsSmall = false;
-    private bool IsBig = false;
-    private bool IsEnd = false;
+    private bool isEmote = false;
+    private bool isSmall = false;
+    private bool isBig = false;
+    private bool isEnd = false;
 
     private Vector3 defaultPos;
     private Vector3 movePos = Vector3.zero;
@@ -63,7 +63,7 @@ public class CarryEmote : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsEmote)
+        if (isEmote)
         {
             time += Time.deltaTime;
             this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
@@ -74,7 +74,7 @@ public class CarryEmote : MonoBehaviour
 
             ChangeSize();
 
-            if (IsEnd)
+            if (isEnd)
             {
                 OnEndTime();
             }
@@ -87,15 +87,15 @@ public class CarryEmote : MonoBehaviour
 
     public void CallStartCarryEmote()
     {
-        IsEmote = true;
+        isEmote = true;
         spriteRenderer.sprite = carryEmoteIcon;
-        IsBig = true;
-        IsEnd = false;
+        isBig = true;
+        isEnd = false;
     }
 
     public void CallEndCarryEmote()
     {
-        IsEnd = true;
+        isEnd = true;
         time = 0.0f;
     }
 
@@ -114,19 +114,19 @@ public class CarryEmote : MonoBehaviour
         if (time <= endTime)
         {
             gameObject.transform.localPosition += movePos * Time.deltaTime;
-            IsSmall = false;
-            IsBig = false;
+            isSmall = false;
+            isBig = false;
             setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
             gameObject.transform.localScale = setSize;
         }
         else
         {
-            IsEmote = false;
+            isEmote = false;
             time = 0;
             scaleTime = 0;
             spriteRenderer.sprite = null;
-            IsSmall = false;
-            IsBig = false;
+            isSmall = false;
+            isBig = false;
             gameObject.transform.localPosition = defaultPos;
             gameObject.transform.localScale = defaultSize;
             setSize = defaultSize;
@@ -137,7 +137,7 @@ public class CarryEmote : MonoBehaviour
     {
         scaleTime += Time.deltaTime;
 
-        if (!IsSmall && IsBig)
+        if (!isSmall && isBig)
         {
             setSize += new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
             gameObject.transform.localScale = setSize;
@@ -145,19 +145,19 @@ public class CarryEmote : MonoBehaviour
             if (scaleTime >= smallTime)
             {
                 scaleTime = 0;
-                IsSmall = true;
-                IsBig = false;
+                isSmall = true;
+                isBig = false;
             }
         }
-        else if (IsSmall && !IsBig)
+        else if (isSmall && !isBig)
         {
             setSize -= new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
             gameObject.transform.localScale = setSize;
             if (scaleTime >= bigTime)
             {
                 scaleTime = 0;
-                IsSmall = false;
-                IsBig = true;
+                isSmall = false;
+                isBig = true;
             }
         }
     }

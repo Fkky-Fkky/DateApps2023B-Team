@@ -9,9 +9,9 @@ public class PlayerDamage : MonoBehaviour
     #region
     private Rigidbody rb;
     private CapsuleCollider capsuleCol;
-    float time = 0;
-    private bool currentDamage;
-    private bool currentCapture;
+    private float time = 0;
+    private bool isCurrentDamage;
+    private bool isCurrentCapture;
 
     [SerializeField]
     private float stanTime = 5.0f;
@@ -20,21 +20,21 @@ public class PlayerDamage : MonoBehaviour
     private float captureTime = 5.0f;
 
     private float defaultPosY = 54.0f;
-    private float DamagePosX = 0.0f;
-    private float DamagePosZ = 0.0f;
-    private bool doCouroutine = false;
+    private float damagePosX = 0.0f;
+    private float damagePosZ = 0.0f;
+    private bool isDestroyStan = false;
 
     private PlayerMove playerMove;
     private PlayerCarryDown playerCarryDown;
     private PlayerAttack playerAttack;
 
-    private Animator AnimationImage;
+    private Animator animationImage;
 
     [SerializeField]
-    private int EndStanCount = 3;
+    private int endStanCount = 3;
 
     [SerializeField]
-    private int EndCaptureCount = 1;
+    private int endCaptureCount = 1;
 
     [SerializeField]
     private BoxCollider stanBoxCol;
@@ -77,7 +77,7 @@ public class PlayerDamage : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         capsuleCol = GetComponent<CapsuleCollider>();
-        AnimationImage = GetComponent<Animator>();
+        animationImage = GetComponent<Animator>();
 
         defaultPosY = transform.position.y;
 
@@ -93,12 +93,12 @@ public class PlayerDamage : MonoBehaviour
 
     private void Update()
     {
-        if (currentDamage)
+        if (isCurrentDamage)
         {
             InCurrentDamage();
         }
 
-        if (currentCapture)
+        if (isCurrentCapture)
         {
             InCurrentCapture();
         }
@@ -108,41 +108,41 @@ public class PlayerDamage : MonoBehaviour
     void InCurrentDamage()
     {
         time += Time.deltaTime;
-        this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
+        this.gameObject.transform.position = new Vector3(damagePosX, defaultPosY, damagePosZ);
 
-        if (time > stanTime || knockCount >= EndStanCount)
+        if (time > stanTime || knockCount >= endStanCount)
         {
             EndPlayerDamage();
-            currentDamage = false;
+            isCurrentDamage = false;
         }
         else if (time >= damageEffectInterval)
         {
-            if (!doCouroutine)
+            if (!isDestroyStan)
             {
                 Vector3 InstantPos = damageStanPoint.position;
                 InstantPos.y = damageEffectPosY;
                 cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
                 audioSource.PlayOneShot(stanSound);
 
-                doCouroutine = true;
+                isDestroyStan = true;
             }
         }
     }
 
     void InCurrentCapture()
     {
-        if (!doCouroutine)
+        if (!isDestroyStan)
         {
-            doCouroutine = true;
+            isDestroyStan = true;
         }
 
         time += Time.deltaTime;
-        this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
+        this.gameObject.transform.position = new Vector3(damagePosX, defaultPosY, damagePosZ);
 
-        if (time > captureTime || knockCount >= EndCaptureCount)
+        if (time > captureTime || knockCount >= endCaptureCount)
         {
             EndPlayerDamage();
-            currentCapture = false;
+            isCurrentCapture = false;
         }
     }
 
@@ -152,13 +152,13 @@ public class PlayerDamage : MonoBehaviour
         knockCount = 0;
         stanBoxCol.enabled = false;
         capsuleCol.enabled = true;
-        if (doCouroutine)
+        if (isDestroyStan)
         {
             DestroyStanEffect();
-            AnimationImage.SetBool("Damage", false);
-            AnimationImage.SetBool("Capture", false);
+            animationImage.SetBool("Damage", false);
+            animationImage.SetBool("Capture", false);
 
-            doCouroutine = false;
+            isDestroyStan = false;
         }
 
         playerMove.NotPlayerDamage();
@@ -188,29 +188,29 @@ public class PlayerDamage : MonoBehaviour
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
-        AnimationImage.SetBool("Carry", false);
-        AnimationImage.SetBool("CarryMove", false);
-        AnimationImage.SetBool("Capture", false);
-        AnimationImage.SetBool("Damage", true);
+        animationImage.SetBool("Carry", false);
+        animationImage.SetBool("CarryMove", false);
+        animationImage.SetBool("Capture", false);
+        animationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
         playerCarryDown.CarryCancel();
         playerCarryDown.OnCarryDamage();
         playerAttack.OnIsDamage();
 
-        DamagePosX = transform.position.x;
-        DamagePosZ = transform.position.z;
+        damagePosX = transform.position.x;
+        damagePosZ = transform.position.z;
 
         time = 0;
         knockCount = 0;
-        doCouroutine = false;
+        isDestroyStan = false;
 
-        if (currentCapture)
+        if (isCurrentCapture)
         {
-            currentCapture = false;
+            isCurrentCapture = false;
         }
 
-        currentDamage = true;
+        isCurrentDamage = true;
     }
 
     public void CallCapture()
@@ -224,18 +224,18 @@ public class PlayerDamage : MonoBehaviour
         capsuleCol.enabled = false;
         stanBoxCol.enabled = true;
 
-        AnimationImage.SetBool("Carry", false);
-        AnimationImage.SetBool("CarryMove", false);
-        AnimationImage.SetBool("Damage", false);
-        AnimationImage.SetBool("Capture", true);
+        animationImage.SetBool("Carry", false);
+        animationImage.SetBool("CarryMove", false);
+        animationImage.SetBool("Damage", false);
+        animationImage.SetBool("Capture", true);
 
         playerMove.PlayerDamage();
         playerCarryDown.CarryCancel();
         playerCarryDown.OnCarryDamage();
         playerAttack.OnIsDamage(); 
 
-        DamagePosX = this.gameObject.transform.position.x;
-        DamagePosZ = this.gameObject.transform.position.z;
+        damagePosX = this.gameObject.transform.position.x;
+        damagePosZ = this.gameObject.transform.position.z;
 
         Vector3 InstantPos = this.gameObject.transform.position;
         InstantPos.y = captureEffectPosY;
@@ -244,14 +244,14 @@ public class PlayerDamage : MonoBehaviour
 
         time = 0;
         knockCount = 0;
-        doCouroutine = false;
+        isDestroyStan = false;
 
-        if (currentDamage)
+        if (isCurrentDamage)
         {
-            currentDamage = false;
+            isCurrentDamage = false;
         }
 
-        currentCapture = true;
+        isCurrentCapture = true;
         enemyScript = null;
 
     }
@@ -263,7 +263,7 @@ public class PlayerDamage : MonoBehaviour
             knockCount++;
             Instantiate(knockbackEffect, this.transform.position, other.transform.rotation);
 
-            if (!currentDamage && !currentCapture)
+            if (!isCurrentDamage && !isCurrentCapture)
             {
                 CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
             }
@@ -272,7 +272,7 @@ public class PlayerDamage : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyScript = other.gameObject.GetComponent<enemy>();
-            if (!currentDamage && myPlayerNo == enemyScript.rnd)
+            if (!isCurrentDamage && myPlayerNo == enemyScript.rnd)
             {
                 CallCapture();
             }
@@ -291,7 +291,7 @@ public class PlayerDamage : MonoBehaviour
     public void JudgeCapture(GameObject enemy)
     {
         enemyScript = enemy.GetComponent<enemy>();
-        if (!currentDamage && myPlayerNo == enemyScript.rnd)
+        if (!isCurrentDamage && myPlayerNo == enemyScript.rnd)
         {
             CallCapture();
         }

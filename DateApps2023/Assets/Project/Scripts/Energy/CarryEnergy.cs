@@ -11,9 +11,9 @@ public class CarryEnergy : MonoBehaviour
     private GameObject[] myGrabPoint = null;
     private PlayerCarryDown[] playerCarryDowns = null;
     private PlayerController playercontroller;
-    int number = 0;
+    private int number = 0;
     public int groupNumber = 1;
-    private bool InGroup = false;
+    private bool isInGroup = false;
 
     [SerializeField]
     private float defaultPosY = 51;
@@ -21,8 +21,7 @@ public class CarryEnergy : MonoBehaviour
     [SerializeField]
     private float carryPosY = 60;
 
-    BoxCollider boxCol = null;
-
+    private BoxCollider boxCol = null;
 
     public enum ItemSize
     {
@@ -59,7 +58,7 @@ public class CarryEnergy : MonoBehaviour
         
         boxCol.isTrigger = false;
 
-        while (!InGroup)
+        while (!isInGroup)
         {
             GameObject group = GameObject.FindWithTag("Group" + groupNumber);
             playercontroller = group.GetComponent<PlayerController>();
@@ -75,7 +74,7 @@ public class CarryEnergy : MonoBehaviour
                 playercontroller = group.GetComponent<PlayerController>();
                 playercontroller.GetItemSize(MyItemSizeCount, 1, this.gameObject);
                 
-                InGroup = true;
+                isInGroup = true;
                 break;
             }
             else
@@ -92,7 +91,7 @@ public class CarryEnergy : MonoBehaviour
 
     public void OutGroup()
     {
-        InGroup = false;
+        isInGroup = false;
         gameObject.transform.parent = null;
         DoCarryCancel();
 

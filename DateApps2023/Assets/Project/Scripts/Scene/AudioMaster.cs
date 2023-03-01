@@ -7,20 +7,20 @@ public class AudioMaster : MonoBehaviour
     #region
     private AudioSource audioSource;
     [SerializeField]
-    private AudioClip[] bgm1;
+    private AudioClip[] firstBGM;
 
     [SerializeField]
-    private AudioClip[] bgm2;
+    private AudioClip[] secondBGM;
 
     [SerializeField]
     private int changeKillCount = 5;
 
     [SerializeField]
-    private float FadeOutTime = 5.0f;
+    private float fadeOutTime = 5.0f;
 
-    private bool FirstHalf = true;
+    private bool isFirstHalf = true;
 
-    private bool IsFadeOut = true;
+    private bool isFadeOut = true;
     private float fadeTime = 0.0f;
     private float defaultVol = 1.0f;
     private int number;
@@ -35,16 +35,16 @@ public class AudioMaster : MonoBehaviour
 
     private void Update()
     {
-        if (FirstHalf && BossCount.GetKillCount() >= changeKillCount)
+        if (isFirstHalf && BossCount.GetKillCount() >= changeKillCount)
         {
-            if (IsFadeOut)
+            if (isFadeOut)
             {
                 FadeOutBGM();
             }
             else
             {
                 PlaySecondBGM();
-                FirstHalf = false;
+                isFirstHalf = false;
             }
         }
     }
@@ -52,25 +52,25 @@ public class AudioMaster : MonoBehaviour
     void FadeOutBGM()
     {
         fadeTime += Time.deltaTime;
-        if (fadeTime >= FadeOutTime)
+        if (fadeTime >= fadeOutTime)
         {
-            fadeTime = FadeOutTime;
-            IsFadeOut = false;
+            fadeTime = fadeOutTime;
+            isFadeOut = false;
         }
-        audioSource.volume = (float)(1.0 - fadeTime / FadeOutTime);
+        audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
     }
 
     void PlayFirstBGM()
     {
-        number = Random.Range(0, bgm1.Length);
-        audioSource.clip = bgm1[number];
+        number = Random.Range(0, firstBGM.Length);
+        audioSource.clip = firstBGM[number];
         audioSource.Play();
     }
 
     public void PlaySecondBGM()
     {
-        number= Random.Range(0, bgm2.Length);
-        audioSource.clip = bgm2[number];
+        number= Random.Range(0, secondBGM.Length);
+        audioSource.clip = secondBGM[number];
         audioSource.volume = defaultVol;
         audioSource.Play();
     }

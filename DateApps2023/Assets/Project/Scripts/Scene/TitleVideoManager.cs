@@ -13,10 +13,10 @@ public class TitleVideoManager : MonoBehaviour
 {
     #region
     [SerializeField]
-    private Animator AnimationImage = null;
+    private Animator animationImage = null;
 
     [SerializeField]
-    private float StandingTime = 11.0f;
+    private float standingTime = 11.0f;
     private float time = 0.0f;
 
     private TitleSceneMove titleSceneMove;
@@ -36,7 +36,7 @@ public class TitleVideoManager : MonoBehaviour
     private RenderTexture renderTexture = null;
 
     [SerializeField]
-    private bool CanLogoSkip = true;
+    private bool isCanLogoSkip = true;
     #endregion
 
     // Start is called before the first frame update
@@ -56,19 +56,19 @@ public class TitleVideoManager : MonoBehaviour
     void Update()
     {
 
-        if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Start"))
+        if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("Start"))
         {
             InStart();
         }
-        else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             InIdle();
         }
-        else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("StartVideo"))
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("StartVideo"))
         {
             InStartVideo();
         }
-        else if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("PlayVideo"))
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("PlayVideo"))
         {
             InPlayVideo();
         }
@@ -76,26 +76,26 @@ public class TitleVideoManager : MonoBehaviour
 
     private void InStart()
     {
-        AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
         if (isFinished)
         {
-            AnimationImage.Play(stateInfo.fullPathHash, 0, 0);
+            animationImage.Play(stateInfo.fullPathHash, 0, 0);
             OnEndVideo();
             SetRenderTexture();
             isFinished = false;
         }
         if (stateInfo.normalizedTime >= 1.0f)
         {
-            AnimationImage.SetTrigger("EndLogoAnim");
+            animationImage.SetTrigger("EndLogoAnim");
         }
-        if (CanLogoSkip)
+        if (isCanLogoSkip)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
                 var gamepad = Gamepad.all[i];
                 if (gamepad.bButton.wasPressedThisFrame)
                 {
-                    AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
+                    animationImage.Play(stateInfo.fullPathHash, 0, 1);
                 }
             }
         }
@@ -104,11 +104,11 @@ public class TitleVideoManager : MonoBehaviour
     private void InIdle()
     {
         time += Time.deltaTime;
-        if (time >= StandingTime)
+        if (time >= standingTime)
         {
             titleSceneMove.OnTrueIsPlay();
             isPlaying = false;
-            AnimationImage.SetTrigger("StartVideo");
+            animationImage.SetTrigger("StartVideo");
             time = 0.0f;
         }
         else
@@ -124,9 +124,9 @@ public class TitleVideoManager : MonoBehaviour
             var gamepad = Gamepad.all[i];
             if (gamepad.bButton.wasPressedThisFrame)
             {
-                AnimatorStateInfo stateInfo = AnimationImage.GetCurrentAnimatorStateInfo(0);
-                AnimationImage.Play(stateInfo.fullPathHash, 0, 1);
-                AnimationImage.SetTrigger("EndVideo");
+                AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
+                animationImage.Play(stateInfo.fullPathHash, 0, 1);
+                animationImage.SetTrigger("EndVideo");
             }
         }
     }
@@ -135,7 +135,7 @@ public class TitleVideoManager : MonoBehaviour
     {
         if (isFinished)
         {
-            AnimationImage.SetTrigger("EndVideo");
+            animationImage.SetTrigger("EndVideo");
 
         }
         if (!isPlaying)
