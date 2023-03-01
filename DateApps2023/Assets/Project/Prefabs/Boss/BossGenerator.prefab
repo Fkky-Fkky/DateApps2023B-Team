@@ -59,9 +59,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossManager: {fileID: 0}
+  opretar: {fileID: 0}
   bossCSV: {fileID: 0}
   nomalBoss: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
   miniBoss: {fileID: 1647289903949419459, guid: e3012e0cb0841ea448023fc8f17a047d, type: 3}
   bigBoss: {fileID: 1647289903949419459, guid: 0d8b94d41f4737a4d99084fe99ff9bfe, type: 3}
   sidePos: 130
-  bossCountMax: 15
+  bossCountMax: 13

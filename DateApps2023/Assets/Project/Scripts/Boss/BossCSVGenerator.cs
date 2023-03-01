@@ -278,7 +278,10 @@ public class BossCSVGenerator : MonoBehaviour
                     bossList.Add(boss.GetComponent<BossDamage>());
                     bossMoveList.Add(boss.GetComponent<BossMove>());
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    bossCountOne++;
+                    if (opretar.Getstartflag())
+                    {
+                        bossCountOne++;
+                    }
                     time = 0.0f;
                     isLeftLine = true;
                 }
@@ -291,7 +294,10 @@ public class BossCSVGenerator : MonoBehaviour
                     bossList.Add(boss.GetComponent<BossDamage>());
                     bossMoveList.Add(boss.GetComponent<BossMove>());
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    bossCountOne++;
+                    if (opretar.Getstartflag())
+                    {
+                        bossCountOne++;
+                    }
                     time = 0.0f;
                     
                     isCenterLine = true;
@@ -305,7 +311,11 @@ public class BossCSVGenerator : MonoBehaviour
                     bossList.Add(boss.GetComponent<BossDamage>());
                     bossMoveList.Add(boss.GetComponent<BossMove>());
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    bossCountOne++;
+                    if (opretar.Getstartflag())
+                    {
+                        bossCountOne++;
+                    }
+
                     time = 0.0f;
                     
                     isRightLine = true;
