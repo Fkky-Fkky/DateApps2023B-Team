@@ -9,6 +9,7 @@ public class CarryEmote : MonoBehaviour
     private int myPlayerNo;
     private float time = 0;
     private float scaleTime = 0;
+    const float MIRROR_ROT_Y = -180;
 
     private SpriteRenderer spriteRenderer;
     private Transform cameraPos;
@@ -69,7 +70,7 @@ public class CarryEmote : MonoBehaviour
             this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
             if(transform.parent.gameObject.transform.rotation.y >= 0)
             {
-                transform.Rotate(new Vector3(0.0f, -180.0f, 0.0f));
+                transform.Rotate(new Vector3(0.0f, MIRROR_ROT_Y, 0.0f));
             }
 
             ChangeSize();
