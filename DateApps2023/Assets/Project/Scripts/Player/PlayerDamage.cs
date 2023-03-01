@@ -45,7 +45,7 @@ public class PlayerDamage : MonoBehaviour
     //private bool onlyKnock = true;
 
     private int myPlayerNo = 5;
-    private enemy enemyScript = null;
+    private Enemy enemyScript = null;
 
     [SerializeField]
     private GameObject knockbackEffect = null;
@@ -277,7 +277,7 @@ public class PlayerDamage : MonoBehaviour
 
         if (other.gameObject.CompareTag("Enemy"))
         {
-            enemyScript = other.gameObject.GetComponent<enemy>();
+            enemyScript = other.gameObject.GetComponent<Enemy>();
             if (!currentDamage && myPlayerNo == enemyScript.rnd)
             {
                 CallCapture();
@@ -296,7 +296,7 @@ public class PlayerDamage : MonoBehaviour
 
     public void JudgeCapture(GameObject enemy)
     {
-        enemyScript = enemy.GetComponent<enemy>();
+        enemyScript = enemy.GetComponent<Enemy>();
         if (!currentDamage && myPlayerNo == enemyScript.rnd)
         {
             CallCapture();

@@ -11,7 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 
 
 //[RequireComponent(typeof(NavMeshAgent))]
-public class enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //攻撃の当たり判定
     private Collider AttackCollider;
@@ -39,27 +39,27 @@ public class enemy : MonoBehaviour
 
     [SerializeField]
     [Tooltip("場外判定x")]
-    private int ex_x = 14;
+    private int ExX = 14;
 
     [SerializeField]
     [Tooltip("場外判定-x")]
-    private int ex_mx = -14;
+    private int ExMx = -14;
 
     [SerializeField]
     [Tooltip("場外判定z")]
-    private int ex_z = 7;
+    private int ExZ = 7;
 
     [SerializeField]
     [Tooltip("場外判定-z")]
-    private int ex_mz = -7;
+    private int ExMz = -7;
 
-    bool attck_flag = false;
+    bool AttckFlag = false;
     int work = 0;
 
     [SerializeField]
-    private float climbing_speed = 3;
+    private float ClimbingSpeed = 3;
 
-    enum summon
+    enum SUMMON
     {
         start,
 
@@ -71,19 +71,19 @@ public class enemy : MonoBehaviour
 
         end,
     }
-    summon gameState = summon.start;
+    SUMMON gameState = SUMMON.start;
 
-    float rast_timer =0;
-    int rast_timer_flag=0;
-    float attck_time = 0;
+    float RastTimer =0;
+    int RastTimerFlag=0;
+    float AttckTime = 0;
 
-    bool ex_flag = false;
+    bool ExFlag = false;
 
-    float wl_time = 0;
+    float WlTime = 0;
 
     bool noattck = false;
 
-    bool one_flag = false;
+    bool OneFlag = false;
 
     Animator animator;
 
@@ -93,12 +93,9 @@ public class enemy : MonoBehaviour
 
     public int rnd;
 
-    int x;
-    int z;
-
     void Start()
     {
-        gameState = summon.start;
+        gameState = SUMMON.start;
 
         myCollider = this.GetComponent<CapsuleCollider>();
         myCollider.enabled = true;
@@ -139,18 +136,18 @@ public class enemy : MonoBehaviour
 
         #region 出現
 
-        if (gameState == summon.start)
+        if (gameState == SUMMON.start)
         {
             rb.constraints = RigidbodyConstraints.None;
             work = 1;
-            attck_flag = false;
-            gameState = summon.climbing;
+            AttckFlag = false;
+            gameState = SUMMON.climbing;
             myTransform.Rotate(-90, 0f, 0f);
         }
         //y8.5
-        else if(gameState == summon.climbing)
+        else if(gameState == SUMMON.climbing)
         {
-            transform.position += new Vector3(0, climbing_speed, 0) * Time.deltaTime;
+            transform.position += new Vector3(0, ClimbingSpeed, 0) * Time.deltaTime;
             //climbing_speed
             if (pos.y >= -1.2)
             {
@@ -167,22 +164,22 @@ public class enemy : MonoBehaviour
                     Vector3 force = new Vector3(1.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
                 }
-                gameState = summon.jump;
+                gameState = SUMMON.jump;
             }
         }
 
         //空中での回転
-         else if (gameState == summon.jump)
+         else if (gameState == SUMMON.jump)
         {
            if(pos.y>=5)
            {           
                 StartCoroutine(Onturn());
-                gameState = summon.landing;
+                gameState = SUMMON.landing;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
 
-        else if(gameState == summon.landing)
+        else if(gameState == SUMMON.landing)
         {
             //着地
             if(pos.y<=0)
@@ -191,7 +188,7 @@ public class enemy : MonoBehaviour
                 work = 0;
                 _agent.enabled = true;
                 AttackCollider.enabled = false;
-                gameState = summon.end;
+                gameState = SUMMON.end;
                 
             }
         }
@@ -213,46 +210,46 @@ public class enemy : MonoBehaviour
         //}
 
 
-        if (attck_flag == true)
+        if (AttckFlag == true)
         {
-            attck_time += Time.deltaTime;
+            AttckTime += Time.deltaTime;
 
             if (AttackCollider.enabled == true)
             {
-                if (attck_time >= 1.2)
+                if (AttckTime >= 1.2)
                 {
-                    rast_timer_flag = 1;
-                    attck_flag = false;
+                    RastTimerFlag = 1;
+                    AttckFlag = false;
                     noattck = true;
                     AttackCollider.enabled = false;
-                    attck_time = 0;
+                    AttckTime = 0;
                 }
             }
             else
             {
-                if (attck_time >= 0.9)
+                if (AttckTime >= 0.9)
                     AttackCollider.enabled = true;
-                else if (attck_time >= 0.5)
+                else if (AttckTime >= 0.5)
                 {
                     animator.SetTrigger("attck");
                 }
             }
         }
 
-        if (rast_timer_flag == 1)
+        if (RastTimerFlag == 1)
         {
-            rast_timer += Time.deltaTime;
+            RastTimer += Time.deltaTime;
         }
       //退場
-        if (rast_timer >= 1)
+        if (RastTimer >= 1)
         {
             //AttackCollider.enabled = false;
             
-            if(one_flag==false)
+            if(OneFlag==false)
             {
                 animator.SetTrigger("idle");
                 _agent.enabled = true;
-                one_flag = true;
+                OneFlag = true;
             }
 
             if(_agent.enabled == true)
@@ -264,7 +261,7 @@ public class enemy : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-      
+       
         #endregion
 
         if (-25 >= pos.y )
@@ -274,26 +271,26 @@ public class enemy : MonoBehaviour
         #region ノックバック
 
         //ノックバック時に場外に行かなかった時の処理
-        if (_agent.enabled == false　&&　gameState == summon.end)
+        if (_agent.enabled == false　&&　gameState == SUMMON.end)
         {
-            wl_time+=Time.deltaTime;
+            WlTime+=Time.deltaTime;
 
-            if(ex_flag == true)
+            if(ExFlag == true)
             {
                 rb.useGravity = false;
                 myCollider.enabled = false;
             }
-            else if(wl_time >= 1.5f&&ex_flag == false)
+            else if(WlTime >= 1.5f&&ExFlag == false)
             {
                 _agent.enabled = true;
-               wl_time = 0;
+               WlTime = 0;
             }
         }
 
         Vector3 rangeApos = spderpositionA.position;
         Vector3 rangeDpos = spderpositionD.position;
 
-        if(gameState == summon.end)
+        if(gameState == SUMMON.end)
         {
         
         if (rangeApos.x <= pos.x  ||
@@ -304,15 +301,15 @@ public class enemy : MonoBehaviour
             rangeDpos.x >= pos.z)
             rb.useGravity = true;
 
-        if (pos.x >= ex_x ||
-            pos.z >= ex_z )
-            ex_flag = true;
+        if (pos.x >= ExX ||
+            pos.z >= ExZ )
+            ExFlag = true;
 
-        else if (pos.x <= ex_mx ||
-                  pos.z <= ex_mz)
-            ex_flag = true;
+        else if (pos.x <= ExMx ||
+                  pos.z <= ExMz)
+            ExFlag = true;
         else
-            ex_flag = false;
+            ExFlag = false;
 
         }
         #endregion
@@ -348,15 +345,15 @@ public class enemy : MonoBehaviour
         if (collision.gameObject == players[rnd]&&noattck==false)
         {
             work = 1;
-            attck_flag = true;
-            attck_time = 0;
+            AttckFlag = true;
+            AttckTime = 0;
             noattck = true;
-            one_flag = false;
+            OneFlag = false;
             animator.SetTrigger("attckidle");
         }
 
         if (collision.gameObject.CompareTag("Wall") &&
-            gameState == summon.end &&
+            gameState == SUMMON.end &&
             noattck == true)
         {
             myCollider.enabled=false;
@@ -366,7 +363,7 @@ public class enemy : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("thin wall") &&
-            gameState == summon.landing)    
+            gameState == SUMMON.landing)    
         {
             Vector3 force = new Vector3(0.0f, 0.0f, 3.0f);
             rb.AddForce(force, ForceMode.Impulse);

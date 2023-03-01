@@ -17,7 +17,8 @@ public class Opretar_Audio : MonoBehaviour
     {
         Source = GetComponents<AudioSource>()[0];
     }
-
+    
+    //ƒ{ƒCƒX‚ÌÄ¶‚ğ~‚ß‚éŠÖ”
     void voice_stop()
     {
         Source.Stop();
