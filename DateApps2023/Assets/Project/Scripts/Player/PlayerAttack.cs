@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    #region
     private int myPlayerNo = 5;
-    private BoxCollider boxCol= null;
+    private BoxCollider boxCol = null;
 
     [SerializeField]
     private float hitTime = 0.25f;
@@ -37,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
     private AudioSource audioSource;
 
     private GameObject instantPunch = null;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -55,21 +57,13 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!isCarry && !isDamage)
         {
-            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
+            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame && !myAttack)
             {
-                if (!myAttack)
-                {
-                    FistAttack();
-                }
+                FistAttack();
             }
             if (myAttack)
             {
-                time += Time.deltaTime;
-                if (time >= hitTime)
-                {
-                    EndAttack();
-                    time = 0;
-                }
+                OnMyAttack();
             }
         }
         else if(isCarry || isDamage)
@@ -80,6 +74,16 @@ public class PlayerAttack : MonoBehaviour
                 EndAttack();
                 time = 0;
             }
+        }
+    }
+
+    void OnMyAttack()
+    {
+        time += Time.deltaTime;
+        if (time >= hitTime)
+        {
+            EndAttack();
+            time = 0;
         }
     }
 
@@ -129,6 +133,7 @@ public class PlayerAttack : MonoBehaviour
     {
         isDamage = false;
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -138,8 +143,6 @@ public class PlayerAttack : MonoBehaviour
             if (!rb)
                 return;
 
-            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
-            //rb.AddForce(pw, ForceMode.Impulse);
             rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
 
             NavMeshAgent nav = other.GetComponent<NavMeshAgent>();

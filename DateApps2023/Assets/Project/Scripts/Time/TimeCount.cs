@@ -8,6 +8,7 @@ using System.Reflection;
 
 public class TimeCount : MonoBehaviour
 {
+    #region
     public static float secondsCount;
     private bool isMain = true;
 
@@ -15,6 +16,7 @@ public class TimeCount : MonoBehaviour
 
     [SerializeField]
     private string sceneName = "New Scene";
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +34,6 @@ public class TimeCount : MonoBehaviour
             secondsCount += Time.deltaTime;
             timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00");
         }
-
-        //if (secondsCount >= 180)
-        //{
-        //    isMain = false;
-        //}
     }
 
     public static float GetTime()

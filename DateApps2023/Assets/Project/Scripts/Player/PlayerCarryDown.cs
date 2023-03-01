@@ -40,42 +40,12 @@ public class PlayerCarryDown : MonoBehaviour
         {
             if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
             {
-                if(!isCarry)
-                {
-                    if (canUsed)
-                    {
-                        if (carryItem.CompareTag("item"))
-                        {
-                            energyItem = carryItem.GetComponent<CarryEnergy>();
-                            energyItem.GetGrabPoint(this.gameObject);
-                            myGroupNo = energyItem.groupNumber;
-                            isCarry = true;
-                            canUsed = false;
-                            playermove.GetItem(myGroupNo);
-                        }
-                        if (carryItem.CompareTag("Cannon"))
-                        {
-                            if (!carryItem.GetComponent<CannonShot>().IsShotting)
-                            {
-                                cannonItem = carryItem.GetComponent<CarryCannon>();
-                                cannonItem.GetGrabPoint(this.gameObject);
-                                myGroupNo = cannonItem.groupNumber;
-                                isCarry = true;
-                                canUsed = false;
-                                playermove.GetItem(myGroupNo);
-                            }
-                        }
-                    }
-                }
+                CarryStart();
             }
-            if (Gamepad.all[myPlayerNo].bButton.wasReleasedThisFrame)
+            if (Gamepad.all[myPlayerNo].bButton.wasReleasedThisFrame && isCarry)
             {
-                if (isCarry)
-                {
-                    CarryCancel();
-                }
+                CarryCancel();
             }
-
         }
 
         if (isCarry)
@@ -113,6 +83,44 @@ public class PlayerCarryDown : MonoBehaviour
                 canUsed = false;
                 carryItem = null;
             }
+        }
+    }
+
+    void CarryStart()
+    {
+        if (!isCarry && canUsed)
+        {
+            if (carryItem.CompareTag("item"))
+            {
+                CarryEnergyTag();
+            }
+            if (carryItem.CompareTag("Cannon"))
+            {
+                CarryCannonTag();
+            }
+        }
+    }
+
+    void CarryEnergyTag()
+    {
+        energyItem = carryItem.GetComponent<CarryEnergy>();
+        energyItem.GetGrabPoint(this.gameObject);
+        myGroupNo = energyItem.groupNumber;
+        isCarry = true;
+        canUsed = false;
+        playermove.GetItem(myGroupNo);
+    }
+
+    void CarryCannonTag()
+    {
+        if (!carryItem.GetComponent<CannonShot>().IsShotting)
+        {
+            cannonItem = carryItem.GetComponent<CarryCannon>();
+            cannonItem.GetGrabPoint(this.gameObject);
+            myGroupNo = cannonItem.groupNumber;
+            isCarry = true;
+            canUsed = false;
+            playermove.GetItem(myGroupNo);
         }
     }
 

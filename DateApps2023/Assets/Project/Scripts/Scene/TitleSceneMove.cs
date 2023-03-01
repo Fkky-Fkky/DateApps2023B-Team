@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class TitleSceneMove : MonoBehaviour
 {
+    #region
     [SerializeField]
     private string sceneName = "New Scene";
 
@@ -39,6 +40,7 @@ public class TitleSceneMove : MonoBehaviour
     private AudioClip[] cancelSound = null;
 
     private AudioSource audioSource;
+    #endregion
 
 
     // Start is called before the first frame update

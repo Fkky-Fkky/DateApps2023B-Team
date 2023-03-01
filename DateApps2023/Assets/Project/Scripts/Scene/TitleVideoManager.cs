@@ -11,6 +11,7 @@ using UnityEngine.Video;
 
 public class TitleVideoManager : MonoBehaviour
 {
+    #region
     [SerializeField]
     private Animator AnimationImage = null;
 
@@ -36,7 +37,7 @@ public class TitleVideoManager : MonoBehaviour
 
     [SerializeField]
     private bool CanLogoSkip = true;
-
+    #endregion
 
     // Start is called before the first frame update
     void Start()

@@ -6,6 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerDamage : MonoBehaviour
 {
+    #region
     private Rigidbody rb;
     private CapsuleCollider capsuleCol;
     float time = 0;
@@ -29,9 +30,6 @@ public class PlayerDamage : MonoBehaviour
 
     private Animator AnimationImage;
 
-    //[SerializeField]
-    //private float knockBackPower = 50.0f;
-
     [SerializeField]
     private int EndStanCount = 3;
 
@@ -42,7 +40,6 @@ public class PlayerDamage : MonoBehaviour
     private BoxCollider stanBoxCol;
 
     private int knockCount = 0;
-    //private bool onlyKnock = true;
 
     private int myPlayerNo = 5;
     private enemy enemyScript = null;
@@ -73,6 +70,7 @@ public class PlayerDamage : MonoBehaviour
     private AudioClip knockbackSound = null;
 
     private AudioSource audioSource;
+    #endregion
 
     private void Start()
     {
@@ -97,90 +95,86 @@ public class PlayerDamage : MonoBehaviour
     {
         if (currentDamage)
         {
-            time += Time.deltaTime;
-            this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
-
-            if (time > stanTime || knockCount >= EndStanCount)
-            {
-                time = 0;
-                knockCount = 0;
-                stanBoxCol.enabled = false;
-                capsuleCol.enabled = true;
-                if (doCouroutine)
-                {
-                    Destroy(cloneStanEffect);
-                    cloneStanEffect = null;
-                    this.gameObject.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    defaultPosY,
-                    this.gameObject.transform.position.z
-                    );
-                    AnimationImage.SetBool("Damage", false);
-                    AnimationImage.SetBool("Capture", false);
-
-                    doCouroutine = false;
-                }
-        
-                playerMove.NotPlayerDamage();
-                playerCarryDown.OffCarryDamage();
-                playerAttack.OffIsDamage();
-
-                currentDamage = false;
-
-            }else if(time >= damageEffectInterval)
-            {
-                if (!doCouroutine)
-                {
-                    Vector3 InstantPos = damageStanPoint.position;
-                    InstantPos.y = damageEffectPosY;
-                    cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
-                    audioSource.PlayOneShot(stanSound);
-
-                    doCouroutine = true;
-                }
-            }
+            InCurrentDamage();
         }
 
         if (currentCapture)
         {
-            if (!doCouroutine)
-            {
-                doCouroutine = true;
-            }
-
-            time += Time.deltaTime;
-            this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
-
-            if (time > captureTime || knockCount >= EndCaptureCount)
-            {
-                time = 0;
-                knockCount = 0;
-                stanBoxCol.enabled = false;
-                capsuleCol.enabled = true;
-                if (doCouroutine)
-                {
-                    Destroy(cloneStanEffect);
-                    cloneStanEffect = null;
-                    this.gameObject.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    defaultPosY,
-                    this.gameObject.transform.position.z
-                    );
-                    AnimationImage.SetBool("Damage", false);
-                    AnimationImage.SetBool("Capture", false);
-
-                    doCouroutine = false;
-                }
-
-                playerMove.NotPlayerDamage();
-                playerCarryDown.OffCarryDamage();
-                playerAttack.OffIsDamage();
-
-                currentCapture = false;
-
-            }
+            InCurrentCapture();
         }
 
+    }
+
+    void InCurrentDamage()
+    {
+        time += Time.deltaTime;
+        this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
+
+        if (time > stanTime || knockCount >= EndStanCount)
+        {
+            EndPlayerDamage();
+            currentDamage = false;
+        }
+        else if (time >= damageEffectInterval)
+        {
+            if (!doCouroutine)
+            {
+                Vector3 InstantPos = damageStanPoint.position;
+                InstantPos.y = damageEffectPosY;
+                cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
+                audioSource.PlayOneShot(stanSound);
+
+                doCouroutine = true;
+            }
+        }
+    }
+
+    void InCurrentCapture()
+    {
+        if (!doCouroutine)
+        {
+            doCouroutine = true;
+        }
+
+        time += Time.deltaTime;
+        this.gameObject.transform.position = new Vector3(DamagePosX, defaultPosY, DamagePosZ);
+
+        if (time > captureTime || knockCount >= EndCaptureCount)
+        {
+            EndPlayerDamage();
+            currentCapture = false;
+        }
+    }
+
+    void EndPlayerDamage()
+    {
+        time = 0;
+        knockCount = 0;
+        stanBoxCol.enabled = false;
+        capsuleCol.enabled = true;
+        if (doCouroutine)
+        {
+            DestroyStanEffect();
+            AnimationImage.SetBool("Damage", false);
+            AnimationImage.SetBool("Capture", false);
+
+            doCouroutine = false;
+        }
+
+        playerMove.NotPlayerDamage();
+        playerCarryDown.OffCarryDamage();
+        playerAttack.OffIsDamage();
+    }
+
+    void DestroyStanEffect()
+    {
+        Destroy(cloneStanEffect);
+        cloneStanEffect = null;
+        this.gameObject.transform.position = new Vector3(
+        this.gameObject.transform.position.x,
+        defaultPosY,
+        this.gameObject.transform.position.z
+        );
     }
 
     public void CallDamage()
@@ -310,9 +304,6 @@ public class PlayerDamage : MonoBehaviour
     public void CallKnockBack(Transform knockPos)
     {
         audioSource.PlayOneShot(knockbackSound);
-        //var distination = (transform.position - knockPos.position).normalized;
-        //transform.position += distination * knockBackPower;
-        //rb.velocity = Vector3.zero;
     }
 
     public void GetPlayerNo(int myNumber)

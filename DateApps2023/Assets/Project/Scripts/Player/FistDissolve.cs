@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FistDissolve : MonoBehaviour
 {
+    #region
     private new Renderer renderer;
 
     [SerializeField]
@@ -24,6 +25,7 @@ public class FistDissolve : MonoBehaviour
 
     [SerializeField]
     private float pushForward = 0.8f;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -39,41 +41,55 @@ public class FistDissolve : MonoBehaviour
     {
         if (isStartDissolve)
         {
-            time += Time.deltaTime;
-            //renderer.material.SetFloat("_DisAmount", value - time / startTime);
-            transform.position += pushForward * Time.deltaTime * transform.up / startTime;
-            if(time >= startTime)
-            {
-                time = 0.0f;
-                value = 0;
-                renderer.material.SetFloat("_DisAmount", value);
-                isStartDissolve = false;
-                isIntervalDissolve = true;
-                isEndDissolve = false;
-            }
+            InStartDissolve();
         }
         if (isIntervalDissolve)
         {
-            time += Time.deltaTime;
-            if(time >= intervalTime)
-            {
-                time = 0.0f;
-                isStartDissolve = false;
-                isIntervalDissolve = false;
-                isEndDissolve = true;
-            }
+            InIntervalDissolve();
         }
         if(isEndDissolve)
         {
-            time += Time.deltaTime;
-            renderer.material.SetFloat("_DisAmount", value + time / endTime);
-            if (time >= endTime)
-            {
-                time = 0.0f;
-                value = 1.0f;
-                renderer.material.SetFloat("_DisAmount", value);
-                Destroy(gameObject);
-            }
+            InEndDissolve();
+        }
+    }
+
+    void InStartDissolve()
+    {
+        time += Time.deltaTime;
+        transform.position += pushForward * Time.deltaTime * transform.up / startTime;
+        if (time >= startTime)
+        {
+            time = 0.0f;
+            value = 0;
+            renderer.material.SetFloat("_DisAmount", value);
+            isStartDissolve = false;
+            isIntervalDissolve = true;
+            isEndDissolve = false;
+        }
+    }
+
+    void InIntervalDissolve()
+    {
+        time += Time.deltaTime;
+        if (time >= intervalTime)
+        {
+            time = 0.0f;
+            isStartDissolve = false;
+            isIntervalDissolve = false;
+            isEndDissolve = true;
+        }
+    }
+
+    void InEndDissolve()
+    {
+        time += Time.deltaTime;
+        renderer.material.SetFloat("_DisAmount", value + time / endTime);
+        if (time >= endTime)
+        {
+            time = 0.0f;
+            value = 1.0f;
+            renderer.material.SetFloat("_DisAmount", value);
+            Destroy(gameObject);
         }
     }
 

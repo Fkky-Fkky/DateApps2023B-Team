@@ -11,9 +11,10 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    #region
     [SerializeField]
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
-    private float moveSpeed = 1000.0f;
+    private float moveSpeed = 250.0f;
 
     private Rigidbody rb;
 
@@ -23,6 +24,15 @@ public class PlayerController : MonoBehaviour
     private int itemSizeCount = 0;
     private int playerCount = 0;
     private float mySpeed = 1.0f;
+
+    [SerializeField]
+    private float[] SmallCarrySpeed;
+
+    [SerializeField]
+    private float[] MidiumCarrySpeed;
+
+    [SerializeField]
+    private float[] LargeCarrySpeed;
 
     private Vector3 groupVec = new Vector3(0, 0, 0);
 
@@ -48,6 +58,7 @@ public class PlayerController : MonoBehaviour
     private int CarryTextOrderInLayer = 0;
 
     private int NeedCarryCount = 0;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -66,52 +77,79 @@ public class PlayerController : MonoBehaviour
     {
         if (controlFrag)
         {
-            Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
+            GroupMove();
+            CheckOnlyChild();
+        }
+    }
 
-            for (int i = 0; i < gamepadFrag.Length; i++)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
             {
-                if (gamepadFrag[i])
+                if (transform.GetChild(i).gameObject.CompareTag("Player"))
                 {
-                    var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
-
-                    if (leftStickValue.x != 0.0f)
-                    {
-                        AnimationImage[i].SetBool("CarryMove", true);
-                        before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
-                    }
-                    if (leftStickValue.y != 0.0f)
-                    {
-                        AnimationImage[i].SetBool("CarryMove", true);
-                        before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
-                    }
-
-                    if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
-                    {
-                        AnimationImage[i].SetBool("CarryMove", false);
-                        before[i] = Vector2.zero;
-                    }
-
-                    float walkSpeed = mySpeed * AnimationSpeed;
-                    AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
+                    transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().JudgeCapture(other.gameObject);
                 }
             }
+        }
+        if (other.gameObject.CompareTag("BossAttack"))
+        {
+            DamageChild();
+        }
+    }
 
-            groupVec.x = (before[0].x + before[1].x + before[2].x + before[3].x) * CarryOverSpeed;
-            groupVec.z = (before[0].y + before[1].y + before[2].y + before[3].y) * CarryOverSpeed;
-            rb.velocity = groupVec;
+    void GroupMove()
+    {
+        Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-            if (transform.childCount <= 1)
+        for (int i = 0; i < gamepadFrag.Length; i++)
+        {
+            if (gamepadFrag[i])
             {
-                if (transform.GetChild(0).gameObject.CompareTag("item"))
+                var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
+
+                if (leftStickValue.x != 0.0f)
                 {
-                    transform.GetChild(0).gameObject.GetComponent<CarryEnergy>().OutGroup();
+                    AnimationImage[i].SetBool("CarryMove", true);
+                    before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
                 }
-                else if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
+                if (leftStickValue.y != 0.0f)
                 {
-                    transform.GetChild(0).gameObject.GetComponent<CarryCannon>().OutGroup();
+                    AnimationImage[i].SetBool("CarryMove", true);
+                    before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
                 }
-                AllFragFalse();
+
+                if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+                {
+                    AnimationImage[i].SetBool("CarryMove", false);
+                    before[i] = Vector2.zero;
+                }
+
+                float walkSpeed = mySpeed * AnimationSpeed;
+                AnimationImage[i].SetFloat(ps_WalkSpeed, walkSpeed);
             }
+        }
+
+        groupVec.x = (before[0].x + before[1].x + before[2].x + before[3].x) * CarryOverSpeed;
+        groupVec.z = (before[0].y + before[1].y + before[2].y + before[3].y) * CarryOverSpeed;
+        rb.velocity = groupVec;
+    }
+
+    void CheckOnlyChild()
+    {
+        if (transform.childCount <= 1)
+        {
+            if (transform.GetChild(0).gameObject.CompareTag("item"))
+            {
+                transform.GetChild(0).gameObject.GetComponent<CarryEnergy>().OutGroup();
+            }
+            else if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
+            {
+                transform.GetChild(0).gameObject.GetComponent<CarryCannon>().OutGroup();
+            }
+            AllFragFalse();
         }
     }
 
@@ -161,25 +199,7 @@ public class PlayerController : MonoBehaviour
         AllFragFalse();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            for (int i = 0; i < this.transform.childCount; i++)
-            {
-                if (transform.GetChild(i).gameObject.CompareTag("Player"))
-                {
-                    transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().JudgeCapture(other.gameObject);
-                }
-            }
-        }
-        if (other.gameObject.CompareTag("BossAttack"))
-        {
-            DamageChild();
-        }
-    }
-
-    public void DamageChild()
+    private void DamageChild()
     {
         for (int i = 0; i < ChildPlayer.Length; i++)
         {
@@ -201,7 +221,6 @@ public class PlayerController : MonoBehaviour
             {
                 transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
             }
-            //transform.GetChild(i).gameObject.transform.parent = null;
         }
         AllFragFalse();
     }
@@ -234,17 +253,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = groupVec;
     }
 
-    void CheckPlayerCount()
+    void CheckItemSizeCount()
     {
-        if(playerCount < 0)
-        {
-            playerCount = 0;
-        }
-        else if (playerCount > 4)
-        {
-            playerCount = 4;
-        }
-
         if (itemSizeCount == 0)
         {
             NeedCarryCount = 1;
@@ -257,39 +267,41 @@ public class PlayerController : MonoBehaviour
         {
             NeedCarryCount = 4;
         }
+    }
 
-        if (carryText != null)
+    void SetCarryText()
+    {
+        carryText.text = playerCount.ToString("0") + "/" + NeedCarryCount.ToString("0");
+        if (playerCount >= NeedCarryCount)
         {
-            carryText.text = playerCount.ToString("0") + "/" + NeedCarryCount.ToString("0");
-            if(playerCount >= NeedCarryCount)
+            carryText.color = Color.white;
+            for (int i = 0; i < ChildPlayer.Length; i++)
             {
-                carryText.color = Color.white;
-                for(int i = 0; i < ChildPlayer.Length; i++)
+                if (ChildPlayer[i] != null)
                 {
-                    if (ChildPlayer[i] != null)
-                    {
-                        ChildPlayer[i].GetComponent<PlayerMove>().EndCarryEmote();
-                    }
-                }
-            }
-            else if (playerCount <= 0)
-            {
-                carryText.text = null;
-            }
-            else
-            {
-                carryText.color = Color.red;
-                for (int i = 0; i < ChildPlayer.Length; i++)
-                {
-                    if (ChildPlayer[i] != null)
-                    {
-                        ChildPlayer[i].GetComponent<PlayerMove>().StartCarryEmote();
-                    }
+                    ChildPlayer[i].GetComponent<PlayerMove>().EndCarryEmote();
                 }
             }
         }
-        
+        else if (playerCount <= 0)
+        {
+            carryText.text = null;
+        }
+        else
+        {
+            carryText.color = Color.red;
+            for (int i = 0; i < ChildPlayer.Length; i++)
+            {
+                if (ChildPlayer[i] != null)
+                {
+                    ChildPlayer[i].GetComponent<PlayerMove>().StartCarryEmote();
+                }
+            }
+        }
+    }
 
+    void CheckCarryOver()
+    {
         if (playerCount >= NeedCarryCount)
         {
             CarryOverSpeed = 1.0f;
@@ -298,63 +310,43 @@ public class PlayerController : MonoBehaviour
         {
             CarryOverSpeed = DefaultCarryOverSpeed;
         }
+    }
 
+    void CheckMySpeed()
+    {
         if (itemSizeCount == 0)
         {
-            if(playerCount == 1)
-            {
-                mySpeed = (moveSpeed * 1.0f) / playerCount;
-            }
-            else if (playerCount == 2)
-            {
-                mySpeed = (moveSpeed * 1.5f) / playerCount;
-            }
-            else if (playerCount == 3)
-            {
-                mySpeed = (moveSpeed * 3.0f) / playerCount;
-            }
-            else if (playerCount == 4)
-            {
-                mySpeed = (moveSpeed * 4.0f) / playerCount;
-            }
+            mySpeed = (moveSpeed * SmallCarrySpeed[playerCount]) / playerCount;
         }
         else if (itemSizeCount == 1)
         {
-            if (playerCount == 1)
-            {
-                mySpeed = (moveSpeed * 0.5f) / playerCount;
-            }
-            else if (playerCount == 2)
-            {
-                mySpeed = (moveSpeed * 1.0f) / playerCount;
-            }
-            else if (playerCount == 3)
-            {
-                mySpeed = (moveSpeed * 1.5f) / playerCount;
-            }
-            else if (playerCount == 4)
-            {
-                mySpeed = (moveSpeed * 3.0f) / playerCount;
-            }
+            mySpeed = (moveSpeed * MidiumCarrySpeed[playerCount]) / playerCount;
         }
         else if (itemSizeCount == 2)
         {
-            if (playerCount == 1)
-            {
-                mySpeed = (moveSpeed * 0.25f) / playerCount;
-            }
-            else if (playerCount == 2)
-            {
-                mySpeed = (moveSpeed * 0.5f) / playerCount;
-            }
-            else if (playerCount == 3)
-            {
-                mySpeed = (moveSpeed * 0.75f) / playerCount;
-            }
-            else if (playerCount == 4)
-            {
-                mySpeed = (moveSpeed * 1.5f) / playerCount;
-            }
+            mySpeed = (moveSpeed * LargeCarrySpeed[playerCount]) / playerCount;
         }
+    }
+
+    void CheckPlayerCount()
+    {
+        if(playerCount < 0)
+        {
+            playerCount = 0;
+        }
+        else if (playerCount > 4)
+        {
+            playerCount = 4;
+        }
+
+        CheckItemSizeCount();
+
+        if (carryText != null)
+        {
+            SetCarryText();
+        }
+        
+        CheckCarryOver();
+        CheckMySpeed();
     }
 }

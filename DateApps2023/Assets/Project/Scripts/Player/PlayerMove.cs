@@ -104,7 +104,6 @@ public class PlayerMove : MonoBehaviour
         GamepadMove();
     }
 
-
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("item"))
@@ -136,18 +135,6 @@ public class PlayerMove : MonoBehaviour
                 this.gameObject.transform.position.x,
                 defaultPosY,
                 this.gameObject.transform.position.z);
-        }
-
-        if (collision.gameObject.CompareTag("Group1")
-           || collision.gameObject.CompareTag("Group2")
-           || collision.gameObject.CompareTag("Group3")
-           || collision.gameObject.CompareTag("Group4"))
-        {
-            EnterItem = false;
-            this.gameObject.transform.position = new Vector3(
-                  this.gameObject.transform.position.x,
-                  defaultPosY,
-                  this.gameObject.transform.position.z);
         }
     }
 
@@ -198,45 +185,46 @@ public class PlayerMove : MonoBehaviour
 
     void GamepadMove()
     {
-        if (!playerMoveDamage)
+        if (!playerMoveDamage && !InGroup)
         {
-            var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
+            OnStickValue();
+        }
+    }
 
-            if (!InGroup)
+    void OnStickValue()
+    {
+        var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
+        Vector3 vec = new Vector3(0, 0, 0);
+
+        if (!IsAttack)
+        {
+            if (leftStickValue.x != 0.0f)
             {
-                Vector3 vec = new Vector3(0, 0, 0);
+                AnimationImage.SetBool("Move", true);
+                vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
+            }
+            if (leftStickValue.y != 0.0f)
+            {
+                AnimationImage.SetBool("Move", true);
+                vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
+            }
 
-                if (!IsAttack)
+            if (!EnterItem)
+            {
+                if (leftStickValue.x != 0 || leftStickValue.y != 0)
                 {
-                    if (leftStickValue.x != 0.0f)
-                    {
-                        AnimationImage.SetBool("Move", true);
-                        vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                    }
-                    if (leftStickValue.y != 0.0f)
-                    {
-                        AnimationImage.SetBool("Move", true);
-                        vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
-                    }
-
-                    if (!EnterItem)
-                    {
-                        if (leftStickValue.x != 0 || leftStickValue.y != 0)
-                        {
-                            var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
-                            transform.localRotation = Quaternion.LookRotation(direction);
-                        }
-                    }
+                    var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
+                    transform.localRotation = Quaternion.LookRotation(direction);
                 }
-
-                if(leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
-                {
-                    AnimationImage.SetBool("Move", false);
-                }
-
-                rb.velocity = vec;
             }
         }
+
+        if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+        {
+            AnimationImage.SetBool("Move", false);
+        }
+
+        rb.velocity = vec;
     }
 
     public void PlayerDamage()

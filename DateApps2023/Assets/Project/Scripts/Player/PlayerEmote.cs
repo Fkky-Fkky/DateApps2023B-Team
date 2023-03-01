@@ -70,53 +70,78 @@ public class PlayerEmote : MonoBehaviour
     {
         if (!IsEmote)
         {
-            if (Gamepad.all[myPlayerNo].leftShoulder.wasPressedThisFrame)
-            {
-                IsEmote = true;
-                spriteRenderer.sprite = LShoulderIcon;
-                IsBig = true;
-            }
-            else if (Gamepad.all[myPlayerNo].rightShoulder.wasPressedThisFrame)
-            {
-                IsEmote = true;
-                spriteRenderer.sprite = RShoulderIcon;
-                IsBig = true;
-            }
+           PressEmoteButton();
         }
         else
         {
-            time += Time.deltaTime;
-            this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
-
-            ChangeSize();
-            
-            if (time >= emoteTime)
-            {
-                IsEmote = false;
-                time = 0;
-                scaleTime = 0;
-                spriteRenderer.sprite = null;
-                IsSmall = false;
-                IsBig = false;
-                gameObject.transform.localPosition = defaultPos;
-                gameObject.transform.localScale = defaultSize;
-                setSize = defaultSize;
-            }
-            else if(time < emoteTime && time >= emoteTime - endTime)
-            {
-                gameObject.transform.localPosition += movePos * Time.deltaTime;
-                IsSmall = false;
-                IsBig = false;
-                setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-                gameObject.transform.localScale = setSize;
-            }
-            else if(time <= startTime)
-            {
-                gameObject.transform.localPosition += movePos * Time.deltaTime;
-                setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-                gameObject.transform.localScale = setSize;
-            }
+            InEmoteTime();
         }
+    }
+
+    void PressEmoteButton()
+    {
+        if (Gamepad.all[myPlayerNo].leftShoulder.wasPressedThisFrame)
+        {
+            IsEmote = true;
+            spriteRenderer.sprite = LShoulderIcon;
+            IsBig = true;
+        }
+        else if (Gamepad.all[myPlayerNo].rightShoulder.wasPressedThisFrame)
+        {
+            IsEmote = true;
+            spriteRenderer.sprite = RShoulderIcon;
+            IsBig = true;
+        }
+    }
+
+    void InEmoteTime()
+    {
+        time += Time.deltaTime;
+        this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
+
+        ChangeSize();
+
+        if (time >= emoteTime)
+        {
+            InEndEmote();
+        }
+        else if (time < emoteTime && time >= emoteTime - endTime)
+        {
+            InBeforeEndEmote();
+        }
+        else if (time <= startTime)
+        {
+            InStartEmote();
+        }
+    }
+
+    void InEndEmote()
+    {
+        IsEmote = false;
+        time = 0;
+        scaleTime = 0;
+        spriteRenderer.sprite = null;
+        IsSmall = false;
+        IsBig = false;
+        gameObject.transform.localPosition = defaultPos;
+        gameObject.transform.localScale = defaultSize;
+        setSize = defaultSize;
+    }
+
+    void InBeforeEndEmote()
+    {
+        gameObject.transform.localPosition += movePos * Time.deltaTime;
+        IsSmall = false;
+        IsBig = false;
+        setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
+        gameObject.transform.localScale = setSize;
+    }
+
+    void InStartEmote()
+    {
+        gameObject.transform.localPosition += movePos * Time.deltaTime;
+        setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
+        gameObject.transform.localScale = setSize;
     }
 
     void ChangeSize()
