@@ -21,6 +21,6 @@ public class StageGenerator : MonoBehaviour
     void OnGenerate()
     {
         number = Random.Range(0, stagePattern.Length);
-        Instantiate(stagePattern[number], GeneratePos, Quaternion.identity);
+        Instantiate(stagePattern[number], generatePos, Quaternion.identity);
     }
 }

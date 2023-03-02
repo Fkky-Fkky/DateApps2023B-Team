@@ -187,17 +187,13 @@ public class PlayerMove : MonoBehaviour
 
     void GamepadMove()
     {
-        if (!isPlayerMoveDamage && !isInGroup)
-        {
-            OnStickValue();
-        }
-    }
+        var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
 
-            if (!isGroup)
-            {
-                NotIsGroup(leftStickValue);
-            }
+        if (!isGroup)
+        {
+            NotIsGroup(leftStickValue);
         }
+
     }
 
     void NotIsGroup(Vector2 StickValue)
@@ -219,7 +215,6 @@ public class PlayerMove : MonoBehaviour
 
     void NotIsAttack(Vector2 StickValue)
     {
-        var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
 
         if (StickValue.x != 0.0f)
         {
@@ -244,7 +239,7 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerDamage()
     {
-        playerMoveDamage = true;
+        isPlayerMoveDamage = true;
         isGroup = false;
         isAttack = false;
         isEnterItem = false;
@@ -252,7 +247,7 @@ public class PlayerMove : MonoBehaviour
 
     public void NotPlayerDamage()
     {
-        playerMoveDamage = false;
+        isPlayerMoveDamage = false;
         isGroup = false;
         isAttack = false;
         isEnterItem = false;

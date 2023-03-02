@@ -10,8 +10,8 @@ public class PlayerDamage : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider capsuleCol;
     private float time = 0;
-    private bool currentDamage;
-    private bool currentCapture;
+    private bool isCurrentDamage;
+    private bool isCurrentCapture;
 
     [SerializeField]
     private float stanTime = 5.0f;
@@ -96,7 +96,7 @@ public class PlayerDamage : MonoBehaviour
         {
             OnCurrentDamage();
         }
-        if (currentCapture)
+        if (isCurrentCapture)
         {
             OnCurrentCapture();
         }
@@ -122,7 +122,7 @@ public class PlayerDamage : MonoBehaviour
             playerCarryDown.OffCarryDamage();
             playerAttack.OffIsDamage();
 
-            currentDamage = false;
+            isCurrentDamage = false;
 
         }
         else if (time >= damageEffectInterval)
@@ -164,7 +164,7 @@ public class PlayerDamage : MonoBehaviour
             playerCarryDown.OffCarryDamage();
             playerAttack.OffIsDamage();
 
-            currentCapture = false;
+            isCurrentCapture = false;
 
         }
     }

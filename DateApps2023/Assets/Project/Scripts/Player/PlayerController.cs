@@ -59,14 +59,6 @@ public class PlayerController : MonoBehaviour
 
     private int needCarryCount = 0;
 
-    [SerializeField]
-    private float[] smallCarrySpeed;
-
-    [SerializeField]
-    private float[] midiumCarrySpeed;
-
-    [SerializeField]
-    private float[] largeCarrySpeed;
     #endregion
 
     // Start is called before the first frame update
@@ -95,9 +87,9 @@ public class PlayerController : MonoBehaviour
     {
         Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-        for (int i = 0; i < gamepadFrag.Length; i++)
+        for (int i = 0; i < isGamepadFrag.Length; i++)
         {
-            if (gamepadFrag[i])
+            if (isGamepadFrag[i])
             {
                 var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
 
@@ -303,6 +295,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void CheckMySpeed()
+    {
+        if (itemSizeCount == 0)
+        {
+            mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
+        }
+        else if (itemSizeCount == 1)
+        {
+            mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
+        }
+        else if (itemSizeCount == 2)
+        {
+            mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
+        }
+    }
+
     void CheckPlayerCount()
     {
         if(playerCount < 0)
@@ -322,20 +330,6 @@ public class PlayerController : MonoBehaviour
         }
         
         CheckCarryOver();
-
-        if (itemSizeCount == 0)
-        {
-            mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
-        }
-        else if (itemSizeCount == 1)
-        {
-            mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
-        }
-        else if (itemSizeCount == 2)
-        {
-            mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
-        }
-        
         CheckCarryOver();
         CheckMySpeed();
     }

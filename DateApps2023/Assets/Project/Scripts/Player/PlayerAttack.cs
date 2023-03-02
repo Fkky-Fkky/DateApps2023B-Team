@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!isCarry && !isDamage)
         {
-            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame && !isMyAttack)
+            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
             {
                 FistAttack();
             }
