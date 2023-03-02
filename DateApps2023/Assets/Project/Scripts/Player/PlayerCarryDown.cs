@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerCarryDown : MonoBehaviour
 {
     #region
-
     private bool isCarry = false;
     private GameObject carryItem = null;
 
@@ -34,18 +33,20 @@ public class PlayerCarryDown : MonoBehaviour
 
         myCol = GetComponent<BoxCollider>();
     }
+
     void Update()
     {
         if (!isCarryDamage)
         {
             if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
             {
-                CarryStart();
+                OnPressCarryButton();
             }
-            if (Gamepad.all[myPlayerNo].bButton.wasReleasedThisFrame && isCarry)
+            if (Gamepad.all[myPlayerNo].bButton.wasReleasedThisFrame)
             {
-                CarryCancel();
+                OnReleaseCarryButton();
             }
+
         }
 
         if (isCarry)
@@ -59,6 +60,51 @@ public class PlayerCarryDown : MonoBehaviour
             myCol.enabled = true;
         }
     }
+
+    void CheckItemTag()
+    {
+        if (carryItem.CompareTag("item"))
+        {
+            energyItem = carryItem.GetComponent<CarryEnergy>();
+            energyItem.GetGrabPoint(this.gameObject);
+            myGroupNo = energyItem.groupNumber;
+            isCarry = true;
+            isCanUsed = false;
+            playermove.GetItem(myGroupNo);
+        }
+        if (carryItem.CompareTag("Cannon"))
+        {
+            if (!carryItem.GetComponent<CannonShot>().IsShotting)
+            {
+                cannonItem = carryItem.GetComponent<CarryCannon>();
+                cannonItem.GetGrabPoint(this.gameObject);
+                myGroupNo = cannonItem.groupNumber;
+                isCarry = true;
+                isCanUsed = false;
+                playermove.GetItem(myGroupNo);
+            }
+        }
+    }
+
+    void OnPressCarryButton()
+    {
+        if (!isCarry)
+        {
+            if (isCanUsed)
+            {
+                CheckItemTag();
+            }
+        }
+    }
+
+    void OnReleaseCarryButton()
+    {
+        if (isCarry)
+        {
+            CarryCancel();
+        }
+    }
+
 
     void OnTriggerStay(Collider collision)
     {

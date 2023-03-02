@@ -11,7 +11,7 @@ public class CarryCannon : MonoBehaviour
     private PlayerController playercontroller;
     private int number = 0;
     public int groupNumber = 1;
-    private bool isInGroup = false;
+    private bool isGroup = false;
 
     [SerializeField]
     private float defaultPosY = 51;
@@ -59,7 +59,7 @@ public class CarryCannon : MonoBehaviour
 
         boxCol.isTrigger = false;
 
-        while (!isInGroup)
+        while (!isGroup)
         {
             GameObject group = GameObject.FindWithTag("Group" + groupNumber);
             playercontroller = group.GetComponent<PlayerController>();
@@ -75,7 +75,7 @@ public class CarryCannon : MonoBehaviour
                 playercontroller = group.GetComponent<PlayerController>();
                 playercontroller.GetItemSize(myItemSizeCount, 2, this.gameObject);
 
-                isInGroup = true;
+                isGroup = true;
                 break;
             }
             else
@@ -92,7 +92,7 @@ public class CarryCannon : MonoBehaviour
 
     public void OutGroup()
     {
-        isInGroup = false;
+        isGroup = false;
         gameObject.transform.parent = null;
         DoCarryCancel();
         

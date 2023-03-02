@@ -9,7 +9,6 @@ public class CarryEmote : MonoBehaviour
     private int myPlayerNo;
     private float time = 0;
     private float scaleTime = 0;
-    const float MIRROR_ROT_Y = -180;
 
     private SpriteRenderer spriteRenderer;
     private Transform cameraPos;
@@ -47,6 +46,8 @@ public class CarryEmote : MonoBehaviour
     private Vector3 movePos = Vector3.zero;
     private Vector3 defaultSize;
     private Vector3 setSize;
+
+    const float MIRROR_ROT_Y = -180.0f;
     #endregion
 
     // Start is called before the first frame update

@@ -39,11 +39,11 @@ public class PlayerController : MonoBehaviour
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
 
-    private const string walkSpeed = "RunSpeed";
+    private const string runAnimSpeed = "RunSpeed";
     [SerializeField]
     private float animationSpeed = 0.001f;
 
-    public bool hasItem = false;
+    public bool HasItem = false;
 
     private TextMeshPro carryText = null;
     private Outline outline = null;
@@ -58,6 +58,15 @@ public class PlayerController : MonoBehaviour
     private int carryTextOrderInLayer = 0;
 
     private int needCarryCount = 0;
+
+    [SerializeField]
+    private float[] smallCarrySpeed;
+
+    [SerializeField]
+    private float[] midiumCarrySpeed;
+
+    [SerializeField]
+    private float[] largeCarrySpeed;
     #endregion
 
     // Start is called before the first frame update
@@ -77,36 +86,18 @@ public class PlayerController : MonoBehaviour
     {
         if (isControlFrag)
         {
-            GroupMove();
+            OnControllFrag();
             CheckOnlyChild();
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            for (int i = 0; i < this.transform.childCount; i++)
-            {
-                if (transform.GetChild(i).gameObject.CompareTag("Player"))
-                {
-                    transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().JudgeCapture(other.gameObject);
-                }
-            }
-        }
-        if (other.gameObject.CompareTag("BossAttack"))
-        {
-            DamageChild();
-        }
-    }
-
-    void GroupMove()
+    void OnControllFrag()
     {
         Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
-        for (int i = 0; i < isGamepadFrag.Length; i++)
+        for (int i = 0; i < gamepadFrag.Length; i++)
         {
-            if (isGamepadFrag[i])
+            if (gamepadFrag[i])
             {
                 var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
 
@@ -128,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 float walkSpeed = mySpeed * animationSpeed;
-                AnimationImage[i].SetFloat(PlayerController.walkSpeed, walkSpeed);
+                AnimationImage[i].SetFloat(runAnimSpeed, walkSpeed);
             }
         }
 
@@ -163,11 +154,11 @@ public class PlayerController : MonoBehaviour
         outline.enabled = false;
         if (itemType == 1)
         {
-            hasItem = true;
+            HasItem = true;
         }
         else if (itemType == 2)
         {
-            hasItem = true;
+            HasItem = true;
             rb.mass *= 10;
         }
         CheckPlayerCount();
@@ -242,7 +233,7 @@ public class PlayerController : MonoBehaviour
         }
         isControlFrag = false;
         playerCount = 0;
-        hasItem = false;
+        HasItem = false;
         outline.enabled = true;
         outline = null;
         CheckPlayerCount();
@@ -253,7 +244,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = groupVec;
     }
 
-    void CheckItemSizeCount()
+    void CheckNeedCarryCount()
     {
         if (itemSizeCount == 0)
         {
@@ -269,7 +260,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SetCarryText()
+    void CheckCarryText()
     {
         carryText.text = playerCount.ToString("0") + "/" + needCarryCount.ToString("0");
         if (playerCount >= needCarryCount)
@@ -312,22 +303,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void CheckMySpeed()
-    {
-        if (itemSizeCount == 0)
-        {
-            mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
-        }
-        else if (itemSizeCount == 1)
-        {
-            mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
-        }
-        else if (itemSizeCount == 2)
-        {
-            mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
-        }
-    }
-
     void CheckPlayerCount()
     {
         if(playerCount < 0)
@@ -339,11 +314,26 @@ public class PlayerController : MonoBehaviour
             playerCount = 4;
         }
 
-        CheckItemSizeCount();
+        CheckNeedCarryCount();
 
         if (carryText != null)
         {
-            SetCarryText();
+            CheckCarryText();
+        }
+        
+        CheckCarryOver();
+
+        if (itemSizeCount == 0)
+        {
+            mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
+        }
+        else if (itemSizeCount == 1)
+        {
+            mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
+        }
+        else if (itemSizeCount == 2)
+        {
+            mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
         }
         
         CheckCarryOver();

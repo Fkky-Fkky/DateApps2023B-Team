@@ -20,9 +20,9 @@ public class PlayerMove : MonoBehaviour
 
     private int playerNo;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
-    private bool isInGroup = false;
+    private bool isGroup = false;
     private bool isEnterItem = false;
     private bool isAttack = false;
 
@@ -40,7 +40,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     PlayerNumber playerNumber = PlayerNumber.None;
 
-    PlayerCarryDown carryDown;
+    private PlayerCarryDown carryDown;
 
     private bool isPlayerMoveDamage = false;
     private float defaultPosY = 54.0f;
@@ -50,6 +50,8 @@ public class PlayerMove : MonoBehaviour
     private PlayerAttack attack;
     private PlayerEmote emote;
     private CarryEmote carryEmote;
+
+    private Vector3 vec = Vector3.zero;
 
     #endregion
 
@@ -144,7 +146,7 @@ public class PlayerMove : MonoBehaviour
         gameObject.transform.SetParent(group.gameObject.transform);
         group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
 
-        isInGroup = true;
+        isGroup = true;
         attack.OnIsCarry();
 
         animationImage.SetBool("Move", false);
@@ -158,13 +160,13 @@ public class PlayerMove : MonoBehaviour
 
     public void RemoveItem()
     {
-        if (isInGroup)
+        if (isGroup)
         {
             carryEmote.CallEndCarryEmote();
             gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
             gameObject.transform.parent = null;
             isEnterItem = false;
-            isInGroup = false;
+            isGroup = false;
         }
         
         attack.OffIsCarry();
@@ -191,35 +193,23 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void OnStickValue()
+            if (!isGroup)
+            {
+                NotIsGroup(leftStickValue);
+            }
+        }
+    }
+
+    void NotIsGroup(Vector2 StickValue)
     {
-        var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
-        Vector3 vec = new Vector3(0, 0, 0);
+        vec = Vector3.zero;
 
         if (!isAttack)
         {
-            if (leftStickValue.x != 0.0f)
-            {
-                animationImage.SetBool("Move", true);
-                vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-            }
-            if (leftStickValue.y != 0.0f)
-            {
-                animationImage.SetBool("Move", true);
-                vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
-            }
-
-            if (!isEnterItem)
-            {
-                if (leftStickValue.x != 0 || leftStickValue.y != 0)
-                {
-                    var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
-                    transform.localRotation = Quaternion.LookRotation(direction);
-                }
-            }
+            NotIsAttack(StickValue);
         }
 
-        if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+        if (StickValue.x == 0.0f && StickValue.y == 0.0f)
         {
             animationImage.SetBool("Move", false);
         }
@@ -227,18 +217,43 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = vec;
     }
 
+    void NotIsAttack(Vector2 StickValue)
+    {
+        var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
+
+        if (StickValue.x != 0.0f)
+        {
+            animationImage.SetBool("Move", true);
+            vec.x = moveSpeed * Time.deltaTime * StickValue.x;
+        }
+        if (StickValue.y != 0.0f)
+        {
+            animationImage.SetBool("Move", true);
+            vec.z = moveSpeed * Time.deltaTime * StickValue.y;
+        }
+
+        if (!isEnterItem)
+        {
+            if (StickValue.x != 0 || StickValue.y != 0)
+            {
+                var direction = new Vector3(StickValue.x, 0, StickValue.y);
+                transform.localRotation = Quaternion.LookRotation(direction);
+            }
+        }
+    }
+
     public void PlayerDamage()
     {
-        isPlayerMoveDamage = true;
-        isInGroup = false;
+        playerMoveDamage = true;
+        isGroup = false;
         isAttack = false;
         isEnterItem = false;
     }
 
     public void NotPlayerDamage()
     {
-        isPlayerMoveDamage = false;
-        isInGroup = false;
+        playerMoveDamage = false;
+        isGroup = false;
         isAttack = false;
         isEnterItem = false;
     }

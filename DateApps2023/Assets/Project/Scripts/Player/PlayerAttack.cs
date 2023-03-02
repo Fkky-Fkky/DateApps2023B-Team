@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     private float time = 0;
 
-    private bool isMyAttack = false;
+    private bool isAttack = false;
     private bool isCarry = false;
     private bool isDamage = false;
 
@@ -61,52 +61,50 @@ public class PlayerAttack : MonoBehaviour
             {
                 FistAttack();
             }
-            if (isMyAttack)
+            if (isAttack)
             {
-                OnMyAttack();
+                EndAttack();
             }
         }
         else if(isCarry || isDamage)
         {
-            if (isMyAttack)
+            if (isAttack)
             {
-                instantPunch.GetComponent<FistDissolve>().OnEndDissolve();
+                instantPunch.GetComponent<FistDissolve>().CallEndDissolve();
                 EndAttack();
                 time = 0;
             }
         }
     }
 
-    void OnMyAttack()
-    {
-        time += Time.deltaTime;
-        if (time >= hitTime)
-        {
-            EndAttack();
-            time = 0;
-        }
-    }
-
     private void FistAttack()
     {
-        animator.SetBool("Attack", true);
-        boxCol.enabled = true;
-        playerMove.StartAttack();
-        Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-        instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
-        audioSource.PlayOneShot(attackSound);
+        if (!isAttack)
+        {
+            animator.SetBool("Attack", true);
+            boxCol.enabled = true;
+            playerMove.StartAttack();
+            Instantiate(attackEffect, effectPos.position, this.transform.rotation);
+            instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
+            audioSource.PlayOneShot(attackSound);
 
-        isMyAttack = true;
+            isAttack = true;
+        }
     }
 
     private void EndAttack()
     {
-        animator.SetBool("Attack", false);
-        boxCol.enabled = false;
-        playerMove.EndAttack();
-        instantPunch = null;
+        time += Time.deltaTime;
+        if (time >= hitTime)
+        {
+            animator.SetBool("Attack", false);
+            boxCol.enabled = false;
+            playerMove.EndAttack();
+            instantPunch = null;
 
-        isMyAttack = false;
+            isAttack = false;
+            time = 0;
+        }
     }
 
     public void GetPlayerNo(int parentNumber)

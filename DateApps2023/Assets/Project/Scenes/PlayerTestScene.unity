@@ -366,6 +366,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7757798211302286743, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8040884745114899642, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -749,10 +753,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
-      propertyPath: moveSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
       value: 0.01
       objectReference: {fileID: 0}
@@ -1003,15 +1003,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
-      propertyPath: moveSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
       value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
+--- !u!95 &852240669 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4194897369388103930, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+  m_PrefabInstance: {fileID: 58838497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &878068073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1356,10 +1357,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
-      propertyPath: moveSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
       value: 0.01
       objectReference: {fileID: 0}
@@ -1440,6 +1437,22 @@ PrefabInstance:
       propertyPath: bgm2.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 03be6ac1c75540247a3d7a9e22eddbc3, type: 3}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: firstBGM.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: secondBGM.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: firstBGM.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 03be6ac1c75540247a3d7a9e22eddbc3, type: 3}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: secondBGM.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: f5de5452e70aae04eb3d8e4cfc5a3906, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
 --- !u!1001 &1109810670
@@ -1732,7 +1745,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1318891618
 MonoBehaviour:
@@ -1817,7 +1830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6642304097403980633, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 6642304097403980633, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2554,10 +2567,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
-      propertyPath: moveSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6544279265657264575, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: AnimationSpeed
       value: 0.01
       objectReference: {fileID: 0}
@@ -2981,12 +2990,12 @@ PrefabInstance:
       objectReference: {fileID: 1873292069}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: MoveKillCount
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: FadeOutAnimator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 852240669}
     - target: {fileID: 4091322566786009454, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: m_Name
       value: GameManager

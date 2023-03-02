@@ -10,8 +10,8 @@ public class PlayerDamage : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider capsuleCol;
     private float time = 0;
-    private bool isCurrentDamage;
-    private bool isCurrentCapture;
+    private bool currentDamage;
+    private bool currentCapture;
 
     [SerializeField]
     private float stanTime = 5.0f;
@@ -22,7 +22,7 @@ public class PlayerDamage : MonoBehaviour
     private float defaultPosY = 54.0f;
     private float damagePosX = 0.0f;
     private float damagePosZ = 0.0f;
-    private bool isDestroyStan = false;
+    private bool hasDestroyStanEffect = false;
 
     private PlayerMove playerMove;
     private PlayerCarryDown playerCarryDown;
@@ -40,7 +40,6 @@ public class PlayerDamage : MonoBehaviour
     private BoxCollider stanBoxCol;
 
     private int knockCount = 0;
-
     private int myPlayerNo = 5;
     private enemy enemyScript = null;
 
@@ -95,45 +94,56 @@ public class PlayerDamage : MonoBehaviour
     {
         if (isCurrentDamage)
         {
-            InCurrentDamage();
+            OnCurrentDamage();
         }
-
-        if (isCurrentCapture)
+        if (currentCapture)
         {
-            InCurrentCapture();
+            OnCurrentCapture();
         }
-
     }
 
-    void InCurrentDamage()
+    void OnCurrentDamage()
     {
         time += Time.deltaTime;
         this.gameObject.transform.position = new Vector3(damagePosX, defaultPosY, damagePosZ);
 
         if (time > stanTime || knockCount >= endStanCount)
         {
-            EndPlayerDamage();
-            isCurrentDamage = false;
+            time = 0;
+            knockCount = 0;
+            stanBoxCol.enabled = false;
+            capsuleCol.enabled = true;
+            if (hasDestroyStanEffect)
+            {
+                DeleteStanEffect();
+            }
+
+            playerMove.NotPlayerDamage();
+            playerCarryDown.OffCarryDamage();
+            playerAttack.OffIsDamage();
+
+            currentDamage = false;
+
         }
         else if (time >= damageEffectInterval)
         {
-            if (!isDestroyStan)
+            if (!hasDestroyStanEffect)
             {
                 Vector3 InstantPos = damageStanPoint.position;
                 InstantPos.y = damageEffectPosY;
                 cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
                 audioSource.PlayOneShot(stanSound);
 
-                isDestroyStan = true;
+                hasDestroyStanEffect = true;
             }
         }
     }
 
-    void InCurrentCapture()
+    void OnCurrentCapture()
     {
-        if (!isDestroyStan)
+        if (!hasDestroyStanEffect)
         {
-            isDestroyStan = true;
+            hasDestroyStanEffect = true;
         }
 
         time += Time.deltaTime;
@@ -141,32 +151,25 @@ public class PlayerDamage : MonoBehaviour
 
         if (time > captureTime || knockCount >= endCaptureCount)
         {
-            EndPlayerDamage();
-            isCurrentCapture = false;
+            time = 0;
+            knockCount = 0;
+            stanBoxCol.enabled = false;
+            capsuleCol.enabled = true;
+            if (hasDestroyStanEffect)
+            {
+                DeleteStanEffect();
+            }
+
+            playerMove.NotPlayerDamage();
+            playerCarryDown.OffCarryDamage();
+            playerAttack.OffIsDamage();
+
+            currentCapture = false;
+
         }
     }
 
-    void EndPlayerDamage()
-    {
-        time = 0;
-        knockCount = 0;
-        stanBoxCol.enabled = false;
-        capsuleCol.enabled = true;
-        if (isDestroyStan)
-        {
-            DestroyStanEffect();
-            animationImage.SetBool("Damage", false);
-            animationImage.SetBool("Capture", false);
-
-            isDestroyStan = false;
-        }
-
-        playerMove.NotPlayerDamage();
-        playerCarryDown.OffCarryDamage();
-        playerAttack.OffIsDamage();
-    }
-
-    void DestroyStanEffect()
+    void DeleteStanEffect()
     {
         Destroy(cloneStanEffect);
         cloneStanEffect = null;
@@ -175,6 +178,10 @@ public class PlayerDamage : MonoBehaviour
         defaultPosY,
         this.gameObject.transform.position.z
         );
+        animationImage.SetBool("Damage", false);
+        animationImage.SetBool("Capture", false);
+
+        hasDestroyStanEffect = false;
     }
 
     public void CallDamage()
@@ -203,7 +210,7 @@ public class PlayerDamage : MonoBehaviour
 
         time = 0;
         knockCount = 0;
-        isDestroyStan = false;
+        hasDestroyStanEffect = false;
 
         if (isCurrentCapture)
         {
@@ -244,7 +251,7 @@ public class PlayerDamage : MonoBehaviour
 
         time = 0;
         knockCount = 0;
-        isDestroyStan = false;
+        hasDestroyStanEffect = false;
 
         if (isCurrentDamage)
         {

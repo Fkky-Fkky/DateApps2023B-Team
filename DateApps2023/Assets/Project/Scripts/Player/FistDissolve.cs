@@ -41,19 +41,19 @@ public class FistDissolve : MonoBehaviour
     {
         if (isStartDissolve)
         {
-            InStartDissolve();
+            StartDissolve();
         }
         if (isIntervalDissolve)
         {
-            InIntervalDissolve();
+            IntervalDissolve();
         }
         if(isEndDissolve)
         {
-            InEndDissolve();
+            EndDissolve();
         }
     }
 
-    void InStartDissolve()
+    void StartDissolve()
     {
         time += Time.deltaTime;
         transform.position += pushForward * Time.deltaTime * transform.up / startTime;
@@ -68,7 +68,7 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
-    void InIntervalDissolve()
+    void IntervalDissolve()
     {
         time += Time.deltaTime;
         if (time >= intervalTime)
@@ -80,7 +80,7 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
-    void InEndDissolve()
+    void EndDissolve()
     {
         time += Time.deltaTime;
         renderer.material.SetFloat("_DisAmount", value + time / endTime);
@@ -93,7 +93,7 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
-    public void OnEndDissolve()
+    public void CallEndDissolve()
     {
         isIntervalDissolve = false;
         isEndDissolve = true;

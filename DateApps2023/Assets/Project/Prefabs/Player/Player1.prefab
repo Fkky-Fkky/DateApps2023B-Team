@@ -1581,8 +1581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8574373df7a724045b067c2538519b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LShoulderIcon: {fileID: 21300000, guid: eb79c63515d0305439c4a8b2079cf877, type: 3}
-  RShoulderIcon: {fileID: 21300000, guid: f6a32834e68c78b48a54c7210944e751, type: 3}
+  emoteIconL: {fileID: 21300000, guid: eb79c63515d0305439c4a8b2079cf877, type: 3}
+  emoteIconR: {fileID: 21300000, guid: f6a32834e68c78b48a54c7210944e751, type: 3}
   emoteTime: 2.4
   startTime: 0.2
   endTime: 0.2

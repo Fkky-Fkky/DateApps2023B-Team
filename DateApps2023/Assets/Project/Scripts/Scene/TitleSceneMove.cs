@@ -24,11 +24,11 @@ public class TitleSceneMove : MonoBehaviour
     [SerializeField]
     private CanvasGroup[] playerImage = null;
 
-    private bool[] iIsAccept = null;
+    private bool[] isAccept = null;
     private int acceptCount = 0;
 
     [SerializeField]
-    private bool isCanSkip = true;
+    private bool hasCanSkip = true;
 
     [SerializeField]
     private AudioClip pressButtonSound = null;
@@ -42,16 +42,15 @@ public class TitleSceneMove : MonoBehaviour
     private AudioSource audioSource;
     #endregion
 
-
     // Start is called before the first frame update
     void Start()
     {
         isPlay = false;
         acceptCount = 0;
-        Array.Resize(ref iIsAccept, playerImage.Length);
+        Array.Resize(ref isAccept, playerImage.Length);
         for(int i = 0; i < playerImage.Length; i++)
         {
-            iIsAccept[i] = false;
+            isAccept[i] = false;
         }
         audioSource = GetComponent<AudioSource>();
     }
@@ -100,7 +99,7 @@ public class TitleSceneMove : MonoBehaviour
     private void InPressButton()
     {
         AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
-        if (isCanSkip)
+        if (hasCanSkip)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
@@ -121,7 +120,7 @@ public class TitleSceneMove : MonoBehaviour
     private void InShowManual()
     {
         AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
-        if (isCanSkip)
+        if (hasCanSkip)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
@@ -160,6 +159,11 @@ public class TitleSceneMove : MonoBehaviour
             acceptCount = 0;
         }
 
+       PressPlayer();
+    }
+
+    void PressPlayer()
+    {
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
             var gamepad = Gamepad.all[i];
@@ -169,13 +173,13 @@ public class TitleSceneMove : MonoBehaviour
             }
             else if (gamepad.bButton.wasPressedThisFrame)
             {
-                if (!iIsAccept[i])
+                if (!isAccept[i])
                 {
                     audioSource.PlayOneShot(acceptSound[i]);
                     animationImage.SetBool("ShowP" + (i + 1), true);
 
                     acceptCount++;
-                    iIsAccept[i] = true;
+                    isAccept[i] = true;
                 }
                 else
                 {
@@ -183,12 +187,10 @@ public class TitleSceneMove : MonoBehaviour
                     animationImage.SetBool("ShowP" + (i + 1), false);
 
                     acceptCount--;
-                    iIsAccept[i] = false;
+                    isAccept[i] = false;
                 }
             }
         }
-
-        
     }
 
     private void InHideManual()

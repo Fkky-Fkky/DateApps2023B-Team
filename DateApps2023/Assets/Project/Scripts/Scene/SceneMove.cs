@@ -12,7 +12,7 @@ public class SceneMove : MonoBehaviour
     [SerializeField]
     private string sceneName = "New Scene";
 
-    private bool isSceneChangeFlag = false;
+    private bool isSceneChange = false;
     private bool isAnimation = false;
 
     [SerializeField]
@@ -39,7 +39,7 @@ public class SceneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isSceneChangeFlag = false;
+        isSceneChange = false;
         isAnimation = false;
         time = 0.0f;
         if(sceneVoice != null )
@@ -54,22 +54,22 @@ public class SceneMove : MonoBehaviour
     void Update()
     {
         
-        if (!isSceneChangeFlag)
+        if (!isSceneChange)
         {
-            NotPressButton();
+            NotSceneChange();
         }
         else
         {
-            OnPressButton();
+           OnSceneChange();
         }
     }
 
-    void NotPressButton()
+    void NotSceneChange()
     {
         time += Time.deltaTime;
         if (time >= changeTime)
         {
-            isSceneChangeFlag = true;
+            isSceneChange = true;
             time = 0.0f;
         }
         if (isPlaying)
@@ -85,13 +85,13 @@ public class SceneMove : MonoBehaviour
             var gamepad = Gamepad.all[i];
             if (gamepad.bButton.wasPressedThisFrame)
             {
-                isSceneChangeFlag = true;
+                isSceneChange = true;
                 time = 0.0f;
             }
         }
     }
 
-    void OnPressButton()
+    void OnSceneChange()
     {
         time += Time.deltaTime;
 

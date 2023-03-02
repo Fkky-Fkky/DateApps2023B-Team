@@ -19,7 +19,6 @@ public class AudioMaster : MonoBehaviour
     private float fadeOutTime = 5.0f;
 
     private bool isFirstHalf = true;
-
     private bool isFadeOut = true;
     private float fadeTime = 0.0f;
     private float defaultVol = 1.0f;
@@ -30,16 +29,32 @@ public class AudioMaster : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         defaultVol = audioSource.volume;
-        PlayFirstBGM();
+        number = Random.Range(0, firstBGM.Length);
+        audioSource.clip = firstBGM[number];
+        audioSource.Play();
     }
 
     private void Update()
     {
-        if (isFirstHalf && BossCount.GetKillCount() >= changeKillCount)
+        if (isFirstHalf)
+        {
+            OnFirstHalf();
+        }
+    }
+
+    void OnFirstHalf()
+    {
+        if (BossCount.GetKillCount() >= changeKillCount)
         {
             if (isFadeOut)
             {
-                FadeOutBGM();
+                fadeTime += Time.deltaTime;
+                if (fadeTime >= fadeOutTime)
+                {
+                    fadeTime = fadeOutTime;
+                    isFadeOut = false;
+                }
+                audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
             }
             else
             {
@@ -47,24 +62,6 @@ public class AudioMaster : MonoBehaviour
                 isFirstHalf = false;
             }
         }
-    }
-
-    void FadeOutBGM()
-    {
-        fadeTime += Time.deltaTime;
-        if (fadeTime >= fadeOutTime)
-        {
-            fadeTime = fadeOutTime;
-            isFadeOut = false;
-        }
-        audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
-    }
-
-    void PlayFirstBGM()
-    {
-        number = Random.Range(0, firstBGM.Length);
-        audioSource.clip = firstBGM[number];
-        audioSource.Play();
     }
 
     public void PlaySecondBGM()

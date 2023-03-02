@@ -10,7 +10,7 @@ public class KillCounter : MonoBehaviour
     private TextMeshProUGUI countTMP;
 
     [SerializeField]
-    private int AllBossCount = 15;
+    private int allBossCount = 15;
     #endregion
 
     // Start is called before the first frame update
@@ -18,13 +18,13 @@ public class KillCounter : MonoBehaviour
     {
         countTMP = GetComponent<TextMeshProUGUI>();
         killCount = BossCount.GetKillCount();
-        countTMP.text = ((int)killCount).ToString("0") +"/"+((int)AllBossCount).ToString("0");
+        countTMP.text = ((int)killCount).ToString("0") +"/"+((int)allBossCount).ToString("0");
     }
 
     // Update is called once per frame
     void Update()
     {
         killCount = BossCount.GetKillCount();
-        countTMP.text = ((int)killCount).ToString("0") + "/" + ((int)AllBossCount).ToString("0");
+        countTMP.text = ((int)killCount).ToString("0") + "/" + ((int)allBossCount).ToString("0");
     }
 }

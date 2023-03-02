@@ -36,7 +36,7 @@ public class TitleVideoManager : MonoBehaviour
     private RenderTexture renderTexture = null;
 
     [SerializeField]
-    private bool isCanLogoSkip = true;
+    private bool hasLogoSkip = true;
     #endregion
 
     // Start is called before the first frame update
@@ -55,7 +55,6 @@ public class TitleVideoManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("Start"))
         {
             InStart();
@@ -88,7 +87,7 @@ public class TitleVideoManager : MonoBehaviour
         {
             animationImage.SetTrigger("EndLogoAnim");
         }
-        if (isCanLogoSkip)
+        if (hasLogoSkip)
         {
             for (int i = 0; i < Gamepad.all.Count; i++)
             {
