@@ -14,7 +14,7 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     protected private Transform generatePosMax = null;
 
     protected float[] createArea = new float[5];
-    protected Vector3 halfExtents = Vector3.zero;
+    protected Vector3[] halfExtents = new Vector3[3];
     protected List<int> createEnergyTypeList = new List<int>();
     protected List<Vector3> createPositionList = new List<Vector3>();
 
@@ -29,9 +29,12 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     {
         SortEnergies();
 
-        halfExtents = energies[(int)EnergyCharge.EnergyType.LARGE].transform.localScale / HALF;
+        for (int i = 0; i < energies.Length; i++)
+        {
+            halfExtents[i] = energies[i].transform.localScale / HALF;
+        }
 
-        float fourDivide = ((generatePosMin.position.x - generatePosMax.position.x) / MAX_AREA) * -1;
+        float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
         for (int i = 0; i <= MAX_AREA; i++)
         {
             createArea[i] = generatePosMin.position.x + (fourDivide * i);
@@ -58,14 +61,15 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
 
     protected void GeneratePosition()
     {
-        int areaIndex = Random.Range(0, MAX_AREA);
-        Vector3 genaratePos = Vector3.one;
         int miss = 0;
+        int energyType = createEnergyTypeList[0];
+        int areaIndex  = Random.Range(0, MAX_AREA);
+        Vector3 genaratePos = Vector3.one;
         while (miss < MAX_MISS_COUNT)
         {
             genaratePos.x = Random.Range(createArea[areaIndex], createArea[areaIndex + 1]);
             genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            if (!Physics.CheckBox(genaratePos, halfExtents))
+            if (!Physics.CheckBox(genaratePos, halfExtents[energyType]))
             {
                 createPositionList.Add(genaratePos);
                 break;

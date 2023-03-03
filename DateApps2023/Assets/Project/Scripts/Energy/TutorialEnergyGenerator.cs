@@ -83,14 +83,15 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
 
     private void FirstGeneratePosition()
     {
-        int generateNum = 0;
         int miss = 0;
+        int energyType = createEnergyTypeList[0];
+        int generateNum = 0;
         Vector3 genaratePos = Vector3.one;
         while (generateNum < MAX_GENERATE)
         {
             genaratePos.x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
             genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            if (!Physics.CheckBox(genaratePos, halfExtents))
+            if (!Physics.CheckBox(genaratePos, halfExtents[energyType]))
             {
                 createPositionList.Add(genaratePos);
                 generateNum++;

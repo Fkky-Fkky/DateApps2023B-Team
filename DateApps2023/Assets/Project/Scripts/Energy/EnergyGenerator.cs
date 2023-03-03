@@ -13,9 +13,10 @@ public class EnergyGenerator : MonoBehaviour
     [SerializeField]
     private TutorialEnergyGenerator tutorialGenerator;
 
-    private EnergyGeneratorBase generator;
-        
     private bool IsGeneratorChange = false;
+    private EnergyGeneratorBase generator;
+
+    private const int ADD_GENERATE = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +38,11 @@ public class EnergyGenerator : MonoBehaviour
 
         if (gameManager.IsGammeStart)
         {
-            for (int i = 0; i < 2; ++i) {
+            generator = normalGenerator;
+            for (int i = 0; i < ADD_GENERATE; ++i)
+            {
                 Generate();
             }
-            generator = normalGenerator;
             IsGeneratorChange = true;
         }
     }
