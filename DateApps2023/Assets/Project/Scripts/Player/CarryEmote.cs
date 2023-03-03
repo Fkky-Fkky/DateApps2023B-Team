@@ -6,13 +6,6 @@ using UnityEngine.InputSystem;
 public class CarryEmote : MonoBehaviour
 {
     #region
-    private int myPlayerNo;
-    private float time = 0;
-    private float scaleTime = 0;
-
-    private SpriteRenderer spriteRenderer;
-    private Transform cameraPos;
-
     [SerializeField]
     private Sprite carryEmoteIcon = null;
 
@@ -37,15 +30,21 @@ public class CarryEmote : MonoBehaviour
     [SerializeField]
     private float startSizeChange = 0.2f;
 
+    private SpriteRenderer spriteRenderer = null;
+    private Transform cameraPos = null;
+
+    private float time = 0;
+    private float scaleTime = 0;
+
     private bool isEmote = false;
     private bool isSmall = false;
     private bool isBig = false;
     private bool isEnd = false;
 
-    private Vector3 defaultPos;
+    private Vector3 defaultPos = Vector3.zero;
     private Vector3 movePos = Vector3.zero;
-    private Vector3 defaultSize;
-    private Vector3 setSize;
+    private Vector3 defaultSize = Vector3.zero;
+    private Vector3 setSize = Vector3.zero;
 
     const float MIRROR_ROT_Y = -180.0f;
     #endregion
@@ -55,6 +54,14 @@ public class CarryEmote : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         cameraPos = Camera.main.transform;
+
+        time = 0.0f;
+        scaleTime = 0.0f;
+
+        isEmote = false;
+        isSmall = false;
+        isBig = false;
+        isEnd = false;
 
         defaultPos = new Vector3(0.0f, gameObject.transform.localPosition.y, 0.0f);
         movePos.y = moveY;
@@ -162,10 +169,5 @@ public class CarryEmote : MonoBehaviour
                 isBig = true;
             }
         }
-    }
-
-    public void GetPlayerNo(int setNumber)
-    {
-        myPlayerNo = setNumber;
     }
 }

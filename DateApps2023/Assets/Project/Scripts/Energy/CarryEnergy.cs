@@ -8,20 +8,24 @@ using UnityEngine;
 public class CarryEnergy : MonoBehaviour
 {
     #region
-    private GameObject[] myGrabPoint = null;
-    private PlayerCarryDown[] playerCarryDowns = null;
-    private PlayerController playercontroller;
-    private int number = 0;
-    public int groupNumber = 1;
-    private bool isGroup = false;
-
     [SerializeField]
     private float defaultPosY = 51;
 
     [SerializeField]
     private float carryPosY = 60;
 
+    [SerializeField]
+    ItemSize myItemSize = ItemSize.Small;
+
     private BoxCollider boxCol = null;
+    private PlayerController playercontroller = null;
+    private GameObject[] myGrabPoint = null;
+    private PlayerCarryDown[] playerCarryDowns = null;
+
+    private int number = 0;
+    private bool isGroup = false;
+
+    public int groupNumber = 1;
 
     public enum ItemSize
     {
@@ -29,9 +33,7 @@ public class CarryEnergy : MonoBehaviour
         Medium,
         Large
     }
-
-    [SerializeField]
-    ItemSize myItemSize = ItemSize.Small;
+   
     public int MyItemSizeCount
     {
         get { return (int)myItemSize; }
@@ -43,8 +45,14 @@ public class CarryEnergy : MonoBehaviour
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
+        playercontroller = null;
         Array.Resize(ref myGrabPoint, 0);
         Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+
+        number = 0;
+        isGroup = false;
+
+        groupNumber = 1;
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)

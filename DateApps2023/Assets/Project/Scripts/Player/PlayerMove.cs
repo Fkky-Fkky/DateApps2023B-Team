@@ -18,15 +18,26 @@ public class PlayerMove : MonoBehaviour
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
     private float moveSpeed = 2000.0f;
 
-    private int playerNo;
+    [SerializeField]
+    PlayerNumber playerNumber = PlayerNumber.None;
+
+    private PlayerCarryDown carryDown;
+    private PlayerAttack attack;
+    private PlayerEmote emote;
+    private CarryEmote carryEmote;
 
     private Rigidbody rb;
+    private Animator animationImage;
+    private GameObject enterItem = null;
+
+    private int playerNo = 5;
+    private float defaultPosY = 54.0f;
 
     private bool isGroup = false;
     private bool isEnterItem = false;
     private bool isAttack = false;
 
-    private GameObject enterItem = null;
+    private Vector3 vec = Vector3.zero;
 
     public enum PlayerNumber
     {
@@ -36,30 +47,26 @@ public class PlayerMove : MonoBehaviour
         PL_4P,
         None
     }
-
-    [SerializeField]
-    PlayerNumber playerNumber = PlayerNumber.None;
-
-    private PlayerCarryDown carryDown;
-
-    private bool isPlayerMoveDamage = false;
-    private float defaultPosY = 54.0f;
-
-    private Animator animationImage;
-
-    private PlayerAttack attack;
-    private PlayerEmote emote;
-    private CarryEmote carryEmote;
-
-    private Vector3 vec = Vector3.zero;
-
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        carryDown = GetComponentInChildren<PlayerCarryDown>();
+        carryDown.GetPlayerNo(playerNo);
+
+        attack = GetComponentInChildren<PlayerAttack>();
+        attack.GetPlayerNo(playerNo);
+
+        emote = GetComponentInChildren<PlayerEmote>();
+        emote.GetPlayerNo(playerNo);
+
+        carryEmote = GetComponentInChildren<CarryEmote>();
+        GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
+
         rb = GetComponent<Rigidbody>();
         animationImage = GetComponent<Animator>();
+        enterItem = null;
 
         switch (playerNumber)
         {
@@ -71,23 +78,13 @@ public class PlayerMove : MonoBehaviour
                 playerNo = (int)playerNumber;
                 break;
         }
-
-        carryDown = GetComponentInChildren<PlayerCarryDown>();
-        carryDown.GetPlayerNo(playerNo);
-
-        attack = GetComponentInChildren<PlayerAttack>();
-        attack.GetPlayerNo(playerNo);
-
-        emote = GetComponentInChildren<PlayerEmote>();
-        emote.GetPlayerNo(playerNo);
-
-        carryEmote = GetComponentInChildren<CarryEmote>();
-        carryEmote.GetPlayerNo(playerNo);
-
-        GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
-
-
         defaultPosY = this.gameObject.transform.position.y;
+
+        isGroup = false;
+        isEnterItem = false;
+        isAttack = false;
+
+        vec = Vector3.zero;
     }
 
     private void Update()
@@ -239,7 +236,6 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerDamage()
     {
-        isPlayerMoveDamage = true;
         isGroup = false;
         isAttack = false;
         isEnterItem = false;
@@ -247,7 +243,6 @@ public class PlayerMove : MonoBehaviour
 
     public void NotPlayerDamage()
     {
-        isPlayerMoveDamage = false;
         isGroup = false;
         isAttack = false;
         isEnterItem = false;

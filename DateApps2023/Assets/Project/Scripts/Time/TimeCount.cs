@@ -9,13 +9,13 @@ using System.Reflection;
 public class TimeCount : MonoBehaviour
 {
     #region
-    public static float secondsCount;
-    private bool isMain = true;
-
-    private TextMeshProUGUI timeCdTMP;
-
     [SerializeField]
     private string sceneName = "New Scene";
+
+    private TextMeshProUGUI timeCdTMP = null;
+    private bool isMain = true;
+
+    public static float secondsCount;
     #endregion
 
     // Start is called before the first frame update

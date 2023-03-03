@@ -6,20 +6,25 @@ using UnityEngine;
 public class CarryCannon : MonoBehaviour
 {
     #region
-    private GameObject[] myGrabPoint = null;
-    private PlayerCarryDown[] playerCarryDowns = null;
-    private PlayerController playercontroller;
-    private int number = 0;
-    public int groupNumber = 1;
-    private bool isGroup = false;
-
     [SerializeField]
     private float defaultPosY = 51;
 
     [SerializeField]
     private float carryPosY = 60;
 
-    BoxCollider boxCol = null;
+    [SerializeField]
+    ItemSize myItemSize = ItemSize.Small;
+
+    private BoxCollider boxCol = null;
+    private PlayerController playercontroller;
+    private GameObject[] myGrabPoint = null;
+    private PlayerCarryDown[] playerCarryDowns = null;
+
+    private int myItemSizeCount = 0;
+    private int number = 0;
+    private bool isGroup = false;
+
+    public int groupNumber = 1;
 
     enum ItemSize
     {
@@ -27,16 +32,15 @@ public class CarryCannon : MonoBehaviour
         Medium,
         Large
     }
-
-    [SerializeField]
-    ItemSize myItemSize = ItemSize.Small;
-    private int myItemSizeCount = 0;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
+        playercontroller = null;
+        Array.Resize(ref myGrabPoint, 0);
+        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
 
         switch (myItemSize)
         {
@@ -44,9 +48,10 @@ public class CarryCannon : MonoBehaviour
                 myItemSizeCount = (int)myItemSize;
                 break;
         }
+        number = 0;
+        isGroup = false;
 
-        Array.Resize(ref myGrabPoint, 0);
-        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+        groupNumber = 1;
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)

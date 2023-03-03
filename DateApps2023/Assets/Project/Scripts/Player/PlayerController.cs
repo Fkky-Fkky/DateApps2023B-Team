@@ -16,14 +16,14 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
     private float moveSpeed = 250.0f;
 
-    private Rigidbody rb;
+    [SerializeField]
+    private float carryOverSpeed = 0.1f;
 
-    private bool isControlFrag = false;
-    private bool[] isGamepadFrag = { false, false, false, false };
+    [SerializeField]
+    private float animationSpeed = 0.001f;
 
-    private int itemSizeCount = 0;
-    private int playerCount = 0;
-    private float mySpeed = 1.0f;
+    [SerializeField]
+    private int carryTextOrderInLayer = 0;
 
     [SerializeField]
     private float[] smallCarrySpeed;
@@ -34,30 +34,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float[] largeCarrySpeed;
 
-    private Vector3 groupVec = new Vector3(0, 0, 0);
 
-    public GameObject[] ChildPlayer = null;
-    public Animator[] AnimationImage = null;
-
-    private const string runAnimSpeed = "RunSpeed";
-    [SerializeField]
-    private float animationSpeed = 0.001f;
-
-    public bool HasItem = false;
-
+    private Rigidbody rb = null;
     private TextMeshPro carryText = null;
     private Outline outline = null;
 
-    private float defaultMass;
+    private int itemSizeCount = 0;
+    private int playerCount = 0;
+    private int needCarryCount = 0;
 
-    [SerializeField]
-    private float carryOverSpeed = 0.1f;
+    private float mySpeed = 1.0f;
+    private float defaultMass = 1.0f;
     private float defaultCarryOverSpeed = 0.0f;
 
-    [SerializeField]
-    private int carryTextOrderInLayer = 0;
+    private bool isControlFrag = false;
+    private bool[] isGamepadFrag = { false, false, false, false };
+    private Vector3 groupVec = Vector3.zero;
 
-    private int needCarryCount = 0;
+    private const string runAnimSpeed = "RunSpeed";
+
+
+    public GameObject[] ChildPlayer = null;
+    public Animator[] AnimationImage = null;
 
     #endregion
 
@@ -68,7 +66,19 @@ public class PlayerController : MonoBehaviour
         rb.Sleep();
         rb.useGravity = false;
         defaultMass = rb.mass;
+
         defaultCarryOverSpeed = carryOverSpeed;
+        itemSizeCount = 0;
+        playerCount = 0;
+        needCarryCount = 0;
+        mySpeed = 1.0f;
+        groupVec = Vector3.zero;
+
+        isControlFrag = false;
+        for(int i= 0;i<isGamepadFrag.Length;i++)
+        {
+            isGamepadFrag[i] = false;
+        }
 
         Array.Resize(ref ChildPlayer, 4);
         Array.Resize(ref AnimationImage, ChildPlayer.Length);
@@ -80,6 +90,24 @@ public class PlayerController : MonoBehaviour
         {
             OnControllFrag();
             CheckOnlyChild();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                if (transform.GetChild(i).gameObject.CompareTag("Player"))
+                {
+                    transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().JudgeCapture(other.gameObject);
+                }
+            }
+        }
+        if (other.gameObject.CompareTag("BossAttack"))
+        {
+            DamageChild();
         }
     }
 
@@ -144,13 +172,8 @@ public class PlayerController : MonoBehaviour
         carryText.gameObject.GetComponent<MeshRenderer>().sortingOrder = carryTextOrderInLayer;
         outline = gameObject.GetComponentInChildren<Outline>();
         outline.enabled = false;
-        if (itemType == 1)
+        if (itemType == 2)
         {
-            HasItem = true;
-        }
-        else if (itemType == 2)
-        {
-            HasItem = true;
             rb.mass *= 10;
         }
         CheckPlayerCount();
@@ -225,7 +248,6 @@ public class PlayerController : MonoBehaviour
         }
         isControlFrag = false;
         playerCount = 0;
-        HasItem = false;
         outline.enabled = true;
         outline = null;
         CheckPlayerCount();
@@ -329,7 +351,6 @@ public class PlayerController : MonoBehaviour
             CheckCarryText();
         }
         
-        CheckCarryOver();
         CheckCarryOver();
         CheckMySpeed();
     }

@@ -6,18 +6,18 @@ using UnityEngine;
 public class KillCounter : MonoBehaviour
 {
     #region
-    private int killCount;
-    private TextMeshProUGUI countTMP;
-
     [SerializeField]
     private int allBossCount = 15;
+
+    private TextMeshProUGUI countTMP = null;
+    private int killCount = 0;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        countTMP = GetComponent<TextMeshProUGUI>();
         killCount = BossCount.GetKillCount();
+        countTMP = GetComponent<TextMeshProUGUI>();
         countTMP.text = ((int)killCount).ToString("0") +"/"+((int)allBossCount).ToString("0");
     }
 

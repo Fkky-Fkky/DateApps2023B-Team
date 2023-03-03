@@ -5,7 +5,6 @@ using UnityEngine;
 public class AudioMaster : MonoBehaviour
 {
     #region
-    private AudioSource audioSource;
     [SerializeField]
     private AudioClip[] firstBGM;
 
@@ -18,18 +17,27 @@ public class AudioMaster : MonoBehaviour
     [SerializeField]
     private float fadeOutTime = 5.0f;
 
-    private bool isFirstHalf = true;
-    private bool isFadeOut = true;
+    private AudioSource audioSource;
+
+    private int number = 0;
     private float fadeTime = 0.0f;
     private float defaultVol = 1.0f;
-    private int number;
+
+    private bool isFirstHalf = true;
+    private bool isFadeOut = true;
     #endregion
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        defaultVol = audioSource.volume;
+
         number = Random.Range(0, firstBGM.Length);
+        fadeTime = 0.0f;
+        defaultVol = audioSource.volume;
+
+        isFirstHalf = true;
+        isFadeOut = true;
+
         audioSource.clip = firstBGM[number];
         audioSource.Play();
     }

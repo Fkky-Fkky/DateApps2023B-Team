@@ -12,42 +12,42 @@ public class SceneMove : MonoBehaviour
     [SerializeField]
     private string sceneName = "New Scene";
 
-    private bool isSceneChange = false;
-    private bool isAnimation = false;
-
     [SerializeField]
     private Animator animationImage = null;
 
     [SerializeField]
-    private float afterPressTime = 1.0f;
-
-    private float time = 0.0f;
+    private AudioClip sceneVoice = null;
 
     [SerializeField]
-    private AudioClip sceneVoice = null;
-    private AudioSource audioSource;
-
-    private bool isPlaying = false;
+    private float afterPressTime = 1.0f;
 
     [SerializeField]
     private float beforeVoiceTime = 1.0f;
 
     [SerializeField]
     private float changeTime = 20.0f;
+
+    private AudioSource audioSource;
+    private float time = 0.0f;
+
+    private bool isPlaying = false;
+    private bool isSceneChange = false;
+    private bool isAnimation = false;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        isSceneChange = false;
-        isAnimation = false;
-        time = 0.0f;
         if(sceneVoice != null )
         {
             audioSource = GetComponent<AudioSource>();
             audioSource.volume = 1.0f;
             isPlaying = true;
         }
+        time = 0.0f;
+
+        isSceneChange = false;
+        isAnimation = false;
     }
 
     // Update is called once per frame

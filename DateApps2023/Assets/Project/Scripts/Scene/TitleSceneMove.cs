@@ -12,9 +12,6 @@ public class TitleSceneMove : MonoBehaviour
     [SerializeField]
     private string sceneName = "New Scene";
 
-    private bool isPlay = false;
-    private bool isSkip = false;
-
     [SerializeField]
     private Animator animationImage = null;
 
@@ -23,12 +20,6 @@ public class TitleSceneMove : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup[] playerImage = null;
-
-    private bool[] isAccept = null;
-    private int acceptCount = 0;
-
-    [SerializeField]
-    private bool hasCanSkip = true;
 
     [SerializeField]
     private AudioClip pressButtonSound = null;
@@ -39,20 +30,30 @@ public class TitleSceneMove : MonoBehaviour
     [SerializeField]
     private AudioClip[] cancelSound = null;
 
+    [SerializeField]
+    private bool hasCanSkip = true;
+
     private AudioSource audioSource;
+    private int acceptCount = 0;
+
+    private bool isPlay = false;
+    private bool isSkip = false;
+    private bool[] isAccept = null;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        isPlay = false;
+        audioSource = GetComponent<AudioSource>();
         acceptCount = 0;
+
+        isPlay = false;
+        isSkip = false;
         Array.Resize(ref isAccept, playerImage.Length);
         for(int i = 0; i < playerImage.Length; i++)
         {
             isAccept[i] = false;
         }
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

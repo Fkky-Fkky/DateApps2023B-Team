@@ -7,28 +7,11 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerDamage : MonoBehaviour
 {
     #region
-    private Rigidbody rb;
-    private CapsuleCollider capsuleCol;
-    private float time = 0;
-    private bool isCurrentDamage;
-    private bool isCurrentCapture;
-
     [SerializeField]
     private float stanTime = 5.0f;
 
     [SerializeField]
     private float captureTime = 5.0f;
-
-    private float defaultPosY = 54.0f;
-    private float damagePosX = 0.0f;
-    private float damagePosZ = 0.0f;
-    private bool hasDestroyStanEffect = false;
-
-    private PlayerMove playerMove;
-    private PlayerCarryDown playerCarryDown;
-    private PlayerAttack playerAttack;
-
-    private Animator animationImage;
 
     [SerializeField]
     private int endStanCount = 3;
@@ -37,30 +20,25 @@ public class PlayerDamage : MonoBehaviour
     private int endCaptureCount = 1;
 
     [SerializeField]
-    private BoxCollider stanBoxCol;
+    private float damageEffectPosY = -2.0f;
 
-    private int knockCount = 0;
-    private int myPlayerNo = 5;
-    private enemy enemyScript = null;
+    [SerializeField]
+    private float captureEffectPosY = -0.75f;
+
+    [SerializeField]
+    private float damageEffectInterval = 1.75f;
+
+    [SerializeField]
+    private BoxCollider stanBoxCol;
 
     [SerializeField]
     private GameObject knockbackEffect = null;
 
     [SerializeField]
     private GameObject stanEffect = null;
-    private GameObject cloneStanEffect = null;
-
-    [SerializeField]
-    private float damageEffectInterval = 1.75f;
 
     [SerializeField]
     private Transform damageStanPoint = null;
-
-    [SerializeField]
-    private float damageEffectPosY = -2.0f;
-
-    [SerializeField]
-    private float captureEffectPosY = -0.75f;
 
     [SerializeField]
     private AudioClip stanSound = null;
@@ -68,25 +46,51 @@ public class PlayerDamage : MonoBehaviour
     [SerializeField]
     private AudioClip knockbackSound = null;
 
+    private PlayerMove playerMove;
+    private PlayerCarryDown playerCarryDown;
+    private PlayerAttack playerAttack;
+    private Enemy enemyScript = null;
+
+    private GameObject cloneStanEffect = null;
+    private Animator animationImage;
+    private Rigidbody rb;
+    private CapsuleCollider capsuleCol;
     private AudioSource audioSource;
+
+    private int knockCount = 0;
+    private int myPlayerNo = 5;
+    private float time = 0.0f;
+    private float defaultPosY = 54.0f;
+    private float damagePosX = 0.0f;
+    private float damagePosZ = 0.0f;
+
+    private bool isCurrentDamage = false;
+    private bool isCurrentCapture = false;
+    private bool hasDestroyStanEffect = false;
     #endregion
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
-        capsuleCol = GetComponent<CapsuleCollider>();
-        animationImage = GetComponent<Animator>();
-
-        defaultPosY = transform.position.y;
-
         playerMove = GetComponent<PlayerMove>();
         playerCarryDown = GetComponentInChildren<PlayerCarryDown>();
         playerAttack = GetComponentInChildren<PlayerAttack>();
+        enemyScript = null;
 
+        animationImage = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        capsuleCol = GetComponent<CapsuleCollider>();
         audioSource = GetComponent<AudioSource>();
 
         knockCount = 0;
+        time = 0.0f;
+        defaultPosY = transform.position.y;
+        damagePosX = 0.0f;
+        damagePosZ = 0.0f;
+
+        isCurrentDamage = false;
+        isCurrentCapture = false;
+        hasDestroyStanEffect = false;
+       
         stanBoxCol.enabled = false;
     }
 
@@ -102,6 +106,38 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttackPoint"))
+        {
+            knockCount++;
+            Instantiate(knockbackEffect, this.transform.position, other.transform.rotation);
+
+            if (!isCurrentDamage && !isCurrentCapture)
+            {
+                CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
+            }
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemyScript = other.gameObject.GetComponent<Enemy>();
+            if (!isCurrentDamage && myPlayerNo == enemyScript.rnd)
+            {
+                CallCapture();
+            }
+            else
+            {
+                enemyScript = null;
+            }
+            JudgeCapture(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("BossAttack"))
+        {
+            CallDamage();
+        }
+    }
+
     void OnCurrentDamage()
     {
         time += Time.deltaTime;
@@ -109,21 +145,8 @@ public class PlayerDamage : MonoBehaviour
 
         if (time > stanTime || knockCount >= endStanCount)
         {
-            time = 0;
-            knockCount = 0;
-            stanBoxCol.enabled = false;
-            capsuleCol.enabled = true;
-            if (hasDestroyStanEffect)
-            {
-                DeleteStanEffect();
-            }
-
-            playerMove.NotPlayerDamage();
-            playerCarryDown.OffCarryDamage();
-            playerAttack.OffIsDamage();
-
+            CleanUpDamage();
             isCurrentDamage = false;
-
         }
         else if (time >= damageEffectInterval)
         {
@@ -151,22 +174,25 @@ public class PlayerDamage : MonoBehaviour
 
         if (time > captureTime || knockCount >= endCaptureCount)
         {
-            time = 0;
-            knockCount = 0;
-            stanBoxCol.enabled = false;
-            capsuleCol.enabled = true;
-            if (hasDestroyStanEffect)
-            {
-                DeleteStanEffect();
-            }
-
-            playerMove.NotPlayerDamage();
-            playerCarryDown.OffCarryDamage();
-            playerAttack.OffIsDamage();
-
+            CleanUpDamage();
             isCurrentCapture = false;
-
         }
+    }
+
+    void CleanUpDamage()
+    {
+        time = 0;
+        knockCount = 0;
+        stanBoxCol.enabled = false;
+        capsuleCol.enabled = true;
+        if (hasDestroyStanEffect)
+        {
+            DeleteStanEffect();
+        }
+
+        playerMove.NotPlayerDamage();
+        playerCarryDown.OffCarryDamage();
+        playerAttack.OffIsDamage();
     }
 
     void DeleteStanEffect()
@@ -186,7 +212,32 @@ public class PlayerDamage : MonoBehaviour
 
     public void CallDamage()
     {
-        if(cloneStanEffect != null)
+        SetUpDamage();
+        animationImage.SetBool("Capture", false);
+        animationImage.SetBool("Damage", true);
+
+        isCurrentDamage = true;
+    }
+
+    public void CallCapture()
+    {
+        SetUpDamage();
+
+        animationImage.SetBool("Damage", false);
+        animationImage.SetBool("Capture", true);
+
+        Vector3 InstantPos = this.gameObject.transform.position;
+        InstantPos.y = captureEffectPosY;
+        cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
+        audioSource.PlayOneShot(stanSound);
+
+        isCurrentCapture = true;
+        enemyScript = null;
+    }
+
+    void SetUpDamage()
+    {
+        if (cloneStanEffect != null)
         {
             Destroy(cloneStanEffect);
             cloneStanEffect = null;
@@ -197,8 +248,6 @@ public class PlayerDamage : MonoBehaviour
 
         animationImage.SetBool("Carry", false);
         animationImage.SetBool("CarryMove", false);
-        animationImage.SetBool("Capture", false);
-        animationImage.SetBool("Damage", true);
 
         playerMove.PlayerDamage();
         playerCarryDown.CarryCancel();
@@ -212,92 +261,15 @@ public class PlayerDamage : MonoBehaviour
         knockCount = 0;
         hasDestroyStanEffect = false;
 
-        if (isCurrentCapture)
-        {
-            isCurrentCapture = false;
-        }
-
-        isCurrentDamage = true;
-    }
-
-    public void CallCapture()
-    {
-        if (cloneStanEffect != null)
-        {
-            Destroy(cloneStanEffect);
-            cloneStanEffect = null;
-        }
-
-        capsuleCol.enabled = false;
-        stanBoxCol.enabled = true;
-
-        animationImage.SetBool("Carry", false);
-        animationImage.SetBool("CarryMove", false);
-        animationImage.SetBool("Damage", false);
-        animationImage.SetBool("Capture", true);
-
-        playerMove.PlayerDamage();
-        playerCarryDown.CarryCancel();
-        playerCarryDown.OnCarryDamage();
-        playerAttack.OnIsDamage(); 
-
-        damagePosX = this.gameObject.transform.position.x;
-        damagePosZ = this.gameObject.transform.position.z;
-
-        Vector3 InstantPos = this.gameObject.transform.position;
-        InstantPos.y = captureEffectPosY;
-        cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
-        audioSource.PlayOneShot(stanSound);
-
-        time = 0;
-        knockCount = 0;
-        hasDestroyStanEffect = false;
-
         if (isCurrentDamage)
         {
             isCurrentDamage = false;
-        }
-
-        isCurrentCapture = true;
-        enemyScript = null;
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("PlayerAttackPoint"))
-        {
-            knockCount++;
-            Instantiate(knockbackEffect, this.transform.position, other.transform.rotation);
-
-            if (!isCurrentDamage && !isCurrentCapture)
-            {
-                CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
-            }
-        }
-
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            enemyScript = other.gameObject.GetComponent<enemy>();
-            if (!isCurrentDamage && myPlayerNo == enemyScript.rnd)
-            {
-                CallCapture();
-            }
-            else
-            {
-                enemyScript = null;
-            }
-            JudgeCapture(other.gameObject);
-        }
-        if (other.gameObject.CompareTag("BossAttack"))
-        {
-            CallDamage();
         }
     }
 
     public void JudgeCapture(GameObject enemy)
     {
-        enemyScript = enemy.GetComponent<enemy>();
+        enemyScript = enemy.GetComponent<Enemy>();
         if (!isCurrentDamage && myPlayerNo == enemyScript.rnd)
         {
             CallCapture();

@@ -11,7 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 
 
 //[RequireComponent(typeof(NavMeshAgent))]
-public class enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //UŒ‚‚Ì“–‚½‚è”»’è
     private Collider AttackCollider;

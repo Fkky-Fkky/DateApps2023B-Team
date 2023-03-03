@@ -5,8 +5,6 @@ using UnityEngine;
 public class FistDissolve : MonoBehaviour
 {
     #region
-    private new Renderer renderer;
-
     [SerializeField]
     private float startTime = 0.5f;
 
@@ -16,24 +14,29 @@ public class FistDissolve : MonoBehaviour
     [SerializeField]
     private float intervalTime = 0.2f;
 
+    [SerializeField]
+    private float pushForward = 0.8f;
+
+    private new Renderer renderer;
+
     private float time = 0.0f;
     private float value = 0.0f;
 
     private bool isStartDissolve = false;
     private bool isEndDissolve = false;
     private bool isIntervalDissolve = false;
-
-    [SerializeField]
-    private float pushForward = 0.8f;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         renderer= GetComponent<Renderer>();
+        time = 0.0f;
+        value = 0.0f;
+
+        isStartDissolve = true;
         isEndDissolve = false;
         isIntervalDissolve = false;
-        isStartDissolve = true;
     }
 
     // Update is called once per frame

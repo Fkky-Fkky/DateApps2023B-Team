@@ -7,20 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     #region
-    private int myPlayerNo = 5;
-    private BoxCollider boxCol = null;
-
     [SerializeField]
     private float hitTime = 0.25f;
-
-    private PlayerMove playerMove;
-
-    private Animator animator;
-    private float time = 0;
-
-    private bool isAttack = false;
-    private bool isCarry = false;
-    private bool isDamage = false;
 
     [SerializeField]
     private GameObject attackEffect = null;
@@ -30,14 +18,25 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField]
     private GameObject fistObject = null;
+
     [SerializeField]
     private Transform fistPos = null;
 
     [SerializeField]
     private AudioClip attackSound = null;
-    private AudioSource audioSource;
 
+    private BoxCollider boxCol = null;
+    private Animator animator = null;
+    private AudioSource audioSource = null;
     private GameObject instantPunch = null;
+    private PlayerMove playerMove = null;
+
+    private int myPlayerNo = 5;
+    private float time = 0;
+
+    private bool isAttack = false;
+    private bool isCarry = false;
+    private bool isDamage = false;
     #endregion
 
     // Start is called before the first frame update
@@ -47,10 +46,15 @@ public class PlayerAttack : MonoBehaviour
         boxCol.enabled = false;
 
         animator = GetComponentInParent<Animator>();
-
         playerMove = GetComponentInParent<PlayerMove>();
         audioSource= GetComponentInParent<AudioSource>();
-    }
+
+        time = 0;
+
+        isAttack = false;
+        isCarry = false;
+        isDamage = false;
+}
 
     // Update is called once per frame
     void Update()

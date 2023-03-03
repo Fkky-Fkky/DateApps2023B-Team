@@ -6,32 +6,36 @@ using UnityEngine.InputSystem;
 public class PlayerCarryDown : MonoBehaviour
 {
     #region
-    private bool isCarry = false;
-    private GameObject carryItem = null;
-
-    private Rigidbody rb;
-    private BoxCollider myCol;
-
-    private bool isCanUsed = false;
-
-    private int myPlayerNo = 5;
-
     private PlayerMove playermove = null;
     private CarryEnergy energyItem;
     private CarryCannon cannonItem;
 
+    private GameObject carryItem = null;
+    private Rigidbody rb;
+    private BoxCollider myCol;
+
+    private int myPlayerNo = 5;
     private int myGroupNo = 1;
 
+    private bool isCarry = false;
+    private bool isCanUsed = false;
     private bool isCarryDamage = false;
-
     #endregion
 
     void Start()
     {
-        rb = GetComponentInParent<Rigidbody>();
         playermove = GetComponentInParent<PlayerMove>();
+        energyItem = null;
+        cannonItem = null;
 
+        carryItem = null;
+        rb = GetComponentInParent<Rigidbody>();
         myCol = GetComponent<BoxCollider>();
+
+        myGroupNo = 1;
+        isCarry = false;
+        isCanUsed = false;
+        isCarryDamage = false;
     }
 
     void Update()
@@ -46,7 +50,6 @@ public class PlayerCarryDown : MonoBehaviour
             {
                 OnReleaseCarryButton();
             }
-
         }
 
         if (isCarry)
@@ -58,6 +61,50 @@ public class PlayerCarryDown : MonoBehaviour
             isCarry = false;
             isCanUsed = false;
             myCol.enabled = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider collision)
+    {
+        if (!isCarry)
+        {
+            if (collision.gameObject.CompareTag("item")
+                || collision.gameObject.CompareTag("Cannon"))
+            {
+                isCanUsed = true;
+                carryItem = collision.gameObject;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (!isCarry)
+        {
+            if (collision.gameObject.CompareTag("item")
+                || collision.gameObject.CompareTag("Cannon"))
+            {
+                isCanUsed = false;
+                carryItem = null;
+            }
+        }
+    }
+    void OnPressCarryButton()
+    {
+        if (!isCarry)
+        {
+            if (isCanUsed)
+            {
+                CheckItemTag();
+            }
+        }
+    }
+
+    void OnReleaseCarryButton()
+    {
+        if (isCarry)
+        {
+            CarryCancel();
         }
     }
 
@@ -83,90 +130,6 @@ public class PlayerCarryDown : MonoBehaviour
                 isCanUsed = false;
                 playermove.GetItem(myGroupNo);
             }
-        }
-    }
-
-    void OnPressCarryButton()
-    {
-        if (!isCarry)
-        {
-            if (isCanUsed)
-            {
-                CheckItemTag();
-            }
-        }
-    }
-
-    void OnReleaseCarryButton()
-    {
-        if (isCarry)
-        {
-            CarryCancel();
-        }
-    }
-
-
-    void OnTriggerStay(Collider collision)
-    {
-        if (!isCarry)
-        {
-            if (collision.gameObject.CompareTag("item")
-                || collision.gameObject.CompareTag("Cannon"))
-            {
-                isCanUsed = true;
-                carryItem = collision.gameObject;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider collision)
-    {
-        if (!isCarry)
-        {
-            if (collision.gameObject.CompareTag("item")
-                || collision.gameObject.CompareTag("Cannon"))
-            {
-                isCanUsed = false;
-                carryItem = null;
-            }
-        }
-    }
-
-    void CarryStart()
-    {
-        if (!isCarry && isCanUsed)
-        {
-            if (carryItem.CompareTag("item"))
-            {
-                CarryEnergyTag();
-            }
-            if (carryItem.CompareTag("Cannon"))
-            {
-                CarryCannonTag();
-            }
-        }
-    }
-
-    void CarryEnergyTag()
-    {
-        energyItem = carryItem.GetComponent<CarryEnergy>();
-        energyItem.GetGrabPoint(this.gameObject);
-        myGroupNo = energyItem.groupNumber;
-        isCarry = true;
-        isCanUsed = false;
-        playermove.GetItem(myGroupNo);
-    }
-
-    void CarryCannonTag()
-    {
-        if (!carryItem.GetComponent<CannonShot>().IsShotting)
-        {
-            cannonItem = carryItem.GetComponent<CarryCannon>();
-            cannonItem.GetGrabPoint(this.gameObject);
-            myGroupNo = cannonItem.groupNumber;
-            isCarry = true;
-            isCanUsed = false;
-            playermove.GetItem(myGroupNo);
         }
     }
 

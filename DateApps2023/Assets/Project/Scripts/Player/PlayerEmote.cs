@@ -6,13 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerEmote : MonoBehaviour
 {
     #region
-    private int myPlayerNo;
-    private float time = 0;
-    private float scaleTime = 0;
-
-    private SpriteRenderer spriteRenderer;
-    private Transform cameraPos;
-
     [SerializeField]
     private Sprite emoteIconL = null;
 
@@ -43,6 +36,13 @@ public class PlayerEmote : MonoBehaviour
     [SerializeField]
     private float startSizeChange = 0.2f;
 
+    private SpriteRenderer spriteRenderer;
+    private Transform cameraPos;
+
+    private int myPlayerNo = 5;
+    private float time = 0.0f;
+    private float scaleTime = 0.0f;
+
     private bool isEmote = false;
     private bool isSmall = false;
     private bool isBig = false;
@@ -58,6 +58,13 @@ public class PlayerEmote : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         cameraPos = Camera.main.transform;
+
+        time = 0.0f;
+        scaleTime = 0.0f;
+
+        isEmote = false;
+        isSmall = false;
+        isBig = false;
 
         defaultPos = new Vector3(0.0f, gameObject.transform.localPosition.y, 0.0f);
         movePos.y = moveY;

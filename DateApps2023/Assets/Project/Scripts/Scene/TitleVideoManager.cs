@@ -16,13 +16,6 @@ public class TitleVideoManager : MonoBehaviour
     private Animator animationImage = null;
 
     [SerializeField]
-    private float standingTime = 11.0f;
-    private float time = 0.0f;
-
-    private TitleSceneMove titleSceneMove;
-    private VideoPlayer videoPlayer;
-
-    [SerializeField]
     private RawImage playVideoScreen;
 
     [SerializeField]
@@ -31,24 +24,35 @@ public class TitleVideoManager : MonoBehaviour
     [SerializeField]
     private int screenDepth = 24;
 
-    private bool isPlaying = false;
-    private bool isFinished = false;
-    private RenderTexture renderTexture = null;
+    [SerializeField]
+    private float standingTime = 11.0f;
 
     [SerializeField]
     private bool hasLogoSkip = true;
+
+    private TitleSceneMove titleSceneMove;
+    private VideoPlayer videoPlayer;
+    private RenderTexture renderTexture = null;
+
+    private float time = 0.0f;
+
+    private bool isPlaying = false;
+    private bool isFinished = false;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        titleSceneMove = GetComponent<TitleSceneMove>();
+        titleSceneMove.OnTrueIsPlay();
+
+        videoPlayer = GetComponent<VideoPlayer>();
+        videoPlayer.Stop();
+
         time = 0.0f;
         isPlaying = false; 
         isFinished = false;
-        titleSceneMove = GetComponent<TitleSceneMove>();
-        videoPlayer = GetComponent<VideoPlayer>();
-        titleSceneMove.OnTrueIsPlay();
-        videoPlayer.Stop();
+       
         SetRenderTexture();
     }
 

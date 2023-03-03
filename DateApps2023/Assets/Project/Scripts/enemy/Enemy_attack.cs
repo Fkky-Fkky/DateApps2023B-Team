@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_attack : MonoBehaviour
 {
     [SerializeField]
-    private enemy enemy;
+    private Enemy enemy;
     void OnTriggerEnter(Collider collision)//Trigger
     {
         if (collision.gameObject.CompareTag("Player"))
