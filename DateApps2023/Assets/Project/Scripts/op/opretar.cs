@@ -101,7 +101,7 @@ public class opretar : MonoBehaviour
 
     void tutorial_end()
     {
-        energy.TutorialEnd();
+        //energy.TutorialEnd();
         animator.SetTrigger("tutorial_end");
         gameState = gamestate.game;
         start_flag = true;
@@ -114,7 +114,7 @@ public class opretar : MonoBehaviour
 
     void Second_energy_generate()
     {
-         energy.SecondGenerate();
+         //energy.SecondGenerate();
     }
 
     #region ゲーム中のオペ子のセリフ
@@ -256,7 +256,7 @@ public class opretar : MonoBehaviour
 
     void tutorial_energy()
     {
-        energy.FirstGenerate();
+        energy.Generate();
     }
 }
 #endregion

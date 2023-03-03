@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Animator FadeOutAnimator = null;
 
+    [SerializeField]
+    opretar myOperator = null;
+
     private float sceneMoveTime = 0.0f;
     public bool IsGameOver { get { return bossManager.IsGameOver(); } }
+    public bool IsGammeStart { get { return myOperator.Getstartflag(); } }
 
     const float SCENE_MOVE_TIME = 5.0f;
 
