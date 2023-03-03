@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class Operetar : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] private Op_text optext = null;
+
+    [SerializeField] private EnergyGenerator energy = null;
+
+    [SerializeField] private CannonManager cannon = null;
+
+    [SerializeField] private BossCSVGenerator csv = null;
+
+    [SerializeField] private BossManager boss = null;
 
     enum GAME_STATE
     {
@@ -13,15 +21,7 @@ public class Operetar : MonoBehaviour
 
     GAME_STATE gameState = GAME_STATE.TUTORIAL;
 
-    [SerializeField] private Op_text optext;
-
-    [SerializeField] private EnergyGenerator energy;
-
-    [SerializeField] private CannonManager cannon;
-
-    [SerializeField] private BossCSVGenerator csv;
-
-    [SerializeField] private BossManager boss;
+    
 
     private bool startFlag = false;
 
@@ -30,6 +30,10 @@ public class Operetar : MonoBehaviour
     private bool onOperetarTextFlag = false;
 
     private float time = 0;
+
+    Animator animator = null;
+
+    private float OPERETAR_TEXT_COOLTIME = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +47,7 @@ public class Operetar : MonoBehaviour
         #region オペレーターチュートリアル
         if (gameState == GAME_STATE.TUTORIAL)
         {
-            time += UnityEngine.Time.deltaTime;
+            time += Time.deltaTime;
 
             if (cannon.IsFirstCharge())
             {
@@ -86,7 +90,7 @@ public class Operetar : MonoBehaviour
     }
 
     //チュートリアル
-    public bool Getstartflag()
+    public bool GetStartFlag()
     {
         return startFlag;
     }
@@ -106,9 +110,9 @@ public class Operetar : MonoBehaviour
 
     #endregion
 
-    #region ゲーム中のオペ子のセリフ
+    #region ゲーム中のオペレターのセリフ
 
-    void Game()
+    private void Game()
     {
         if (operetarTextFlag && onOperetarTextFlag == false)
         {
@@ -138,7 +142,7 @@ public class Operetar : MonoBehaviour
             {
                 operetarTextFlag = false;
                 onOperetarTextFlag = true;
-                BossAttckCharge();
+                BossAttackCharge();
             }
             //ボス接近時
             if (boss.Danger())
@@ -160,7 +164,7 @@ public class Operetar : MonoBehaviour
         {
             time += UnityEngine.Time.deltaTime;
 
-            if (time >= 2)
+            if (time >= OPERETAR_TEXT_COOLTIME)
             {
                 operetarTextFlag = true;
                 onOperetarTextFlag = false;
@@ -198,7 +202,7 @@ public class Operetar : MonoBehaviour
     }
 
     //ボスの攻撃のチャージ
-    public void BossAttckCharge()
+    public void BossAttackCharge()
     {
         animator.SetTrigger("charge");
     }

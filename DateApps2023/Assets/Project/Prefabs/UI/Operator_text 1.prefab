@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027abad4b8cd753419b7a902465dc3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialVoice:
+  tutorialVoice:
   - {fileID: 8300000, guid: f05d6311a5a54bd44bb87602dca12850, type: 3}
   - {fileID: 8300000, guid: f59ca82e960aeea42b8c7701d07db832, type: 3}
   - {fileID: 8300000, guid: afa3e7116fa0c494c99829e72a3247e4, type: 3}
@@ -102,7 +102,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc6c8f77f44c669459dc2efe149ee5f4, type: 3}
   - {fileID: 8300000, guid: d2a3f89c22d213d46a62629a0604b35b, type: 3}
   - {fileID: 8300000, guid: a3810e83023de624ba626c60ff505756, type: 3}
-  GameVoice:
+  gameVoice:
   - {fileID: 8300000, guid: c677db91eb2ee6c4c8530f05efeb71e2, type: 3}
   - {fileID: 8300000, guid: b91793429a8951b45b11b3f7ca180f17, type: 3}
   - {fileID: 8300000, guid: 4e536907fee99184490fd2564761577c, type: 3}

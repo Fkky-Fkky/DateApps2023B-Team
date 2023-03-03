@@ -1,102 +1,95 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
-using UnityEngine.Networking.Types;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 
 //[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-    //攻撃の当たり判定
-    private Collider AttackCollider;
+    [SerializeField] private GameObject[] players = null;
 
-    private Collider myCollider;
+    [SerializeField] private PlayerDamage[] playerDamage = null;
 
-    [SerializeField] private GameObject[] players;
+    [SerializeField] private Transform centerPoint = null;
 
-    private GameObject oriznal;
-
-    [SerializeField] private PlayerDamage[] PlayerDamage;
-
-    [SerializeField] private Transform Centerpoint;
-
-    [SerializeField] private Transform rirurnTransform;
-
-    [SerializeField]
-    [Tooltip("生成する範囲A")]
-    private Transform spderpositionA;
-    
-    [SerializeField]
-    [Tooltip("生成する範囲D")]
-    private Transform spderpositionD;
-
-
-    [SerializeField]
-    [Tooltip("場外判定x")]
-    private int ExX = 14;
-
-    [SerializeField]
-    [Tooltip("場外判定-x")]
-    private int ExMx = -14;
-
-    [SerializeField]
-    [Tooltip("場外判定z")]
-    private int ExZ = 7;
-
-    [SerializeField]
-    [Tooltip("場外判定-z")]
-    private int ExMz = -7;
-
-    bool AttckFlag = false;
-    int work = 0;
+    [SerializeField] private Transform rirurnTransform = null;
 
     [SerializeField]
     private float ClimbingSpeed = 3;
 
+    [SerializeField]
+    [Tooltip("生成する範囲A")]
+    private Transform spderpositionA = null;
+
+    [SerializeField]
+    [Tooltip("生成する範囲D")]
+    private Transform spderpositionD = null;
+
+    //攻撃の当たり判定
+    private Collider AttackCollider = null;
+
+    private Collider myCollider = null;
+
+    private Animator animator = null;
+
+    private Rigidbody rb = null;
+
+    private NavMeshAgent _agent = null;
+
+    int work = 0;
+
     enum SUMMON
     {
-        start,
+        START,
 
-        climbing,
+        CLIMBIN,
 
-        jump,
+        JUMP,
 
-        landing,
+        LAMDING,
 
-        end,
+        END,
     }
-    SUMMON gameState = SUMMON.start;
+    SUMMON gameState = SUMMON.START;
 
-    float RastTimer =0;
-    int RastTimerFlag=0;
-    float AttckTime = 0;
+    float rastTimer =0;
 
-    bool ExFlag = false;
+    float wlTime = 0;
 
-    float WlTime = 0;
+    float attackTime = 0;
 
-    bool noattck = false;
+    bool rastTimerFlag = false;
 
-    bool OneFlag = false;
+    bool attackFlag = false;
 
-    Animator animator;
+    bool exFlag = false;
 
-    private Rigidbody rb;
+    bool noAttack = false;
 
-    NavMeshAgent _agent;
+    bool oneFlag = false;
+
+    [SerializeField]
+    [Tooltip("場外判定x")]
+    private int exitX = 14;
+
+    [SerializeField]
+    [Tooltip("場外判定-x")]
+    private int exitMinx = -14;
+
+    [SerializeField]
+    [Tooltip("場外判定z")]
+    private int exitZ = 7;
+
+    [SerializeField]
+    [Tooltip("場外判定-z")]
+    private int exitMinz = -7;
 
     public int rnd;
 
+    int destroyPosition = -25;
+
     void Start()
     {
-        gameState = SUMMON.start;
-
         myCollider = this.GetComponent<CapsuleCollider>();
         myCollider.enabled = true;
 
@@ -113,10 +106,9 @@ public class Enemy : MonoBehaviour
         rnd = Random.Range(0, 3);
         //Navを取得
        _agent = this.GetComponent<NavMeshAgent>();
-        //NavMeshAgent nav = this. GetComponent<NavMeshAgent>();
-        _agent.enabled = false;
+       _agent.enabled = false;
 
-        Vector3 vec = Centerpoint.transform.position - this.transform.position;
+        Vector3 vec = centerPoint.transform.position - this.transform.position;
 
         vec.y = 0f;
         Quaternion quaternion = Quaternion.LookRotation(vec);
@@ -125,8 +117,6 @@ public class Enemy : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
 
-        oriznal = GameObject.Find("Spider");
-
     }
     void Update()
     {
@@ -134,186 +124,182 @@ public class Enemy : MonoBehaviour
         Vector3 pos = myTransform.position;
         Quaternion rot = transform.rotation;
 
-        #region 出現
+        //出現
+        Moobing(myTransform, pos);
 
-        if (gameState == SUMMON.start)
+        //小型エネミーの攻撃
+        EnemyAttack(pos);
+
+        if (destroyPosition >= pos.y)
+        {
+            Destroy(gameObject);
+        }
+        KnockBack(pos);
+    }
+
+    void Moobing(Transform myTransform, Vector3 pos)
+    {
+        if (gameState == SUMMON.START)
         {
             rb.constraints = RigidbodyConstraints.None;
             work = 1;
-            AttckFlag = false;
-            gameState = SUMMON.climbing;
+            attackFlag = false;
+            gameState = SUMMON.CLIMBIN;
             myTransform.Rotate(-90, 0f, 0f);
         }
         //y8.5
-        else if(gameState == SUMMON.climbing)
+        else if (gameState == SUMMON.CLIMBIN)
         {
             transform.position += new Vector3(0, ClimbingSpeed, 0) * Time.deltaTime;
             //climbing_speed
             if (pos.y >= -1.2)
             {
-                if (pos.x>0)
+                if (pos.x > 0)
                 {
                     rb.useGravity = true;
                     Vector3 force = new Vector3(-1.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
                 }
 
-                else if(pos.x<0)
+                else if (pos.x < 0)
                 {
                     rb.useGravity = true;
                     Vector3 force = new Vector3(1.0f, 15.0f, 0.0f);
                     rb.AddForce(force, ForceMode.Impulse);
                 }
-                gameState = SUMMON.jump;
+                gameState = SUMMON.JUMP;
             }
         }
 
         //空中での回転
-         else if (gameState == SUMMON.jump)
+        else if (gameState == SUMMON.JUMP)
         {
-           if(pos.y>=5)
-           {           
+            if (pos.y >= 5)
+            {
                 StartCoroutine(Onturn());
-                gameState = SUMMON.landing;
+                gameState = SUMMON.LAMDING;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
 
-        else if(gameState == SUMMON.landing)
+        else if (gameState == SUMMON.LAMDING)
         {
             //着地
-            if(pos.y<=0)
+            if (pos.y <= 0)
             {
-                //rb.useGravity = false;
                 work = 0;
                 _agent.enabled = true;
                 AttackCollider.enabled = false;
-                gameState = SUMMON.end;
-                
+                gameState = SUMMON.END;
+
             }
         }
-        #endregion
+    }
 
-
-        #region 攻撃開始
-
-        if (work == 0&& _agent.enabled == true)
+    void EnemyAttack(Vector3 pos)
+    {
+        if (work == 0 && _agent.enabled == true)
         {
             _agent.destination = players[rnd].transform.position;
         }
 
-
-
-        //if (attck_time >= 0.75 && attck_flag == true)
-        //{
-        //    work = 1;
-        //}
-
-
-        if (AttckFlag == true)
+        if (attackFlag == true)
         {
-            AttckTime += Time.deltaTime;
+            attackTime += Time.deltaTime;
 
             if (AttackCollider.enabled == true)
             {
-                if (AttckTime >= 1.2)
+                if (attackTime >= 1.2)
                 {
-                    RastTimerFlag = 1;
-                    AttckFlag = false;
-                    noattck = true;
+                    rastTimerFlag = true;
+                    attackFlag = false;
+                    noAttack = true;
                     AttackCollider.enabled = false;
-                    AttckTime = 0;
+                    attackTime = 0;
                 }
             }
             else
             {
-                if (AttckTime >= 0.9)
+                if (attackTime >= 0.9)
                     AttackCollider.enabled = true;
-                else if (AttckTime >= 0.5)
+                else if (attackTime >= 0.5)
                 {
                     animator.SetTrigger("attck");
                 }
             }
         }
 
-        if (RastTimerFlag == 1)
+        if (rastTimerFlag)
         {
-            RastTimer += Time.deltaTime;
+            rastTimer += Time.deltaTime;
         }
-      //退場
-        if (RastTimer >= 1)
+        //退場
+        if (rastTimer >= 1)
         {
             //AttackCollider.enabled = false;
-            
-            if(OneFlag==false)
+
+            if (oneFlag == false)
             {
                 animator.SetTrigger("idle");
                 _agent.enabled = true;
-                OneFlag = true;
+                oneFlag = true;
             }
 
-            if(_agent.enabled == true)
-            _agent.destination = rirurnTransform.transform.position;
-           
-            if (pos.z<=-120)
+            if (_agent.enabled == true)
+                _agent.destination = rirurnTransform.transform.position;
+
+            if (pos.z <= -120)
             {
                 //ex_flag = false;
                 Destroy(gameObject);
             }
         }
-       
-        #endregion
+    }
 
-        if (-25 >= pos.y )
-        {
-            Destroy(gameObject);
-        }
-        #region ノックバック
-
+    void KnockBack(Vector3 pos)
+    {
         //ノックバック時に場外に行かなかった時の処理
-        if (_agent.enabled == false　&&　gameState == SUMMON.end)
+        if (_agent.enabled == false && gameState == SUMMON.END)
         {
-            WlTime+=Time.deltaTime;
+            wlTime += Time.deltaTime;
 
-            if(ExFlag == true)
+            if (exFlag == true)
             {
                 rb.useGravity = false;
                 myCollider.enabled = false;
             }
-            else if(WlTime >= 1.5f&&ExFlag == false)
+            else if (wlTime >= 1.5f && exFlag == false)
             {
                 _agent.enabled = true;
-               WlTime = 0;
+                wlTime = 0;
             }
         }
 
         Vector3 rangeApos = spderpositionA.position;
         Vector3 rangeDpos = spderpositionD.position;
 
-        if(gameState == SUMMON.end)
+        if (gameState == SUMMON.END)
         {
-        
-        if (rangeApos.x <= pos.x  ||
-            rangeApos.x <= pos.z)
-            rb.useGravity = true;
 
-        if (rangeDpos.x >= pos.x ||
-            rangeDpos.x >= pos.z)
-            rb.useGravity = true;
+            if (rangeApos.x <= pos.x ||
+                rangeApos.x <= pos.z)
+                rb.useGravity = true;
 
-        if (pos.x >= ExX ||
-            pos.z >= ExZ )
-            ExFlag = true;
+            if (rangeDpos.x >= pos.x ||
+                rangeDpos.x >= pos.z)
+                rb.useGravity = true;
 
-        else if (pos.x <= ExMx ||
-                  pos.z <= ExMz)
-            ExFlag = true;
-        else
-            ExFlag = false;
+            if (pos.x >= exitX ||
+                pos.z >= exitZ)
+                exFlag = true;
+
+            else if (pos.x <= exitMinx ||
+                      pos.z <= exitMinz)
+                exFlag = true;
+            else
+                exFlag = false;
 
         }
-        #endregion
-
     }
 
     //空中の回転
@@ -329,7 +315,7 @@ public class Enemy : MonoBehaviour
     }
 
     //帰宅
-    IEnumerator Onex()
+    IEnumerator Onexit()
     {
        
         for (int i = 1; i < 9; i += 1)
@@ -342,36 +328,36 @@ public class Enemy : MonoBehaviour
     //プレイヤーとの判定
     void OnCollisionEnter(Collision collision)//Trigger
     {
-        if (collision.gameObject == players[rnd]&&noattck==false)
+        if (collision.gameObject == players[rnd]&&noAttack==false)
         {
             work = 1;
-            AttckFlag = true;
-            AttckTime = 0;
-            noattck = true;
-            OneFlag = false;
+            attackFlag = true;
+            attackTime = 0;
+            noAttack = true;
+            oneFlag = false;
             animator.SetTrigger("attckidle");
         }
 
         if (collision.gameObject.CompareTag("Wall") &&
-            gameState == SUMMON.end &&
-            noattck == true)
+            gameState == SUMMON.END &&
+            noAttack == true)
         {
             myCollider.enabled=false;
             Debug.Log("Wall");
             _agent.enabled = false;
-            StartCoroutine(Onex());
+            StartCoroutine(Onexit());
         }
 
         if (collision.gameObject.CompareTag("thin wall") &&
-            gameState == SUMMON.landing)    
+            gameState == SUMMON.LAMDING)    
         {
             Vector3 force = new Vector3(0.0f, 0.0f, 3.0f);
             rb.AddForce(force, ForceMode.Impulse);
         }
     }
 
-    public void OnattackCollider()
+    public void OnAttackCollider()
     {
-        PlayerDamage[rnd].CallDamage();
+        playerDamage[rnd].CallDamage();
     }
 }
