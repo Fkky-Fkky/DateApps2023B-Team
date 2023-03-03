@@ -52,6 +52,17 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        switch (playerNumber)
+        {
+            case PlayerNumber.None:
+                Debug.Log("None : " + gameObject.name);
+                break;
+
+            default:
+                playerNo = (int)playerNumber;
+                break;
+        }
+
         carryDown = GetComponentInChildren<PlayerCarryDown>();
         carryDown.GetPlayerNo(playerNo);
 
@@ -67,17 +78,6 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animationImage = GetComponent<Animator>();
         enterItem = null;
-
-        switch (playerNumber)
-        {
-            case PlayerNumber.None:
-                Debug.Log("None : " + gameObject.name);
-                break;
-
-            default:
-                playerNo = (int)playerNumber;
-                break;
-        }
         defaultPosY = this.gameObject.transform.position.y;
 
         isGroup = false;
