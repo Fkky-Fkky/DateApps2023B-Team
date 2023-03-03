@@ -351,7 +351,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.05
-    functionName: scond
+    functionName: Second
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

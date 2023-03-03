@@ -537,6 +537,10 @@ PrefabInstance:
       propertyPath: energy
       value: 
       objectReference: {fileID: 661935786}
+    - target: {fileID: 4434604464453913848, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+      propertyPath: optext
+      value: 
+      objectReference: {fileID: 1654872345}
     - target: {fileID: 4484750113864748090, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5566,6 +5570,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2818820075863427155, guid: 25272f36e92ecf7479040d2f1e76bc32, type: 3}
   m_PrefabInstance: {fileID: 1968051885}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1654872345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911696819572114832, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
+  m_PrefabInstance: {fileID: 58838497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f166058a7c73e40999ea35348294b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1835699846
 PrefabInstance:
   m_ObjectHideFlags: 0

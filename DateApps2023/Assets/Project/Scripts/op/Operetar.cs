@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Operetar : MonoBehaviour
 {
@@ -11,11 +6,12 @@ public class Operetar : MonoBehaviour
 
     enum GAME_STATE
     {
-        tutorial,
+        TUTORIAL,
 
-        game,
+        GAME,
     }
-    GAME_STATE gameState = GAME_STATE.tutorial;
+
+    GAME_STATE gameState = GAME_STATE.TUTORIAL;
 
     [SerializeField] private Op_text optext;
 
@@ -25,15 +21,15 @@ public class Operetar : MonoBehaviour
 
     [SerializeField] private BossCSVGenerator csv;
 
-    [SerializeField] BossManager boss;
+    [SerializeField] private BossManager boss;
 
-    private bool StartFlag = false;
+    private bool startFlag = false;
 
-    bool OpFlag = false;
+    private bool operetarTextFlag = false;
 
-    bool OneFlag = false;
+    private bool onOperetarTextFlag = false;
 
-    float Time = 0;
+    private float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +40,10 @@ public class Operetar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region オペ子チュートリアル
-        if (gameState == GAME_STATE.tutorial)
+        #region オペレーターチュートリアル
+        if (gameState == GAME_STATE.TUTORIAL)
         {
-            Time += UnityEngine.Time.deltaTime;
+            time += UnityEngine.Time.deltaTime;
 
             if (cannon.IsFirstCharge())
             {
@@ -58,46 +54,53 @@ public class Operetar : MonoBehaviour
             {
                 animator.SetTrigger("firing");
             }
-            
+
             if (BossCount.GetKillCount() == 2)
             {
                 animator.SetTrigger("boss_second_kill");
             }
         }
-        
-        if (gameState == GAME_STATE.game)
+
+        if (gameState == GAME_STATE.GAME)
         {
-            game();
+            Game();
         }
     }
     //怪獣生成
-    void First()
+    private void First()
     {
         csv.FirstBossGanaretar();
     }
     //2回目の怪獣生成
-    void scond()
+    private void Second()
     {
         csv.SecondBossGanaretar();
     }
     //チュートリアル終了のフラグ
-    void tutorial_end()
+    void TutorialEnd()
     {
         energy.TutorialEnd();
         animator.SetTrigger("tutorial_end");
-        gameState = GAME_STATE.game;
-        StartFlag = true;
+        gameState = GAME_STATE.GAME;
+        startFlag = true;
     }
 
     //チュートリアル
     public bool Getstartflag()
     {
-        return StartFlag;
+        return startFlag;
+    }
+
+    //1回目のエネルギー物資生成
+    void FirstEnergyGenerate()
+    {
+        energy.FirstGenerate();
     }
 
     //2回目のエネルギー物資生成
-    void Second_energy_generate()
+    void SecondEnergyGenerate()
     {
+        
          energy.SecondGenerate();
     }
 
@@ -105,86 +108,86 @@ public class Operetar : MonoBehaviour
 
     #region ゲーム中のオペ子のセリフ
 
-    void game()
+    void Game()
     {
-        if (OpFlag)
+        if (operetarTextFlag && onOperetarTextFlag == false)
         {
             //中型ボス
-            if (boss.BossType() == 1&& OneFlag == false)
+            if (boss.BossType() == 1)
             {
-                OpFlag = false;
-                OneFlag = true;
-                summonboss();
+                operetarTextFlag = false;
+                onOperetarTextFlag = true;
+                SummonBoss();
             }
             //小型ボス
-            if (boss.BossType() == 2&& OneFlag == false)
+            if (boss.BossType() == 2)
             {
-               OpFlag = false; 
-               OneFlag = true;
-               summonminiboss();
+               operetarTextFlag = false; 
+               onOperetarTextFlag = true;
+               SummonMiniBoss();
             }
             //大型ボス
-            if (boss.BossType() == 3 && OneFlag == false)
+            if (boss.BossType() == 3)
             {
-                OpFlag = false;
-                OneFlag = true;
-                summonbigboss();
+                operetarTextFlag = false;
+                onOperetarTextFlag = true;
+                SummonBigBoss();
             }
             //ボスの攻撃チャージ
-            if (boss.Charge() && OneFlag == false)
+            if (boss.Charge())
             {
-                OpFlag = false;
-                OneFlag = true;
-                boss_attck_charge();
+                operetarTextFlag = false;
+                onOperetarTextFlag = true;
+                BossAttckCharge();
             }
             //ボス接近時
-            if (boss.Danger() && OneFlag == false)
+            if (boss.Danger())
             {
-                OpFlag = false;
-                OneFlag = true;
+                operetarTextFlag = false;
+                onOperetarTextFlag = true;
                 Approach();
             }
             //ボス討伐
-            if (boss.IsBossKill() && OneFlag == false)
+            if (boss.IsBossKill())
             {
-                OpFlag = false;
-                OneFlag = true;
-                bosskill();
+                operetarTextFlag = false;
+                onOperetarTextFlag = true;
+                BossKill();
             }
         }
 
-        if (!OpFlag)
+        if (!operetarTextFlag)
         {
-            Time += UnityEngine.Time.deltaTime;
+            time += UnityEngine.Time.deltaTime;
 
-            if (Time >= 2)
+            if (time >= 2)
             {
-                OpFlag = true;
-                OneFlag = false;
+                operetarTextFlag = true;
+                onOperetarTextFlag = false;
             }
         }
     }
 
     //通常ボス出現時
-    public void summonboss()
+    public void SummonBoss()
     { 
         animator.SetTrigger("boss");  
     }
 
     //ミニボス出現時
-    public void summonminiboss()
+    public void SummonMiniBoss()
     {
         animator.SetTrigger("miniboss");
     }
 
     //ビッグボス出現時
-    public void summonbigboss()
+    public void SummonBigBoss()
     {
         animator.SetTrigger("bigboss");  
     }
 
     //ボス撃破時
-    public void bosskill()
+    public void BossKill()
     {
         animator.SetTrigger("kill");  
     }
@@ -195,13 +198,13 @@ public class Operetar : MonoBehaviour
     }
 
     //ボスの攻撃のチャージ
-    public void boss_attck_charge()
+    public void BossAttckCharge()
     {
         animator.SetTrigger("charge");
     }
 
     //エネルギー物資出現時
-    public void energy_charge()
+    public void EnergyCharge()
     {
         animator.SetTrigger("energycharge");
     }
