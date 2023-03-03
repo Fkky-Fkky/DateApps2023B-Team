@@ -8,13 +8,13 @@ public class EnergyGenerator : MonoBehaviour
     private GameManager gameManager = null;
 
     [SerializeField]
-    private NormalEnergyGenerator normalGenerator;
+    private NormalEnergyGenerator normalGenerator = null;
 
     [SerializeField]
-    private TutorialEnergyGenerator tutorialGenerator;
+    private TutorialEnergyGenerator tutorialGenerator = null;
 
     private bool IsGeneratorChange = false;
-    private EnergyGeneratorBase generator;
+    private EnergyGeneratorBase generator = null;
 
     private const int ADD_GENERATE = 2;
 
