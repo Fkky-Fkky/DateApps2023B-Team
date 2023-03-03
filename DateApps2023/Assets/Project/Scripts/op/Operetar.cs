@@ -83,7 +83,7 @@ public class Operetar : MonoBehaviour
     //チュートリアル終了のフラグ
     void TutorialEnd()
     {
-        energy.TutorialEnd();
+        energy.Generate();
         animator.SetTrigger("tutorial_end");
         gameState = GAME_STATE.GAME;
         startFlag = true;
@@ -98,14 +98,14 @@ public class Operetar : MonoBehaviour
     //1回目のエネルギー物資生成
     void FirstEnergyGenerate()
     {
-        energy.FirstGenerate();
+        energy.Generate();
     }
 
     //2回目のエネルギー物資生成
     void SecondEnergyGenerate()
     {
         
-         energy.SecondGenerate();
+         energy.Generate();
     }
 
     #endregion

@@ -19,11 +19,11 @@ public class GameManager : MonoBehaviour
     private Animator FadeOutAnimator = null;
 
     [SerializeField]
-    opretar myOperator = null;
+    Operetar myOperator = null;
 
     private float sceneMoveTime = 0.0f;
     public bool IsGameOver { get { return bossManager.IsGameOver(); } }
-    public bool IsGammeStart { get { return myOperator.Getstartflag(); } }
+    public bool IsGammeStart { get { return myOperator.GetStartFlag(); } }
 
     const float SCENE_MOVE_TIME = 5.0f;
 
