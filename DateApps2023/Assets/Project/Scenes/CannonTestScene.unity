@@ -879,7 +879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2494596621792759802, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Enabled
@@ -1110,7 +1110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: playerNumber
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_Constraints
@@ -1915,7 +1915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_Constraints
@@ -2629,30 +2629,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 4091322567350885740}
-    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+    - target: {fileID: 158971786, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMax
       value: 
       objectReference: {fileID: 67748172}
-    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+    - target: {fileID: 158971786, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: generatePosMin
+      value: 
+      objectReference: {fileID: 345375994}
+    - target: {fileID: 1514505002, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: generatePosMax
+      value: 
+      objectReference: {fileID: 67748172}
+    - target: {fileID: 1514505002, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMin
       value: 
       objectReference: {fileID: 345375994}
     - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
-      propertyPath: energy.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
-      propertyPath: energy.Array.data[0]
+      propertyPath: gameManager
       value: 
-      objectReference: {fileID: 989744109513928702, guid: 8882423c885f0134b91110b65c663a4d, type: 3}
-    - target: {fileID: 752636907267945280, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
-      propertyPath: energy.Array.data[1]
-      value: 
-      objectReference: {fileID: 989744109513928702, guid: f1bcfb00fc9b189498c201f48f182e7c, type: 3}
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 752636907267945281, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: m_Name
       value: EnergyGenerator
@@ -2835,6 +2831,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
+      propertyPath: myOperator
+      value: 
+      objectReference: {fileID: 598793464}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: bossManager
       value: 
