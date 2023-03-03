@@ -50,9 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7db3069f6dd404b9cbe990458175b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  op_text: {fileID: 8828154000219638700}
+  optext: {fileID: 0}
   energy: {fileID: 0}
   cannon: {fileID: 0}
+  csv: {fileID: 0}
   boss: {fileID: 0}
 --- !u!95 &7705351127672437312
 Animator:
@@ -86,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027abad4b8cd753419b7a902465dc3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tutorial_Voice:
+  tutorialVoice:
   - {fileID: 8300000, guid: f05d6311a5a54bd44bb87602dca12850, type: 3}
   - {fileID: 8300000, guid: f59ca82e960aeea42b8c7701d07db832, type: 3}
   - {fileID: 8300000, guid: afa3e7116fa0c494c99829e72a3247e4, type: 3}
@@ -101,7 +102,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc6c8f77f44c669459dc2efe149ee5f4, type: 3}
   - {fileID: 8300000, guid: d2a3f89c22d213d46a62629a0604b35b, type: 3}
   - {fileID: 8300000, guid: a3810e83023de624ba626c60ff505756, type: 3}
-  Game_voice:
+  gameVoice:
   - {fileID: 8300000, guid: c677db91eb2ee6c4c8530f05efeb71e2, type: 3}
   - {fileID: 8300000, guid: b91793429a8951b45b11b3f7ca180f17, type: 3}
   - {fileID: 8300000, guid: 4e536907fee99184490fd2564761577c, type: 3}
@@ -522,14 +523,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4347057694251543643, guid: e4d5913b929b6674ebfc55d2bf699165, type: 3}
   m_PrefabInstance: {fileID: 5691657807109922750}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8828154000219638700 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3782799199961388050, guid: e4d5913b929b6674ebfc55d2bf699165, type: 3}
-  m_PrefabInstance: {fileID: 5691657807109922750}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f166058a7c73e40999ea35348294b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

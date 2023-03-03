@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_attack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
     [SerializeField]
-    private enemy enemy;
+    private Enemy enemy = null;
     void OnTriggerEnter(Collider collision)//Trigger
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            enemy.OnattackCollider();
+            enemy.OnAttackCollider();
         }
     }
 }

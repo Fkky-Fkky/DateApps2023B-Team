@@ -9,7 +9,7 @@ public class BossCSVGenerator : MonoBehaviour
     public BossManager bossManager;
     private BossCount bossCount;
     [SerializeField]
-    private opretar opretar;
+    private Operetar opretar;
 
     [SerializeField]
     private BossCSV bossCSV = null;
@@ -123,7 +123,7 @@ public class BossCSVGenerator : MonoBehaviour
         }
 
         //スタートフラグ
-        if (!opretar.Getstartflag())
+        if (!opretar.GetStartFlag())
         {
             return;
         }
@@ -278,7 +278,7 @@ public class BossCSVGenerator : MonoBehaviour
                     bossList.Add(boss.GetComponent<BossDamage>());
                     bossMoveList.Add(boss.GetComponent<BossMove>());
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    if (opretar.Getstartflag())
+                    if (opretar.GetStartFlag())
                     {
                         bossCountOne++;
                     }
@@ -294,7 +294,7 @@ public class BossCSVGenerator : MonoBehaviour
                     bossList.Add(boss.GetComponent<BossDamage>());
                     bossMoveList.Add(boss.GetComponent<BossMove>());
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    if (opretar.Getstartflag())
+                    if (opretar.GetStartFlag())
                     {
                         bossCountOne++;
                     }
@@ -311,7 +311,7 @@ public class BossCSVGenerator : MonoBehaviour
                     bossList.Add(boss.GetComponent<BossDamage>());
                     bossMoveList.Add(boss.GetComponent<BossMove>());
                     bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    if (opretar.Getstartflag())
+                    if (opretar.GetStartFlag())
                     {
                         bossCountOne++;
                     }

@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class enemy_j : MonoBehaviour
+public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("生成する範囲A")]
-    private Transform rangeA;
+    private Transform rangeA = null;
+
     [SerializeField]
     [Tooltip("生成する範囲B")]
-    private Transform rangeB;
+    private Transform rangeB = null;
 
     [SerializeField]
     [Tooltip("生成する範囲C")]
-    private Transform rangeC;
+    private Transform rangeC = null;
+
     [SerializeField]
     [Tooltip("生成する範囲D")]
-    private Transform rangeD;
+    private Transform rangeD = null;
 
-    public GameObject spider;
+    [SerializeField]
+    [Tooltip("スパイダーの生成感覚")]
+    private int spiderSpoanTime = 3;
 
-    float x;
+    public GameObject spider = null;
 
-    float z;
-    float spider_time = 0;
+    float x = 0;
 
-    int rnd;
+    float z = 0;
+    float spiderTime = 0;
 
-    bool end_flag = false;
+    int rnd = 0;
 
-    [SerializeField] int spider_spoan_time = 3;
+    bool endFlag = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,18 +45,19 @@ public class enemy_j : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(spider.transform.position.y <= -15&&end_flag==false)
+        spiderTime += Time.deltaTime;
+
+        if (spider.transform.position.y <= -15&&endFlag==false)
         {
             Rigidbody rb = spider.GetComponent<Rigidbody>();
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezePosition;
-            end_flag = true;
+            endFlag = true;
         }
 
-        spider_time += Time.deltaTime;
-        if(spider_time >= spider_spoan_time && rnd==1) 
+        if(spiderTime >= spiderSpoanTime && rnd==1) 
         {
-            spider_time = 0;
+            spiderTime = 0;
 
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
@@ -61,9 +66,9 @@ public class enemy_j : MonoBehaviour
             rnd = Random.Range(1, 3);
         }
 
-        if (spider_time >= spider_spoan_time && rnd >= 2)
+        if (spiderTime >= spiderSpoanTime && rnd >= 2)
         {
-            spider_time = 0;
+            spiderTime = 0;
 
             x = Random.Range(rangeC.position.x, rangeD.position.x);
 
