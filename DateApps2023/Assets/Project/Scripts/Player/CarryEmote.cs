@@ -83,11 +83,7 @@ public class CarryEmote : MonoBehaviour
 
             ChangeSize();
 
-            if (isEnd)
-            {
-                OnEndTime();
-            }
-            else
+            if (!isEnd)
             {
                 OnStartTime();
             }
@@ -104,8 +100,15 @@ public class CarryEmote : MonoBehaviour
 
     public void CallEndCarryEmote()
     {
-        isEnd = true;
-        time = 0.0f;
+        isEmote = false;
+        time = 0;
+        scaleTime = 0;
+        spriteRenderer.sprite = null;
+        isSmall = false;
+        isBig = false;
+        gameObject.transform.localPosition = defaultPos;
+        gameObject.transform.localScale = defaultSize;
+        setSize = defaultSize;
     }
 
     void OnStartTime()
@@ -115,30 +118,6 @@ public class CarryEmote : MonoBehaviour
             gameObject.transform.localPosition += movePos * Time.deltaTime;
             setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
             gameObject.transform.localScale = setSize;
-        }
-    }
-
-    void OnEndTime()
-    {
-        if (time <= endTime)
-        {
-            gameObject.transform.localPosition += movePos * Time.deltaTime;
-            isSmall = false;
-            isBig = false;
-            setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-            gameObject.transform.localScale = setSize;
-        }
-        else
-        {
-            isEmote = false;
-            time = 0;
-            scaleTime = 0;
-            spriteRenderer.sprite = null;
-            isSmall = false;
-            isBig = false;
-            gameObject.transform.localPosition = defaultPos;
-            gameObject.transform.localScale = defaultSize;
-            setSize = defaultSize;
         }
     }
 

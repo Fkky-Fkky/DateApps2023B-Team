@@ -36,6 +36,7 @@ public class PlayerMove : MonoBehaviour
     private bool isGroup = false;
     private bool isEnterItem = false;
     private bool isAttack = false;
+    private bool isDamage = false;
 
     private Vector3 vec = Vector3.zero;
 
@@ -83,6 +84,7 @@ public class PlayerMove : MonoBehaviour
         isGroup = false;
         isEnterItem = false;
         isAttack = false;
+        isDamage = false;
 
         vec = Vector3.zero;
     }
@@ -197,7 +199,7 @@ public class PlayerMove : MonoBehaviour
     {
         vec = Vector3.zero;
 
-        if (!isAttack)
+        if (!isAttack && !isDamage)
         {
             NotIsAttack(StickValue);
         }
@@ -239,6 +241,7 @@ public class PlayerMove : MonoBehaviour
         isGroup = false;
         isAttack = false;
         isEnterItem = false;
+        isDamage = true;
     }
 
     public void NotPlayerDamage()
@@ -246,6 +249,7 @@ public class PlayerMove : MonoBehaviour
         isGroup = false;
         isAttack = false;
         isEnterItem = false;
+        isDamage = false;
     }
 
     public void StartAttack()
