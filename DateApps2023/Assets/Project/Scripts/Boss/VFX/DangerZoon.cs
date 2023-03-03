@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class DangerZoon : MonoBehaviour
 {
-    public BossAttack bossAttack;
-
-    private float time = 0.0f;
-    private float effectTime;
-
     [SerializeField]
-    private Renderer dangerRenderer;
+    private Renderer dangerRenderer = null;
 
-    private float flashTime = 0.0f;
-    private float flashTimeMax = 0.3f;
+    public BossAttack BossAttack = null;
+
+    private float time       = 0.0f;
+    private float effectTime = 0.0f;
+
+    private float flashTime          = 0.0f;
+    private const float flashTimeMax = 0.3f;
 
     void Start()
     {
         time = 0.0f;
 
-        effectTime = bossAttack.BeamTimeMax();
+        effectTime = BossAttack.BeamTimeMax();
 
     }
 

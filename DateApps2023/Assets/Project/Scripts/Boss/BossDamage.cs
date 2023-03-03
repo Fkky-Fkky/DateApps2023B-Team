@@ -6,10 +6,6 @@ using UnityEngine.UI;
 
 public class BossDamage : MonoBehaviour
 {
-    public BossCount bossCount = null;
-    BossMove bossMove;
-
-    private DamageCSV damageCSV = null;
 
     [SerializeField] Animator AnimationImage = null;
 
@@ -19,42 +15,13 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     private GameObject explosionEffect = null;
     [SerializeField]
-    GameObject fellDownEffect;
+    private GameObject fellDownEffect = null;
 
-    float effectPosY = -40.0f;
-
-    public bool isInvincible { get; private set; }
-    private float invincibleTime = 0.0f;
     [SerializeField]
     private float invincibleTimeMax = 4.0f;
 
-    private bool isDamage = false;
-
-    private bool isBossDamage = false;
-
-    private float BossDamgeOffTime    = 0.0f;
-    private float BossDamgeOffTimeMax = 0.6f;
-
-
-    bool isKnockback = false;
-    float knockbackTime = 0.0f;
-    float knockbackTimeMax = 1.5f;
-
-    private bool isBossFellDown = false;
-
-    private float bossDestroyTime = 0.0f;
-    private float bossDestroyTimeMax = 2.5f;
-
-    public bool isTrance = false; 
-
     [SerializeField]
-    private Transform stunPos;
-
-    private int isBullet = -1;
-    private int maxHp = 0;
-
-    [SerializeField]
-    private GameObject hpCores;
+    private GameObject hpCores = null;
 
     [SerializeField]
     private GameObject[] hpBar = new GameObject[9];
@@ -62,30 +29,51 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     private GameObject[] hpMemori = new GameObject[9];
 
- 
-    private int smallDamage;
+    public BossCount BossCount = null;
+    private BossMove bossMove = null;
 
-    private int MediumDamage;
+    private DamageCSV damageCSV = null;
 
-    private int LargeDamage;
+    private const float effectPosY = -40.0f;
 
+    public bool IsInvincible { get; private set; }
+    private float invincibleTime = 0.0f;
 
+    private bool isDamage = false;
+    private bool isBossDamage = false;
+
+    private float BossDamgeOffTime    = 0.0f;
+    private const float BossDamgeOffTimeMax = 0.6f;
+
+    private bool isKnockback = false;
+    private float knockbackTime = 0.0f;
+    private const float knockbackTimeMax = 1.5f;
+
+    private bool isBossFellDown = false;
+
+    private float bossDestroyTime = 0.0f;
+    private const float bossDestroyTimeMax = 2.5f;
+
+    private int isBullet = -1;
+    private int maxHp = 0;
+
+    private int smallDamage = 0;
+    private int MediumDamage = 0;
+    private int LargeDamage = 0;
 
     void Start()
     {
         bossMove = GetComponent<BossMove>();
 
-        isDamage = false;
-
         damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
-        smallDamage  = damageCSV.small;
-        MediumDamage = damageCSV.medium;
-        LargeDamage  = damageCSV.large;
+        smallDamage  = damageCSV.Small;
+        MediumDamage = damageCSV.Medium;
+        LargeDamage  = damageCSV.Large;
 
-        isInvincible = false;
+        IsInvincible = false;
 
-        maxHp = bossMove.bossHp;
+        maxHp = bossMove.BossHp;
 
         hpBar = new GameObject[maxHp];
 
@@ -103,7 +91,7 @@ public class BossDamage : MonoBehaviour
         switch (maxHp) 
         {
             case 1:
-                if (gameObject.transform.localScale.y < 180.0f)
+                if (gameObject.transform.localScale.y < 18.0f)
                 {
                     hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, 0.7f, 0);
                 }
@@ -136,8 +124,6 @@ public class BossDamage : MonoBehaviour
 
     void Update()
     {
-
-
         if (isKnockback)
         {
             knockbackTime += Time.deltaTime;
@@ -160,35 +146,27 @@ public class BossDamage : MonoBehaviour
             {
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 IsBullet();
-                if (bossMove.bossHp > 0.0f)
-                {
-                    AnimationImage.SetTrigger("Damage");
-                }
-                else
-                {
-                    AnimationImage.SetTrigger("Die");
-                }
+                DamageAnimation();
 
-                isInvincible = true;
+                IsInvincible = true;
                 isBullet = -1;
                 isDamage = false;
             }
         }
 
-
-        if (isInvincible)
+        if (IsInvincible)
         {
             invincibleTime += Time.deltaTime;
             if (invincibleTime >= invincibleTimeMax)
             {
-                isInvincible = false;
+                IsInvincible = false;
                 AnimationImage.SetTrigger("Walk");
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
         }
 
-        if (bossMove.bossHp <= 0.0f)
+        if (bossMove.BossHp <= 0)
         {
             bossDestroyTime += Time.deltaTime;
             if (bossDestroyTime >= bossDestroyTimeMax)
@@ -210,53 +188,43 @@ public class BossDamage : MonoBehaviour
                 BossDamgeOffTime = 0.0f;
             }
         }
-        if (bossMove.bossHp < 0)
-        {
-            bossMove.bossHp = 0;
-        }
-
     }
 
     private void IsBullet()
     {
         if (isBullet == 0)
         {
-            bossMove.bossHp -= smallDamage;
-            hpBar[bossMove.bossHp + 0].SetActive(false);
+            Damage(smallDamage);
+            hpBar[bossMove.BossHp + 0].SetActive(false);
         }
         else if (isBullet == 1)
         {
-            bossMove.bossHp -= MediumDamage;
-
-            if (bossMove.bossHp < 0)
-            {
-                bossMove.bossHp = 0;
-            }
-
-            
+            Damage(MediumDamage);
             HpBarMediumActive();
         }
         else if (isBullet == 2)
         {
-            bossMove.bossHp -= LargeDamage;
-
-            if (bossMove.bossHp < 0)
-            {
-                bossMove.bossHp = 0;
-            }
-
+            Damage(LargeDamage);
             HpBarLargeActive();
         }
+    }
 
+    private void Damage(int damage)
+    {
+        bossMove.BossHp -= damage;
+        if (bossMove.BossHp < 0)
+        {
+            bossMove.BossHp = 0;
+        }
     }
 
     private void HpBarMediumActive()
     {
         for (int i = 0; i < MediumDamage; i++)
         {
-            if (bossMove.bossHp + i < maxHp)
+            if (bossMove.BossHp + i < maxHp)
             {
-                hpBar[bossMove.bossHp + i].SetActive(false);
+                hpBar[bossMove.BossHp + i].SetActive(false);
             }
         }
     }
@@ -264,26 +232,34 @@ public class BossDamage : MonoBehaviour
     {
         for(int i = 0; i < maxHp; i++)
         {
-            hpBar[bossMove.bossHp + i].SetActive(false);
+            hpBar[bossMove.BossHp + i].SetActive(false);
+        }
+    }
+
+    private void DamageAnimation()
+    {
+        if (bossMove.BossHp > 0)
+        {
+            AnimationImage.SetTrigger("Damage");
+        }
+        else
+        {
+            AnimationImage.SetTrigger("Die");
         }
     }
 
     public void KnockbackTrueSmall()
     {
         DamageKnockBack(0);
-
     }
     public void KnockbackTrueMedium()
     {
         DamageKnockBack(1);
-
     }
 
     public void KnockbackTrueLarge()
     {
-
         DamageKnockBack(2);
-
     }
 
     void DamageKnockBack(int Bullet)
@@ -293,7 +269,7 @@ public class BossDamage : MonoBehaviour
 
         if (!bossMove.IsAppearance())
         {
-            if (!isInvincible)
+            if (!IsInvincible)
             {
                 isKnockback = true;
                 isDamage = true;
@@ -302,7 +278,6 @@ public class BossDamage : MonoBehaviour
                 bossMove.DamageTrue();
             }
         }
-
     }
 
     public bool IsFellDown()

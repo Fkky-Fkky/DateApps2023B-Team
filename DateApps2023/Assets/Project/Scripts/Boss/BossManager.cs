@@ -10,13 +10,9 @@ public class BossManager : MonoBehaviour
     [SerializeField]
     private BossCSVGenerator bossCSVGenerator = null;
 
-    public BossDamage bossDamage;
-
-    public BossAttack bossAttack;
-
-    private GameObject centerBoss;
-    private GameObject leftBoss;
-    private GameObject rightBoss;
+    private GameObject centerBoss = null;
+    private GameObject leftBoss   = null;
+    private GameObject rightBoss  = null;
 
 
     void Update()
@@ -75,7 +71,6 @@ public class BossManager : MonoBehaviour
                     break;
             }
         }
-
     }
 
     private void BossFellDown()

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BeamCharge : MonoBehaviour
 {
-    public BossAttack bossAttack;
+    public BossAttack bossAttack = null;
 
     private float time = 0.0f;
-    private float effectTime;
+    private float effectTime = 0.0f;
 
     void Start()
     {

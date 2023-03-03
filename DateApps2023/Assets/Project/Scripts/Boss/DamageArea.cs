@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DamageArea : MonoBehaviour
 {
-    public BossAttack bossAttack;
-    float time = 0.0f;
-    float destroyTime;
+    public BossAttack BossAttack = null;
+    private float time           = 0.0f;
+    private float destroyTime    = 0.0f;
 
     private void Start()
     {
-        destroyTime = bossAttack.BeamOffTimeMax();
+        destroyTime = BossAttack.BeamOffTimeMax();
     }
     void Update()
     {

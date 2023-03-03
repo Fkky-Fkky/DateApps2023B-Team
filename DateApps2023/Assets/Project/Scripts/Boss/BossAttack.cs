@@ -1,90 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-//using UnityEditorInternal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class BossAttack : MonoBehaviour
 {
-    private float time = 0.0f;
-
-    private float attackIntervalTime;
+    [SerializeField]
+    private Animator attackAnimation = null;
 
     [SerializeField]
-    Animator attackAnimation = null;
-
-    float centerTarget = 0.0f;
-    float rightTarget = 0.1f;
-    float leftTarget = -0.1f;
-
-
+    private GameObject dmageAreaCenter = null;
     [SerializeField]
-    GameObject dmageAreaCenter;
+    private GameObject damageAreaRight = null;
     [SerializeField]
-    GameObject damageAreaRight;
-    [SerializeField]
-    GameObject damageAreaLeft;
+    private GameObject damageAreaLeft  = null;
 
     [SerializeField]
-    private Transform chargePos;
+    private Transform chargePos     = null;
+    [SerializeField]
+    private GameObject chargeEffect = null;
+    [SerializeField]
+    private float chageTimeMax      = 10.0f;
+
+    [SerializeField]
+    private GameObject dangerZone = null;
+
+    [SerializeField]
+    private BossMove bossMove     = null;
+    [SerializeField]
+    private BossDamage bossDamage = null;
+
+    [SerializeField]
+    private AudioClip beamSE = null;
+
+
+    private float time               = 0.0f;
+    private float attackIntervalTime = 0.0f;
+
+    private const float centerTarget =  0.0f;
+    private const float rightTarget  =  0.1f;
+    private const float leftTarget   = -0.1f;
 
     public bool IsCharge { get; private set; }
+    private float chargeTime = 0.0f;
 
-
-    [SerializeField]
-    private GameObject chargeEffect;
-    private int effectStop = 0;
-
+    private int effectStop              = 0;
     private List<GameObject> effectList = new List<GameObject>();
-
-    [SerializeField]
-    private GameObject dangerZone;
 
     private Vector3 dangerCenter = new Vector3(  0.0f, -1.2f, 0.0f);
     private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
     private Vector3 dangerRigth  = new Vector3( 10.0f, -1.2f, 0.0f);
 
     private List<GameObject> dangerAreaList = new List<GameObject>();
+    private const float dangerObjectAngleY  = 180.0f;
 
-    private float dangerAngle = 180.0f;
+    private int areaCount          = 0;
+    private const int areaCountMax = 1;
 
-    int areaCount;
-    int areaCountMax = 1;
+    private float beamOffTime          = 0.0f;
+    private const float beamOffTimeMax = 2.0f;
 
-    float beamOffTime    = 0.0f;
-    float beamOffTimeMax = 2.0f;
-
-    public bool isAttack = false;
-
+    public bool IsAttack     = false;
     private bool isAttackAll = false;
 
-    private float beamTime    = 0.0f;
-    [SerializeField]
-    private float beamTimeMax = 10.0f;
+    private AudioSource audioSource = null;
+    private int seCount             = 0;
+    private const int seCountMax    = 1;
 
-    private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip beamSE;
-
-    private int seCount = 0;
-
-    public BossMove bossMove;
-
-    public BossDamage bossDamage;
-
-    private BossCSVGenerator bossCSVGenerator;
+    private BossCSVGenerator bossCSVGenerator = null;
 
     private void Start()
     {
-        areaCount= 0;
-        isAttack = false;
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
-
         audioSource = GetComponent<AudioSource>();
 
         attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
-
         IsCharge = false;
     }
     
@@ -92,38 +83,25 @@ public class BossAttack : MonoBehaviour
     {
         if (!bossMove.IsAttackOff())
         {
-            if (!bossDamage.isInvincible)
+            if (!bossDamage.IsInvincible)
             {
                 Attack();
             }
-
         }
 
-        
-
-        if (bossDamage.isTrance || bossMove.bossHp <= 0||bossDamage.isInvincible)
+        if (bossMove.BossHp <= 0 || bossDamage.IsInvincible)
         {
-
             AttackOff();
-            for (int i = 0; i < effectList.Count; i++)
-            {
-                Destroy(effectList[i]);
-                effectList.RemoveAt(i);
-            }
 
-            for (int i = 0; i < dangerAreaList.Count; i++)
-            {
-                Destroy(dangerAreaList[i]);
-                dangerAreaList.RemoveAt(i);
-            }
+            ListDestroy(effectList);
+            ListDestroy(dangerAreaList);
         }
-
     }
 
     private void Attack()
     {
         time += Time.deltaTime;
-        if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
+        if (bossMove.BossHp > 0 && !bossDamage.IsDamage())
         {
             if (time >= attackIntervalTime)
             {
@@ -141,9 +119,7 @@ public class BossAttack : MonoBehaviour
         {
             effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
             DangerZone();
-
             IsCharge = true;
-
             effectStop++;
         }
         else
@@ -152,53 +128,49 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-
     private void DangerZone()
     {
-        if (gameObject.tag == "Center")
+        switch (gameObject.tag)
         {
-            dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
-        }
-
-        if (gameObject.tag == "Left")
-        {
-            dangerAreaList.Add(Instantiate(dangerZone, dangerLeft,   Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
-        }
-
-        if (gameObject.tag == "Right")
-        {
-            dangerAreaList.Add(Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
+            case "Center":
+                dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, dangerObjectAngleY, 0.0f)));
+                break;
+            case "Left":
+                dangerAreaList.Add(Instantiate(dangerZone, dangerLeft, Quaternion.Euler(0.0f, dangerObjectAngleY, 0.0f)));
+                break;
+            case "Right":
+                dangerAreaList.Add(Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, dangerObjectAngleY, 0.0f)));
+                break;
         }
     }
+
     void AttackAnimation()
     {
-         beamTime += Time.deltaTime;
-        if (beamTime >= beamTimeMax)
+         chargeTime += Time.deltaTime;
+        if (chargeTime >= chageTimeMax)
         {
-            isAttack = true;
+            IsAttack = true;
             DamageAreaControl();
         }
-        else if (beamTime < beamTimeMax && bossDamage.IsBossDamage())
+        else if (chargeTime < chageTimeMax && bossDamage.IsBossDamage())
         {
             AttackOff();
+            ListDestroy(effectList);
+            ListDestroy(dangerAreaList);
+        }
+    }
 
-            for (int i = 0; i < effectList.Count; i++)
-            {
-                Destroy(effectList[i]);
-                effectList.RemoveAt(i);
-            }
-
-            for (int i = 0; i < dangerAreaList.Count; i++)
-            {
-                Destroy(dangerAreaList[i]);
-                dangerAreaList.RemoveAt(i);
-            }
-
+    void ListDestroy(List<GameObject> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            Destroy(list[i]);
+            list.RemoveAt(i);
         }
     }
     void DamageAreaControl()
     {
-        if (seCount < 1)
+        if (seCount < seCountMax)
         {
             audioSource.PlayOneShot(beamSE);
             seCount++;
@@ -206,29 +178,15 @@ public class BossAttack : MonoBehaviour
 
         if (gameObject.transform.position.x == centerTarget)
         {
-            if (areaCount < areaCountMax)
-            {
-                Instantiate(dmageAreaCenter);
-                areaCount++;
-            }
+            DamageObject(dmageAreaCenter);
         }
-
         if (gameObject.transform.position.x >= rightTarget)
         {
-            if (areaCount < areaCountMax)
-            {
-                Instantiate(damageAreaRight);
-                areaCount++;
-            }
+            DamageObject(damageAreaRight);
         }
-
         if (gameObject.transform.position.x <= leftTarget)
         {
-            if (areaCount < areaCountMax)
-            {
-                Instantiate(damageAreaLeft);
-                areaCount++;
-            }
+            DamageObject(damageAreaLeft);
         }
 
         beamOffTime += Time.deltaTime;
@@ -238,23 +196,31 @@ public class BossAttack : MonoBehaviour
         }
     }
 
+    private void DamageObject(GameObject damageArea)
+    {
+        if (areaCount < areaCountMax)
+        {
+            Instantiate(damageArea);
+            areaCount++;
+        }
+    }
+
     private void AttackOff()
     {
-        isAttack = false;
+        IsAttack = false;
         isAttackAll = false;
         effectStop = 0;
         attackAnimation.SetBool("Attack", false);
         seCount = 0;
-        beamTime = 0.0f;
+        chargeTime = 0.0f;
         beamOffTime = 0.0f;
         areaCount = 0;
         time = 0.0f;
-
     }
 
     public float BeamTimeMax()
     {
-        return beamTimeMax;
+        return chageTimeMax;
     }
 
     public float BeamOffTimeMax()
