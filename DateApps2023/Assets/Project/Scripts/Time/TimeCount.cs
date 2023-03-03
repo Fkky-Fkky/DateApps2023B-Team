@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using System.Reflection;
 
 public class TimeCount : MonoBehaviour
 {
-    [SerializeField]
-    private int minutesCount = 3;
-    private float secondsCount;
+    public static float secondsCount;
+    private bool isMain = true;
 
-    [SerializeField]
     TextMeshProUGUI timeCdTMP;
 
     [SerializeField]
@@ -21,20 +19,28 @@ public class TimeCount : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        secondsCount = minutesCount * 60;
+        timeCdTMP = GetComponent<TextMeshProUGUI>();
+        secondsCount = 0.0f;
+        isMain = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        secondsCount -= Time.deltaTime;
-        timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00"); ;
-
-        if (secondsCount <= 0)
+        if (isMain)
         {
-            SceneManager.LoadScene(sceneName);
-
+            secondsCount += Time.deltaTime;
+            timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00");
         }
 
+        //if (secondsCount >= 180)
+        //{
+        //    isMain = false;
+        //}
+    }
+
+    public static float GetTime()
+    {
+        return secondsCount;
     }
 }

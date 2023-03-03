@@ -1,18 +1,147 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCarryDown : MonoBehaviour
 {
-    // Start is called before the first frame update
+    #region
+
+    private bool isCarry = false;
+    private GameObject carryItem = null;
+
+    private Rigidbody rb;
+    private BoxCollider myCol;
+
+    private bool canUsed = false;
+
+    private int myPlayerNo = 5;
+
+    private PlayerMove playermove = null;
+    private CarryEnergy energyItem;
+    private CarryCannon cannonItem;
+
+    private int myGroupNo = 1;
+
+    private bool carryDamage = false;
+
+    #endregion
+
     void Start()
     {
-        
-    }
+        rb = GetComponentInParent<Rigidbody>();
+        playermove = GetComponentInParent<PlayerMove>();
 
-    // Update is called once per frame
+        myCol = GetComponent<BoxCollider>();
+    }
     void Update()
     {
-        
+        if (!carryDamage)
+        {
+            if (Gamepad.all[myPlayerNo].bButton.wasPressedThisFrame)
+            {
+                if(!isCarry)
+                {
+                    if (canUsed)
+                    {
+                        if (carryItem.CompareTag("item"))
+                        {
+                            energyItem = carryItem.GetComponent<CarryEnergy>();
+                            energyItem.GetGrabPoint(this.gameObject);
+                            myGroupNo = energyItem.groupNumber;
+                            isCarry = true;
+                            canUsed = false;
+                            playermove.GetItem(myGroupNo);
+                        }
+                        if (carryItem.CompareTag("Cannon"))
+                        {
+                            if (!carryItem.GetComponent<CannonShot>().IsShotting)
+                            {
+                                cannonItem = carryItem.GetComponent<CarryCannon>();
+                                cannonItem.GetGrabPoint(this.gameObject);
+                                myGroupNo = cannonItem.groupNumber;
+                                isCarry = true;
+                                canUsed = false;
+                                playermove.GetItem(myGroupNo);
+                            }
+                        }
+                    }
+                }
+            }
+            if (Gamepad.all[myPlayerNo].bButton.wasReleasedThisFrame)
+            {
+                if (isCarry)
+                {
+                    CarryCancel();
+                }
+            }
+
+        }
+
+        if (isCarry)
+        {
+            myCol.enabled = false;
+        }
+        if (carryItem == null)
+        {
+            isCarry = false;
+            canUsed = false;
+            myCol.enabled = true;
+        }
     }
+
+    void OnTriggerStay(Collider collision)
+    {
+        if (!isCarry)
+        {
+            if (collision.gameObject.CompareTag("item")
+                || collision.gameObject.CompareTag("Cannon"))
+            {
+                canUsed = true;
+                carryItem = collision.gameObject;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (!isCarry)
+        {
+            if (collision.gameObject.CompareTag("item")
+                || collision.gameObject.CompareTag("Cannon"))
+            {
+                canUsed = false;
+                carryItem = null;
+            }
+        }
+    }
+
+    public void CarryCancel()
+    {
+        playermove.RemoveItem();
+        rb = GetComponentInParent<Rigidbody>();
+
+        isCarry = false;
+        canUsed = false;
+        carryItem = null;
+        energyItem = null;
+        cannonItem = null;
+        myCol.enabled = true;
+    }
+
+    public void GetPlayerNo(int parentNumber)
+    {
+        myPlayerNo = parentNumber;
+    }
+
+    public void OnCarryDamage()
+    {
+        carryDamage = true;
+    }
+
+    public void OffCarryDamage()
+    {
+        carryDamage = false;
+    }
+
 }

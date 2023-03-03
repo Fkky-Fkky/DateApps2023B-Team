@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
-
     [SerializeField]
     private Transform target;
     private float targetRange;
@@ -28,16 +29,16 @@ public class BossController : MonoBehaviour
     void Update()
     {
         targetRange = gameObject.transform.position.z - target.position.z;
-        BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
+        //BossDistanceTMP.text = "BOSS:" + ((int)targetRange/1000).ToString("0")+"."+ ((int)targetRange % 1000).ToString("000") + "km";
+        
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "FailedLine")
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-    }
-
+    private void OnTriggerEnter(Collider other)
+  {
+      if(other.gameObject.tag == "FailedLine")
+      {
+          SceneManager.LoadScene(sceneName);
+      }
+  }
 }

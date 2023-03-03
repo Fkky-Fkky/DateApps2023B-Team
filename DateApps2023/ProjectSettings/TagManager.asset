@@ -6,11 +6,31 @@ TagManager:
   tags:
   - FailedLine
   - hantei
-  - item4
-  - item2
   - item
-  - item3
-  - CloneSabotageItem
+  - Wall
+  - Group
+  - BoomEffect
+  - SmokeEffect
+  - ShockWaveEffect
+  - SteelFrame
+  - Group1
+  - Group2
+  - Group3
+  - Group4
+  - Cannon
+  - PlayerAttackPoint
+  - item4
+  - BossAttack
+  - Center
+  - Left
+  - Right
+  - Boss
+  - CannonStand
+  - Enemy
+  - TimerText
+  - thin wall
+  - BossFellDownCount
+  - DangerZoon
   layers:
   - Default
   - TransparentFX
@@ -19,10 +39,10 @@ TagManager:
   - Water
   - UI
   - SabotageItem
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Group
+  - Item
+  - SteelFrame
   - 
   - 
   - 
