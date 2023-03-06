@@ -396,13 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carryEmoteIcon: {fileID: 21300000, guid: 55b742e0ddd85a64db1927c8d07897d8, type: 3}
-  startTime: 0.3
-  endTime: 0.3
-  moveY: 0.2
-  smallTime: 0.5
-  bigTime: 0.5
-  sizeChange: 0.25
-  startSizeChange: 0.2
+  myEmoteData: {fileID: 11400000, guid: e97d5fa4921fb4e45a12410f4a254ed8, type: 2}
 --- !u!212 &6926027798167811960
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1023,14 +1017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emoteIconL: {fileID: 21300000, guid: eb79c63515d0305439c4a8b2079cf877, type: 3}
   emoteIconR: {fileID: 21300000, guid: f6a32834e68c78b48a54c7210944e751, type: 3}
+  myEmoteData: {fileID: 11400000, guid: 364424650f3222c4a9445872d39e59c7, type: 2}
   emoteTime: 2.4
-  startTime: 0.2
-  endTime: 0.2
-  moveY: 1.2
-  smallTime: 0.4
-  bigTime: 0.4
-  sizeChange: 0.8
-  startSizeChange: 4
 --- !u!212 &3756620022532897378
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1337,15 +1325,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stanTime: 10
   captureTime: 10
-  EndStanCount: 3
-  EndCaptureCount: 1
+  endStanCount: 3
+  endCaptureCount: 1
+  damageEffectPosY: -2
+  captureEffectPosY: -1
+  damageEffectInterval: 0.75
   stanBoxCol: {fileID: 12537776404337732}
   knockbackEffect: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
   stanEffect: {fileID: 5659291355382750488, guid: b3db7d4d711f94d4796743baa5ba7a38, type: 3}
-  damageEffectInterval: 0.75
   damageStanPoint: {fileID: 2157883639207442247}
-  damageEffectPosY: -2
-  captureEffectPosY: -1
   stanSound: {fileID: 8300000, guid: 7a86a89bae6edb44583b4049eb7957a0, type: 3}
   knockbackSound: {fileID: 8300000, guid: 5085e4785f1fed94e85533beba9841c0, type: 3}
 --- !u!136 &7644300349639810741

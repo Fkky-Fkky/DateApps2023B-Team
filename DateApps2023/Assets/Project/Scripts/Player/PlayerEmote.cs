@@ -13,28 +13,10 @@ public class PlayerEmote : MonoBehaviour
     private Sprite emoteIconR = null;
 
     [SerializeField]
+    private EmoteData myEmoteData = null;
+
+    [SerializeField]
     private float emoteTime = 2.0f;
-
-    [SerializeField]
-    private float startTime = 0.4f;
-
-    [SerializeField]
-    private float endTime = 0.4f;
-
-    [SerializeField]
-    private float moveY = 0.2f;
-
-    [SerializeField]
-    private float smallTime = 0.4f;
-
-    [SerializeField]
-    private float bigTime = 0.4f;
-
-    [SerializeField]
-    private float sizeChange = 0.2f;
-
-    [SerializeField]
-    private float startSizeChange = 0.2f;
 
     private SpriteRenderer spriteRenderer = null;
     private Transform cameraPos = null;
@@ -42,6 +24,14 @@ public class PlayerEmote : MonoBehaviour
     private int myPlayerNo = 5;
     private float time = 0.0f;
     private float scaleTime = 0.0f;
+
+    private float startTime = 0.4f;
+    private float endTime = 0.4f;
+    private float moveY = 0.2f;
+    private float smallTime = 0.4f;
+    private float bigTime = 0.4f;
+    private float sizeChange = 0.2f;
+    private float startSizeChange = 0.2f;
 
     private bool isEmote = false;
     private bool isSmall = false;
@@ -61,6 +51,14 @@ public class PlayerEmote : MonoBehaviour
 
         time = 0.0f;
         scaleTime = 0.0f;
+
+        startTime = myEmoteData.StartTime;
+        endTime = myEmoteData.EndTime;
+        moveY = myEmoteData.MoveY;
+        smallTime = myEmoteData.SmallTime;
+        bigTime = myEmoteData.BigTime;
+        sizeChange = myEmoteData.SizeChange;
+        startSizeChange = myEmoteData.StartSizeChange;
 
         isEmote = false;
         isSmall = false;

@@ -1820,6 +1820,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 911247713468284098, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
+      propertyPath: dataObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 364424650f3222c4a9445872d39e59c7, type: 2}
     - target: {fileID: 3208193845221082735, guid: 5348f6079b879294489eb2c66ec61259, type: 3}
       propertyPath: m_Constraints
       value: 112
