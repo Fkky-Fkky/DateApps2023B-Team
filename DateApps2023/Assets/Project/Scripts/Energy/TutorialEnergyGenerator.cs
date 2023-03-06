@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// チュートリアル中に使用する、エネルギー物資の生成処理を行う 
+/// </summary>
 public class TutorialEnergyGenerator : EnergyGeneratorBase
 {
     private bool isFirstGenerate = false;
     private bool isSecondGenerate = false;
     private bool isSecondGenerateSet = false;
-
-    private const int FIRST_GENERATE_NUM = 2;
-    private const int MAX_GENERATE = 4;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +27,9 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         }
     }
 
+    /// <summary>
+    /// エネルギー物資の生成
+    /// </summary>
     public override void Generate()
     {
         if (!isFirstGenerate)
@@ -41,6 +42,9 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         EnergyGenerate();
     }
 
+    /// <summary>
+    /// 生成するエネルギー物資の種類を選択
+    /// </summary>
     protected override void GenerateEnergyType()
     {
         if (isSecondGenerate)
@@ -62,6 +66,9 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         base.RemoveList();
     }
 
+    /// <summary>
+    /// 初回生成処理
+    /// </summary>
     private void FirstGenerate()
     {
         if (isFirstGenerate)
@@ -72,6 +79,7 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
 
         GenerateEnergyType();
         FirstGeneratePosition();
+        const int FIRST_GENERATE_NUM = 2;
         for (int i = 0; i < FIRST_GENERATE_NUM; i++)
         {
             Vector3 position = new Vector3(createPositionList[i + 1].x, GENERATE_POS_Y, createPositionList[i + 1].z);
@@ -81,12 +89,16 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         createEnergyTypeList.Clear();
     }
 
+    /// <summary>
+    /// 初回生成時のエネルギー物資を設置する座標生成
+    /// </summary>
     private void FirstGeneratePosition()
     {
         int miss = 0;
         int energyType = createEnergyTypeList[0];
         int generateNum = 0;
         Vector3 genaratePos = Vector3.one;
+        const int MAX_GENERATE = 4;
         while (generateNum < MAX_GENERATE)
         {
             genaratePos.x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
@@ -107,6 +119,9 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         }
     }
 
+    /// <summary>
+    /// チュートリアル第二フェーズ移行処理
+    /// </summary>
     private void SecondGenerateSet()
     {
         if (isSecondGenerateSet)

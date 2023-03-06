@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 大砲の発射処理クラス
+/// </summary>
 public class CannonShot : MonoBehaviour
 {
     [SerializeField]
@@ -34,9 +35,6 @@ public class CannonShot : MonoBehaviour
     private bool isCoolTime = false;
     private AudioSource audioSource = null;
     private GameObject shotCharge = null;
-
-    private const float MAX_COOL_TIME = 3.0f;
-    private const float INVOKE_TIME = 2.0f;
 
     private void Start()
     {
@@ -74,22 +72,33 @@ public class CannonShot : MonoBehaviour
         ShotCancel();
     }
 
+    /// <summary>
+    /// 発射処理
+    /// </summary>
     public void Shot()
     {
+        const float INVOKE_TIME = 2.0f;
         IsShotting = true;
         energyType = energyCharge.ChrgeEnergyType;
         CreateChageEffect();
         Invoke(nameof(CreateSmoke), INVOKE_TIME);
     }
 
+    /// <summary>
+    /// ビーム発射前のエフェクト生成
+    /// </summary>
     private void CreateChageEffect()
     {
         shotCharge = Instantiate(shotChargeEffects[energyType], smokePosition);
         audioSource.PlayOneShot(beamSe[energyType]);
     }
 
+    /// <summary>
+    /// 発射時の煙生成
+    /// </summary>
     private void CreateSmoke()
     {
+        const float MAX_COOL_TIME = 3.0f;
         Instantiate(smokeEffects[energyType], smokePosition);
         coolTime   = MAX_COOL_TIME;
         IsNowShot  = true;
@@ -98,12 +107,18 @@ public class CannonShot : MonoBehaviour
         energyCharge.DisChargeEnergy();
     }
 
+    /// <summary>
+    /// ビームのエフェクト終了処理
+    /// </summary>
     private void LaserEnd()
     {
         IsNowShot = false;
         CreateCoolDownEffects();
     }
 
+    /// <summary>
+    /// クールダウンエフェクト生成
+    /// </summary>
     private void CreateCoolDownEffects()
     {
         for (int i = 0; i < coolTimePos.Length; i++)
@@ -112,6 +127,9 @@ public class CannonShot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 発射キャンセル処理
+    /// </summary>
     private void ShotCancel()
     {
         coolTime   = 0.0f;

@@ -16,8 +16,6 @@ public class EnergyGenerator : MonoBehaviour
     private bool IsGeneratorChange = false;
     private EnergyGeneratorBase generator = null;
 
-    private const int ADD_GENERATE = 2;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +37,7 @@ public class EnergyGenerator : MonoBehaviour
         if (gameManager.IsGammeStart)
         {
             generator = normalGenerator;
+            const int ADD_GENERATE = 2;
             for (int i = 0; i < ADD_GENERATE; ++i)
             {
                 Generate();
