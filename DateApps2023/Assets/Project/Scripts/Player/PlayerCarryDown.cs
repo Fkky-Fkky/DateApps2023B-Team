@@ -114,7 +114,7 @@ public class PlayerCarryDown : MonoBehaviour
         {
             energyItem = carryItem.GetComponent<CarryEnergy>();
             energyItem.GetGrabPoint(this.gameObject);
-            myGroupNo = energyItem.groupNumber;
+            myGroupNo = energyItem.GroupNumber;
             isCarry = true;
             isCanUsed = false;
             playermove.GetItem(myGroupNo);
@@ -125,7 +125,7 @@ public class PlayerCarryDown : MonoBehaviour
             {
                 cannonItem = carryItem.GetComponent<CarryCannon>();
                 cannonItem.GetGrabPoint(this.gameObject);
-                myGroupNo = cannonItem.groupNumber;
+                myGroupNo = cannonItem.GroupNumber;
                 isCarry = true;
                 isCanUsed = false;
                 playermove.GetItem(myGroupNo);

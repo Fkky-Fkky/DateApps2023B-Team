@@ -25,7 +25,7 @@ public class CarryEnergy : MonoBehaviour
     private int number = 0;
     private bool isGroup = false;
 
-    public int groupNumber = 1;
+    public int GroupNumber = 1;
 
     public enum ItemSize
     {
@@ -52,7 +52,7 @@ public class CarryEnergy : MonoBehaviour
         number = 0;
         isGroup = false;
 
-        groupNumber = 1;
+        GroupNumber = 1;
     }
 
     public void GetGrabPoint(GameObject thisGrabPoint)
@@ -67,7 +67,7 @@ public class CarryEnergy : MonoBehaviour
 
         while (!isGroup)
         {
-            GameObject group = GameObject.FindWithTag("Group" + groupNumber);
+            GameObject group = GameObject.FindWithTag("Group" + GroupNumber);
             playercontroller = group.GetComponent<PlayerController>();
 
             if (group.transform.childCount <= 0)
@@ -86,10 +86,10 @@ public class CarryEnergy : MonoBehaviour
             }
             else
             {
-                groupNumber += 1;
-                if (groupNumber > 4)
+                GroupNumber += 1;
+                if (GroupNumber > 4)
                 {
-                    groupNumber = 1;
+                    GroupNumber = 1;
                 }
                 playercontroller = null;
             }
