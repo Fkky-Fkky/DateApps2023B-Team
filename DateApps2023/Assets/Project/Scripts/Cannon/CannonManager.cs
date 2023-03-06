@@ -1,17 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 大砲のマネージャークラス
+/// </summary>
 public class CannonManager : MonoBehaviour
 {
     [SerializeField]
-    private CannonConnect[] cannonConnect = new CannonConnect[2];
+    private List<CannonConnect> cannonConnect = new List<CannonConnect>();
 
     [SerializeField]
-    private CannonShot[] cannonShot = new CannonShot[2];
+    private List<CannonShot> cannonShot = new List<CannonShot>();
 
     [SerializeField]
-    private EnergyCharge[] energyCharge = new EnergyCharge[2];
+    private List<EnergyCharge> energyCharge = new List<EnergyCharge>();
 
     private List<int>  isShotEnergyTypeList = new List<int>();
     private List<int>  connectingPosList    = new List<int>();
@@ -19,6 +21,10 @@ public class CannonManager : MonoBehaviour
 
     const int CANNON_MAX = 2;
 
+    /// <summary>
+    /// 大砲の数を返す
+    /// </summary>
+    /// <returns>大砲の数</returns>
     public int CanonMax { get { return CANNON_MAX; } }
 
     private void Start()
@@ -31,6 +37,10 @@ public class CannonManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 大砲が発射しているかを返す
+    /// </summary>
+    /// <returns>大砲が発射しているかをリストで返す</returns>
     public List<bool> IsShooting
     {
         get
@@ -43,6 +53,10 @@ public class CannonManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 発射するエネルギーの種類を返す
+    /// </summary>
+    /// <returns>発射しているエネルギーをリストで返す</returns>
     public List<int> IsShotEnergyType
     {
         get
@@ -55,6 +69,10 @@ public class CannonManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 設置されている大砲の場所を返す
+    /// </summary>
+    /// <returns>設置されている大砲の場所をリストで返す</returns>
     public List<int> DoConnectingPos
     {
         get
@@ -67,6 +85,10 @@ public class CannonManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// エネルギーが大砲にチャージされたかを返す
+    /// </summary>
+    /// <returns>一つ目の大砲にエネルギーがチャージされているかを返す</returns>
     public bool IsFirstCharge()
     {
         return energyCharge[0].IsEnergyCharged();
