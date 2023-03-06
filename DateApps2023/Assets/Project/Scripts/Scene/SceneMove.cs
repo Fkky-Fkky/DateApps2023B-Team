@@ -27,7 +27,7 @@ public class SceneMove : MonoBehaviour
     [SerializeField]
     private float changeTime = 20.0f;
 
-    private AudioSource audioSource;
+    private AudioSource audioSource = null;
     private float time = 0.0f;
 
     private bool isPlaying = false;

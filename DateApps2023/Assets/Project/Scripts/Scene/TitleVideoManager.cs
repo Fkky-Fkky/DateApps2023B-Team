@@ -16,7 +16,7 @@ public class TitleVideoManager : MonoBehaviour
     private Animator animationImage = null;
 
     [SerializeField]
-    private RawImage playVideoScreen;
+    private RawImage playVideoScreen = null;
 
     [SerializeField]
     private Vector2 videoSize = new Vector2(1920.0f, 1080.0f);
@@ -30,8 +30,8 @@ public class TitleVideoManager : MonoBehaviour
     [SerializeField]
     private bool hasLogoSkip = true;
 
-    private TitleSceneMove titleSceneMove;
-    private VideoPlayer videoPlayer;
+    private TitleSceneMove titleSceneMove = null;
+    private VideoPlayer videoPlayer = null;
     private RenderTexture renderTexture = null;
 
     private float time = 0.0f;

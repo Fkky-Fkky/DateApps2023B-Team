@@ -21,13 +21,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     PlayerNumber playerNumber = PlayerNumber.None;
 
-    private PlayerCarryDown carryDown;
-    private PlayerAttack attack;
-    private PlayerEmote emote;
-    private CarryEmote carryEmote;
+    private PlayerCarryDown carryDown = null;
+    private PlayerAttack attack = null;
+    private PlayerEmote emote = null;
+    private CarryEmote carryEmote = null;
 
-    private Rigidbody rb;
-    private Animator animationImage;
+    private Rigidbody rb = null;
+    private Animator animationImage = null;
     private GameObject enterItem = null;
 
     private int playerNo = 5;

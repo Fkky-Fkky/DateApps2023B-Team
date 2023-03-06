@@ -6,10 +6,10 @@ public class AudioMaster : MonoBehaviour
 {
     #region
     [SerializeField]
-    private AudioClip[] firstBGM;
+    private AudioClip[] firstBGM = null;
 
     [SerializeField]
-    private AudioClip[] secondBGM;
+    private AudioClip[] secondBGM = null;
 
     [SerializeField]
     private int changeKillCount = 5;
@@ -17,7 +17,7 @@ public class AudioMaster : MonoBehaviour
     [SerializeField]
     private float fadeOutTime = 5.0f;
 
-    private AudioSource audioSource;
+    private AudioSource audioSource = null;
 
     private int number = 0;
     private float fadeTime = 0.0f;

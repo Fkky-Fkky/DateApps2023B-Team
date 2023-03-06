@@ -36,8 +36,8 @@ public class PlayerEmote : MonoBehaviour
     [SerializeField]
     private float startSizeChange = 0.2f;
 
-    private SpriteRenderer spriteRenderer;
-    private Transform cameraPos;
+    private SpriteRenderer spriteRenderer = null;
+    private Transform cameraPos = null;
 
     private int myPlayerNo = 5;
     private float time = 0.0f;
@@ -47,10 +47,10 @@ public class PlayerEmote : MonoBehaviour
     private bool isSmall = false;
     private bool isBig = false;
 
-    private Vector3 defaultPos;
+    private Vector3 defaultPos = Vector3.zero;
     private Vector3 movePos = Vector3.zero;
-    private Vector3 defaultSize;
-    private Vector3 setSize;
+    private Vector3 defaultSize = Vector3.zero;
+    private Vector3 setSize = Vector3.zero;
     #endregion
 
     // Start is called before the first frame update

@@ -15,14 +15,14 @@ public class TimeCount : MonoBehaviour
     private TextMeshProUGUI timeCdTMP = null;
     private bool isMain = true;
 
-    public static float secondsCount;
+    public static float SecondsCount = 0;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         timeCdTMP = GetComponent<TextMeshProUGUI>();
-        secondsCount = 0.0f;
+        SecondsCount = 0.0f;
         isMain = true;
     }
 
@@ -31,13 +31,13 @@ public class TimeCount : MonoBehaviour
     {
         if (isMain)
         {
-            secondsCount += Time.deltaTime;
-            timeCdTMP.text = ((int)(secondsCount / 60)).ToString("00") + ":" + ((int)secondsCount % 60).ToString("00");
+            SecondsCount += Time.deltaTime;
+            timeCdTMP.text = ((int)(SecondsCount / 60)).ToString("00") + ":" + ((int)SecondsCount % 60).ToString("00");
         }
     }
 
     public static float GetTime()
     {
-        return secondsCount;
+        return SecondsCount;
     }
 }

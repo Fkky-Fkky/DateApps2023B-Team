@@ -46,16 +46,16 @@ public class PlayerDamage : MonoBehaviour
     [SerializeField]
     private AudioClip knockbackSound = null;
 
-    private PlayerMove playerMove;
-    private PlayerCarryDown playerCarryDown;
-    private PlayerAttack playerAttack;
+    private PlayerMove playerMove = null;
+    private PlayerCarryDown playerCarryDown = null;
+    private PlayerAttack playerAttack = null;
     private Enemy enemyScript = null;
 
     private GameObject cloneStanEffect = null;
-    private Animator animationImage;
-    private Rigidbody rb;
-    private CapsuleCollider capsuleCol;
-    private AudioSource audioSource;
+    private Animator animationImage = null;
+    private Rigidbody rb = null;
+    private CapsuleCollider capsuleCol = null;
+    private AudioSource audioSource = null;
 
     private int knockCount = 0;
     private int myPlayerNo = 5;

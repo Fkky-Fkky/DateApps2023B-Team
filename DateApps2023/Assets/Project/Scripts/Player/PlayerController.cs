@@ -26,13 +26,13 @@ public class PlayerController : MonoBehaviour
     private int carryTextOrderInLayer = 0;
 
     [SerializeField]
-    private float[] smallCarrySpeed;
+    private float[] smallCarrySpeed = null;
 
     [SerializeField]
-    private float[] midiumCarrySpeed;
+    private float[] midiumCarrySpeed = null;
 
     [SerializeField]
-    private float[] largeCarrySpeed;
+    private float[] largeCarrySpeed = null;
 
 
     private Rigidbody rb = null;

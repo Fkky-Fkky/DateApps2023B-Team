@@ -6,9 +6,9 @@ using UnityEngine;
 public class ScoreResult : MonoBehaviour
 {
     #region
-    private TextMeshProUGUI scoreTMP;
-    private int killCount;
-    private float scoreSecondsTime;
+    private TextMeshProUGUI scoreTMP = null;
+    private int killCount = 0;
+    private float scoreSecondsTime = 0;
     #endregion
 
     // Start is called before the first frame update

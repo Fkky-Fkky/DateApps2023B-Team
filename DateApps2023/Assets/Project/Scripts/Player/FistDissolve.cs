@@ -17,7 +17,7 @@ public class FistDissolve : MonoBehaviour
     [SerializeField]
     private float pushForward = 0.8f;
 
-    private new Renderer renderer;
+    private new Renderer renderer = null;
 
     private float time = 0.0f;
     private float value = 0.0f;

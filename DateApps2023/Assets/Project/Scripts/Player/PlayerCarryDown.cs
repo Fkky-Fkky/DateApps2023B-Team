@@ -7,12 +7,12 @@ public class PlayerCarryDown : MonoBehaviour
 {
     #region
     private PlayerMove playermove = null;
-    private CarryEnergy energyItem;
-    private CarryCannon cannonItem;
+    private CarryEnergy energyItem = null;
+    private CarryCannon cannonItem = null;
 
     private GameObject carryItem = null;
-    private Rigidbody rb;
-    private BoxCollider myCol;
+    private Rigidbody rb = null;
+    private BoxCollider myCol = null;
 
     private int myPlayerNo = 5;
     private int myGroupNo = 1;

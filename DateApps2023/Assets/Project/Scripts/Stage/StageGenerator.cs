@@ -6,7 +6,7 @@ public class StageGenerator : MonoBehaviour
 {
     #region
     [SerializeField]
-    private GameObject[] stagePattern;
+    private GameObject[] stagePattern = null;
 
     [SerializeField]
     private Vector3 generatePos = Vector3.zero;
