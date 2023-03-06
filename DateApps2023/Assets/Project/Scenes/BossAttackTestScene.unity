@@ -341,7 +341,7 @@ PrefabInstance:
     - target: {fileID: 4434604464453913848, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: csv
       value: 
-      objectReference: {fileID: 1873292072}
+      objectReference: {fileID: 1921732233}
     - target: {fileID: 4434604464453913848, guid: c6998665ad4b0e842b64421ca4259ecc, type: 3}
       propertyPath: boss
       value: 
@@ -879,7 +879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2494596621792759802, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Enabled
@@ -1110,7 +1110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: playerNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_Constraints
@@ -1639,6 +1639,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossCSV
+      value: 
+      objectReference: {fileID: 1242769392}
+    - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: opretar
+      value: 
+      objectReference: {fileID: 598793464}
+    - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: sidePos
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossManager
+      value: 
+      objectReference: {fileID: 131766972}
+    - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossCountMax
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossCSV
       value: 
@@ -1919,7 +1939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_Constraints
@@ -2005,7 +2025,7 @@ PrefabInstance:
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: bossCSVGenerator
       value: 
-      objectReference: {fileID: 1873292072}
+      objectReference: {fileID: 1921732233}
     - target: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
       propertyPath: bossIntervalTime
       value: 30
@@ -2262,15 +2282,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49215fd0572030140b540e6752f3ffb7, type: 3}
---- !u!114 &1873292072 stripped
+--- !u!114 &1921732233 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
   m_PrefabInstance: {fileID: 1287072193}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07c20481f463104cb93ccc5c82807ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e80d1d0546a6a74baa51793d522b00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2015036413
@@ -2845,7 +2865,7 @@ PrefabInstance:
       objectReference: {fileID: 131766972}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: MoveKillCount
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: FadeOutAnimator

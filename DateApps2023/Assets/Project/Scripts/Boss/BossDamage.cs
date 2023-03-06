@@ -6,60 +6,53 @@ using UnityEngine.UI;
 
 public class BossDamage : MonoBehaviour
 {
-
-    [SerializeField] Animator AnimationImage = null;
-
-    [SerializeField]
-    private Transform damagePoint = null;
-
-    [SerializeField]
-    private GameObject explosionEffect = null;
-    [SerializeField]
-    private GameObject fellDownEffect = null;
-
     [SerializeField]
     private float invincibleTimeMax = 4.0f;
 
     [SerializeField]
-    private GameObject hpCores = null;
+    private GameObject explosionEffect = null;
+    [SerializeField]
+    private GameObject fellDownEffect  = null;
 
     [SerializeField]
-    private GameObject[] hpBar = new GameObject[9];
-
+    private GameObject hpCores    = null;
+    [SerializeField]
+    private GameObject[] hpBar    = new GameObject[9];
     [SerializeField]
     private GameObject[] hpMemori = new GameObject[9];
 
-    public BossCount BossCount = null;
-    private BossMove bossMove = null;
+    [SerializeField]
+    private Animator animationImage = null;
 
-    private DamageCSV damageCSV = null;
+    [SerializeField]
+    private Transform damagePoint = null;
 
-    private const float effectPosY = -40.0f;
-
-    public bool IsInvincible { get; private set; }
-    private float invincibleTime = 0.0f;
-
-    private bool isDamage = false;
-    private bool isBossDamage = false;
-
-    private float BossDamgeOffTime    = 0.0f;
-    private const float BossDamgeOffTimeMax = 0.6f;
-
-    private bool isKnockback = false;
-    private float knockbackTime = 0.0f;
-    private const float knockbackTimeMax = 1.5f;
-
+    private bool isKnockback    = false;
+    private bool isDamage       = false;
+    private bool isBossDamage   = false;
     private bool isBossFellDown = false;
 
-    private float bossDestroyTime = 0.0f;
-    private const float bossDestroyTimeMax = 2.5f;
-
-    private int isBullet = -1;
     private int maxHp = 0;
-
+    private int isBullet = -1;
     private int smallDamage = 0;
     private int MediumDamage = 0;
     private int LargeDamage = 0;
+
+    private float invincibleTime = 0.0f;
+    private float BossDamgeOffTime = 0.0f;
+    private float knockbackTime = 0.0f;
+    private float bossDestroyTime = 0.0f;
+
+    private BossMove bossMove   = null;
+    private DamageCSV damageCSV = null;
+
+    public bool IsInvincible { get; private set; }
+
+    const float EFFECT_POS_Y            = -40.0f;
+    const float BOSS_DAMGE_OFF_TIME_MAX = 0.6f;
+    const float KNOCK_BACK_TIME_MAX     = 1.5f;
+    const float BOSS_DESTROY_TIME_MAX   = 2.5f;
+
 
     void Start()
     {
@@ -127,7 +120,7 @@ public class BossDamage : MonoBehaviour
         if (isKnockback)
         {
             knockbackTime += Time.deltaTime;
-            if (knockbackTime <= knockbackTimeMax)
+            if (knockbackTime <= KNOCK_BACK_TIME_MAX)
             {
                 Vector3 bossPos = transform.position;
                 bossPos.z += 3.0f * Time.deltaTime;
@@ -160,7 +153,7 @@ public class BossDamage : MonoBehaviour
             if (invincibleTime >= invincibleTimeMax)
             {
                 IsInvincible = false;
-                AnimationImage.SetTrigger("Walk");
+                animationImage.SetTrigger("Walk");
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
@@ -169,10 +162,10 @@ public class BossDamage : MonoBehaviour
         if (bossMove.BossHp <= 0)
         {
             bossDestroyTime += Time.deltaTime;
-            if (bossDestroyTime >= bossDestroyTimeMax)
+            if (bossDestroyTime >= BOSS_DESTROY_TIME_MAX)
             {
                 isBossFellDown = true;
-                Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
+                Vector3 pos = new Vector3(transform.position.x, EFFECT_POS_Y, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
                 Destroy(gameObject);
                 bossDestroyTime = 0.0f;
@@ -182,7 +175,7 @@ public class BossDamage : MonoBehaviour
         if (isBossDamage)
         {
             BossDamgeOffTime += Time.deltaTime;
-            if (BossDamgeOffTime >= BossDamgeOffTimeMax)
+            if (BossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
             {
                 isBossDamage = false;
                 BossDamgeOffTime = 0.0f;
@@ -240,11 +233,11 @@ public class BossDamage : MonoBehaviour
     {
         if (bossMove.BossHp > 0)
         {
-            AnimationImage.SetTrigger("Damage");
+            animationImage.SetTrigger("Damage");
         }
         else
         {
-            AnimationImage.SetTrigger("Die");
+            animationImage.SetTrigger("Die");
         }
     }
 

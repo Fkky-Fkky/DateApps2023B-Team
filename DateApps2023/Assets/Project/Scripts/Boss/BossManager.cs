@@ -5,8 +5,7 @@ using UnityEngine;
 public class BossManager : MonoBehaviour
 {
     [SerializeField]
-    private CannonManager cannonManager = null;
-
+    private CannonManager cannonManager       = null;
     [SerializeField]
     private BossCSVGenerator bossCSVGenerator = null;
 

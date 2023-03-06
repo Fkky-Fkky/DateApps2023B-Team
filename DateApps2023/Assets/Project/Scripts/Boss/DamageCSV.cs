@@ -7,14 +7,16 @@ using System;
 public class DamageCSV : MonoBehaviour
 {
     private TextAsset csvFile = null;
-    private List<string[]> damageDate = new List<string[]>();
 
-    public int Small  = 0;
-    public int Medium = 0;
-    public int Large  = 0;
+    private List<string[]> damageDate = new List<string[]>();
 
     private int height = 0;
     private int i      = 1;
+
+    public int Small = 0;
+    public int Medium = 0;
+    public int Large = 0;
+
 
     private void Awake()
     {

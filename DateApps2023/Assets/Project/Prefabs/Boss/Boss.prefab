@@ -860,7 +860,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossCount: {fileID: 7051107079401279416, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
   AnimationImage: {fileID: 1697093568606495979}
   damagePoint: {fileID: 3490875008881636801}
   explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
@@ -874,6 +873,7 @@ MonoBehaviour:
   - {fileID: 789059881321242861}
   - {fileID: 4851294355652372020}
   - {fileID: 6408652694721961419}
+  BossCount: {fileID: 7051107079401279416, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,7 +886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8cc92c29a0b84faa73b36b8d3d196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHp: 3
   moveSpeed: 2
   cenetrTarget: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
   leftTarget: {fileID: 5361787869608923537, guid: 8e8fe64f0743dde4aa9ad854c3a41e1d, type: 3}
@@ -904,6 +903,7 @@ MonoBehaviour:
   isLastAttack: 0
   lastAttackAudio: {fileID: 6494494502361812846}
   lastAttackSE: {fileID: 8300000, guid: 57114c44b6aab894393d0f842374e5d2, type: 3}
+  BossHp: 0
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,12 +922,12 @@ MonoBehaviour:
   damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
   chargePos: {fileID: 8073096529853142443}
   chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
+  chageTimeMax: 10
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
-  isAttack: 0
-  beamTimeMax: 7
-  beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
+  beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
+  IsAttack: 0
 --- !u!82 &2131339584734462358
 AudioSource:
   m_ObjectHideFlags: 0

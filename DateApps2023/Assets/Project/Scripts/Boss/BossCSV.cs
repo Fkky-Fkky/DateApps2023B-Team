@@ -7,32 +7,33 @@ using System;
 public class BossCSV : MonoBehaviour
 {
     [SerializeField]
-    private int BossMaxCount = 11;
+    private int bossMaxCount = 11;
 
-    private TextAsset csvFile = null;
+    private TextAsset csvFile       = null;
+
     private List<string[]> bossDate = new List<string[]>();
-
-    public string[] bossType          = null;
-    public float[] appearanceTime     = null;
-    public float[] attackIntervalTime = null;
-    public int[] appearanceLane       = null;
-    public float[] positionZ          = null;
-    public int[] bossHp               = null;
-    public float[] bossSpeed          = null;
 
     private int height = 0;
     private int i      = 1;
 
+    public int[] AppearanceLane       = null;
+    public int[] BossHp               = null;
+    public float[] AppearanceTime     = null;
+    public float[] AttackIntervalTime = null;
+    public float[] PositionZ          = null;
+    public float[] BossSpeed          = null;
+    public string[] BossType          = null;
+
     private void Awake()
     {
 
-        bossType           = new string[BossMaxCount];
-        appearanceTime     = new float[BossMaxCount];
-        attackIntervalTime = new float[BossMaxCount];
-        appearanceLane     = new int[BossMaxCount];
-        positionZ          = new float[BossMaxCount];
-        bossHp             = new int[BossMaxCount];
-        bossSpeed          = new float[BossMaxCount];
+        BossType           = new string[bossMaxCount];
+        AppearanceTime     = new float[bossMaxCount];
+        AttackIntervalTime = new float[bossMaxCount];
+        AppearanceLane     = new int[bossMaxCount];
+        PositionZ          = new float[bossMaxCount];
+        BossHp             = new int[bossMaxCount];
+        BossSpeed          = new float[bossMaxCount];
 
         BossCSVLoad();
     }
@@ -55,13 +56,13 @@ public class BossCSV : MonoBehaviour
 
         for (i = 1; i < height; i++)
         {
-            bossType[i]           = bossDate[i][0];
-            appearanceTime[i]     = float.Parse(bossDate[i][1]);
-            attackIntervalTime[i] = float.Parse(bossDate[i][2]);
-            appearanceLane[i]     = int.Parse(bossDate[i][3]);
-            positionZ[i]          = float.Parse(bossDate[i][4]);
-            bossHp[i]             = int.Parse(bossDate[i][5]);
-            bossSpeed[i]          = float.Parse(bossDate[i][6]);
+            BossType[i]           = bossDate[i][0];
+            AppearanceTime[i]     = float.Parse(bossDate[i][1]);
+            AttackIntervalTime[i] = float.Parse(bossDate[i][2]);
+            AppearanceLane[i]     = int.Parse(bossDate[i][3]);
+            PositionZ[i]          = float.Parse(bossDate[i][4]);
+            BossHp[i]             = int.Parse(bossDate[i][5]);
+            BossSpeed[i]          = float.Parse(bossDate[i][6]);
 
         }
     }

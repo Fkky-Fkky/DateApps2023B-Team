@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class BeamCharge : MonoBehaviour
 {
-    public BossAttack bossAttack = null;
-
-    private float time = 0.0f;
+    private float time       = 0.0f;
     private float effectTime = 0.0f;
+
+    public BossAttack BossAttack = null;
 
     void Start()
     {
         time = 0.0f;
 
-        effectTime = bossAttack.BeamTimeMax();
+        effectTime = BossAttack.BeamTimeMax();
 
     }
 

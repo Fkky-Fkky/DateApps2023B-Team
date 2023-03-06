@@ -7,11 +7,10 @@ using UnityEngine;
 public class BossCSVGenerator : MonoBehaviour
 {
     [SerializeField]
-    private BossManager bossManager = null;
+    private int bossCountMax = 10;
+
     [SerializeField]
-    private opretar opretar         = null;
-    [SerializeField]
-    private BossCSV bossCSV         = null;
+    private float sidePos = 100.0f;
 
     [SerializeField]
     private GameObject nomalBoss = null;
@@ -21,75 +20,66 @@ public class BossCSVGenerator : MonoBehaviour
     private GameObject bigBoss   = null;
 
     [SerializeField]
-    private int bossCountMax = 10;
-
+    private BossManager bossManager = null;
     [SerializeField]
-    private float sidePos    = 100.0f;
-
-    private int bossCountOne = 1;
-
-    private const float centerPosX = 0.0f;
-    private float leftPosX         = 0.0f;
-    private float rightPosX        = 0.0f;
-
-    private GameObject boss = null;
-    private int bossType    = 0;
-
-    private string bossTypeDate      = null;
-    private int bossLane             = 0;
-    private float attackIntervalDate = 0.0f;
-    private float posZ               = 0.0f;
-    private int bossHpDate           = 0;
-    private float moveSpeedDate      = 0.0f;
-
-
-    private const float fallPosition = 500.0f;
-
-    private float time = 0.0f;
+    private opretar opretar         = null;
+    [SerializeField]
+    private BossCSV bossCSV         = null;
 
     private bool isCenterLine = false;
-    private bool isRightLine  = false;
-    private bool isLeftLine   = false;
+    private bool isRightLine = false;
+    private bool isLeftLine = false;
+
+    private int bossCountOne = 1;
+    private int messageCount = 0;
+    private int landingCount = 0;
+    private int bossType     = 0;
+    private int bossLane     = 0;
+    private int bossHpDate   = 0;
+
+    private float centerPosX         = 0.0f;
+    private float leftPosX           = 0.0f;
+    private float rightPosX          = 0.0f;
+    private float dangerOffTime      = 0.0f;
+    private float killOffTime        = 0.0f;
+    private float time               = 0.0f;
+    private float landingTime        = 0.0f;
+    private float bossTypeOffTime    = 0.0f;
+    private float attackIntervalDate = 0.0f;
+    private float posZ               = 0.0f;
+    private float moveSpeedDate      = 0.0f;
+
+    private string bossTypeDate = null;
 
     private List<BossDamage> bossList       = new List<BossDamage>();
-    private List<BossMove>   bossMoveList   = new List<BossMove>();
+    private List<BossMove> bossMoveList     = new List<BossMove>();
     private List<BossAttack> bossAttackList = new List<BossAttack>();
+
+    private GameObject boss     = null;
+    private BossCount bossCount = null;
 
     public bool IsFirstKill { get; private set; }
     public bool IsKill { get; private set; }
-
     public bool IsLanding { get; private set; }
     public bool IsDanger { get; private set; }
-
     public bool IsCharge { get; private set; }
-
     public bool IsGameOver { get; private set; }
 
-    private float landingTime = 0.0f;
-
-    private float dangerOffTime           = 0.0f;
-    private float killOffTime             = 0.0f;
-    private const float messageOffTimeMax = 0.05f;
-
-    private int messageCount = 0;
-    private int landingCount = 0;
-
-    private float bossTypeOffTime          = 0.0f;
-    private const float bossTypeOffTimeMax = 0.03f;
-
-    private BossCount bossCount = null;
+    const float FALL_POSITION       = 500.0f;
+    const float MESSAGE_OFF_TIME_MAX  =  0.05f;
+    const float BOSS_TYPE_OFF_TIME_MAX =  0.03f;
 
     void Start()
     {
         bossCount = GetComponent<BossCount>();
 
         IsFirstKill = false;
-        IsKill = false;
+        IsKill      = false;
 
-        IsLanding = false;
+        IsLanding   = false;
 
-        leftPosX = -sidePos;
-        rightPosX = sidePos;
+        leftPosX  = -sidePos;
+        rightPosX =  sidePos;
 
     }
 
@@ -120,14 +110,14 @@ public class BossCSVGenerator : MonoBehaviour
         if (bossCountOne <= bossCountMax)
         {
             time += Time.deltaTime;
-            if (time >= bossCSV.appearanceTime[bossCountOne])
+            if (time >= bossCSV.AppearanceTime[bossCountOne])
             {
-                bossTypeDate = bossCSV.bossType[bossCountOne];
-                bossLane = bossCSV.appearanceLane[bossCountOne];
-                attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
-                posZ = bossCSV.positionZ[bossCountOne];
-                bossHpDate = bossCSV.bossHp[bossCountOne];
-                moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
+                bossTypeDate = bossCSV.BossType[bossCountOne];
+                bossLane = bossCSV.AppearanceLane[bossCountOne];
+                attackIntervalDate = bossCSV.AttackIntervalTime[bossCountOne];
+                posZ = bossCSV.PositionZ[bossCountOne];
+                bossHpDate = bossCSV.BossHp[bossCountOne];
+                moveSpeedDate = bossCSV.BossSpeed[bossCountOne];
 
                 BossGanarater();
             }
@@ -178,7 +168,7 @@ public class BossCSVGenerator : MonoBehaviour
         if (IsLanding)
         {
             landingTime += Time.deltaTime;
-            if (landingTime >= messageOffTimeMax)
+            if (landingTime >= MESSAGE_OFF_TIME_MAX)
             {
                 IsLanding = false;
                 landingTime = 0.0f;
@@ -188,7 +178,7 @@ public class BossCSVGenerator : MonoBehaviour
         if (IsFirstKill)
         {
             killOffTime += Time.deltaTime;
-            if (killOffTime >= messageOffTimeMax)
+            if (killOffTime >= MESSAGE_OFF_TIME_MAX)
             {
                 messageCount = 0;
                 IsFirstKill = false;
@@ -200,7 +190,7 @@ public class BossCSVGenerator : MonoBehaviour
         if (IsKill)
         {
             killOffTime += Time.deltaTime;
-            if (killOffTime >= messageOffTimeMax)
+            if (killOffTime >= MESSAGE_OFF_TIME_MAX)
             {
                 messageCount = 0;
                 IsKill = false;
@@ -212,7 +202,7 @@ public class BossCSVGenerator : MonoBehaviour
         if (IsDanger)
         {
             dangerOffTime += Time.deltaTime;
-            if (dangerOffTime >= messageOffTimeMax)
+            if (dangerOffTime >= MESSAGE_OFF_TIME_MAX)
             {
                 IsDanger = false;
                 dangerOffTime = 0.0f;
@@ -222,7 +212,7 @@ public class BossCSVGenerator : MonoBehaviour
         if (bossType != 0)
         {
             bossTypeOffTime += Time.deltaTime;
-            if (bossTypeOffTime >= bossTypeOffTimeMax)
+            if (bossTypeOffTime >= BOSS_TYPE_OFF_TIME_MAX)
             {
                 bossType = 0;
                 bossTypeOffTime = 0.0f;
@@ -262,7 +252,7 @@ public class BossCSVGenerator : MonoBehaviour
     private void BossAppearanceDate(float bossPositionX)
     {
         BossType();
-        boss.transform.position = new Vector3(bossPositionX, fallPosition, posZ);
+        boss.transform.position = new Vector3(bossPositionX, FALL_POSITION, posZ);
         bossList.Add(boss.GetComponent<BossDamage>());
         bossMoveList.Add(boss.GetComponent<BossMove>());
         bossAttackList.Add(boss.GetComponent<BossAttack>());
