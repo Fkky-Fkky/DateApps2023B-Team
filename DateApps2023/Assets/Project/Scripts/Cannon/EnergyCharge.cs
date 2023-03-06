@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnergyCharge : MonoBehaviour
@@ -22,12 +20,10 @@ public class EnergyCharge : MonoBehaviour
 
     private BoxCollider boxCol = null;
     private AudioSource audioSource = null;
-    private const int MAX_ENERGY = 1;
     private const int ADD_ENERGY = 1;
     private const float SMALL_LASER_SCALE = 0.3f;
     private const float LARGE_LASER_SCALE = 1.0f;
     private const float MEDIUM_LASER_SCALE = 1.5f;
-    private const float COOL_TIME_MAX = 3.0f;
 
     public int Energy { get; private set; }
     public int ChrgeEnergyType { get; private set; }
@@ -97,6 +93,7 @@ public class EnergyCharge : MonoBehaviour
 
     private void ChargeEnergy()
     {
+        const int MAX_ENERGY = 1;
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
         Instantiate(energyChargeEffect[ChrgeEnergyType], transform.position, Quaternion.identity);
         audioSource.PlayOneShot(chargeSe);
@@ -110,6 +107,7 @@ public class EnergyCharge : MonoBehaviour
 
     public void DisChargeEnergy()
     {
+        const float COOL_TIME_MAX = 3.0f;
         Energy = Mathf.Max(Energy - ADD_ENERGY, 0);
         if (isCoolTime)
         {

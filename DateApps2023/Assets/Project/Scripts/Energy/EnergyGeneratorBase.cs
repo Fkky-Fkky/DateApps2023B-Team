@@ -1,7 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// エネルギージェネレーターの基底クラス
+/// </summary>
 public abstract class EnergyGeneratorBase : MonoBehaviour
 {
     [SerializeField]
@@ -22,13 +24,16 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     protected const float GENERATE_POS_Y = 20.0f;
     protected const float GENERATE_ROT_Y = 180.0f;
 
-    private const int HALF = 2;
     private const int MAX_AREA = 4;
 
+    /// <summary>
+    /// 継承先のStartで呼ばれる初期化処理
+    /// </summary>
     protected void Initialize()
     {
         SortEnergies();
 
+        const int HALF = 2;
         for (int i = 0; i < energies.Length; i++)
         {
             halfExtents[i] = energies[i].transform.localScale / HALF;
@@ -41,6 +46,9 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// エネルギー物資をサイズ順に並べ替える
+    /// </summary>
     private void SortEnergies()
     {
         for (int i = 0; i < energies.Length - 1; i++)
@@ -59,6 +67,9 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// エネルギー物資を設置する場所を作成
+    /// </summary>
     protected void GeneratePosition()
     {
         int miss = 0;
@@ -77,18 +88,32 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
             miss++;
         }
     }
+
+    /// <summary>
+    /// エネルギー物資の生成
+    /// </summary>
     protected void EnergyGenerate()
     {
         Vector3 position = new Vector3(createPositionList[0].x, GENERATE_POS_Y, createPositionList[0].z);
         Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
     }
 
+    /// <summary>
+    /// 生成するエネルギーの種類と、設置場所のリストの0番目を削除する
+    /// </summary>
     protected void RemoveList()
     {
         createEnergyTypeList.RemoveAt(0);
         createPositionList.RemoveAt(0);
     }
 
+    /// <summary>
+    /// 生成するエネルギー物資の種類を選択する
+    /// </summary>
     protected abstract void GenerateEnergyType();
+    
+    /// <summary>
+    /// エネルギー物資を生成する
+    /// </summary>
     public abstract void Generate();
 }

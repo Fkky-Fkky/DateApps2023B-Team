@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 大砲が発射台に設置された時の処理をするクラス
+/// </summary>
 public class CannonConnect : MonoBehaviour
 {
     [SerializeField]
-    private GameObject connectEffect = null;
+    private ParticleSystem connectEffect = null;
 
     [SerializeField]
     private Transform effectPos = null;
@@ -13,7 +14,14 @@ public class CannonConnect : MonoBehaviour
     [SerializeField]
     private AudioClip connectSe = null;
 
+    /// <summary>
+    /// 大砲の設置されている場所
+    /// </summary>
     public int ConnectingPos { get; private set; }
+
+    /// <summary>
+    /// 大砲が発射台に設置されているか
+    /// </summary>
     public bool IsConnect { get; private set; }
 
     private Transform standTransform = null;
@@ -52,21 +60,27 @@ public class CannonConnect : MonoBehaviour
         CannontConnect();
     }
 
+    /// <summary>
+    /// 発射台に設置された時の処理
+    /// </summary>
     private void CannontConnect()
     {
         IsConnect = true;
         standCollision.enabled = false;
         transform.rotation = standTransform.rotation;
-        Instantiate(connectEffect, effectPos.position, Quaternion.identity);
+        connectEffect.gameObject.SetActive(true);
         audioSource.PlayOneShot(connectSe);
     }
 
+    /// <summary>
+    /// 大砲が発射台から離れた時の処理
+    /// </summary>
     private void CannonCut()
     {
         IsConnect = false;
         standCollision.enabled = true;
         transform.rotation = Quaternion.identity;
         standTransform = null;
-        ConnectingPos = -1;
+        ConnectingPos = (int)CannonStand.STAND_POSITION.NONE;
     }
 }

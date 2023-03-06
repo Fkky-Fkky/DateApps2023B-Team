@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// エネルギータンクのマネージャークラス
+/// </summary>
 public class TankManager : MonoBehaviour
 {
     [SerializeField]

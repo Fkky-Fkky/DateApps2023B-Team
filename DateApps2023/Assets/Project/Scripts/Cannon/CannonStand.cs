@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonStand : MonoBehaviour
@@ -12,11 +10,11 @@ public class CannonStand : MonoBehaviour
         get { return (int)standPosition; }
     }
 
-    enum STAND_POSITION
+    public enum STAND_POSITION
     {
+        NONE = -1,
         LEFT,
         CENTRE,
-        RIGHT,
-        NONE
+        RIGHT
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonSwitch : MonoBehaviour
@@ -16,8 +14,8 @@ public class CannonSwitch : MonoBehaviour
     [SerializeField]
     private GameManager gameManager = null;
     
-    private Vector3 defaultScale;
-    private Vector3 switchOnScale;
+    private Vector3 defaultScale = Vector3.zero;
+    private Vector3 switchOnScale = Vector3.zero;
     private GameObject button = null;
     private BoxCollider boxCollider = null;
 

@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// エネルギー物資の落下処理クラス
+/// </summary>
 public class FallEnergy : MonoBehaviour
 {
     private bool isLand = false;

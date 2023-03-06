@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 大砲がダメージを受けた時の処理クラス
+/// </summary>
 public class CannonDamage : MonoBehaviour
 {
     [SerializeField]
