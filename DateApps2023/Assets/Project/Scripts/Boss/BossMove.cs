@@ -325,7 +325,7 @@ public class BossMove : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);
 
 
-        if ((transform.position.z - target.transform.position.z) <= 100.0f)
+        if ((transform.position.z - target.transform.position.z) <= WARNING_DISPLAY_POSITION)
         {
             warningDisplay.SetActive(true);
 
