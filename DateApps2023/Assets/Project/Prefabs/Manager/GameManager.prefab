@@ -156,5 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c4e3932a36b1e49ae68b224fe1ceb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveKillCount: 10
   bossManager: {fileID: 0}
+  audioMaster: {fileID: 0}
+  myOperator: {fileID: 0}
+  FadeOutAnimator: {fileID: 0}
+  MoveKillCount: 15
+  AfterTime: 2
+  AnimTime: 1

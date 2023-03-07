@@ -10,7 +10,7 @@ public class Enemy_attack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            enemy.OnattackCollider();
+            enemy.OnAttackCollider();
         }
     }
 }

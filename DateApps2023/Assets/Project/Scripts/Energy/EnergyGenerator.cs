@@ -34,7 +34,7 @@ public class EnergyGenerator : MonoBehaviour
             return;
         }
 
-        if (gameManager.IsGammeStart)
+        if (gameManager.IsGameStart)
         {
             generator = normalGenerator;
             const int ADD_GENERATE = 2;
