@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -194,7 +192,7 @@ public class PlayerEmote : MonoBehaviour
     /// <summary>
     /// 自身のプレイヤー番号を外部から取得する
     /// </summary>
-    /// <param name="setNumber"></param>
+    /// <param name="setNumber">プレイヤー番号</param>
     public void GetPlayerNo(int setNumber)
     {
         myPlayerNo = setNumber;

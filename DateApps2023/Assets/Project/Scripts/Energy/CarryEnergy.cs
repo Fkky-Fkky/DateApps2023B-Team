@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using UnityEngine;
 
 /// <summary>
@@ -61,7 +57,7 @@ public class CarryEnergy : MonoBehaviour
     /// <summary>
     /// プレイヤーが自身の運搬を開始した際に呼び出す
     /// </summary>
-    /// <param name="thisGrabPoint"></param>
+    /// <param name="thisGrabPoint">プレイヤーの掴みポイントのゲームオブジェクト</param>
     public void GetGrabPoint(GameObject thisGrabPoint)
     {
         Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);
@@ -143,5 +139,4 @@ public class CarryEnergy : MonoBehaviour
             playerCarryDowns[i].CarryCancel();
         }
     }
-
 }

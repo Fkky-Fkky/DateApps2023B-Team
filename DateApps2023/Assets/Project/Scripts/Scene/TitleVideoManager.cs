@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -182,7 +177,7 @@ public class TitleVideoManager : MonoBehaviour
     /// <summary>
     /// デモ動画が再生し終わったかどうかを判定する
     /// </summary>
-    /// <param name="vp"></param>
+    /// <param name="vp">ビデオプレイヤーのコンポーネント</param>
     public void FinishPlayingVideo(VideoPlayer vp)
     {
         OnEndVideo();

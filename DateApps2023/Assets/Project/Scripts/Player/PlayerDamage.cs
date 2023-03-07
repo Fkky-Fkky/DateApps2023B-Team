@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
-using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// プレイヤーのダメージに関するクラス
@@ -118,7 +114,7 @@ public class PlayerDamage : MonoBehaviour
 
             if (!isCurrentDamage && !isCurrentCapture)
             {
-                CallKnockBack(other.gameObject.transform.parent.gameObject.transform);
+                CallKnockBack();
             }
         }
 
@@ -294,7 +290,7 @@ public class PlayerDamage : MonoBehaviour
     /// <summary>
     /// 自身が小型エネミーの標的かどうかを判定する
     /// </summary>
-    /// <param name="enemy"></param>
+    /// <param name="enemy">対象の小型エネミーのゲームオブジェクト</param>
     public void JudgeCapture(GameObject enemy)
     {
         enemyScript = enemy.GetComponent<Enemy>();
@@ -311,8 +307,7 @@ public class PlayerDamage : MonoBehaviour
     /// <summary>
     /// 他プレイヤーからのパンチを受けた際に呼び出す
     /// </summary>
-    /// <param name="knockPos"></param>
-    public void CallKnockBack(Transform knockPos)
+    public void CallKnockBack()
     {
         audioSource.PlayOneShot(knockbackSound);
     }
@@ -320,10 +315,9 @@ public class PlayerDamage : MonoBehaviour
     /// <summary>
     /// 自身のプレイヤー番号を取得する
     /// </summary>
-    /// <param name="myNumber"></param>
+    /// <param name="myNumber">プレイヤー番号</param>
     public void GetPlayerNo(int myNumber)
     {
         myPlayerNo = myNumber;
     }
-
 }

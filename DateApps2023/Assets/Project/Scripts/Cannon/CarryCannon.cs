@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -60,6 +58,7 @@ public class CarryCannon : MonoBehaviour
     /// <summary>
     /// プレイヤーが自身の運搬を開始した際に呼び出す
     /// </summary>
+    /// <param name="thisGrabPoint">プレイヤーの掴みポイントのゲームオブジェクト</param>
     public void GetGrabPoint(GameObject thisGrabPoint)
     {
         Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);

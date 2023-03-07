@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -165,7 +163,7 @@ public class PlayerCarryDown : MonoBehaviour
     /// <summary>
     /// 自身のプレイヤー番号を取得する
     /// </summary>
-    /// <param name="parentNumber"></param>
+    /// <param name="parentNumber">プレイヤー番号</param>
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
@@ -186,5 +184,4 @@ public class PlayerCarryDown : MonoBehaviour
     {
         isCarryDamage = false;
     }
-
 }

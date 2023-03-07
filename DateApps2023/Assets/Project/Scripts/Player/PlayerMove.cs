@@ -1,13 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// 運搬時の移動を除く、プレイヤーの移動に関するクラス
@@ -143,7 +135,7 @@ public class PlayerMove : MonoBehaviour
     /// <summary>
     /// プレイヤーが物資・大砲を持った際に呼び出す
     /// </summary>
-    /// <param name="groupNo"></param>
+    /// <param name="groupNo">グループ番号</param>
     public void GetItem(int groupNo)
     {
         GameObject group = GameObject.Find("Group" + groupNo);
@@ -208,7 +200,7 @@ public class PlayerMove : MonoBehaviour
     /// <summary>
     /// ゲームパッドの入力によって移動を行う
     /// </summary>
-    /// <param name="StickValue"></param>
+    /// <param name="StickValue">コントローラー左スティックの入力</param>
     void NotIsGroup(Vector2 StickValue)
     {
         vec = Vector3.zero;
@@ -230,7 +222,7 @@ public class PlayerMove : MonoBehaviour
     /// スティック入力の量に応じた移動量を算出する
     /// スティックの傾きに応じてプレイヤーの向きを決める
     /// </summary>
-    /// <param name="StickValue"></param>
+    /// <param name="StickValue">コントローラー左スティックの入力</param>
     void NotIsAttack(Vector2 StickValue)
     {
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -142,7 +140,7 @@ public class PlayerAttack : MonoBehaviour
     /// <summary>
     /// 自身のプレイヤー番号を外部から取得する
     /// </summary>
-    /// <param name="parentNumber"></param>
+    /// <param name="parentNumber">プレイヤー番号</param>
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
@@ -179,7 +177,4 @@ public class PlayerAttack : MonoBehaviour
     {
         isDamage = false;
     }
-
-    
-
 }

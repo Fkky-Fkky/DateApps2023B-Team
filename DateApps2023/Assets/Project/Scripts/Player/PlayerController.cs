@@ -1,13 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// 運搬中のプレイヤー移動に関するクラス
@@ -179,9 +173,9 @@ public class PlayerController : MonoBehaviour
     /// 運搬するアイテムの情報を取得する
     /// アイテムがグループ配下に入る際に呼び出す
     /// </summary>
-    /// <param name="itemSize"></param>
-    /// <param name="itemType"></param>
-    /// <param name="gameObject"></param>
+    /// <param name="itemSize">アイテムのサイズ(重さ)</param>
+    /// <param name="itemType">アイテムのタイプ　1=エネルギー物資,2=大砲</param>
+    /// <param name="gameObject">アイテムのゲームオブジェクト</param>
     public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
     {
         itemSizeCount = itemSize;
@@ -201,8 +195,8 @@ public class PlayerController : MonoBehaviour
     /// 運搬を開始するプレイヤーの情報を取得する
     /// プレイヤーがグループ配下に入る際に呼び出す
     /// </summary>
-    /// <param name="childNo"></param>
-    /// <param name="gameObject"></param>
+    /// <param name="childNo">入るプレイヤーの番号</param>
+    /// <param name="gameObject">入るプレイヤーのゲームオブジェクト</param>
     public void GetMyNo(int childNo,GameObject gameObject)
     {
         ChildPlayer[childNo] = gameObject;
@@ -265,7 +259,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 運搬中のプレイヤーが運搬を終了する際に呼び出す
     /// </summary>
-    /// <param name="outChildNo"></param>
+    /// <param name="outChildNo">抜けるプレイヤーの番号</param>
     public void PlayerOutGroup(int outChildNo)
     {
         ChildPlayer[outChildNo] = null;
