@@ -1,16 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ステージ配置に関する処理を行うクラス
+/// </summary>
 public class StageGenerator : MonoBehaviour
 {
+    #region
     [SerializeField]
-    private GameObject[] stagePattern;
+    private GameObject[] stagePattern = null;
 
     [SerializeField]
-    private Vector3 GeneratePos = Vector3.zero;
+    private Vector3 generatePos = Vector3.zero;
 
-    private int number;
+    private int number = 0;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +21,12 @@ public class StageGenerator : MonoBehaviour
         OnGenerate();
     }
 
+    /// <summary>
+    /// 設定された配列の中からランダムでステージを生成する
+    /// </summary>
     void OnGenerate()
     {
         number = Random.Range(0, stagePattern.Length);
-        Instantiate(stagePattern[0], GeneratePos, Quaternion.identity);
+        Instantiate(stagePattern[number], generatePos, Quaternion.identity);
     }
 }

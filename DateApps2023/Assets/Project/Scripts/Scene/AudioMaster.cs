@@ -1,70 +1,112 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// BGM再生に関するクラス
+/// </summary>
 public class AudioMaster : MonoBehaviour
 {
-    private AudioSource audioSource;
+    #region
     [SerializeField]
-    private AudioClip[] bgm1;
+    private AudioClip[] firstBGM = null;
 
     [SerializeField]
-    private AudioClip[] bgm2;
+    private AudioClip[] secondBGM = null;
 
     [SerializeField]
     private int changeKillCount = 5;
 
     [SerializeField]
-    private float FadeOutTime = 5.0f;
+    private float fadeOutTime = 5.0f;
 
-    private bool FirstHalf = true;
-    
-    private bool IsFadeOut = true;
+    private AudioSource audioSource = null;
+
+    private int number = 0;
     private float fadeTime = 0.0f;
     private float defaultVol = 1.0f;
-    private int number;
 
+    private bool isFirstHalf = true;
+    private bool isFadeOut = true;
+    private bool isEnd = false;
+    #endregion
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        number = Random.Range(0, firstBGM.Length);
+        fadeTime = 0.0f;
         defaultVol = audioSource.volume;
-        number = Random.Range(0, bgm1.Length);
-        audioSource.clip = bgm1[number];
+
+        isFirstHalf = true;
+        isFadeOut = true;
+        isEnd = false;
+
+        audioSource.clip = firstBGM[number];
         audioSource.Play();
     }
 
     private void Update()
     {
-        if (FirstHalf)
+        if (isFirstHalf)
         {
-            if (BossCount.GetKillCount() >= changeKillCount)
-            {
-                if (IsFadeOut)
-                {
-                    fadeTime += Time.deltaTime;
-                    if (fadeTime >= FadeOutTime)
-                    {
-                        fadeTime = FadeOutTime;
-                        IsFadeOut = false;
-                    }
-                    audioSource.volume = (float)(1.0 - fadeTime / FadeOutTime);
-                }
-                else
-                {
-                    PlayBGM2();
-                    FirstHalf = false;
-                }
-            }
+            OnFirstHalf();
         }
-        
+
+        if (isEnd)
+        {
+            FadeOutBGM();
+        }
     }
 
-    public void PlayBGM2()
+    /// <summary>
+    /// 前半のBGMに関する処理を行う
+    /// </summary>
+    void OnFirstHalf()
     {
-        number= Random.Range(0, bgm2.Length);
-        audioSource.clip = bgm2[number];
+        if (BossCount.GetKillCount() >= changeKillCount)
+        {
+            if (isFadeOut)
+            {
+                FadeOutBGM();
+            }
+            else
+            {
+                PlaySecondBGM();
+                isFirstHalf = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 後半戦のBGMを再生する
+    /// </summary>
+    public void PlaySecondBGM()
+    {
+        number= Random.Range(0, secondBGM.Length);
+        audioSource.clip = secondBGM[number];
         audioSource.volume = defaultVol;
         audioSource.Play();
+    }
+
+    /// <summary>
+    /// BGMの音量を徐々に小さくする
+    /// </summary>
+    void FadeOutBGM()
+    {
+        fadeTime += Time.deltaTime;
+        if (fadeTime >= fadeOutTime)
+        {
+            fadeTime = fadeOutTime;
+            isFadeOut = false;
+        }
+        audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
+    }
+
+    /// <summary>
+    /// ゲームクリアの際に呼び出す
+    /// </summary>
+    public void OnEndScene()
+    {
+        isEnd = true;
     }
 }

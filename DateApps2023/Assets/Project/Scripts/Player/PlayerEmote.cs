@@ -1,56 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// プレイヤーのエモートに関するクラス
+/// </summary>
 public class PlayerEmote : MonoBehaviour
 {
     #region
-    private int myPlayerNo;
-    float time = 0;
-    float scaleTime = 0;
-
-    private SpriteRenderer spriteRenderer;
-    private Transform cameraPos;
+    [SerializeField]
+    private Sprite emoteIconL = null;
 
     [SerializeField]
-    private Sprite LShoulderIcon = null;
+    private Sprite emoteIconR = null;
 
     [SerializeField]
-    private Sprite RShoulderIcon = null;
+    private EmoteData myEmoteData = null;
 
     [SerializeField]
     private float emoteTime = 2.0f;
 
-    [SerializeField]
+    private SpriteRenderer spriteRenderer = null;
+    private Transform cameraPos = null;
+
+    private int myPlayerNo = 5;
+    private float time = 0.0f;
+    private float scaleTime = 0.0f;
+
     private float startTime = 0.4f;
-
-    [SerializeField]
     private float endTime = 0.4f;
-
-    [SerializeField]
     private float moveY = 0.2f;
-
-    [SerializeField]
     private float smallTime = 0.4f;
-
-    [SerializeField]
     private float bigTime = 0.4f;
-
-    [SerializeField]
     private float sizeChange = 0.2f;
-
-    [SerializeField]
     private float startSizeChange = 0.2f;
 
-    private bool IsEmote = false;
-    private bool IsSmall = false;
-    private bool IsBig = false;
+    private bool isEmote = false;
+    private bool isSmall = false;
+    private bool isBig = false;
 
-    private Vector3 defaultPos;
+    private Vector3 defaultPos = Vector3.zero;
     private Vector3 movePos = Vector3.zero;
-    private Vector3 defaultSize;
-    private Vector3 setSize;
+    private Vector3 defaultSize = Vector3.zero;
+    private Vector3 setSize = Vector3.zero;
     #endregion
 
     // Start is called before the first frame update
@@ -58,6 +49,21 @@ public class PlayerEmote : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         cameraPos = Camera.main.transform;
+
+        time = 0.0f;
+        scaleTime = 0.0f;
+
+        startTime = myEmoteData.StartTime;
+        endTime = myEmoteData.EndTime;
+        moveY = myEmoteData.MoveY;
+        smallTime = myEmoteData.SmallTime;
+        bigTime = myEmoteData.BigTime;
+        sizeChange = myEmoteData.SizeChange;
+        startSizeChange = myEmoteData.StartSizeChange;
+
+        isEmote = false;
+        isSmall = false;
+        isBig = false;
 
         defaultPos = new Vector3(0.0f, gameObject.transform.localPosition.y, 0.0f);
         movePos.y = moveY;
@@ -68,20 +74,9 @@ public class PlayerEmote : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsEmote)
+        if (!isEmote)
         {
-            if (Gamepad.all[myPlayerNo].leftShoulder.wasPressedThisFrame)
-            {
-                IsEmote = true;
-                spriteRenderer.sprite = LShoulderIcon;
-                IsBig = true;
-            }
-            else if (Gamepad.all[myPlayerNo].rightShoulder.wasPressedThisFrame)
-            {
-                IsEmote = true;
-                spriteRenderer.sprite = RShoulderIcon;
-                IsBig = true;
-            }
+            PressEmote();
         }
         else
         {
@@ -92,38 +87,46 @@ public class PlayerEmote : MonoBehaviour
             
             if (time >= emoteTime)
             {
-                IsEmote = false;
-                time = 0;
-                scaleTime = 0;
-                spriteRenderer.sprite = null;
-                IsSmall = false;
-                IsBig = false;
-                gameObject.transform.localPosition = defaultPos;
-                gameObject.transform.localScale = defaultSize;
-                setSize = defaultSize;
+                EndEmote();
             }
             else if(time < emoteTime && time >= emoteTime - endTime)
             {
-                gameObject.transform.localPosition += movePos * Time.deltaTime;
-                IsSmall = false;
-                IsBig = false;
-                setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-                gameObject.transform.localScale = setSize;
+                BeforeEndEmote();
             }
             else if(time <= startTime)
             {
-                gameObject.transform.localPosition += movePos * Time.deltaTime;
-                setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-                gameObject.transform.localScale = setSize;
+                StartEmote();
             }
         }
     }
 
+    /// <summary>
+    /// プレイヤーが対応するボタンを押したかを判定する
+    /// </summary>
+    void PressEmote()
+    {
+        if (Gamepad.all[myPlayerNo].leftShoulder.wasPressedThisFrame)
+        {
+            isEmote = true;
+            spriteRenderer.sprite = emoteIconL;
+            isBig = true;
+        }
+        else if (Gamepad.all[myPlayerNo].rightShoulder.wasPressedThisFrame)
+        {
+            isEmote = true;
+            spriteRenderer.sprite = emoteIconR;
+            isBig = true;
+        }
+    }
+
+    /// <summary>
+    /// 時間に応じて表示した自身のサイズを拡大縮小する
+    /// </summary>
     void ChangeSize()
     {
         scaleTime += Time.deltaTime;
 
-        if (!IsSmall && IsBig)
+        if (!isSmall && isBig)
         {
             setSize += new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
             gameObject.transform.localScale = setSize;
@@ -131,23 +134,65 @@ public class PlayerEmote : MonoBehaviour
             if (scaleTime >= smallTime)
             {
                 scaleTime = 0;
-                IsSmall = true;
-                IsBig = false;
+                isSmall = true;
+                isBig = false;
             }
         }
-        else if (IsSmall && !IsBig)
+        else if (isSmall && !isBig)
         {
             setSize -= new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
             gameObject.transform.localScale = setSize;
             if (scaleTime >= bigTime)
             {
                 scaleTime = 0;
-                IsSmall = false;
-                IsBig = true;
+                isSmall = false;
+                isBig = true;
             }
         }
     }
 
+    /// <summary>
+    /// エモートを表示し終わった際に呼び出す
+    /// </summary>
+    void EndEmote()
+    {
+        isEmote = false;
+        time = 0;
+        scaleTime = 0;
+        spriteRenderer.sprite = null;
+        isSmall = false;
+        isBig = false;
+        gameObject.transform.localPosition = defaultPos;
+        gameObject.transform.localScale = defaultSize;
+        setSize = defaultSize;
+    }
+
+    /// <summary>
+    /// エモートの表示が終わる前に呼び出す
+    /// </summary>
+    void BeforeEndEmote()
+    {
+        gameObject.transform.localPosition += movePos * Time.deltaTime;
+        isSmall = false;
+        isBig = false;
+        setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
+        gameObject.transform.localScale = setSize;
+    }
+
+    /// <summary>
+    /// エモートが始まった際に呼び出す
+    /// </summary>
+    void StartEmote()
+    {
+        gameObject.transform.localPosition += movePos * Time.deltaTime;
+        setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
+        gameObject.transform.localScale = setSize;
+    }
+
+    /// <summary>
+    /// 自身のプレイヤー番号を外部から取得する
+    /// </summary>
+    /// <param name="setNumber">プレイヤー番号</param>
     public void GetPlayerNo(int setNumber)
     {
         myPlayerNo = setNumber;

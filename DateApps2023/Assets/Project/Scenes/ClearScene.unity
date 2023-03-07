@@ -616,8 +616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: StartScene
-  AnimationImage: {fileID: 745660548}
-  AfterPressTime: 1
+  animationImage: {fileID: 745660548}
+  afterPressTime: 1
   sceneVoice: {fileID: 8300000, guid: 816a8aaffdab2ee4480584c4958f66cc, type: 3}
   beforeVoiceTime: 1
   changeTime: 20
@@ -796,6 +796,14 @@ PrefabInstance:
       propertyPath: bgm1.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: 2c7635e11763d7244baefcc09a99f1c5, type: 3}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: firstBGM.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: firstBGM.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: d9b41600f880ca74daec184ea8154af8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
 --- !u!1 &1610647742

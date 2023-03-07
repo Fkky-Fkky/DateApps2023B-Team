@@ -1,28 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using UnityEngine;
 
+/// <summary>
+/// エネルギー物資の運搬に関するクラス
+/// </summary>
 public class CarryEnergy : MonoBehaviour
 {
     #region
-    private GameObject[] myGrabPoint = null;
-    private PlayerCarryDown[] playerCarryDowns = null;
-    private PlayerController playercontroller;
-    int number = 0;
-    public int groupNumber = 1;
-    private bool InGroup = false;
-
     [SerializeField]
     private float defaultPosY = 51;
 
     [SerializeField]
     private float carryPosY = 60;
 
-    BoxCollider boxCol = null;
+    [SerializeField]
+    ItemSize myItemSize = ItemSize.Small;
 
+    private BoxCollider boxCol = null;
+    private PlayerController playercontroller = null;
+    private GameObject[] myGrabPoint = null;
+    private PlayerCarryDown[] playerCarryDowns = null;
+
+    private int number = 0;
+    private bool isGroup = false;
+
+    public int GroupNumber = 1;
 
     public enum ItemSize
     {
@@ -30,9 +32,7 @@ public class CarryEnergy : MonoBehaviour
         Medium,
         Large
     }
-
-    [SerializeField]
-    ItemSize myItemSize = ItemSize.Small;
+   
     public int MyItemSizeCount
     {
         get { return (int)myItemSize; }
@@ -44,10 +44,20 @@ public class CarryEnergy : MonoBehaviour
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
+        playercontroller = null;
         Array.Resize(ref myGrabPoint, 0);
         Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+
+        number = 0;
+        isGroup = false;
+
+        GroupNumber = 1;
     }
 
+    /// <summary>
+    /// プレイヤーが自身の運搬を開始した際に呼び出す
+    /// </summary>
+    /// <param name="thisGrabPoint">プレイヤーの掴みポイントのゲームオブジェクト</param>
     public void GetGrabPoint(GameObject thisGrabPoint)
     {
         Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);
@@ -55,13 +65,12 @@ public class CarryEnergy : MonoBehaviour
         myGrabPoint[number] = thisGrabPoint;
         playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
         number++;
-
         
         boxCol.isTrigger = false;
 
-        while (!InGroup)
+        while (!isGroup)
         {
-            GameObject group = GameObject.FindWithTag("Group" + groupNumber);
+            GameObject group = GameObject.FindWithTag("Group" + GroupNumber);
             playercontroller = group.GetComponent<PlayerController>();
 
             if (group.transform.childCount <= 0)
@@ -75,24 +84,27 @@ public class CarryEnergy : MonoBehaviour
                 playercontroller = group.GetComponent<PlayerController>();
                 playercontroller.GetItemSize(MyItemSizeCount, 1, this.gameObject);
                 
-                InGroup = true;
+                isGroup = true;
                 break;
             }
             else
             {
-                groupNumber += 1;
-                if (groupNumber > 4)
+                GroupNumber += 1;
+                if (GroupNumber > 4)
                 {
-                    groupNumber = 1;
+                    GroupNumber = 1;
                 }
                 playercontroller = null;
             }
         }
     }
 
+    /// <summary>
+    /// 自身の運搬が途中で終了した際に呼び出す
+    /// </summary>
     public void OutGroup()
     {
-        InGroup = false;
+        isGroup = false;
         gameObject.transform.parent = null;
         DoCarryCancel();
 
@@ -106,6 +118,9 @@ public class CarryEnergy : MonoBehaviour
         number = 0;
     }
 
+    /// <summary>
+    /// 運搬中の自身が大砲と接触した際に呼び出す
+    /// </summary>
     public void DestroyMe()
     {
         playercontroller.ReleaseChild();
@@ -114,6 +129,9 @@ public class CarryEnergy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 自身を運搬していたプレイヤーの関数を呼び出す処理を行う
+    /// </summary>
     public void DoCarryCancel()
     {
         for (int i = 0; i < myGrabPoint.Length; i++)
@@ -121,5 +139,4 @@ public class CarryEnergy : MonoBehaviour
             playerCarryDowns[i].CarryCancel();
         }
     }
-
 }

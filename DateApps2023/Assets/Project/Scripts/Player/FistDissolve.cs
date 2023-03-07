@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーのパンチ表示に関する処理を行うクラス
+/// </summary>
 public class FistDissolve : MonoBehaviour
 {
-    private new Renderer renderer;
-
+    #region
     [SerializeField]
     private float startTime = 0.5f;
 
@@ -15,23 +15,29 @@ public class FistDissolve : MonoBehaviour
     [SerializeField]
     private float intervalTime = 0.2f;
 
+    [SerializeField]
+    private float pushForward = 0.8f;
+
+    private new Renderer renderer = null;
+
     private float time = 0.0f;
     private float value = 0.0f;
 
     private bool isStartDissolve = false;
     private bool isEndDissolve = false;
     private bool isIntervalDissolve = false;
-
-    [SerializeField]
-    private float pushForward = 0.8f;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         renderer= GetComponent<Renderer>();
+        time = 0.0f;
+        value = 0.0f;
+
+        isStartDissolve = true;
         isEndDissolve = false;
         isIntervalDissolve = false;
-        isStartDissolve = true;
     }
 
     // Update is called once per frame
@@ -39,45 +45,71 @@ public class FistDissolve : MonoBehaviour
     {
         if (isStartDissolve)
         {
-            time += Time.deltaTime;
-            //renderer.material.SetFloat("_DisAmount", value - time / startTime);
-            transform.position += pushForward * Time.deltaTime * transform.up / startTime;
-            if(time >= startTime)
-            {
-                time = 0.0f;
-                value = 0;
-                renderer.material.SetFloat("_DisAmount", value);
-                isStartDissolve = false;
-                isIntervalDissolve = true;
-                isEndDissolve = false;
-            }
+            StartDissolve();
         }
         if (isIntervalDissolve)
         {
-            time += Time.deltaTime;
-            if(time >= intervalTime)
-            {
-                time = 0.0f;
-                isStartDissolve = false;
-                isIntervalDissolve = false;
-                isEndDissolve = true;
-            }
+            IntervalDissolve();
         }
         if(isEndDissolve)
         {
-            time += Time.deltaTime;
-            renderer.material.SetFloat("_DisAmount", value + time / endTime);
-            if (time >= endTime)
-            {
-                time = 0.0f;
-                value = 1.0f;
-                renderer.material.SetFloat("_DisAmount", value);
-                Destroy(gameObject);
-            }
+            EndDissolve();
         }
     }
 
-    public void OnEndDissolve()
+    /// <summary>
+    /// パンチの表示を開始する処理を行う
+    /// </summary>
+    void StartDissolve()
+    {
+        time += Time.deltaTime;
+        transform.position += pushForward * Time.deltaTime * transform.up / startTime;
+        if (time >= startTime)
+        {
+            time = 0.0f;
+            value = 0;
+            renderer.material.SetFloat("_DisAmount", value);
+            isStartDissolve = false;
+            isIntervalDissolve = true;
+            isEndDissolve = false;
+        }
+    }
+
+    /// <summary>
+    /// 開始時と終了時の間の処理を行う
+    /// </summary>
+    void IntervalDissolve()
+    {
+        time += Time.deltaTime;
+        if (time >= intervalTime)
+        {
+            time = 0.0f;
+            isStartDissolve = false;
+            isIntervalDissolve = false;
+            isEndDissolve = true;
+        }
+    }
+
+    /// <summary>
+    /// パンチの表示を終了する処理を行う
+    /// </summary>
+    void EndDissolve()
+    {
+        time += Time.deltaTime;
+        renderer.material.SetFloat("_DisAmount", value + time / endTime);
+        if (time >= endTime)
+        {
+            time = 0.0f;
+            value = 1.0f;
+            renderer.material.SetFloat("_DisAmount", value);
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 外部からパンチを終了する際に呼び出す
+    /// </summary>
+    public void CallEndDissolve()
     {
         isIntervalDissolve = false;
         isEndDissolve = true;

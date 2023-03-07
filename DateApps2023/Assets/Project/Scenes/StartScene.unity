@@ -4351,6 +4351,14 @@ PrefabInstance:
       propertyPath: bgm1.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: aa956838eb4a6844d83fd7571a467f5e, type: 3}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: firstBGM.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: firstBGM.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 56446dc0d0c003240bbba2f28a118aac, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
 --- !u!1 &1450893419
@@ -4400,12 +4408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f814a00455cb39f4cb962727919888da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationImage: {fileID: 1352511582}
-  StandingTime: 11
+  animationImage: {fileID: 1352511582}
+  standingTime: 11
   playVideoScreen: {fileID: 651973160}
   videoSize: {x: 1920, y: 1080}
   screenDepth: 24
-  CanLogoSkip: 1
+  hasLogoSkip: 1
 --- !u!328 &1450893423
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -4454,18 +4462,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: CannonTestScene
-  AnimationImage: {fileID: 1352511582}
-  PlayerBackImage:
+  animationImage: {fileID: 1352511582}
+  playerBackImage:
+  - {fileID: 1721107811}
+  - {fileID: 176294838}
+  - {fileID: 1874151208}
+  - {fileID: 860576029}
+  playerImage:
   - {fileID: 265335704}
   - {fileID: 1947200057}
   - {fileID: 1471916384}
   - {fileID: 1940303732}
-  PlayerImage:
-  - {fileID: 265335704}
-  - {fileID: 1947200057}
-  - {fileID: 1471916384}
-  - {fileID: 1940303732}
-  CanSkip: 1
+  hasCanSkip: 1
   pressButtonSound: {fileID: 8300000, guid: a6768006a690dc748bcec85500d10649, type: 3}
   acceptSound:
   - {fileID: 8300000, guid: a6768006a690dc748bcec85500d10649, type: 3}

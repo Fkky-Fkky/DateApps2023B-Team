@@ -1,32 +1,24 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// ゲームクリアとゲームオーバーの画面遷移に関する処理を行うクラス
+/// </summary>
 public class SceneMove : MonoBehaviour
 {
+    #region
     [SerializeField]
     private string sceneName = "New Scene";
 
-    private bool SceneChangeFlag = false;
-    private bool IsAnimation = false;
-
     [SerializeField]
-    private Animator AnimationImage = null;
-
-    [SerializeField]
-    private float AfterPressTime = 1.0f;
-
-    private float time = 0.0f;
+    private Animator animationImage = null;
 
     [SerializeField]
     private AudioClip sceneVoice = null;
-    private AudioSource audioSource;
 
-    private bool isPlaying = false;
+    [SerializeField]
+    private float afterPressTime = 1.0f;
 
     [SerializeField]
     private float beforeVoiceTime = 1.0f;
@@ -34,73 +26,98 @@ public class SceneMove : MonoBehaviour
     [SerializeField]
     private float changeTime = 20.0f;
 
+    private AudioSource audioSource = null;
+    private float time = 0.0f;
+
+    private bool isPlaying = false;
+    private bool isSceneChange = false;
+    private bool isAnimation = false;
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        SceneChangeFlag = false;
-        IsAnimation = false;
-        time = 0.0f;
         if(sceneVoice != null )
         {
             audioSource = GetComponent<AudioSource>();
             audioSource.volume = 1.0f;
             isPlaying = true;
         }
+        time = 0.0f;
+
+        isSceneChange = false;
+        isAnimation = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        if (!SceneChangeFlag)
+        if (!isSceneChange)
         {
-            time += Time.deltaTime;
-            if(time >= changeTime)
-            {
-                SceneChangeFlag = true;
-                time = 0.0f;
-            }
-            if (isPlaying)
-            {
-                if (time >= beforeVoiceTime)
-                {
-                    audioSource.PlayOneShot(sceneVoice);
-                    isPlaying = false;
-                }
-            }
-            for (int i = 0; i < Gamepad.all.Count; i++)
-            {
-                var gamepad = Gamepad.all[i];
-                if (gamepad.bButton.wasPressedThisFrame)
-                {
-                    SceneChangeFlag = true;
-                    time = 0.0f;
-                }
-            }
+            NotSceneChange();
         }
         else
         {
-            time += Time.deltaTime;
+           OnSceneChange();
+        }
+    }
 
-            if (AnimationImage != null)
+    /// <summary>
+    /// 画面が遷移する前に行う
+    /// </summary>
+    void NotSceneChange()
+    {
+        time += Time.deltaTime;
+        if (time >= changeTime)
+        {
+            isSceneChange = true;
+            time = 0.0f;
+        }
+        if (isPlaying)
+        {
+            if (time >= beforeVoiceTime)
             {
-                IsAnimation = true;
-                AnimationImage.SetTrigger("AcceptStart");
-                if (time >= AfterPressTime)
-                {
-                    IsAnimation = false;
-                    time = 0.0f;
-                }
+                audioSource.PlayOneShot(sceneVoice);
+                isPlaying = false;
             }
-            if(sceneVoice != null)
+        }
+        for (int i = 0; i < Gamepad.all.Count; i++)
+        {
+            var gamepad = Gamepad.all[i];
+            if (gamepad.bButton.wasPressedThisFrame)
             {
-                audioSource.volume = (float)(1.0 - time / AfterPressTime);
+                isSceneChange = true;
+                time = 0.0f;
+            }
+        }
+    }
 
-            }
-            if (!IsAnimation)
+    /// <summary>
+    /// 画面の遷移が開始した際に呼び出す
+    /// </summary>
+    void OnSceneChange()
+    {
+        time += Time.deltaTime;
+
+        if (animationImage != null)
+        {
+            isAnimation = true;
+            animationImage.SetTrigger("AcceptStart");
+            if (time >= afterPressTime)
             {
-                SceneManager.LoadScene(sceneName);
+                isAnimation = false;
+                time = 0.0f;
             }
+        }
+        if (sceneVoice != null)
+        {
+            audioSource.volume = (float)(1.0 - time / afterPressTime);
+
+        }
+        if (!isAnimation)
+        {
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
