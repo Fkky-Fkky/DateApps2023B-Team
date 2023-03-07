@@ -1,12 +1,15 @@
 using UnityEngine;
 
+/// <summary>
+/// エネルギーのチャージ処理をするクラス
+/// </summary>
 public class EnergyCharge : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] energyChargeEffect = new GameObject[3];
 
     [SerializeField]
-    private AudioClip chargeSe = null;
+    private SEManager seManager = null;
 
     [SerializeField]
     private EnergyGenerator generateEnergy = null;
@@ -28,7 +31,7 @@ public class EnergyCharge : MonoBehaviour
     public int Energy { get; private set; }
     public int ChrgeEnergyType { get; private set; }
 
-    public enum EnergyType
+    public enum ENERGY_TYPE
     {
         SMALL,
         MEDIUM,
@@ -76,27 +79,30 @@ public class EnergyCharge : MonoBehaviour
         switch (itemSize)
         {
             case (int)CarryEnergy.ItemSize.Small:
-                ChrgeEnergyType = (int)EnergyType.SMALL;
+                ChrgeEnergyType = (int)ENERGY_TYPE.SMALL;
                 break;
 
             case (int)CarryEnergy.ItemSize.Medium:
-                ChrgeEnergyType = (int)EnergyType.MEDIUM;
+                ChrgeEnergyType = (int)ENERGY_TYPE.MEDIUM;
                 break;
 
             case (int)CarryEnergy.ItemSize.Large:
-                ChrgeEnergyType = (int)EnergyType.LARGE;
+                ChrgeEnergyType = (int)ENERGY_TYPE.LARGE;
                 break;
         }
         other.GetComponent<CarryEnergy>().DestroyMe();
         ChargeEnergy();
     }
 
+    /// <summary>
+    /// エネルギーをチャージする
+    /// </summary>
     private void ChargeEnergy()
     {
         const int MAX_ENERGY = 1;
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
         Instantiate(energyChargeEffect[ChrgeEnergyType], transform.position, Quaternion.identity);
-        audioSource.PlayOneShot(chargeSe);
+        audioSource.PlayOneShot(seManager.EnergyChargeSe);
         generateEnergy.Generate();
         cannonLaser.transform.localScale = laserScale[ChrgeEnergyType];
         if (Energy >= MAX_ENERGY)
@@ -105,6 +111,9 @@ public class EnergyCharge : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// エネルギーを減らす
+    /// </summary>
     public void DisChargeEnergy()
     {
         const float COOL_TIME_MAX = 3.0f;
@@ -117,6 +126,10 @@ public class EnergyCharge : MonoBehaviour
         coolTime = COOL_TIME_MAX;
     }
 
+    /// <summary>
+    /// エネルギーがチャージされているかを返す
+    /// </summary>
+    /// <returns>エネルギーがチャージされているか</returns>
     public bool IsEnergyCharged()
     {
         return Energy > 0;

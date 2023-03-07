@@ -12,7 +12,7 @@ public class CannonConnect : MonoBehaviour
     private Transform effectPos = null;
 
     [SerializeField]
-    private AudioClip connectSe = null;
+    private SEManager seManager = null;
 
     /// <summary>
     /// ‘å–C‚Ìİ’u‚³‚ê‚Ä‚¢‚éêŠ
@@ -69,7 +69,7 @@ public class CannonConnect : MonoBehaviour
         standCollision.enabled = false;
         transform.rotation = standTransform.rotation;
         connectEffect.gameObject.SetActive(true);
-        audioSource.PlayOneShot(connectSe);
+        audioSource.PlayOneShot(seManager.CannonConnectSe);
     }
 
     /// <summary>

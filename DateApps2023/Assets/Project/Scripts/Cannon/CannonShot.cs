@@ -12,19 +12,19 @@ public class CannonShot : MonoBehaviour
     private GameObject[] shotChargeEffects = new GameObject[3];
 
     [SerializeField]
+    private GameObject coolDownEffect = null;
+
+    [SerializeField]
+    private Transform[] coolDownPos = new Transform[2];
+
+    [SerializeField]
     private Transform smokePosition = null;
 
     [SerializeField]
     private EnergyCharge energyCharge = null;
 
     [SerializeField]
-    private AudioClip[] beamSe = new AudioClip[3];
-
-    [SerializeField]
-    private GameObject coolDownEffect = null;
-
-    [SerializeField]
-    private Transform[] coolTimePos = new Transform[2];
+    private SEManager seManager = null;
 
     public bool IsShotting { get; private set; }
     public bool IsNowShot { get; private set; }
@@ -80,6 +80,7 @@ public class CannonShot : MonoBehaviour
         const float INVOKE_TIME = 2.0f;
         IsShotting = true;
         energyType = energyCharge.ChrgeEnergyType;
+        audioSource.PlayOneShot(seManager.GetCannonBeamSe(energyType));
         CreateChageEffect();
         Invoke(nameof(CreateSmoke), INVOKE_TIME);
     }
@@ -90,7 +91,6 @@ public class CannonShot : MonoBehaviour
     private void CreateChageEffect()
     {
         shotCharge = Instantiate(shotChargeEffects[energyType], smokePosition);
-        audioSource.PlayOneShot(beamSe[energyType]);
     }
 
     /// <summary>
@@ -121,9 +121,9 @@ public class CannonShot : MonoBehaviour
     /// </summary>
     private void CreateCoolDownEffects()
     {
-        for (int i = 0; i < coolTimePos.Length; i++)
+        for (int i = 0; i < coolDownPos.Length; i++)
         {
-            Instantiate(coolDownEffect, coolTimePos[i].position, Quaternion.identity);
+            Instantiate(coolDownEffect, coolDownPos[i].position, Quaternion.identity);
         }
     }
 
