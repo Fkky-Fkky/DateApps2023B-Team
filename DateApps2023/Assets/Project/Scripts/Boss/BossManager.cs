@@ -105,31 +105,24 @@ public class BossManager : MonoBehaviour
     }
     public bool IsBossKill()
     {
-        //怪獣撃破時
-        return bossCSVGenerator.IsKill;
+        return bossCSVGenerator.IsKill;//怪獣撃破時
     }
 
     public int BossType()
     {
-        //中 1, ミニ 2, Big 3
-        return bossCSVGenerator.BossTypeDate();
+        return bossCSVGenerator.BossTypeDate();//中 1, ミニ 2, Big 3
     }
 
     public bool Charge()
-    {
-        //破壊光線チャージ時
-        return bossCSVGenerator.IsCharge;
+    {  
+        return bossCSVGenerator.IsCharge;//破壊光線チャージ時
     }
-
-    //接近時
     public bool Danger()
     {
-        return bossCSVGenerator.IsDanger;
+        return bossCSVGenerator.IsDanger;//接近時
     }
-    
-    //ゲームオーバーフラグ
     public bool IsGameOver()
     {
-        return bossCSVGenerator.IsGameOver;
+        return bossCSVGenerator.IsGameOver;//ゲームオーバーフラグ
     }
 }

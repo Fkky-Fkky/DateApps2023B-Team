@@ -52,6 +52,7 @@ public class BossDamage : MonoBehaviour
     const float EFFECT_POS_Y             = -40.0f;
     const float BOSS_DAMGE_OFF_TIME_MAX  =   0.6f;
     const float KNOCK_BACK_TIME_MAX      =   1.5f;
+    const float KNOCK_BACK_MOVE          =   3.0f;
     const float BOSS_DESTROY_TIME_MAX    =   2.5f;
     const float BOSS_COMPARE_SCALE_INDEX =  18.0f;
 
@@ -132,7 +133,7 @@ public class BossDamage : MonoBehaviour
             if (knockbackTime <= KNOCK_BACK_TIME_MAX)
             {
                 Vector3 bossPos = transform.position;
-                bossPos.z += 3.0f * Time.deltaTime;
+                bossPos.z += KNOCK_BACK_MOVE * Time.deltaTime;
                 transform.position = bossPos;
             }
             else
@@ -267,7 +268,9 @@ public class BossDamage : MonoBehaviour
     void DamageKnockBack(int Bullet)
     {
         if (isKnockback)
+        {
             return;
+        }
 
         if (!bossMove.IsAppearance())
         {

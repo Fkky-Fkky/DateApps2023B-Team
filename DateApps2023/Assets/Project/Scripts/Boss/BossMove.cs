@@ -76,6 +76,7 @@ public class BossMove : MonoBehaviour
     const int NOMAL_MAX_HP = 5;
     const int BIG_MIN_HP   = 7;
     const int MAX_HP       = 9;
+    const float HALF_INDEX             =   0.5f;
     const float UNDER_POSITION         = -54.5f;
     const float DANGER_FLASH_TIME_MAX  =   0.5f;
     const float WARNING_FLASH_TIME_MAX =   1.0f;
@@ -117,12 +118,10 @@ public class BossMove : MonoBehaviour
 
     void Start()
     {
-
         if (transform.position.x == 0.0f)
         {
             tag = "Center";
             BossUIPositionCneter();
-
         }
 
         if (transform.position.x >= 0.1f)
@@ -131,14 +130,11 @@ public class BossMove : MonoBehaviour
             BossUIPositionRight();
         }
 
-
         if (transform.position.x <= -0.1f)
         {
             tag = "Left";
             BossUIPositionLeft();
         }
-
-        //BossHp = System.Math.Max(BossHp, MIN_HP);
 
         bossAttack = GetComponent<BossAttack>();
         rb = GetComponent<Rigidbody>();
@@ -199,7 +195,7 @@ public class BossMove : MonoBehaviour
 
             var repeatValue = Mathf.Repeat(dangerFlashTime, DANGER_FLASH_TIME_MAX);
 
-            gameOverDisplay.enabled = repeatValue >= DANGER_FLASH_TIME_MAX * 0.5f;
+            gameOverDisplay.enabled = repeatValue >= DANGER_FLASH_TIME_MAX * HALF_INDEX;
 
             GameOverAnimasiton();
         }
@@ -290,26 +286,23 @@ public class BossMove : MonoBehaviour
         }
 
     }
-
     private void Move()
     {
-        if (!isAppearance && !isNotMove && !isLastAttack)
+        if (isAppearance && isNotMove && isLastAttack)
         {
-            if (gameObject.tag == "Center")
-            {
-                MoveTarget(cenetrTarget);
-            }
-
-            if (gameObject.tag == "Left")
-            {
-                MoveTarget(leftTarget);
-            }
-
-            if (gameObject.tag == "Right")
-            {
-                MoveTarget(rightTarget);
-            }
-
+            return;
+        }
+        if (gameObject.tag == "Center")
+        {
+            MoveTarget(cenetrTarget);
+        }
+        if (gameObject.tag == "Left")
+        {
+            MoveTarget(leftTarget);
+        }
+        if (gameObject.tag == "Right")
+        {
+            MoveTarget(rightTarget);
         }
     }
 
@@ -333,7 +326,7 @@ public class BossMove : MonoBehaviour
             warningFlashTime += Time.deltaTime;
             var repeatValue = Mathf.Repeat(warningFlashTime, WARNING_FLASH_TIME_MAX);
 
-            warningRenderer.enabled = repeatValue >= WARNING_FLASH_TIME_MAX * 0.5f;
+            warningRenderer.enabled = repeatValue >= WARNING_FLASH_TIME_MAX * HALF_INDEX;
 
             if (messageCount == 0)
             {
@@ -389,15 +382,15 @@ public class BossMove : MonoBehaviour
 
         if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && animationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
         {
-            //ゲームオーバーフラグ
-            IsGameOver = true;
+            IsGameOver = true;//ゲームオーバーフラグ
         }
-        if (isLastAttack && isDamageFlag)
+        if (!isLastAttack && !isDamageFlag)
         {
-            audioSource.Stop();
-            seCount = 0;
-            isLastAttack = false;
+            return;
         }
+        audioSource.Stop();
+        seCount = 0;
+        isLastAttack = false;
     }
 
     public void DamageTrue()
@@ -409,7 +402,6 @@ public class BossMove : MonoBehaviour
     {
         isDamageFlag = false;
     }
-
     public bool IsAppearance()
     {
         return isAppearance;
