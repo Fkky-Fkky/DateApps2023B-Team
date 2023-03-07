@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Operatar : MonoBehaviour
+public class Operator : MonoBehaviour
 {
     [SerializeField] private Op_text optext = null;
 
