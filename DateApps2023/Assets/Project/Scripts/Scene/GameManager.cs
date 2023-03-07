@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     private AudioMaster audioMaster = null;
 
     [SerializeField]
+    private Operetar myOperator = null;
+
+    [SerializeField]
     private Animator FadeOutAnimator = null;
 
     [SerializeField]
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
     private bool isFade = false;
     private bool isAudioFade = false;
     public bool IsGameOver { get { return bossManager.IsGameOver(); } }
+    public bool IsGameStart { get { return myOperator.GetStartFlag(); } }
 
     const float SCENE_MOVE_TIME = 5.0f;
     #endregion
