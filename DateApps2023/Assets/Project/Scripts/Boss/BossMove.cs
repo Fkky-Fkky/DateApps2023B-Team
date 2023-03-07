@@ -8,7 +8,7 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private float moveSpeed  =  2.0f;
     [SerializeField]
-    private float Multiplier = 50.0f;
+    private float multiplier = 50.0f;
 
     [SerializeField]
     private GameObject cenetrTarget = null;
@@ -28,7 +28,7 @@ public class BossMove : MonoBehaviour
     private GameObject shockWaveEffect = null;
 
     [SerializeField]
-    private Animator AnimationImage = null;
+    private Animator animationImage = null;
 
     [SerializeField]
     private Canvas canvas            = null;
@@ -138,6 +138,8 @@ public class BossMove : MonoBehaviour
             BossUIPositionLeft();
         }
 
+        //BossHp = System.Math.Max(BossHp, MIN_HP);
+
         bossAttack = GetComponent<BossAttack>();
         rb = GetComponent<Rigidbody>();
 
@@ -146,7 +148,6 @@ public class BossMove : MonoBehaviour
 
         warningDisplay.SetActive(false);
         gameOverWarningDisplay.SetActive(false);
-
 
         IsLanding    = false;
         IsHazard     = false;
@@ -166,7 +167,7 @@ public class BossMove : MonoBehaviour
                 pos.y = UNDER_POSITION;
                 transform.position = pos;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
-                AnimationImage.SetTrigger("StandBy");
+                animationImage.SetTrigger("StandBy");
                 isNotMove = true;
                 isAppearance = false;
             }
@@ -177,7 +178,7 @@ public class BossMove : MonoBehaviour
             moveTime += Time.deltaTime;
             if (moveTime >= MOVE_TIME_MAX)
             {
-                AnimationImage.SetTrigger("Walk");
+                animationImage.SetTrigger("Walk");
                 isNotMove = false;
                 moveTime = 0.0f;
             }
@@ -219,7 +220,7 @@ public class BossMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce((Multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
+        rb.AddForce((multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
     }
 
     private void BossUIPositionCneter()
@@ -366,7 +367,7 @@ public class BossMove : MonoBehaviour
             audioSource.Play();
 
             isLastAttack = true;
-            AnimationImage.SetTrigger("LastAttack");
+            animationImage.SetTrigger("LastAttack");
         }
         else
         {
@@ -377,7 +378,7 @@ public class BossMove : MonoBehaviour
 
     private void GameOverAnimasiton()
     {
-        if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+        if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && animationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
         {
             if (seCount < 1)
             {
@@ -386,7 +387,7 @@ public class BossMove : MonoBehaviour
             }
         }
 
-        if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
+        if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && animationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
         {
             //ゲームオーバーフラグ
             IsGameOver = true;

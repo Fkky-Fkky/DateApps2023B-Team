@@ -32,14 +32,14 @@ public class BossDamage : MonoBehaviour
     private bool isBossDamage   = false;
     private bool isBossFellDown = false;
 
-    private int maxHp = 0;
-    private int isBullet = -1;
-    private int smallDamage = 0;
-    private int MediumDamage = 0;
-    private int LargeDamage = 0;
+    private int maxHp        =  0;
+    private int isBullet     = -1;
+    private int smallDamage  =  0;
+    private int mediumDamage =  0;
+    private int largeDamage  =  0;
 
     private float invincibleTime = 0.0f;
-    private float BossDamgeOffTime = 0.0f;
+    private float bossDamgeOffTime = 0.0f;
     private float knockbackTime = 0.0f;
     private float bossDestroyTime = 0.0f;
 
@@ -48,10 +48,19 @@ public class BossDamage : MonoBehaviour
 
     public bool IsInvincible { get; private set; }
 
-    const float EFFECT_POS_Y            = -40.0f;
-    const float BOSS_DAMGE_OFF_TIME_MAX = 0.6f;
-    const float KNOCK_BACK_TIME_MAX     = 1.5f;
-    const float BOSS_DESTROY_TIME_MAX   = 2.5f;
+
+    const float EFFECT_POS_Y             = -40.0f;
+    const float BOSS_DAMGE_OFF_TIME_MAX  =   0.6f;
+    const float KNOCK_BACK_TIME_MAX      =   1.5f;
+    const float BOSS_DESTROY_TIME_MAX    =   2.5f;
+    const float BOSS_COMPARE_SCALE_INDEX =  18.0f;
+
+    const float SMALL_BOSS_HP_POS_X     = 0.6f;
+    const float NOMAL_BOSS_MIN_HP_POS_X = 0.8f;
+    const float BOSS_MIN_HP_POS_X       = 0.4f;
+    const float BOSS_MAX_HP_POS_X       = 0.2f;
+    const float BOSS_HP_BAR_POS_Y       = 0.7f;
+
 
 
     void Start()
@@ -61,8 +70,8 @@ public class BossDamage : MonoBehaviour
         damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
         smallDamage  = damageCSV.Small;
-        MediumDamage = damageCSV.Medium;
-        LargeDamage  = damageCSV.Large;
+        mediumDamage = damageCSV.Medium;
+        largeDamage  = damageCSV.Large;
 
         IsInvincible = false;
 
@@ -84,32 +93,32 @@ public class BossDamage : MonoBehaviour
         switch (maxHp) 
         {
             case 1:
-                if (gameObject.transform.localScale.y < 18.0f)
+                if (gameObject.transform.localScale.y < BOSS_COMPARE_SCALE_INDEX)
                 {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, 0.7f, 0);
+                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(SMALL_BOSS_HP_POS_X, BOSS_HP_BAR_POS_Y, 0);
                 }
-                if (gameObject.transform.localScale.y > 18.0f)
+                if (gameObject.transform.localScale.y > BOSS_COMPARE_SCALE_INDEX)
                 {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.8f, -0.7f, 0);
+                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(NOMAL_BOSS_MIN_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 }
                 break;
             case 2:
-                if (gameObject.transform.localScale.y > 18.0f)
+                if (gameObject.transform.localScale.y > BOSS_COMPARE_SCALE_INDEX)
                 {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, -0.7f, 0);
+                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(SMALL_BOSS_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 }
                 break;
             case 3:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.4f, -0.7f, 0);
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MIN_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 break;
             case 4:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.2f, -0.7f, 0);
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 break;
             case 7:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.4f, 0, 0);
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MIN_HP_POS_X, 0, 0);
                 break;
             case 8:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.2f, 0, 0);
+                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, 0, 0);
                 break;
         }
 
@@ -174,11 +183,11 @@ public class BossDamage : MonoBehaviour
 
         if (isBossDamage)
         {
-            BossDamgeOffTime += Time.deltaTime;
-            if (BossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
+            bossDamgeOffTime += Time.deltaTime;
+            if (bossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
             {
                 isBossDamage = false;
-                BossDamgeOffTime = 0.0f;
+                bossDamgeOffTime = 0.0f;
             }
         }
     }
@@ -192,12 +201,12 @@ public class BossDamage : MonoBehaviour
         }
         else if (isBullet == 1)
         {
-            Damage(MediumDamage);
+            Damage(mediumDamage);
             HpBarMediumActive();
         }
         else if (isBullet == 2)
         {
-            Damage(LargeDamage);
+            Damage(largeDamage);
             HpBarLargeActive();
         }
     }
@@ -213,7 +222,7 @@ public class BossDamage : MonoBehaviour
 
     private void HpBarMediumActive()
     {
-        for (int i = 0; i < MediumDamage; i++)
+        for (int i = 0; i < mediumDamage; i++)
         {
             if (bossMove.BossHp + i < maxHp)
             {

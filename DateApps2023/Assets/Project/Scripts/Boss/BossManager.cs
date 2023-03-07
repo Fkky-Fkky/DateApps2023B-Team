@@ -13,7 +13,6 @@ public class BossManager : MonoBehaviour
     private GameObject leftBoss   = null;
     private GameObject rightBoss  = null;
 
-
     void Update()
     {
         BossDamage();
@@ -111,7 +110,6 @@ public class BossManager : MonoBehaviour
         return bossCSVGenerator.IsLanding;
     }
 
-
     public bool ISBossFirstKill()
     {
         //Å‰‚Ì‰öbŒ‚”j
@@ -123,7 +121,6 @@ public class BossManager : MonoBehaviour
         //‰öbŒ‚”j
         return bossCSVGenerator.IsKill;
     }
-
 
     public int BossType()
     {

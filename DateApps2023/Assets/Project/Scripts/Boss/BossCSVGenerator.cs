@@ -27,8 +27,8 @@ public class BossCSVGenerator : MonoBehaviour
     private BossCSV bossCSV         = null;
 
     private bool isCenterLine = false;
-    private bool isRightLine = false;
-    private bool isLeftLine = false;
+    private bool isRightLine  = false;
+    private bool isLeftLine   = false;
 
     private int bossCountOne = 1;
     private int messageCount = 0;
@@ -65,8 +65,8 @@ public class BossCSVGenerator : MonoBehaviour
     public bool IsCharge { get; private set; }
     public bool IsGameOver { get; private set; }
 
-    const float FALL_POSITION       = 500.0f;
-    const float MESSAGE_OFF_TIME_MAX  =  0.05f;
+    const float FALL_POSITION          = 500.0f;
+    const float MESSAGE_OFF_TIME_MAX   =  0.05f;
     const float BOSS_TYPE_OFF_TIME_MAX =  0.03f;
 
     void Start()
