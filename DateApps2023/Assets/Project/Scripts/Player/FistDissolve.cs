@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーのパンチ表示に関する処理を行うクラス
+/// </summary>
 public class FistDissolve : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーのパンチ表示に関する処理を行う
-    /// </summary>
     #region
     [SerializeField]
     private float startTime = 0.5f;

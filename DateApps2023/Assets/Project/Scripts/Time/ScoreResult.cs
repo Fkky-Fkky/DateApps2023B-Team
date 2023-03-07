@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ゲームクリア時とゲームオーバー時のスコア表示に関するクラス
+/// </summary>
 public class ScoreResult : MonoBehaviour
 {
-    /// <summary>
-    /// ゲームクリア時とゲームオーバー時のスコアを表示する
-    /// </summary>
     #region
     private TextMeshProUGUI scoreTMP = null;
     private int killCount = 0;

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// プレイヤーのエモートに関するクラス
+/// </summary>
 public class PlayerEmote : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーのエモートを出すスクリプト
-    /// L：ヘルプ　R：ナイス
-    /// </summary>
     #region
     [SerializeField]
     private Sprite emoteIconL = null;

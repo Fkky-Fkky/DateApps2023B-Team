@@ -7,14 +7,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
-//using static UnityEditor.Experimental.GraphView.GraphView;
 
+/// <summary>
+/// タイトルロゴ画面のデモ動画に関する処理を行うクラス
+/// </summary>
 public class TitleVideoManager : MonoBehaviour
 {
-    /// <summary>
-    /// タイトルロゴ画面のデモ動画に関する処理を行う
-    /// </summary>
-
     #region
     [SerializeField]
     private Animator animationImage = null;

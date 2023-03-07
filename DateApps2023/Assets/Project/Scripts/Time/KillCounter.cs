@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ‰öb‚ğ“|‚µ‚½”‚Æ‘S‰öb‚Ì”‚ğ•\¦‚·‚éƒNƒ‰ƒX
+/// </summary>
 public class KillCounter : MonoBehaviour
 {
-    /// <summary>
-    /// ‰öb‚ğ“|‚µ‚½”‚Æ‘S‰öb‚Ì”‚ğ•\¦‚·‚é
-    /// </summary>
     #region
     [SerializeField]
     private int allBossCount = 15;

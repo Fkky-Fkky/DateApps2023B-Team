@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// ゲームクリアとゲームオーバーの画面遷移に関する処理を行うクラス
+/// </summary>
 public class SceneMove : MonoBehaviour
 {
-    /// <summary>
-    /// ゲームクリアとゲームオーバーの画面遷移に関する処理を行う
-    /// </summary>
     #region
     [SerializeField]
     private string sceneName = "New Scene";

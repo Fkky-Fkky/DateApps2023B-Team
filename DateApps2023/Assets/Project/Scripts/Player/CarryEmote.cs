@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// 運搬中の人数が標準人数以下の場合に出すエモート(汗)に関するクラス
+/// </summary>
 public class CarryEmote : MonoBehaviour
 {
-    /// <summary>
-    /// 運搬中の人数が標準人数以下の場合にエモート(汗)の処理
-    /// 基本的に外部のスクリプトから呼び出す
-    /// </summary>
     #region
     [SerializeField]
     private Sprite carryEmoteIcon = null;

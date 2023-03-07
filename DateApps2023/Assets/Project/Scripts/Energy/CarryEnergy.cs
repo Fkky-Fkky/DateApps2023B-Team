@@ -5,11 +5,11 @@ using System.Data;
 using System.Drawing;
 using UnityEngine;
 
+/// <summary>
+/// エネルギー物資の運搬に関するクラス
+/// </summary>
 public class CarryEnergy : MonoBehaviour
 {
-    /// <summary>
-    /// エネルギー物資の運搬に関する処理を行う
-    /// </summary>
     #region
     [SerializeField]
     private float defaultPosY = 51;

@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// タイトルシーンにおけるシーン移動の処理を行うクラス
+/// それに伴うマニュアル画面(準備画面)の処理を含む
+/// </summary>
 public class TitleSceneMove : MonoBehaviour
 {
-    /// <summary>
-    /// タイトルシーンにおけるシーン移動の処理を行う
-    /// それに伴うマニュアル画面(準備画面)の処理を含む
-    /// </summary>
     #region
     [SerializeField]
     private string sceneName = "New Scene";

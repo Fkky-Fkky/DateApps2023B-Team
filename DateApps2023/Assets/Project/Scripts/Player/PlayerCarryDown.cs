@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// プレイヤーの運搬に関するクラス
+/// </summary>
 public class PlayerCarryDown : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーの運搬に関する処理を行う
-    /// </summary>
     #region
     private PlayerMove playermove = null;
     private CarryEnergy energyItem = null;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// ƒƒCƒ“‰æ–Ê‚Ì‘JˆÚ‚ÉŠÖ‚·‚éƒNƒ‰ƒX
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     #region

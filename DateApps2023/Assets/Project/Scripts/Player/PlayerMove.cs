@@ -9,14 +9,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
-
-
+/// <summary>
+/// 運搬時の移動を除く、プレイヤーの移動に関するクラス
+/// </summary>
 public class PlayerMove : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーの移動に関する処理を行う
-    /// (ただし、運搬時の移動を除く)
-    /// </summary>
     #region
     [SerializeField]
     [Tooltip("移動の速さ")]

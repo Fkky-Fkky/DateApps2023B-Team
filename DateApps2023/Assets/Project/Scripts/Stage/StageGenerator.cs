@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ステージ配置に関する処理を行うクラス
+/// </summary>
 public class StageGenerator : MonoBehaviour
 {
-    /// <summary>
-    /// ステージを配置する処理を行う
-    /// </summary>
     #region
     [SerializeField]
     private GameObject[] stagePattern = null;

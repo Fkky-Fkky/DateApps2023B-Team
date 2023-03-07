@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
+/// <summary>
+/// エモート関連のスクリプトにおいて、一部の変数を設定するクラス
+/// 作成したScriptableObjectを、対象のInspecterにアタッチして使う
+/// </summary>
 [CreateAssetMenu(menuName = "CreateData/EmoteData", fileName = "EmoteData" )]
 public class EmoteData : ScriptableObject
 {
-    /// <summary>
-    /// エモート関連のスクリプトにおいて、一部の変数を設定するScriptableObject
-    /// プロジェクトのファイルにて作成したものを、対象のInspecterにアタッチして使う
-    /// </summary>
     [SerializeField]
     private float startTime = 0.4f;
 

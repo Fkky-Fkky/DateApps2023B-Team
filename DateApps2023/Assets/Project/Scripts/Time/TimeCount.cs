@@ -6,11 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
 
+/// <summary>
+/// ゲーム本編の経過時間表示に関するクラス
+/// </summary>
 public class TimeCount : MonoBehaviour
 {
-    /// <summary>
-    /// ゲーム本編の経過時間を表示する
-    /// </summary>
     #region
     [SerializeField]
     private string sceneName = "New Scene";

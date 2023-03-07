@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// プレイヤーのアクションに関するクラス
+/// </summary>
 public class PlayerAttack : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーのアクションに関する処理を行う
-    /// </summary>
     #region
     [SerializeField]
     private float hitTime = 0.25f;

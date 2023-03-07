@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ‘å–C‚Ì‰^”À‚ÉŠÖ‚·‚éƒNƒ‰ƒX
+/// </summary>
 public class CarryCannon : MonoBehaviour
 {
-    /// <summary>
-    /// ‘å–C‚Ì‰^”À‚ÉŠÖ‚·‚éˆ—‚ğs‚¤
-    /// </summary>
     #region
     [SerializeField]
     private float defaultPosY = 51;

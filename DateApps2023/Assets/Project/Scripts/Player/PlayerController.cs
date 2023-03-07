@@ -9,11 +9,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// プレイヤーの運搬中の移動に関するクラス
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーの運搬中の移動処理を行う
-    /// </summary>
     #region
     [SerializeField]
     [Tooltip("移動の速さ")]

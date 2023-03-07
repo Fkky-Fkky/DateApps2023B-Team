@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 using static UnityEngine.GraphicsBuffer;
 
+/// <summary>
+/// プレイヤーのダメージに関するクラス
+/// </summary>
 public class PlayerDamage : MonoBehaviour
 {
-    /// <summary>
-    /// プレイヤーがダメージを受けた際の処理を行う
-    /// </summary>
     #region
     [SerializeField]
     private float stanTime = 5.0f;
