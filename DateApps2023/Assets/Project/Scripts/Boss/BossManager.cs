@@ -103,19 +103,6 @@ public class BossManager : MonoBehaviour
             bossCSVGenerator.IsRightLineTrue();
         }
     }
-
-    public bool IsBossFirstLanding()
-    {
-        //‰öb‚ª’n–Ê‚É’…’n‚µ‚½‚ç
-        return bossCSVGenerator.IsLanding;
-    }
-
-    public bool ISBossFirstKill()
-    {
-        //Å‰‚Ì‰öbŒ‚”j
-        return bossCSVGenerator.IsFirstKill;
-    }
-
     public bool IsBossKill()
     {
         //‰öbŒ‚”j

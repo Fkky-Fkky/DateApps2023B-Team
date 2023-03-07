@@ -205,15 +205,15 @@ public class BossAttack : MonoBehaviour
 
     private void AttackOff()
     {
-        IsAttack = false;
+        IsAttack    = false;
         isAttackAll = false;
+        seCount    = 0;
         effectStop = 0;
-        attackAnimation.SetBool("Attack", false);
-        seCount = 0;
-        chargeTime = 0.0f;
+        areaCount  = 0;
+        chargeTime  = 0.0f;
         beamOffTime = 0.0f;
-        areaCount = 0;
-        time = 0.0f;
+        time        = 0.0f;
+        attackAnimation.SetBool("Attack", false);
     }
 
     public float BeamTimeMax()

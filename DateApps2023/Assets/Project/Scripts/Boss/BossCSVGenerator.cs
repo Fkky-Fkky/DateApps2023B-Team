@@ -32,7 +32,6 @@ public class BossCSVGenerator : MonoBehaviour
 
     private int bossCountOne = 1;
     private int messageCount = 0;
-    private int landingCount = 0;
     private int bossType     = 0;
     private int bossLane     = 0;
     private int bossHpDate   = 0;
@@ -43,7 +42,6 @@ public class BossCSVGenerator : MonoBehaviour
     private float dangerOffTime      = 0.0f;
     private float killOffTime        = 0.0f;
     private float time               = 0.0f;
-    private float landingTime        = 0.0f;
     private float bossTypeOffTime    = 0.0f;
     private float attackIntervalDate = 0.0f;
     private float posZ               = 0.0f;
@@ -58,25 +56,31 @@ public class BossCSVGenerator : MonoBehaviour
     private GameObject boss     = null;
     private BossCount bossCount = null;
 
-    public bool IsFirstKill { get; private set; }
     public bool IsKill { get; private set; }
-    public bool IsLanding { get; private set; }
     public bool IsDanger { get; private set; }
     public bool IsCharge { get; private set; }
     public bool IsGameOver { get; private set; }
 
-    const float FALL_POSITION          = 500.0f;
-    const float MESSAGE_OFF_TIME_MAX   =  0.05f;
-    const float BOSS_TYPE_OFF_TIME_MAX =  0.03f;
+    const int NOMAL_NOSS_INDEX = 1;
+    const int MINI_BOSS_INDEX  = 2;
+    const int BIG_BOSS_INDEX   = 3;
+
+    const int FIRST_BOSS_LANE     = 2;
+    const int SECOND_BOSS_LANE    = 3;
+    const int TUTORIAL_BOSS_HP    = 3;
+    const int TUTORIAL_BOSS_SPEED = 3;
+    const float TUTORIAL_BOSS_POS_Z     =   345.0f;
+    const float TUTORIAL_ATTACKINTERVAL = 10000.0f;
+    const float FALL_POSITION           =   500.0f;
+    const float MESSAGE_OFF_TIME_MAX    =    0.05f;
+    const float BOSS_TYPE_OFF_TIME_MAX  =    0.03f;
+
+    const string TUTORIAL_BOSS_TYPE = "Nomal";
 
     void Start()
     {
         bossCount = GetComponent<BossCount>();
-
-        IsFirstKill = false;
         IsKill      = false;
-
-        IsLanding   = false;
 
         leftPosX  = -sidePos;
         rightPosX =  sidePos;
@@ -126,14 +130,6 @@ public class BossCSVGenerator : MonoBehaviour
 
         for (int i = 0; i < bossMoveList.Count; i++)
         {
-            if (bossMoveList[i].IsLanding)
-            {
-                if (landingCount < 1)
-                {
-                    IsLanding = true;
-                    landingCount++;
-                }
-            }
             if (bossMoveList[i].IsHazard)
             {
                 IsDanger = true;
@@ -165,28 +161,6 @@ public class BossCSVGenerator : MonoBehaviour
 
     private void MessageCancel()
     {
-        if (IsLanding)
-        {
-            landingTime += Time.deltaTime;
-            if (landingTime >= MESSAGE_OFF_TIME_MAX)
-            {
-                IsLanding = false;
-                landingTime = 0.0f;
-            }
-        }
-
-        if (IsFirstKill)
-        {
-            killOffTime += Time.deltaTime;
-            if (killOffTime >= MESSAGE_OFF_TIME_MAX)
-            {
-                messageCount = 0;
-                IsFirstKill = false;
-
-                killOffTime = 0.0f;
-            }
-        }
-
         if (IsKill)
         {
             killOffTime += Time.deltaTime;
@@ -270,15 +244,15 @@ public class BossCSVGenerator : MonoBehaviour
         {
             case "Nomal":
                 boss = Instantiate(nomalBoss);
-                bossType = 1;
+                bossType = NOMAL_NOSS_INDEX;
                 break;
             case "Mini":
                 boss = Instantiate(miniBoss);
-                bossType = 2;
+                bossType = MINI_BOSS_INDEX;
                 break;
             case "Big":
                 boss = Instantiate(bigBoss);
-                bossType = 3;
+                bossType = BIG_BOSS_INDEX;
                 break;
         }
     }
@@ -292,8 +266,6 @@ public class BossCSVGenerator : MonoBehaviour
     {
         isCenterLine = true;
     }
-
-
     public void IsLeftLineFalse()
     {
         isLeftLine = false;
@@ -336,24 +308,24 @@ public class BossCSVGenerator : MonoBehaviour
 
     public void FirstBossGanaretar()
     {
-        bossTypeDate = "Nomal";
-        bossLane = 2;
-        attackIntervalDate = 10000.0f;
-        posZ = 345.0f;
-        bossHpDate = 3;
-        moveSpeedDate = 3;
+        bossTypeDate       = TUTORIAL_BOSS_TYPE;
+        bossLane           = FIRST_BOSS_LANE;
+        attackIntervalDate = TUTORIAL_ATTACKINTERVAL;
+        posZ               = TUTORIAL_BOSS_POS_Z;
+        bossHpDate         = TUTORIAL_BOSS_HP;
+        moveSpeedDate      = TUTORIAL_BOSS_SPEED;
 
         BossGanarater();
     }
 
     public void SecondBossGanaretar()
     {
-        bossTypeDate = "Nomal";
-        bossLane = 3;
-        attackIntervalDate = 10000.0f;
-        posZ = 345.0f;
-        bossHpDate = 3;
-        moveSpeedDate = 3;
+        bossTypeDate       = TUTORIAL_BOSS_TYPE;
+        bossLane           = SECOND_BOSS_LANE;
+        attackIntervalDate = TUTORIAL_ATTACKINTERVAL;
+        posZ               = TUTORIAL_BOSS_POS_Z;
+        bossHpDate         = TUTORIAL_BOSS_HP;
+        moveSpeedDate      = TUTORIAL_BOSS_SPEED;
 
         BossGanarater();
     }
