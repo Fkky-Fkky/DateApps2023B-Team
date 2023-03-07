@@ -82,6 +82,7 @@ public class BossMove : MonoBehaviour
     const float WARNING_FLASH_TIME_MAX =   1.0f;
     const float MOVE_TIME_MAX          =   3.0f;
     const float BOSS_SCALE_Y           =  18.0f;
+    const float SIDE_POS               =   0.1f;
 
     const float NOMAL_UI_POSITION_X =  4.0f;
     const float MINI_UI_POSITION_X  = 13.0f;
@@ -124,13 +125,13 @@ public class BossMove : MonoBehaviour
             BossUIPositionCneter();
         }
 
-        if (transform.position.x >= 0.1f)
+        if (transform.position.x >= SIDE_POS)
         {
             tag = "Right";
             BossUIPositionRight();
         }
 
-        if (transform.position.x <= -0.1f)
+        if (transform.position.x <= -SIDE_POS)
         {
             tag = "Left";
             BossUIPositionLeft();
