@@ -49,13 +49,13 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
     {
         if (isSecondGenerate)
         {
-            createEnergyTypeList.Add((int)EnergyCharge.EnergyType.MEDIUM);
+            createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.MEDIUM);
             return;
         }
 
         if (isFirstGenerate)
         {
-            createEnergyTypeList.Add((int)EnergyCharge.EnergyType.SMALL);
+            createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.SMALL);
             return;
         }
     }

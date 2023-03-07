@@ -64,13 +64,13 @@ public class BossManager : MonoBehaviour
 
             switch (cannonManager.IsShotEnergyType[i])
             {
-                case (int)EnergyCharge.EnergyType.SMALL:
+                case (int)EnergyCharge.ENERGY_TYPE.SMALL:
                     boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                     break;
-                case (int)EnergyCharge.EnergyType.MEDIUM:
+                case (int)EnergyCharge.ENERGY_TYPE.MEDIUM:
                     boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                     break;
-                case (int)EnergyCharge.EnergyType.LARGE:
+                case (int)EnergyCharge.ENERGY_TYPE.LARGE:
                     boss.GetComponent<BossDamage>().KnockbackTrueLarge();
                     break;
             }

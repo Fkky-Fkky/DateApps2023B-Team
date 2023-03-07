@@ -54,15 +54,15 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
         const int RANDOM_MAX = 100;
         const int MEDIUM_MIN = 40;
         const int MEDIUM_MAX = 90;
-        int type = (int)EnergyCharge.EnergyType.SMALL;
+        int type = (int)EnergyCharge.ENERGY_TYPE.SMALL;
         int energyNum = Random.Range(0, RANDOM_MAX);
         if (energyNum >= MEDIUM_MIN && energyNum < MEDIUM_MAX)
         {
-            type = (int)EnergyCharge.EnergyType.MEDIUM;
+            type = (int)EnergyCharge.ENERGY_TYPE.MEDIUM;
         }
         else if (energyNum >= MEDIUM_MAX && energyNum < RANDOM_MAX)
         {
-            type = (int)EnergyCharge.EnergyType.LARGE;
+            type = (int)EnergyCharge.ENERGY_TYPE.LARGE;
         }
         createEnergyTypeList.Add(type);
     }
