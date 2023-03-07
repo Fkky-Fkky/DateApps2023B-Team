@@ -348,7 +348,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.35
-    functionName: Game_vice3
+    functionName: GameVice3
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
