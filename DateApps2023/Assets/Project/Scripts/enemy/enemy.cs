@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
     {
         START,
 
-        CLIMBIN,
+        CLIMB,
 
         JUMP,
 
@@ -141,14 +141,14 @@ public class Enemy : MonoBehaviour
     {
         if (gameState == SUMMON.START)
         {
-            rb.constraints = RigidbodyConstraints.None;
+            //rb.constraints = RigidbodyConstraints.None;
             work = 1;
             attackFlag = false;
-            gameState = SUMMON.CLIMBIN;
+            gameState = SUMMON.CLIMB;
             myTransform.Rotate(-90, 0f, 0f);
         }
         //y8.5
-        else if (gameState == SUMMON.CLIMBIN)
+        else if (gameState == SUMMON.CLIMB)
         {
             transform.position += new Vector3(0, climbingSpeed, 0) * Time.deltaTime;
             //climbing_speed
