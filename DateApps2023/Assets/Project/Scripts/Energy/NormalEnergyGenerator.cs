@@ -10,7 +10,7 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
     private float GENERATE_INTERVAL_TIME = 10.0f;
 
     private bool isGenerate = false;
-    private List<float> createTimeList = new List<float>();
+    private List<float> generateTimeList = new List<float>();
 
     // Start is called before the first frame update
     void Start()
@@ -21,18 +21,25 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
 
     private void Update()
     {
-        for (int i = 0; i < createTimeList.Count; i++)
+        int create = 0;
+        for (int i = 0; i < generateTimeList.Count; i++)
         {
-            createTimeList[i] -= Time.deltaTime;
-            if (createTimeList[i] <= 0)
+            generateTimeList[i] -= Time.deltaTime;
+            if (generateTimeList[i] <= 0.0f)
             {
-                EnergyGenerate();
+                isGenerate = true;
+                create++;
             }
         }
 
         if (isGenerate)
         {
-            RemoveList();
+            for (int i = 0; i < create; ++i)
+            {
+                base.EnergyGenerate();
+                RemoveList();
+            }
+            isGenerate = false;
         }
     }
 
@@ -43,7 +50,7 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
     {
         GenerateEnergyType();
         GeneratePosition();
-        createTimeList.Add(GENERATE_INTERVAL_TIME);
+        generateTimeList.Add(GENERATE_INTERVAL_TIME);
     }
 
     /// <summary>
@@ -67,16 +74,9 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
         createEnergyTypeList.Add(type);
     }
 
-    protected void EnergyGenerate()
-    {
-        base.EnergyGenerate();
-        isGenerate = true;
-    }
-
     private void RemoveList()
     {
         base.RemoveList();
-        createTimeList.RemoveAt(0);
-        isGenerate = false;
+        generateTimeList.RemoveAt(0);
     }
 }

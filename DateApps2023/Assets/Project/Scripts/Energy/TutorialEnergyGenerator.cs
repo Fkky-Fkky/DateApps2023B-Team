@@ -39,7 +39,8 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         }
         GenerateEnergyType();
         GeneratePosition();
-        EnergyGenerate();
+        base.EnergyGenerate();
+        base.RemoveList();
     }
 
     /// <summary>
@@ -58,12 +59,6 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
             createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.SMALL);
             return;
         }
-    }
-
-    private void EnergyGenerate()
-    {
-        base.EnergyGenerate();
-        base.RemoveList();
     }
 
     /// <summary>

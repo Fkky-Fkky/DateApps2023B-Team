@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// エネルギー物資の生成をするクラス
+/// </summary>
 public class EnergyGenerator : MonoBehaviour
 {
     [SerializeField]
@@ -37,15 +38,15 @@ public class EnergyGenerator : MonoBehaviour
         if (gameManager.IsGameStart)
         {
             generator = normalGenerator;
-            const int ADD_GENERATE = 2;
-            for (int i = 0; i < ADD_GENERATE; ++i)
-            {
-                Generate();
-            }
+            Generate();
             IsGeneratorChange = true;
+            tutorialGenerator.gameObject.SetActive(false);
         }
     }
 
+    /// <summary>
+    /// エネルギー物資の生成
+    /// </summary>
     public void Generate()
     {
         generator.Generate();

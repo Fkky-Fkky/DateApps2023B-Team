@@ -73,9 +73,11 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     protected void GeneratePosition()
     {
         int miss = 0;
-        int energyType = createEnergyTypeList[0];
+        int energyTypeIndex = createEnergyTypeList.Count - 1;
+        int energyType = createEnergyTypeList[energyTypeIndex];
         int areaIndex  = Random.Range(0, MAX_AREA);
-        Vector3 genaratePos = Vector3.one;
+        Vector3 genaratePos = Vector3.zero;
+        genaratePos.y = 0.5f;
         while (miss < MAX_MISS_COUNT)
         {
             genaratePos.x = Random.Range(createArea[areaIndex], createArea[areaIndex + 1]);
