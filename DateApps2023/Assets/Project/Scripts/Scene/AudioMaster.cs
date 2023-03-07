@@ -91,7 +91,7 @@ public class AudioMaster : MonoBehaviour
     }
 
     /// <summary>
-    /// BGM‚Ì‰¹—Ê‚ğ™X‚É¬‚³‚­‚·‚éÛ‚ÉŒÄ‚Ño‚·
+    /// BGM‚Ì‰¹—Ê‚ğ™X‚É¬‚³‚­‚·‚é
     /// </summary>
     void FadeOutBGM()
     {

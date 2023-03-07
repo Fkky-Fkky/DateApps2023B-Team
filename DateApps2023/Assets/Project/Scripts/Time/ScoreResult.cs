@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// ゲームクリア時とゲームオーバー時のスコア表示に関するクラス
+/// スコアリザルトの表示に関するクラス
 /// </summary>
 public class ScoreResult : MonoBehaviour
 {

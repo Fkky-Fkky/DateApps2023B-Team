@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System.Reflection;
 
 /// <summary>
-/// ゲーム本編の経過時間表示に関するクラス
+/// ゲーム本編の時間表示に関するクラス
 /// </summary>
 public class TimeCount : MonoBehaviour
 {

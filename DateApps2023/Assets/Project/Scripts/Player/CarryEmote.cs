@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// 運搬中の人数が標準人数以下の場合に出すエモート(汗)に関するクラス
+/// 運搬中の人数が足りない場合に出すエモート(汗)に関するクラス
 /// </summary>
 public class CarryEmote : MonoBehaviour
 {

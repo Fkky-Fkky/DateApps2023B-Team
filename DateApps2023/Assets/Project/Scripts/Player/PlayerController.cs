@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// プレイヤーの運搬中の移動に関するクラス
+/// 運搬中のプレイヤー移動に関するクラス
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
