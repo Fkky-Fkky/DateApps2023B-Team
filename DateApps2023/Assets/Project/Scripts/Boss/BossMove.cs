@@ -288,21 +288,20 @@ public class BossMove : MonoBehaviour
     }
     private void Move()
     {
-        if (isAppearance && isNotMove && isLastAttack)
+        if (!isAppearance && !isNotMove && !isLastAttack)
         {
-            return;
-        }
-        if (gameObject.tag == "Center")
-        {
-            MoveTarget(cenetrTarget);
-        }
-        if (gameObject.tag == "Left")
-        {
-            MoveTarget(leftTarget);
-        }
-        if (gameObject.tag == "Right")
-        {
-            MoveTarget(rightTarget);
+            if (gameObject.tag == "Center")
+            {
+                MoveTarget(cenetrTarget);
+            }
+            if (gameObject.tag == "Left")
+            {
+                MoveTarget(leftTarget);
+            }
+            if (gameObject.tag == "Right")
+            {
+                MoveTarget(rightTarget);
+            }
         }
     }
 
@@ -384,13 +383,12 @@ public class BossMove : MonoBehaviour
         {
             IsGameOver = true;//ゲームオーバーフラグ
         }
-        if (!isLastAttack && !isDamageFlag)
+        if (isLastAttack && isDamageFlag)
         {
-            return;
+            audioSource.Stop();
+            seCount = 0;
+            isLastAttack = false;
         }
-        audioSource.Stop();
-        seCount = 0;
-        isLastAttack = false;
     }
 
     public void DamageTrue()
