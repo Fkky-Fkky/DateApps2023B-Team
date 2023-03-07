@@ -128,13 +128,13 @@ public class ProgressControlV3D : MonoBehaviour {
                 {
                     switch (energyCharge.ChrgeEnergyType)
                     {
-                        case (int)EnergyCharge.EnergyType.SMALL:
+                        case (int)EnergyCharge.ENERGY_TYPE.SMALL:
                             finalColor = new Color(0, 0.7f, 1, 1);
                             break;
-                        case (int)EnergyCharge.EnergyType.MEDIUM:
+                        case (int)EnergyCharge.ENERGY_TYPE.MEDIUM:
                             finalColor = new Color(0.3f, 0.23f, 0.1f, 1);
                             break;
-                        case (int)EnergyCharge.EnergyType.LARGE:
+                        case (int)EnergyCharge.ENERGY_TYPE.LARGE:
                             finalColor = new Color(1, 0.3f, 0, 1);
                             break;
                     }

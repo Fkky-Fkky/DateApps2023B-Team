@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: 7358680883832252254, guid: d92362905d020f84596d91f04129ac22, type: 3}
   - {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
   - {fileID: 7358680883832252254, guid: 42ae7dbb9b4a81e42aafc1e0bdb748c2, type: 3}
-  chargeSe: {fileID: 8300000, guid: b17165e5376f4ab43ae13df612607253, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
   generateEnergy: {fileID: 0}
   cannonLaser: {fileID: 3007549720114495770}
 --- !u!65 &608408025037340663
@@ -699,16 +699,13 @@ MonoBehaviour:
   - {fileID: 7370199869646859276, guid: 3062b40825aab3b4abece4d845f873ee, type: 3}
   - {fileID: 7370199869646859276, guid: 8b0976b2e70540244a8dded4779fdbcc, type: 3}
   - {fileID: 7370199869646859276, guid: 7daf18ee7bb8259448d30fe64fac2e0e, type: 3}
-  smokePosition: {fileID: 608408026505789374}
-  energyCharge: {fileID: 608408025037340662}
-  beamSe:
-  - {fileID: 8300000, guid: bd215cc07a793b945843eb8df41189cb, type: 3}
-  - {fileID: 8300000, guid: 57cfb0d8543e4f9458095793223274fe, type: 3}
-  - {fileID: 8300000, guid: 4b2f9b8cc9155084ea2660975759e2ba, type: 3}
   coolDownEffect: {fileID: 6304585585383082989, guid: 89b08b50e70ad124eb0707a45dfebd7d, type: 3}
-  coolTimePos:
+  coolDownPos:
   - {fileID: 390078139655551619}
   - {fileID: 1799508560690613775}
+  smokePosition: {fileID: 608408026505789374}
+  energyCharge: {fileID: 608408025037340662}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
 --- !u!114 &1228524025749394180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,9 +731,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f77336411ad694488b985a5af8f6fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectEffect: {fileID: 4319145361413959232, guid: 59db49542e2a645428659003f7383d83, type: 3}
+  connectEffect: {fileID: 0}
   effectPos: {fileID: 608408025037340664}
-  connectSe: {fileID: 8300000, guid: 90f7f1c71a030c54d99428e60c94825f, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
 --- !u!65 &6843777197854238308
 BoxCollider:
   m_ObjectHideFlags: 0
