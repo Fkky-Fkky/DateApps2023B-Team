@@ -9,7 +9,7 @@ public class BossCSVGenerator : MonoBehaviour
     public BossManager bossManager;
     private BossCount bossCount;
     [SerializeField]
-    private Operetar opretar;
+    private Operator opretar;
 
     [SerializeField]
     private BossCSV bossCSV = null;

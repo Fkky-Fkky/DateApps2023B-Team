@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private AudioMaster audioMaster = null;
 
     [SerializeField]
-    private Operetar myOperator = null;
+    private Operator myOperator = null;
 
     [SerializeField]
     private Animator FadeOutAnimator = null;
