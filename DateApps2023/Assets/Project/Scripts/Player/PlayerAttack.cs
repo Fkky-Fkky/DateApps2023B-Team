@@ -84,6 +84,25 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+
+            if (!rb)
+                return;
+
+            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
+
+            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
+            if (!nav)
+                return;
+
+            nav.enabled = false;
+        }
+    }
+
     /// <summary>
     /// プレイヤーがアクションを開始した際に呼び出す
     /// </summary>
@@ -161,23 +180,6 @@ public class PlayerAttack : MonoBehaviour
         isDamage = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Rigidbody rb = other.GetComponent<Rigidbody>();
-
-            if (!rb)
-                return;
-
-            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
-
-            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
-            if (!nav)
-                return;
-
-            nav.enabled = false;
-        }
-    }
+    
 
 }
