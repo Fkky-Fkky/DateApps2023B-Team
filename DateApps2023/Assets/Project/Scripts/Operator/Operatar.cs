@@ -92,7 +92,6 @@ public class Operatar : MonoBehaviour
     /// </summary>
     void TutorialEnd()
     {
-        energy.Generate();
         animator.SetTrigger("tutorial_end");
         gameState = GAME_STATE.GAME;
         startFlag = true;
