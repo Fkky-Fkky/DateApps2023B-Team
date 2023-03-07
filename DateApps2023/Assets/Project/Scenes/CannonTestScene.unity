@@ -541,6 +541,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40829d2c420b52f41b914d7c3a7e2881, type: 3}
+--- !u!114 &236199875 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+  m_PrefabInstance: {fileID: 1104106560}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40fc9bf34b477f84da537cc35b722f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &345375994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8443617149660249088, guid: a7d1577eba7e1de48a0adc8e920c4544, type: 3}
@@ -883,7 +894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: playerNumber
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2494596621792759802, guid: 5a204cb2b99396e46ad4bf66d20f38ca, type: 3}
       propertyPath: m_Enabled
@@ -1182,7 +1193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: playerNumber
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 6d9cbd4533c74b4438e723840800d7c0, type: 3}
       propertyPath: m_Constraints
@@ -1444,30 +1455,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
-      propertyPath: bgm1.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
-      propertyPath: bgm2.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
-      propertyPath: changeKillCount
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
-      propertyPath: bgm1.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: f5de5452e70aae04eb3d8e4cfc5a3906, type: 3}
-    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
-      propertyPath: bgm1.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 03be6ac1c75540247a3d7a9e22eddbc3, type: 3}
-    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
-      propertyPath: bgm2.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: e0954c1399e5ac64fb3110b8fdb0bbcd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
 --- !u!1001 &1109810670
@@ -1991,7 +1978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2647251862295182072, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: playerNumber
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208193845221082735, guid: 7ad7449095b9b5943809364083296b5d, type: 3}
       propertyPath: m_Constraints
@@ -2442,6 +2429,10 @@ PrefabInstance:
     - target: {fileID: 135067196565591904, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
       propertyPath: m_Name
       value: StageGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 135067196565591905, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
+      propertyPath: stagePattern.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 135067196565591906, guid: 9020d00cb1ed0194693c4abcf9d85407, type: 3}
       propertyPath: m_RootOrder
@@ -2926,13 +2917,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 598793464}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
+      propertyPath: audioMaster
+      value: 
+      objectReference: {fileID: 236199875}
+    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: bossManager
       value: 
       objectReference: {fileID: 131766972}
-    - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
-      propertyPath: MoveKillCount
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 4091322566786009453, guid: c154199350c96cd4bbec70e84250a69b, type: 3}
       propertyPath: FadeOutAnimator
       value: 
