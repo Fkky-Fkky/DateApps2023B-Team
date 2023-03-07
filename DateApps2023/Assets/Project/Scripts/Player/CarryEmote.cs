@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class CarryEmote : MonoBehaviour
 {
+    /// <summary>
+    /// 運搬中の人数が標準人数以下の場合にエモート(汗)の処理
+    /// 基本的に外部のスクリプトから呼び出す
+    /// </summary>
     #region
     [SerializeField]
     private Sprite carryEmoteIcon = null;
@@ -86,6 +90,9 @@ public class CarryEmote : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// エモートの開始を外部から呼び出す
+    /// </summary>
     public void CallStartCarryEmote()
     {
         isEmote = true;
@@ -94,6 +101,9 @@ public class CarryEmote : MonoBehaviour
         isEnd = false;
     }
 
+    /// <summary>
+    /// エモートの終了を外部から呼び出す
+    /// </summary>
     public void CallEndCarryEmote()
     {
         isEmote = false;
@@ -107,6 +117,9 @@ public class CarryEmote : MonoBehaviour
         setSize = defaultSize;
     }
 
+    /// <summary>
+    /// エモートが開始された後の数秒間で行う処理
+    /// </summary>
     void OnStartTime()
     {
         if (time <= startTime)
@@ -117,6 +130,9 @@ public class CarryEmote : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 時間に応じて表示した自身のサイズを拡大縮小する
+    /// </summary>
     void ChangeSize()
     {
         scaleTime += Time.deltaTime;

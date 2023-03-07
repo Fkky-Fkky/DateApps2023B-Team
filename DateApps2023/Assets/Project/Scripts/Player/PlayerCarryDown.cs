@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerCarryDown : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーの運搬に関する処理を行う
+    /// </summary>
     #region
     private PlayerMove playermove = null;
     private CarryEnergy energyItem = null;
@@ -89,6 +92,10 @@ public class PlayerCarryDown : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// プレイヤーが運搬ボタンを押した際の処理を行う
+    /// </summary>
     void OnPressCarryButton()
     {
         if (!isCarry)
@@ -100,6 +107,9 @@ public class PlayerCarryDown : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーが運搬ボタンを離した際の処理を行う
+    /// </summary>
     void OnReleaseCarryButton()
     {
         if (isCarry)
@@ -108,6 +118,9 @@ public class PlayerCarryDown : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 持とうとしているオブジェクトの種類を判定する
+    /// </summary>
     void CheckItemTag()
     {
         if (carryItem.CompareTag("item"))
@@ -133,6 +146,9 @@ public class PlayerCarryDown : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーが運搬を終了する際の処理を行う
+    /// </summary>
     public void CarryCancel()
     {
         playermove.RemoveItem();
@@ -146,16 +162,26 @@ public class PlayerCarryDown : MonoBehaviour
         myCol.enabled = true;
     }
 
+    /// <summary>
+    /// 自身のプレイヤー番号を取得する
+    /// </summary>
+    /// <param name="parentNumber"></param>
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
     }
 
+    /// <summary>
+    /// プレイヤーがダメージを受けた際に呼び出す
+    /// </summary>
     public void OnCarryDamage()
     {
         isCarryDamage = true;
     }
 
+    /// <summary>
+    /// プレイヤーがダメージから回復した際に呼び出す
+    /// </summary>
     public void OffCarryDamage()
     {
         isCarryDamage = false;

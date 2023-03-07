@@ -8,6 +8,9 @@ using System.Reflection;
 
 public class TimeCount : MonoBehaviour
 {
+    /// <summary>
+    /// ゲーム本編の経過時間を表示する
+    /// </summary>
     #region
     [SerializeField]
     private string sceneName = "New Scene";
@@ -36,6 +39,10 @@ public class TimeCount : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 関数を呼び出した外部のスクリプトに経過時間の情報を送る
+    /// </summary>
+    /// <returns></returns>
     public static float GetTime()
     {
         return SecondsCount;

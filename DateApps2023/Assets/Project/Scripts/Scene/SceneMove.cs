@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneMove : MonoBehaviour
 {
+    /// <summary>
+    /// ゲームクリアとゲームオーバーの画面遷移に関する処理を行う
+    /// </summary>
     #region
     [SerializeField]
     private string sceneName = "New Scene";
@@ -64,6 +67,9 @@ public class SceneMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 画面が遷移する前に行う
+    /// </summary>
     void NotSceneChange()
     {
         time += Time.deltaTime;
@@ -91,6 +97,9 @@ public class SceneMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 画面の遷移が開始した際に呼び出す
+    /// </summary>
     void OnSceneChange()
     {
         time += Time.deltaTime;

@@ -11,6 +11,10 @@ using UnityEngine.Video;
 
 public class TitleVideoManager : MonoBehaviour
 {
+    /// <summary>
+    /// タイトルロゴ画面のデモ動画に関する処理を行う
+    /// </summary>
+
     #region
     [SerializeField]
     private Animator animationImage = null;
@@ -38,6 +42,8 @@ public class TitleVideoManager : MonoBehaviour
 
     private bool isPlaying = false;
     private bool isFinished = false;
+
+    private const float ANIM_END_TIME = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -77,6 +83,9 @@ public class TitleVideoManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// タイトルロゴ画面が開始した際に呼び出す
+    /// </summary>
     private void InStart()
     {
         AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
@@ -87,7 +96,7 @@ public class TitleVideoManager : MonoBehaviour
             SetRenderTexture();
             isFinished = false;
         }
-        if (stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.normalizedTime >= ANIM_END_TIME)
         {
             animationImage.SetTrigger("EndLogoAnim");
         }
@@ -104,6 +113,9 @@ public class TitleVideoManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// タイトルロゴ画面で放置したかどうかを判定する
+    /// </summary>
     private void InIdle()
     {
         time += Time.deltaTime;
@@ -120,6 +132,9 @@ public class TitleVideoManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// デモ動画再生前にボタンを押したかどうかを判定する
+    /// </summary>
     private void InStartVideo()
     {
         for (int i = 0; i < Gamepad.all.Count; i++)
@@ -134,6 +149,9 @@ public class TitleVideoManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// デモ動画再生中の処理を行う
+    /// </summary>
     private void InPlayVideo()
     {
         if (isFinished)
@@ -163,12 +181,19 @@ public class TitleVideoManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// デモ動画が再生し終わったかどうかを判定する
+    /// </summary>
+    /// <param name="vp"></param>
     public void FinishPlayingVideo(VideoPlayer vp)
     {
         OnEndVideo();
         isFinished = true;
     }
 
+    /// <summary>
+    /// デモ動画を再生するための処理を行う
+    /// </summary>
     private void SetRenderTexture()
     {
         renderTexture = new RenderTexture((int)videoSize.x, (int)videoSize.y, screenDepth);
@@ -176,6 +201,9 @@ public class TitleVideoManager : MonoBehaviour
         playVideoScreen.texture = renderTexture;
     }
 
+    /// <summary>
+    /// デモ動画が再生し終わった際の処理を行う
+    /// </summary>
     private void OnEndVideo()
     {
         videoPlayer.Stop();

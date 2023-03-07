@@ -5,27 +5,41 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private int MoveKillCount = 10;
-
+    #region
     [SerializeField]
     private BossManager bossManager = null;
 
     [SerializeField]
-    private float AfterTime = 2.0f;
-    private float time = 0.0f;
-    private bool IsFade = false;
+    private AudioMaster audioMaster = null;
+
     [SerializeField]
     private Animator FadeOutAnimator = null;
 
+    [SerializeField]
+    private int MoveKillCount = 10;
+
+    [SerializeField]
+    private float AfterTime = 2.0f;
+
+    [SerializeField]
+    private float AnimTime = 1.0f;
+
+    private float time = 0.0f;
     private float sceneMoveTime = 0.0f;
+
+    private bool isFade = false;
+    private bool isAudioFade = false;
     public bool IsGameOver { get { return bossManager.IsGameOver(); } }
 
     const float SCENE_MOVE_TIME = 5.0f;
+    #endregion
 
     private void Start()
     {
+        time = 0.0f;
         sceneMoveTime = 0.0f;
+        isFade = false;
+        isAudioFade = false;
     }
 
     // Update is called once per frame
@@ -33,19 +47,12 @@ public class GameManager : MonoBehaviour
     {
         if(BossCount.GetKillCount() >= MoveKillCount)
         {
-            if (!IsFade)
+            if (!isAudioFade)
             {
-                FadeOutAnimator.SetTrigger("FadeOut");
-                IsFade = true;
+                audioMaster.OnEndScene();
+                isAudioFade = true;
             }
-            else
-            {
-                time += Time.deltaTime;
-                if (time >= AfterTime)
-                {
-                    SceneManager.LoadScene("ClearScene");
-                }
-            }
+            KillAllBoss();
         }
 
         if (IsGameOver)
@@ -56,6 +63,31 @@ public class GameManager : MonoBehaviour
         if(sceneMoveTime > SCENE_MOVE_TIME)
         {
             SceneManager.LoadScene("GameoverScene");
+        }
+    }
+
+    /// <summary>
+    /// İ’è‚µ‚½‰öb‚Ì”‚ğ“|‚µ‚½Û‚ÉŒÄ‚Ño‚·
+    /// </summary>
+    void KillAllBoss()
+    {
+        if (!isFade)
+        {
+            time += Time.deltaTime;
+            if (time >= AnimTime)
+            {
+                FadeOutAnimator.SetTrigger("FadeOut");
+                isFade = true;
+                time = 0.0f;
+            }
+        }
+        else
+        {
+            time += Time.deltaTime;
+            if (time >= AfterTime)
+            {
+                SceneManager.LoadScene("ClearScene");
+            }
         }
     }
 }

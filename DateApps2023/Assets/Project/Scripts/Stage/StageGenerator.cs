@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StageGenerator : MonoBehaviour
 {
+    /// <summary>
+    /// ステージを配置する処理を行う
+    /// </summary>
     #region
     [SerializeField]
     private GameObject[] stagePattern = null;
@@ -20,6 +23,9 @@ public class StageGenerator : MonoBehaviour
         OnGenerate();
     }
 
+    /// <summary>
+    /// 設定された配列の中からランダムでステージを生成する
+    /// </summary>
     void OnGenerate()
     {
         number = Random.Range(0, stagePattern.Length);

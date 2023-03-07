@@ -13,6 +13,10 @@ using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーの移動に関する処理を行う
+    /// (ただし、運搬時の移動を除く)
+    /// </summary>
     #region
     [SerializeField]
     [Tooltip("移動の速さ")]
@@ -139,6 +143,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーが物資・大砲を持った際に呼び出す
+    /// </summary>
+    /// <param name="groupNo"></param>
     public void GetItem(int groupNo)
     {
         GameObject group = GameObject.Find("Group" + groupNo);
@@ -157,6 +165,9 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// プレイヤーと物資・大砲が離れた際に呼び出す
+    /// </summary>
     public void RemoveItem()
     {
         if (isGroup)
@@ -184,6 +195,9 @@ public class PlayerMove : MonoBehaviour
         animationImage.SetBool("CarryMove", false);
     }
 
+    /// <summary>
+    /// プレイヤーの番号に応じたゲームパッドの入力を取得する
+    /// </summary>
     void GamepadMove()
     {
         var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
@@ -192,9 +206,12 @@ public class PlayerMove : MonoBehaviour
         {
             NotIsGroup(leftStickValue);
         }
-
     }
 
+    /// <summary>
+    /// ゲームパッドの入力によって移動を行う
+    /// </summary>
+    /// <param name="StickValue"></param>
     void NotIsGroup(Vector2 StickValue)
     {
         vec = Vector3.zero;
@@ -212,6 +229,11 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = vec;
     }
 
+    /// <summary>
+    /// スティック入力の量に応じた移動量を算出する
+    /// スティックの傾きに応じてプレイヤーの向きを決める
+    /// </summary>
+    /// <param name="StickValue"></param>
     void NotIsAttack(Vector2 StickValue)
     {
 
@@ -236,6 +258,9 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーがダメージを受けた際に呼び出す
+    /// </summary>
     public void PlayerDamage()
     {
         isGroup = false;
@@ -244,6 +269,9 @@ public class PlayerMove : MonoBehaviour
         isDamage = true;
     }
 
+    /// <summary>
+    /// プレイヤーの気絶・拘束が終了した際に呼び出す
+    /// </summary>
     public void NotPlayerDamage()
     {
         isGroup = false;
@@ -252,21 +280,33 @@ public class PlayerMove : MonoBehaviour
         isDamage = false;
     }
 
+    /// <summary>
+    /// プレイヤーがアタックを開始した際に呼び出す
+    /// </summary>
     public void StartAttack()
     {
         isAttack = true;
     }
 
+    /// <summary>
+    /// プレイヤーのアタックが終了した際に呼び出す
+    /// </summary>
     public void EndAttack()
     {
         isAttack = false;
     }
 
+    /// <summary>
+    /// CarryEmoteの開始を外部から更に呼び出すための処理
+    /// </summary>
     public void StartCarryEmote()
     {
         carryEmote.CallStartCarryEmote();
     }
 
+    /// <summary>
+    /// CarryEmoteの終了を外部から更に呼び出すための処理
+    /// </summary>
     public void EndCarryEmote()
     {
         carryEmote.CallEndCarryEmote();

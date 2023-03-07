@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerEmote : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーのエモートを出すスクリプト
+    /// L：ヘルプ　R：ナイス
+    /// </summary>
     #region
     [SerializeField]
     private Sprite emoteIconL = null;
@@ -99,6 +103,9 @@ public class PlayerEmote : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーが対応するボタンを押したかを判定する
+    /// </summary>
     void PressEmote()
     {
         if (Gamepad.all[myPlayerNo].leftShoulder.wasPressedThisFrame)
@@ -115,6 +122,9 @@ public class PlayerEmote : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 時間に応じて表示した自身のサイズを拡大縮小する
+    /// </summary>
     void ChangeSize()
     {
         scaleTime += Time.deltaTime;
@@ -144,6 +154,9 @@ public class PlayerEmote : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// エモートを表示し終わった際に呼び出す
+    /// </summary>
     void EndEmote()
     {
         isEmote = false;
@@ -157,6 +170,9 @@ public class PlayerEmote : MonoBehaviour
         setSize = defaultSize;
     }
 
+    /// <summary>
+    /// エモートの表示が終わる前に呼び出す
+    /// </summary>
     void BeforeEndEmote()
     {
         gameObject.transform.localPosition += movePos * Time.deltaTime;
@@ -166,6 +182,9 @@ public class PlayerEmote : MonoBehaviour
         gameObject.transform.localScale = setSize;
     }
 
+    /// <summary>
+    /// エモートが始まった際に呼び出す
+    /// </summary>
     void StartEmote()
     {
         gameObject.transform.localPosition += movePos * Time.deltaTime;
@@ -173,6 +192,10 @@ public class PlayerEmote : MonoBehaviour
         gameObject.transform.localScale = setSize;
     }
 
+    /// <summary>
+    /// 自身のプレイヤー番号を外部から取得する
+    /// </summary>
+    /// <param name="setNumber"></param>
     public void GetPlayerNo(int setNumber)
     {
         myPlayerNo = setNumber;

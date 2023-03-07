@@ -6,6 +6,9 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerDamage : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーがダメージを受けた際の処理を行う
+    /// </summary>
     #region
     [SerializeField]
     private float stanTime = 5.0f;
@@ -138,6 +141,9 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーが気絶状態の際の処理を行う
+    /// </summary>
     void OnCurrentDamage()
     {
         time += Time.deltaTime;
@@ -162,6 +168,9 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーが拘束状態の際の処理を行う
+    /// </summary>
     void OnCurrentCapture()
     {
         if (!hasDestroyStanEffect)
@@ -179,6 +188,9 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーがダメージから回復した際に呼び出す
+    /// </summary>
     void CleanUpDamage()
     {
         time = 0;
@@ -195,6 +207,9 @@ public class PlayerDamage : MonoBehaviour
         playerAttack.OffIsDamage();
     }
 
+    /// <summary>
+    /// 発生させたスタンエフェクトを削除する
+    /// </summary>
     void DeleteStanEffect()
     {
         Destroy(cloneStanEffect);
@@ -210,6 +225,9 @@ public class PlayerDamage : MonoBehaviour
         hasDestroyStanEffect = false;
     }
 
+    /// <summary>
+    /// プレイヤーがボスから攻撃を受けた際に呼び出す
+    /// </summary>
     public void CallDamage()
     {
         SetUpDamage();
@@ -219,6 +237,9 @@ public class PlayerDamage : MonoBehaviour
         isCurrentDamage = true;
     }
 
+    /// <summary>
+    /// プレイヤーが小型エネミーから攻撃を受けた際に呼び出す
+    /// </summary>
     public void CallCapture()
     {
         SetUpDamage();
@@ -235,6 +256,9 @@ public class PlayerDamage : MonoBehaviour
         enemyScript = null;
     }
 
+    /// <summary>
+    /// プレイヤーがダメージを受けた際の準備を行う
+    /// </summary>
     void SetUpDamage()
     {
         if (cloneStanEffect != null)
@@ -267,6 +291,10 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 自身が小型エネミーの標的かどうかを判定する
+    /// </summary>
+    /// <param name="enemy"></param>
     public void JudgeCapture(GameObject enemy)
     {
         enemyScript = enemy.GetComponent<Enemy>();
@@ -280,11 +308,19 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 他プレイヤーからのパンチを受けた際に呼び出す
+    /// </summary>
+    /// <param name="knockPos"></param>
     public void CallKnockBack(Transform knockPos)
     {
         audioSource.PlayOneShot(knockbackSound);
     }
 
+    /// <summary>
+    /// 自身のプレイヤー番号を取得する
+    /// </summary>
+    /// <param name="myNumber"></param>
     public void GetPlayerNo(int myNumber)
     {
         myPlayerNo = myNumber;

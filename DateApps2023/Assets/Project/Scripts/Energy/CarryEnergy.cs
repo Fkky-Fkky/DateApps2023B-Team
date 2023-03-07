@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class CarryEnergy : MonoBehaviour
 {
+    /// <summary>
+    /// エネルギー物資の運搬に関する処理を行う
+    /// </summary>
     #region
     [SerializeField]
     private float defaultPosY = 51;
@@ -55,6 +58,10 @@ public class CarryEnergy : MonoBehaviour
         GroupNumber = 1;
     }
 
+    /// <summary>
+    /// プレイヤーが自身の運搬を開始した際に呼び出す
+    /// </summary>
+    /// <param name="thisGrabPoint"></param>
     public void GetGrabPoint(GameObject thisGrabPoint)
     {
         Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);
@@ -96,6 +103,9 @@ public class CarryEnergy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 自身の運搬が途中で終了した際に呼び出す
+    /// </summary>
     public void OutGroup()
     {
         isGroup = false;
@@ -112,6 +122,9 @@ public class CarryEnergy : MonoBehaviour
         number = 0;
     }
 
+    /// <summary>
+    /// 運搬中の自身が大砲と接触した際に呼び出す
+    /// </summary>
     public void DestroyMe()
     {
         playercontroller.ReleaseChild();
@@ -120,6 +133,9 @@ public class CarryEnergy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 自身を運搬していたプレイヤーの関数を呼び出す処理を行う
+    /// </summary>
     public void DoCarryCancel()
     {
         for (int i = 0; i < myGrabPoint.Length; i++)

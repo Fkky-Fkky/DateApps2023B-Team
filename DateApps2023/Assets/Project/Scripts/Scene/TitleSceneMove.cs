@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class TitleSceneMove : MonoBehaviour
 {
+    /// <summary>
+    /// タイトルシーンにおけるシーン移動の処理を行う
+    /// それに伴うマニュアル画面(準備画面)の処理を含む
+    /// </summary>
     #region
     [SerializeField]
     private string sceneName = "New Scene";
@@ -39,6 +43,8 @@ public class TitleSceneMove : MonoBehaviour
     private bool isPlay = false;
     private bool isSkip = false;
     private bool[] isAccept = null;
+
+    private const float ANIM_END_TIME = 1.0f;
     #endregion
 
     // Start is called before the first frame update
@@ -84,6 +90,9 @@ public class TitleSceneMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// タイトルロゴ画面でボタンを押したかどうかを判定する
+    /// </summary>
     private void InIdle()
     {
         for (int i = 0; i < Gamepad.all.Count; i++)
@@ -97,6 +106,9 @@ public class TitleSceneMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// タイトルロゴ画面のフェードアウトをスキップするかどうかを判定する
+    /// </summary>
     private void InPressButton()
     {
         AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
@@ -112,12 +124,15 @@ public class TitleSceneMove : MonoBehaviour
                 }
             }
         }
-        if (stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.normalizedTime >= ANIM_END_TIME)
         {
             animationImage.SetTrigger("EndChangeScreen");
         }
     }
 
+    /// <summary>
+    /// マニュアル画面のフェードインをスキップするかどうかを判定する
+    /// </summary>
     private void InShowManual()
     {
         AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
@@ -137,13 +152,16 @@ public class TitleSceneMove : MonoBehaviour
                 isSkip = false;
             }
         }
-        if (stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.normalizedTime >= ANIM_END_TIME)
         {
             animationImage.SetTrigger("EndChangeScreen");
         }
 
     }
 
+    /// <summary>
+    /// プレイヤー全員が準備完了したかどうかを判定する
+    /// </summary>
     private void InWaitPlayer()
     {
         if (acceptCount >= playerImage.Length)
@@ -163,6 +181,9 @@ public class TitleSceneMove : MonoBehaviour
        PressPlayer();
     }
 
+    /// <summary>
+    /// マニュアル画面でプレイヤーがボタンを押した際の処理を行う
+    /// </summary>
     void PressPlayer()
     {
         for (int i = 0; i < Gamepad.all.Count; i++)
@@ -194,21 +215,30 @@ public class TitleSceneMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// メイン画面への遷移を行う
+    /// </summary>
     private void InHideManual()
     {
         AnimatorStateInfo stateInfo = animationImage.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.normalizedTime >= ANIM_END_TIME)
         {
             SceneManager.LoadScene(sceneName);
         }
     }
 
+    /// <summary>
+    /// デモ動画を再生し始めた際に呼び出す
+    /// </summary>
     public void OnTrueIsPlay()
     {
         isPlay = true;
     }
 
+    /// <summary>
+    /// デモ動画が再生し終わった際に呼び出す
+    /// </summary>
     public void OnFalseIsPlay()
     {
         isPlay = false;

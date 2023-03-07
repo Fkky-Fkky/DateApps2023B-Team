@@ -11,6 +11,9 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーの運搬中の移動処理を行う
+    /// </summary>
     #region
     [SerializeField]
     [Tooltip("移動の速さ")]
@@ -111,6 +114,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// グループ配下にあるプレイヤー番号のコントローラーの入力を取得する
+    /// それぞれの入力を合計して全体で移動する
+    /// </summary>
     void OnControllFrag()
     {
         Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
@@ -148,6 +155,10 @@ public class PlayerController : MonoBehaviour
         rb.velocity = groupVec;
     }
 
+    /// <summary>
+    /// グループ配下のオブジェクトが一つだけ残っていないかを判定する
+    /// 残っていた場合はタグで区別してオブジェクトの関数を呼び出す
+    /// </summary>
     void CheckOnlyChild()
     {
         if (transform.childCount <= 1)
@@ -164,6 +175,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 運搬するアイテムの情報を取得する
+    /// アイテムがグループ配下に入る際に呼び出す
+    /// </summary>
+    /// <param name="itemSize"></param>
+    /// <param name="itemType"></param>
+    /// <param name="gameObject"></param>
     public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
     {
         itemSizeCount = itemSize;
@@ -179,6 +197,12 @@ public class PlayerController : MonoBehaviour
         CheckPlayerCount();
     }
 
+    /// <summary>
+    /// 運搬を開始するプレイヤーの情報を取得する
+    /// プレイヤーがグループ配下に入る際に呼び出す
+    /// </summary>
+    /// <param name="childNo"></param>
+    /// <param name="gameObject"></param>
     public void GetMyNo(int childNo,GameObject gameObject)
     {
         ChildPlayer[childNo] = gameObject;
@@ -190,6 +214,9 @@ public class PlayerController : MonoBehaviour
         CheckPlayerCount();
     }
 
+    /// <summary>
+    /// グループがグループ配下のオブジェクトを離す際に呼び出す
+    /// </summary>
     public void ReleaseChild()
     {
         for (int i = 0; i < ChildPlayer.Length; i++)
@@ -205,6 +232,10 @@ public class PlayerController : MonoBehaviour
         AllFragFalse();
     }
 
+    /// <summary>
+    /// 運搬中のグループがダメージを受けた際に呼び出す
+    /// グループ配下のオブジェクトを離す
+    /// </summary>
     private void DamageChild()
     {
         for (int i = 0; i < ChildPlayer.Length; i++)
@@ -231,6 +262,10 @@ public class PlayerController : MonoBehaviour
         AllFragFalse();
     }
 
+    /// <summary>
+    /// 運搬中のプレイヤーが運搬を終了する際に呼び出す
+    /// </summary>
+    /// <param name="outChildNo"></param>
     public void PlayerOutGroup(int outChildNo)
     {
         ChildPlayer[outChildNo] = null;
@@ -240,6 +275,9 @@ public class PlayerController : MonoBehaviour
         CheckPlayerCount();
     }
 
+    /// <summary>
+    /// 運搬中のグループが運搬を終了する際に呼び出す
+    /// </summary>
     void AllFragFalse()
     {
         for(int i = 0; i < isGamepadFrag.Length; i++)
@@ -258,6 +296,9 @@ public class PlayerController : MonoBehaviour
         rb.velocity = groupVec;
     }
 
+    /// <summary>
+    /// アイテム運搬に必要な人数を判定する
+    /// </summary>
     void CheckNeedCarryCount()
     {
         if (itemSizeCount == 0)
@@ -274,6 +315,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 運搬中のテキスト表示に関する処理を行う
+    /// </summary>
     void CheckCarryText()
     {
         carryText.text = playerCount.ToString("0") + "/" + needCarryCount.ToString("0");
@@ -305,6 +349,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 運搬中の人数が運搬に必要な人数かどうかを確認する
+    /// </summary>
     void CheckCarryOver()
     {
         if (playerCount >= needCarryCount)
@@ -317,6 +364,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 運搬中の移動速度を算出する
+    /// </summary>
     void CheckMySpeed()
     {
         if (itemSizeCount == 0)
@@ -333,6 +383,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 運搬中のプレイヤーの人数を確認する   
+    /// </summary>
     void CheckPlayerCount()
     {
         if(playerCount < 0)

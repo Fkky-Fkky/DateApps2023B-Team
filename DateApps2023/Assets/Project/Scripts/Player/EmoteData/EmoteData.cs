@@ -6,8 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "CreateData/EmoteData", fileName = "EmoteData" )]
 public class EmoteData : ScriptableObject
 {
+    /// <summary>
+    /// エモート関連のスクリプトにおいて、一部の変数を設定するScriptableObject
+    /// プロジェクトのファイルにて作成したものを、対象のInspecterにアタッチして使う
+    /// </summary>
     [SerializeField]
-    float startTime = 0.4f;
+    private float startTime = 0.4f;
 
     [SerializeField]
     private float endTime = 0.4f;

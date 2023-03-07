@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーのアクションに関する処理を行う
+    /// </summary>
     #region
     [SerializeField]
     private float hitTime = 0.25f;
@@ -81,6 +84,9 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーがアクションを開始した際に呼び出す
+    /// </summary>
     private void FistAttack()
     {
         if (!isAttack)
@@ -96,6 +102,9 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーのアクションが終了した際に呼び出す
+    /// </summary>
     private void EndAttack()
     {
         time += Time.deltaTime;
@@ -111,26 +120,42 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 自身のプレイヤー番号を外部から取得する
+    /// </summary>
+    /// <param name="parentNumber"></param>
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
     }
 
+    /// <summary>
+    /// プレイヤーが運搬を開始した際に呼び出す
+    /// </summary>
     public void OnIsCarry()
     {
         isCarry = true;
     }
 
+    /// <summary>
+    /// プレイヤーが運搬を終了した際に呼び出す
+    /// </summary>
     public void OffIsCarry()
     {
         isCarry = false;
     }
 
+    /// <summary>
+    /// プレイヤーがダメージを受けた際に呼び出す
+    /// </summary>
     public void OnIsDamage()
     {
         isDamage = true;
     }
 
+    /// <summary>
+    /// プレイヤーのダメージが終了した際に呼び出す
+    /// </summary>
     public void OffIsDamage()
     {
         isDamage = false;

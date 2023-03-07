@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ScoreResult : MonoBehaviour
 {
+    /// <summary>
+    /// ゲームクリア時とゲームオーバー時のスコアを表示する
+    /// </summary>
     #region
     private TextMeshProUGUI scoreTMP = null;
     private int killCount = 0;

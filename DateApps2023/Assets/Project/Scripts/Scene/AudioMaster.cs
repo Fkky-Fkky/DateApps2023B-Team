@@ -25,6 +25,7 @@ public class AudioMaster : MonoBehaviour
 
     private bool isFirstHalf = true;
     private bool isFadeOut = true;
+    private bool isEnd = false;
     #endregion
 
     private void Start()
@@ -37,6 +38,7 @@ public class AudioMaster : MonoBehaviour
 
         isFirstHalf = true;
         isFadeOut = true;
+        isEnd = false;
 
         audioSource.clip = firstBGM[number];
         audioSource.Play();
@@ -48,21 +50,23 @@ public class AudioMaster : MonoBehaviour
         {
             OnFirstHalf();
         }
+
+        if (isEnd)
+        {
+            FadeOutBGM();
+        }
     }
 
+    /// <summary>
+    /// 前半のBGMに関する処理を行う
+    /// </summary>
     void OnFirstHalf()
     {
         if (BossCount.GetKillCount() >= changeKillCount)
         {
             if (isFadeOut)
             {
-                fadeTime += Time.deltaTime;
-                if (fadeTime >= fadeOutTime)
-                {
-                    fadeTime = fadeOutTime;
-                    isFadeOut = false;
-                }
-                audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
+                FadeOutBGM();
             }
             else
             {
@@ -72,11 +76,36 @@ public class AudioMaster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 後半戦のBGMを再生する
+    /// </summary>
     public void PlaySecondBGM()
     {
         number= Random.Range(0, secondBGM.Length);
         audioSource.clip = secondBGM[number];
         audioSource.volume = defaultVol;
         audioSource.Play();
+    }
+
+    /// <summary>
+    /// BGMの音量を徐々に小さくする際に呼び出す
+    /// </summary>
+    void FadeOutBGM()
+    {
+        fadeTime += Time.deltaTime;
+        if (fadeTime >= fadeOutTime)
+        {
+            fadeTime = fadeOutTime;
+            isFadeOut = false;
+        }
+        audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
+    }
+
+    /// <summary>
+    /// ゲームクリアの際に呼び出す
+    /// </summary>
+    public void OnEndScene()
+    {
+        isEnd = true;
     }
 }

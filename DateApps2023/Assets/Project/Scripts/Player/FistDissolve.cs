@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FistDissolve : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーのパンチ表示に関する処理を行う
+    /// </summary>
     #region
     [SerializeField]
     private float startTime = 0.5f;
@@ -56,6 +59,9 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// パンチの表示を開始する処理を行う
+    /// </summary>
     void StartDissolve()
     {
         time += Time.deltaTime;
@@ -71,6 +77,9 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 開始時と終了時の間の処理を行う
+    /// </summary>
     void IntervalDissolve()
     {
         time += Time.deltaTime;
@@ -83,6 +92,9 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// パンチの表示を終了する処理を行う
+    /// </summary>
     void EndDissolve()
     {
         time += Time.deltaTime;
@@ -96,6 +108,9 @@ public class FistDissolve : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 外部からパンチを終了する際に呼び出す
+    /// </summary>
     public void CallEndDissolve()
     {
         isIntervalDissolve = false;
