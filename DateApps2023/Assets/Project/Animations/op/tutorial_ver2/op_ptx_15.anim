@@ -590,7 +590,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.3166667
-    functionName: Op_vice14
+    functionName: OpVice14
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
