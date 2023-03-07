@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Operetar : MonoBehaviour
+public class Operatar : MonoBehaviour
 {
     [SerializeField] private Op_text optext = null;
 
@@ -25,11 +25,11 @@ public class Operetar : MonoBehaviour
 
     private bool startFlag = false;
 
-    private bool operetarTextFlag = false;
+    private bool operatorTextFlag = false;
 
     private  float time = 0;
-
-    private const float OPERETAR_TEXT_COOLTIME = 2;
+    
+    private const float OPERATOR_TEXT_COOLTIME = 2;
 
     private const float RESET = 0;
 
@@ -116,7 +116,6 @@ public class Operetar : MonoBehaviour
     /// </summary>
     void SecondEnergyGenerate()
     {
-        
          energy.Generate();
     }
     #endregion
@@ -127,21 +126,21 @@ public class Operetar : MonoBehaviour
     /// </summary>
     private void Game()
     {
-        if (operetarTextFlag)
+        if (operatorTextFlag)
         {
             BossType();
 
             BossMove();
         }
         //オペレーターのテキストクールタイム
-        if (!operetarTextFlag)
+        if (!operatorTextFlag)
         {
             time += Time.deltaTime;
         }
 
-        if (time >= OPERETAR_TEXT_COOLTIME)
+        if (time >= OPERATOR_TEXT_COOLTIME)
         {
-            operetarTextFlag = true;
+            operatorTextFlag = true;
             time = RESET;
         }
     }
@@ -156,17 +155,17 @@ public class Operetar : MonoBehaviour
         {
             case 1:
                 SummonBoss();
-                operetarTextFlag = false;
+                operatorTextFlag = false;
                 break;
 
             case 2:
                 SummonMiniBoss();
-                operetarTextFlag = false;
+                operatorTextFlag = false;
                 break;
 
             case 3:
                 SummonBigBoss();
-                operetarTextFlag = false;
+                operatorTextFlag = false;
                 break;
         }
     }
@@ -180,19 +179,19 @@ public class Operetar : MonoBehaviour
         if (boss.Charge())
         {
             BossAttackCharge();
-            operetarTextFlag = false;
+            operatorTextFlag = false;
         }
         //ボス接近時
         if (boss.Danger())
         {
             Approach();
-            operetarTextFlag = false;
+            operatorTextFlag = false;
         }
         //ボス討伐
         if (boss.IsBossKill())
         {
             BossKill();
-            operetarTextFlag = false;
+            operatorTextFlag = false;
         }
     }
     #endregion
