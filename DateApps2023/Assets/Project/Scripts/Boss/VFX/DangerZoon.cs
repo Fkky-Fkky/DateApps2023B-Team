@@ -17,10 +17,7 @@ public class DangerZoon : MonoBehaviour
 
     void Start()
     {
-        time = 0.0f;
-
         effectTime = BossAttack.BeamTimeMax();
-
     }
 
     void Update()

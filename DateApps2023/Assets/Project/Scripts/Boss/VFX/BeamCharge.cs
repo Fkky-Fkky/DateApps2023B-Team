@@ -11,10 +11,7 @@ public class BeamCharge : MonoBehaviour
 
     void Start()
     {
-        time = 0.0f;
-
         effectTime = BossAttack.BeamTimeMax();
-
     }
 
     void Update()
