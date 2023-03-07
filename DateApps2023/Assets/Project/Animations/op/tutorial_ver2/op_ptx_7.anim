@@ -384,14 +384,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.2
-    functionName: voice_stop
+    functionName: VoiceStop
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.8333333
-    functionName: Op_vice6
+    functionName: OpVice6
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

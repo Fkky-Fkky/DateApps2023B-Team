@@ -15,18 +15,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform rirurnTransform = null;
 
     [SerializeField]
-    private float ClimbingSpeed = 3;
+    private float climbingSpeed = 3;
 
     [SerializeField]
     [Tooltip("生成する範囲A")]
-    private Transform spderpositionA = null;
+    private Transform spderPositionA = null;
 
     [SerializeField]
     [Tooltip("生成する範囲D")]
-    private Transform spderpositionD = null;
+    private Transform spderPositionD = null;
 
     //攻撃の当たり判定
-    private Collider AttackCollider = null;
+    private Collider attackCollider = null;
 
     private Collider myCollider = null;
 
@@ -52,21 +52,23 @@ public class Enemy : MonoBehaviour
     }
     SUMMON gameState = SUMMON.START;
 
-    float rastTimer =0;
+    private float climbingPosition = -1.2f;//
+    
+    private float rastTimer =0;
 
-    float wlTime = 0;
+    private float wlTime = 0;
 
-    float attackTime = 0;
+    private float attackTime = 0;
 
-    bool rastTimerFlag = false;
+    private bool rastTimerFlag = false;
 
-    bool attackFlag = false;
+    private bool attackFlag = false;
 
-    bool exFlag = false;
+    private bool exFlag = false;
 
-    bool noAttack = false;
+    private bool noAttack = false;
 
-    bool oneFlag = false;
+    private bool oneFlag = false;
 
     [SerializeField]
     [Tooltip("場外判定x")]
@@ -86,26 +88,24 @@ public class Enemy : MonoBehaviour
 
     public int rnd;
 
-    int destroyPosition = -25;
+    private int destroyPosition = -25;
 
     void Start()
     {
         myCollider = this.GetComponent<CapsuleCollider>();
         myCollider.enabled = true;
 
-        //口の当たり判定の設定
-        AttackCollider = gameObject.GetComponentInChildren<BoxCollider>();
-        AttackCollider.enabled = false;
+        attackCollider = gameObject.GetComponentInChildren<BoxCollider>();
+        attackCollider.enabled = false;
 
-        //アニメーター
+        _agent = this.GetComponent<NavMeshAgent>();
+
         animator = GetComponent<Animator>();
 
         animator.SetTrigger("idle");
 
-        //プレイヤーのランダム変数
         rnd = Random.Range(0, 3);
-        //Navを取得
-       _agent = this.GetComponent<NavMeshAgent>();
+      
        _agent.enabled = false;
 
         Vector3 vec = centerPoint.transform.position - this.transform.position;
@@ -150,9 +150,9 @@ public class Enemy : MonoBehaviour
         //y8.5
         else if (gameState == SUMMON.CLIMBIN)
         {
-            transform.position += new Vector3(0, ClimbingSpeed, 0) * Time.deltaTime;
+            transform.position += new Vector3(0, climbingSpeed, 0) * Time.deltaTime;
             //climbing_speed
-            if (pos.y >= -1.2)
+            if (pos.y >= climbingPosition)
             {
                 if (pos.x > 0)
                 {
@@ -189,7 +189,7 @@ public class Enemy : MonoBehaviour
             {
                 work = 0;
                 _agent.enabled = true;
-                AttackCollider.enabled = false;
+                attackCollider.enabled = false;
                 gameState = SUMMON.END;
 
             }
@@ -207,21 +207,21 @@ public class Enemy : MonoBehaviour
         {
             attackTime += Time.deltaTime;
 
-            if (AttackCollider.enabled == true)
+            if (attackCollider.enabled == true)
             {
                 if (attackTime >= 1.2)
                 {
                     rastTimerFlag = true;
                     attackFlag = false;
                     noAttack = true;
-                    AttackCollider.enabled = false;
+                    attackCollider.enabled = false;
                     attackTime = 0;
                 }
             }
             else
             {
                 if (attackTime >= 0.9)
-                    AttackCollider.enabled = true;
+                    attackCollider.enabled = true;
                 else if (attackTime >= 0.5)
                 {
                     animator.SetTrigger("attck");
@@ -275,8 +275,8 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        Vector3 rangeApos = spderpositionA.position;
-        Vector3 rangeDpos = spderpositionD.position;
+        Vector3 rangeApos = spderPositionA.position;
+        Vector3 rangeDpos = spderPositionD.position;
 
         if (gameState == SUMMON.END)
         {

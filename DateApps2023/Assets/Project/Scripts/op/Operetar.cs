@@ -110,7 +110,7 @@ public class Operetar : MonoBehaviour
 
     #endregion
 
-    #region ゲーム中のオペレターのセリフ
+    #region ゲーム中のオペレーターのセリフ
 
     private void Game()
     {
