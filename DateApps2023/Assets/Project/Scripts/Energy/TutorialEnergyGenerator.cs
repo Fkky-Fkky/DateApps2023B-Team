@@ -6,16 +6,21 @@ using UnityEngine;
 public class TutorialEnergyGenerator : EnergyGeneratorBase
 {
     private bool isFirstGenerate = false;
-    private bool isSecondGenerate = false;
-    private bool isSecondGenerateSet = false;
+    private bool isSetSecondGenerate = false;
+    private GENERATE_TYPE generateType = 0;
+
+    private enum GENERATE_TYPE
+    {
+        FIRST,
+        SECOND
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         base.Initialize();
         isFirstGenerate = false;
-        isSecondGenerate = false;
-        isSecondGenerateSet = false;
+        isSetSecondGenerate = false;
     }
 
     // Update is called once per frame
@@ -23,23 +28,23 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
     {
         if (BossCount.GetKillCount() == 1)
         {
-            SecondGenerateSet();
+            SetSecondGenerate();
         }
     }
 
     /// <summary>
     /// エネルギー物資の生成
     /// </summary>
-    public override void Generate()
+    public override void GenerateEnergyResource()
     {
         if (!isFirstGenerate)
         {
-            FirstGenerate();
+            GenerateFirstEnergy();
             return;
         }
         GenerateEnergyType();
         GeneratePosition();
-        base.EnergyGenerate();
+        base.GenerateEnergy();
         base.RemoveList();
     }
 
@@ -48,23 +53,22 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
     /// </summary>
     protected override void GenerateEnergyType()
     {
-        if (isSecondGenerate)
+        switch (generateType)
         {
-            createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.MEDIUM);
-            return;
-        }
+            case GENERATE_TYPE.FIRST:
+                createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.SMALL);
+                break;
 
-        if (isFirstGenerate)
-        {
-            createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.SMALL);
-            return;
+            case GENERATE_TYPE.SECOND:
+                createEnergyTypeList.Add((int)EnergyCharge.ENERGY_TYPE.MEDIUM);
+                break;
         }
     }
 
     /// <summary>
     /// 初回生成処理
     /// </summary>
-    private void FirstGenerate()
+    private void GenerateFirstEnergy()
     {
         if (isFirstGenerate)
         {
@@ -73,7 +77,7 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         isFirstGenerate = true;
 
         GenerateEnergyType();
-        FirstGeneratePosition();
+        GenerateFirstPosition();
         const int FIRST_GENERATE_NUM = 2;
         for (int i = 0; i < FIRST_GENERATE_NUM; i++)
         {
@@ -87,10 +91,9 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
     /// <summary>
     /// 初回生成時のエネルギー物資を設置する座標生成
     /// </summary>
-    private void FirstGeneratePosition()
+    private void GenerateFirstPosition()
     {
         int miss = 0;
-        int energyType = createEnergyTypeList[0];
         int generateNum = 0;
         Vector3 genaratePos = Vector3.one;
         const int MAX_GENERATE = 4;
@@ -98,7 +101,7 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
         {
             genaratePos.x = Random.Range(createArea[generateNum], createArea[generateNum + 1]);
             genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            if (!Physics.CheckBox(genaratePos, halfExtents[energyType]))
+            if (!Physics.CheckBox(genaratePos, halfExtent))
             {
                 createPositionList.Add(genaratePos);
                 generateNum++;
@@ -117,13 +120,13 @@ public class TutorialEnergyGenerator : EnergyGeneratorBase
     /// <summary>
     /// チュートリアル第二フェーズ移行処理
     /// </summary>
-    private void SecondGenerateSet()
+    private void SetSecondGenerate()
     {
-        if (isSecondGenerateSet)
+        if (isSetSecondGenerate)
         {
             return;
         }
-        isSecondGenerateSet = true;
-        isSecondGenerate = true;
+        generateType = GENERATE_TYPE.SECOND;
+        isSetSecondGenerate = true;
     }
 }
