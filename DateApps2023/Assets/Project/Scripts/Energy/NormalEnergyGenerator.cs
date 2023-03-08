@@ -36,7 +36,7 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
         {
             for (int i = 0; i < create; ++i)
             {
-                base.EnergyGenerate();
+                base.GenerateEnergy();
                 RemoveList();
             }
             isGenerate = false;
@@ -46,7 +46,7 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
     /// <summary>
     /// ƒGƒlƒ‹ƒM[•¨‘‚ğ¶¬‚·‚é
     /// </summary>
-    public override void Generate()
+    public override void GenerateEnergyResource()
     {
         GenerateEnergyType();
         GeneratePosition();
