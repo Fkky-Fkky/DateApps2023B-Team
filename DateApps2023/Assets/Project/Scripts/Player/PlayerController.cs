@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
     private float moveSpeed = 250.0f;
 
     [SerializeField]
