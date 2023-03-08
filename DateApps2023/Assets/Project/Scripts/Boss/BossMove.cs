@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ボスの移動
+/// ボスの移動のスプリクト
 /// </summary>
 public class BossMove : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class BossMove : MonoBehaviour
     private GameObject shockWaveEffect = null;
 
     [SerializeField]
-    private Animator animationImage = null;
+    private Animator moveAnimation = null;
 
     [SerializeField]
     private Canvas canvas            = null;
@@ -37,13 +37,10 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private AudioClip lastAttackSE      = null;
 
-    //[SerializeField]
-    private BossHPBarUI bossHPBarUI = null;
 
     private bool isDamageFlag = false;
     private bool isAppearance = true;
     private bool isNotMove    = false;
-    private bool isAttackOff  = false;
     private bool isLastAttack = false;
 
     private int seCount      = 0;
@@ -56,16 +53,19 @@ public class BossMove : MonoBehaviour
 
     private string songName = null;
 
-    private Camera camera      = null;
+    private new Camera camera  = null;
     private AudioClip dangerSE = null;
     private Rigidbody rb       = null;
 
     private BossCSVGenerator bossCSVGenerator = null;
     private BossAttack bossAttack             = null;
+    private BossHPBarUI bossHPBarUI           = null;
 
     public int BossHp = 0;
     public bool IsGameOver { get; private set; }
     public bool IsHazard { get; private set; }
+    public bool IsAttackOff { get; private set; }
+
 
     const int MAX_HP = 9;
     const float HALF_INDEX             =   0.5f;
@@ -110,19 +110,19 @@ public class BossMove : MonoBehaviour
         if (transform.position.x == 0.0f)
         {
             tag = "Center";
-            bossHPBarUI.BossUIPositionCneter();
+            bossHPBarUI.BossUIPositionCneter(BossHp);
         }
 
         if (transform.position.x >= SIDE_POS)
         {
             tag = "Right";
-            bossHPBarUI.BossUIPositionRight();
+            bossHPBarUI.BossUIPositionRight(BossHp);
         }
 
         if (transform.position.x <= -SIDE_POS)
         {
             tag = "Left";
-            bossHPBarUI.BossUIPositionLeft();
+            bossHPBarUI.BossUIPositionLeft(BossHp);
         }
 
         camera = Camera.main;
@@ -131,8 +131,9 @@ public class BossMove : MonoBehaviour
         warningDisplay.SetActive(false);
         gameOverWarningDisplay.SetActive(false);
 
-        IsHazard     = false;
-        IsGameOver   = false;
+        IsHazard    = false;
+        IsGameOver  = false;
+        IsAttackOff = false;
     }
 
     void Update()
@@ -147,7 +148,7 @@ public class BossMove : MonoBehaviour
                 pos.y = UNDER_POSITION;
                 transform.position = pos;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
-                animationImage.SetTrigger("StandBy");
+                moveAnimation.SetTrigger("StandBy");
                 isNotMove = true;
                 isAppearance = false;
             }
@@ -158,7 +159,7 @@ public class BossMove : MonoBehaviour
             moveTime += Time.deltaTime;
             if (moveTime >= MOVE_TIME_MAX)
             {
-                animationImage.SetTrigger("Walk");
+                moveAnimation.SetTrigger("Walk");
                 isNotMove = false;
                 moveTime = 0.0f;
             }
@@ -270,7 +271,7 @@ public class BossMove : MonoBehaviour
 
         if ((transform.position.z - target.transform.position.z) <= ATTACK_OFF_POSITION)
         {
-            isAttackOff = true;
+            IsAttackOff = true;
         }
 
         if ((transform.position.z - target.transform.position.z) <= DANGER_DISPLAY_POSITION)
@@ -283,7 +284,7 @@ public class BossMove : MonoBehaviour
             audioSource.Play();
 
             isLastAttack = true;
-            animationImage.SetTrigger("LastAttack");
+            moveAnimation.SetTrigger("LastAttack");
         }
         else
         {
@@ -291,12 +292,13 @@ public class BossMove : MonoBehaviour
             gameOverWarningDisplay.SetActive(false);
         }
     }
+
     /// <summary>
-    /// 
+    /// ゲームオーバーまでのアニメーション
     /// </summary>
     private void GameOverAnimasiton()
     {
-        if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && animationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+        if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
         {
             if (seCount < 1)
             {
@@ -305,7 +307,7 @@ public class BossMove : MonoBehaviour
             }
         }
 
-        if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && animationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
+        if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
         {
             IsGameOver = true;//ゲームオーバーフラグ
         }
@@ -338,8 +340,4 @@ public class BossMove : MonoBehaviour
     /// 攻撃しないフラグを返す
     /// </summary>
     /// <returns>攻撃しないフラグ</returns>
-    public bool IsAttackOff()
-    {
-        return isAttackOff;
-    }
 }

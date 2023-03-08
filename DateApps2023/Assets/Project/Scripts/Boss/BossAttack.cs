@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ボスの攻撃のスプリクト
+/// </summary>
 public class BossAttack : MonoBehaviour
 {
     [SerializeField]
@@ -77,7 +80,7 @@ public class BossAttack : MonoBehaviour
     
     void Update()
     {
-        if (!bossMove.IsAttackOff())
+        if (!bossMove.IsAttackOff)
         {
             if (!bossDamage.IsInvincible)
             {
@@ -97,7 +100,7 @@ public class BossAttack : MonoBehaviour
     private void Attack()
     {
         time += Time.deltaTime;
-        if (bossMove.BossHp > 0 && !bossDamage.IsDamage())
+        if (bossMove.BossHp > 0 && !bossDamage.IsDamage)
         {
             if (time >= attackIntervalTime)
             {
@@ -148,7 +151,7 @@ public class BossAttack : MonoBehaviour
             IsAttack = true;
             DamageAreaControl();
         }
-        else if (chargeTime < chageTimeMax && bossDamage.IsBossDamage())
+        else if (chargeTime < chageTimeMax && bossDamage.IsBossDamage)
         {
             AttackOff();
             ListDestroy(effectList);

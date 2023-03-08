@@ -34,23 +34,24 @@ public class BossHPBarUI : MonoBehaviour
     /// <summary>
     /// 中央に出現するボスのHPUIの位置
     /// </summary>
-    public void BossUIPositionCneter()
+    /// <param name="bossHp">ボスの体力の値</param>
+    public void BossUIPositionCneter(int bossHp)
     {
-        if (bossMove.BossHp >= MIN_HP && bossMove.BossHp <= NOMAL_MAX_HP)
+        if (bossHp >= MIN_HP && bossHp <= NOMAL_MAX_HP)
         {
             if (gameObject.transform.localScale.y > BOSS_SCALE_Y)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, NOMAL_CENETR_UI_POSITION_Y, 0);
             }
         }
-        if (bossMove.BossHp >= MIN_HP && bossMove.BossHp <= SMALE_MAX_HP)
+        if (bossHp >= MIN_HP && bossHp <= SMALE_MAX_HP)
         {
             if (gameObject.transform.localScale.y < BOSS_SCALE_Y)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, MINI_UI_POSITION_Y, 0);
             }
         }
-        if (bossMove.BossHp >= BIG_MIN_HP && bossMove.BossHp <= MAX_HP)
+        if (bossHp >= BIG_MIN_HP && bossHp <= MAX_HP)
         {
             hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
         }
@@ -59,23 +60,24 @@ public class BossHPBarUI : MonoBehaviour
     /// <summary>
     /// 右側に出現するボスのHPUIの位置
     /// </summary>
-    public void BossUIPositionRight()
+    /// <param name="bossHp">ボスの体力の値</param>
+    public void BossUIPositionRight(int bossHp)
     {
-        if (bossMove.BossHp >= MIN_HP && bossMove.BossHp <= NOMAL_MAX_HP)
+        if (bossHp >= MIN_HP && bossHp <= NOMAL_MAX_HP)
         {
             if (gameObject.transform.localScale.y > BOSS_SCALE_Y)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(NOMAL_UI_POSITION_X, NOMAL_SIDE_UI_POSITION_Y, 0);
             }
         }
-        if (bossMove.BossHp >= MIN_HP && bossMove.BossHp <= SMALE_MAX_HP)
+        if (bossHp >= MIN_HP && bossHp <= SMALE_MAX_HP)
         {
             if (gameObject.transform.localScale.y < BOSS_SCALE_Y)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(MINI_UI_POSITION_X, MINI_UI_POSITION_Y, 0);
             }
         }
-        if (bossMove.BossHp >= BIG_MIN_HP && bossMove.BossHp <= MAX_HP)
+        if (bossHp >= BIG_MIN_HP && bossHp <= MAX_HP)
         {
             hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(BIG_UI_POSITION_X, 0, 0);
         }
@@ -84,23 +86,24 @@ public class BossHPBarUI : MonoBehaviour
     /// <summary>
     /// 左側に出現するボスのHPUIの位置
     /// </summary>
-    public void BossUIPositionLeft()
+    /// <param name="bossHp">ボスの体力の値</param>
+    public void BossUIPositionLeft(int bossHp)
     {
-        if (bossMove.BossHp >= MIN_HP && bossMove.BossHp <= NOMAL_MAX_HP)
+        if (bossHp >= MIN_HP && bossHp <= NOMAL_MAX_HP)
         {
             if (gameObject.transform.localScale.y > BOSS_SCALE_Y)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-NOMAL_UI_POSITION_X, NOMAL_SIDE_UI_POSITION_Y, 0.0f);
             }
         }
-        if (bossMove.BossHp >= MIN_HP && bossMove.BossHp <= SMALE_MAX_HP)
+        if (bossHp >= MIN_HP && bossHp <= SMALE_MAX_HP)
         {
             if (gameObject.transform.localScale.y < BOSS_SCALE_Y)
             {
                 hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-MINI_UI_POSITION_X, MINI_UI_POSITION_Y, 0.0f);
             }
         }
-        if (bossMove.BossHp >= BIG_MIN_HP && bossMove.BossHp <= MAX_HP)
+        if (bossHp >= BIG_MIN_HP && bossHp <= MAX_HP)
         {
             hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-BIG_UI_POSITION_X, 0, 0);
         }

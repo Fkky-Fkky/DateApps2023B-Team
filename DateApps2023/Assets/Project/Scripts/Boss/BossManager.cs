@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// ボスのマネージャー
+/// </summary>
 public class BossManager : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +20,9 @@ public class BossManager : MonoBehaviour
         BossFellDown();
     }
 
+    /// <summary>
+    /// どのボスが攻撃を受けるか
+    /// </summary>
     private void BossDamage()
     {
         for (int i = 0; i < cannonManager.CanonMax; i++)
@@ -69,6 +75,9 @@ public class BossManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ボスがいないレーンを探す
+    /// </summary>
     private void BossFellDown()
     {
         centerBoss = GameObject.FindGameObjectWithTag("Center");

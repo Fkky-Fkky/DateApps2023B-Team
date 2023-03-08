@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// ボスが攻撃されたときのダメージスプリクト
+/// </summary>
 public class BossDamage : MonoBehaviour
 {
     [SerializeField]
-    private float invincibleTimeMax = 4.0f;
+    private float invincibleTimeEnd = 4.0f;
 
     [SerializeField]
     private GameObject explosionEffect = null;
@@ -15,21 +14,12 @@ public class BossDamage : MonoBehaviour
     private GameObject fellDownEffect  = null;
 
     [SerializeField]
-    private GameObject hpCores    = null;
-    [SerializeField]
-    private GameObject[] hpBar    = new GameObject[9];
-    [SerializeField]
-    private GameObject[] hpMemori = new GameObject[9];
-
-    [SerializeField]
-    private Animator animationImage = null;
+    private Animator damageAnimation = null;
 
     [SerializeField]
     private Transform damagePoint = null;
 
     private bool isKnockback    = false;
-    private bool isDamage       = false;
-    private bool isBossDamage   = false;
     private bool isBossFellDown = false;
 
     private int maxHp              =  0;
@@ -43,27 +33,24 @@ public class BossDamage : MonoBehaviour
     private float knockbackTime    = 0.0f;
     private float bossDestroyTime  = 0.0f;
 
-    private BossMove bossMove   = null;
-    private DamageCSV damageCSV = null;
+    private BossMove bossMove                   = null;
+    private DamageCSV damageCSV                 = null;
+    private BossDamageHPBarUI bossDamageHPBarUI = null;
 
     public bool IsInvincible { get; private set; }
+    public bool IsBossDamage { get; private set; }
+    public bool IsDamage { get; private set; }
 
     const float EFFECT_POS_Y             = -40.0f;
     const float BOSS_DAMGE_OFF_TIME_MAX  =   0.6f;
     const float KNOCK_BACK_TIME_MAX      =   1.5f;
     const float KNOCK_BACK_MOVE          =   3.0f;
     const float BOSS_DESTROY_TIME_MAX    =   2.5f;
-    const float BOSS_COMPARE_SCALE_INDEX =  18.0f;
-
-    const float SMALL_BOSS_HP_POS_X     = 0.6f;
-    const float NOMAL_BOSS_MIN_HP_POS_X = 0.8f;
-    const float BOSS_MIN_HP_POS_X       = 0.4f;
-    const float BOSS_MAX_HP_POS_X       = 0.2f;
-    const float BOSS_HP_BAR_POS_Y       = 0.7f;
 
     void Start()
     {
         bossMove = GetComponent<BossMove>();
+        bossDamageHPBarUI = GetComponent<BossDamageHPBarUI>();
 
         damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
@@ -71,54 +58,13 @@ public class BossDamage : MonoBehaviour
         mediumEnergyDamage = damageCSV.Medium;
         largeEnergyDamage  = damageCSV.Large;
 
+        IsBossDamage = false;
         IsInvincible = false;
+        IsDamage     = false;
 
         maxHp = bossMove.BossHp;
 
-        hpBar = new GameObject[maxHp];
-
-        for (int i = 0; i < hpMemori.Length; i++)
-        {
-            hpMemori[i].SetActive(false);
-        }
-
-        for (int i = 0; i < maxHp; i++)
-        {
-            hpBar[i] = hpMemori[i];
-            hpMemori[i].SetActive(true);
-        }
-
-        switch (maxHp) 
-        {
-            case 1:
-                if (gameObject.transform.localScale.y < BOSS_COMPARE_SCALE_INDEX)
-                {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(SMALL_BOSS_HP_POS_X, BOSS_HP_BAR_POS_Y, 0);
-                }
-                if (gameObject.transform.localScale.y > BOSS_COMPARE_SCALE_INDEX)
-                {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(NOMAL_BOSS_MIN_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
-                }
-                break;
-            case 2:
-                if (gameObject.transform.localScale.y > BOSS_COMPARE_SCALE_INDEX)
-                {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(SMALL_BOSS_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
-                }
-                break;
-            case 3:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MIN_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
-                break;
-            case 4:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
-                break;
-            case 7:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MIN_HP_POS_X, 0, 0);
-                break;
-            case 8:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, 0, 0);
-                break;
-        }
+        bossDamageHPBarUI.HpMemoriPosition(maxHp);
     }
 
     void Update()
@@ -139,7 +85,7 @@ public class BossDamage : MonoBehaviour
             }
         }
 
-        if (isDamage)
+        if (IsDamage)
         {
             if (!bossMove.IsAppearance())
             {
@@ -149,17 +95,17 @@ public class BossDamage : MonoBehaviour
 
                 IsInvincible = true;
                 bulletType = -1;
-                isDamage = false;
+                IsDamage = false;
             }
         }
 
         if (IsInvincible)
         {
             invincibleTime += Time.deltaTime;
-            if (invincibleTime >= invincibleTimeMax)
+            if (invincibleTime >= invincibleTimeEnd)
             {
                 IsInvincible = false;
-                animationImage.SetTrigger("Walk");
+                damageAnimation.SetTrigger("Walk");
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
@@ -178,36 +124,43 @@ public class BossDamage : MonoBehaviour
             }
         }
 
-        if (isBossDamage)
+        if (IsBossDamage)
         {
             bossDamgeOffTime += Time.deltaTime;
             if (bossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
             {
-                isBossDamage = false;
+                IsBossDamage = false;
                 bossDamgeOffTime = 0.0f;
             }
         }
     }
 
+    /// <summary>
+    /// エネルギーごとのダメージ量
+    /// </summary>
     private void BulletTypeDamage()
     {
         if (bulletType == 0)
         {
             Damage(smallEnergyDamage);
-            hpBar[bossMove.BossHp + 0].SetActive(false);
+            bossDamageHPBarUI.HpBarSmallActive(bossMove.BossHp);
         }
         else if (bulletType == 1)
         {
             Damage(mediumEnergyDamage);
-            HpBarMediumActive();
+            bossDamageHPBarUI.HpBarMediumActive(maxHp, bossMove.BossHp, mediumEnergyDamage);
         }
         else if (bulletType == 2)
         {
             Damage(largeEnergyDamage);
-            HpBarLargeActive();
+            bossDamageHPBarUI.HpBarLargeActive(maxHp, bossMove.BossHp);
         }
     }
 
+    /// <summary>
+    /// 体力の減少量
+    /// </summary>
+    /// <param name="damage">受けるダメージの値</param>
     private void Damage(int damage)
     {
         bossMove.BossHp -= damage;
@@ -216,65 +169,58 @@ public class BossDamage : MonoBehaviour
             bossMove.BossHp = 0;
         }
     }
-
-    private void HpBarMediumActive()
-    {
-        for (int i = 0; i < mediumEnergyDamage; i++)
-        {
-            if (bossMove.BossHp + i < maxHp)
-            {
-                hpBar[bossMove.BossHp + i].SetActive(false);
-            }
-        }
-    }
-    private void HpBarLargeActive()
-    {
-        for(int i = 0; i < maxHp; i++)
-        {
-            hpBar[bossMove.BossHp + i].SetActive(false);
-        }
-    }
-
+    /// <summary>
+    /// 攻撃された時のアニメーション
+    /// </summary>
     private void DamageAnimation()
     {
         if (bossMove.BossHp > 0)
         {
-            animationImage.SetTrigger("Damage");
+            damageAnimation.SetTrigger("Damage");
         }
         else
         {
-            animationImage.SetTrigger("Die");
+            damageAnimation.SetTrigger("Die");
         }
     }
-
+    /// <summary>
+    /// エネルギー小の場合
+    /// </summary>
     public void KnockbackTrueSmall()
     {
         DamageKnockBack(0);
     }
+    /// <summary>
+    /// エネルギー中の場合
+    /// </summary>
     public void KnockbackTrueMedium()
     {
         DamageKnockBack(1);
     }
-
+    /// <summary>
+    /// エネルギー大の場合
+    /// </summary>
     public void KnockbackTrueLarge()
     {
         DamageKnockBack(2);
     }
-
+    /// <summary>
+    /// ダメージ
+    /// </summary>
+    /// <param name="Bullet">エネルギーの種類の値</param>
     void DamageKnockBack(int Bullet)
     {
         if (isKnockback)
         {
             return;
         }
-
         if (!bossMove.IsAppearance())
         {
             if (!IsInvincible)
             {
                 isKnockback = true;
-                isDamage = true;
-                isBossDamage = true;
+                IsDamage = true;
+                IsBossDamage = true;
                 bulletType = Bullet;
                 bossMove.DamageTrue();
             }
@@ -284,13 +230,5 @@ public class BossDamage : MonoBehaviour
     public bool IsFellDown()
     {
         return isBossFellDown;
-    }
-    public bool IsDamage()
-    {
-        return isDamage;
-    }
-    public bool IsBossDamage()
-    {
-        return isBossDamage;
     }
 }
