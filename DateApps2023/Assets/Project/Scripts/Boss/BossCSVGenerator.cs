@@ -156,6 +156,9 @@ public class BossCSVGenerator : MonoBehaviour
         MessageCancel();
     }
 
+    /// <summary>
+    /// オペレーターが同じことを喋らないようにする
+    /// </summary>
     private void MessageCancel()
     {
         if (IsKill)
@@ -191,7 +194,9 @@ public class BossCSVGenerator : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// ボスの生成
+    /// </summary>
     private void BossGanarater()
     {
         switch (bossLane)
@@ -219,7 +224,10 @@ public class BossCSVGenerator : MonoBehaviour
                 break;
         }
     }
-
+    /// <summary>
+    /// ボスのデータを入れる
+    /// </summary>
+    /// <param name="bossPositionX">出現するX軸</param>
     private void BossAppearanceDate(float bossPositionX)
     {
         BossType();
@@ -234,7 +242,9 @@ public class BossCSVGenerator : MonoBehaviour
 
         time = 0.0f;
     }
-
+    /// <summary>
+    /// 出現させるボスの種類
+    /// </summary>
     private void BossType()
     {
         switch (bossTypeDate)
@@ -302,7 +312,9 @@ public class BossCSVGenerator : MonoBehaviour
     {
         return bossType;
     }
-
+    /// <summary>
+    /// チュートリアル用のボス1
+    /// </summary>
     public void FirstBossGanaretar()
     {
         bossTypeDate       = TUTORIAL_BOSS_TYPE;
@@ -315,6 +327,9 @@ public class BossCSVGenerator : MonoBehaviour
         BossGanarater();
     }
 
+    /// <summary>
+    /// チュートリアル用のボス2
+    /// </summary>
     public void SecondBossGanaretar()
     {
         bossTypeDate       = TUTORIAL_BOSS_TYPE;

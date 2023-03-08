@@ -97,6 +97,9 @@ public class BossAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ボスが攻撃する
+    /// </summary>
     private void Attack()
     {
         time += Time.deltaTime;
@@ -112,6 +115,9 @@ public class BossAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// チャージ
+    /// </summary>
     private void Charge()
     {
         if (effectStop < 1)
@@ -126,7 +132,9 @@ public class BossAttack : MonoBehaviour
             IsCharge = false;
         }
     }
-
+    /// <summary>
+    /// ビームが当たるエリアの表示
+    /// </summary>
     private void DangerZone()
     {
         switch (gameObject.tag)
@@ -142,7 +150,9 @@ public class BossAttack : MonoBehaviour
                 break;
         }
     }
-
+    /// <summary>
+    /// ビームを発射
+    /// </summary>
     void AttackAnimation()
     {
          chargeTime += Time.deltaTime;
@@ -158,7 +168,10 @@ public class BossAttack : MonoBehaviour
             ListDestroy(dangerAreaList);
         }
     }
-
+    /// <summary>
+    /// 攻撃がキャンセルしたときにエフェクトとエリア破壊
+    /// </summary>
+    /// <param name="list">デストロイするオブジェクト</param>
     private void ListDestroy(List<GameObject> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -167,6 +180,10 @@ public class BossAttack : MonoBehaviour
             list.RemoveAt(i);
         }
     }
+
+    /// <summary>
+    /// 当たり判定を出す
+    /// </summary>
     private void DamageAreaControl()
     {
         if (seCount < SE_COUNT_MAX)
@@ -195,6 +212,10 @@ public class BossAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 当たり判定エリアを生成
+    /// </summary>
+    /// <param name="damageArea"></param>
     private void DamageObject(GameObject damageArea)
     {
         if (areaCount < AREA_COUNT_MAX)
@@ -203,7 +224,9 @@ public class BossAttack : MonoBehaviour
             areaCount++;
         }
     }
-
+    /// <summary>
+    /// 攻撃終了
+    /// </summary>
     private void AttackOff()
     {
         IsAttack    = false;
