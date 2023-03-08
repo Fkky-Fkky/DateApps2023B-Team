@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     private Transform fistPos = null;
 
     [SerializeField]
-    private AudioClip attackSound = null;
+    private SEManager seManager = null;
 
     private BoxCollider boxCol = null;
     private Animator animator = null;
@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
             playerMove.StartAttack();
             Instantiate(attackEffect, effectPos.position, this.transform.rotation);
             instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
-            audioSource.PlayOneShot(attackSound);
+            audioSource.PlayOneShot(seManager.PlayerAttackSe);
 
             isAttack = true;
         }

@@ -40,10 +40,7 @@ public class PlayerDamage : MonoBehaviour
     private Transform damageStanPoint = null;
 
     [SerializeField]
-    private AudioClip stanSound = null;
-
-    [SerializeField]
-    private AudioClip knockbackSound = null;
+    private SEManager seManager = null;
 
     private PlayerMove playerMove = null;
     private PlayerCarryDown playerCarryDown = null;
@@ -157,7 +154,7 @@ public class PlayerDamage : MonoBehaviour
                 Vector3 InstantPos = damageStanPoint.position;
                 InstantPos.y = damageEffectPosY;
                 cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
-                audioSource.PlayOneShot(stanSound);
+                audioSource.PlayOneShot(seManager.PlayerStanSe);
 
                 hasDestroyStanEffect = true;
             }
@@ -246,7 +243,7 @@ public class PlayerDamage : MonoBehaviour
         Vector3 InstantPos = this.gameObject.transform.position;
         InstantPos.y = captureEffectPosY;
         cloneStanEffect = Instantiate(stanEffect, InstantPos, this.transform.rotation);
-        audioSource.PlayOneShot(stanSound);
+        audioSource.PlayOneShot(seManager.PlayerStanSe);
 
         isCurrentCapture = true;
         enemyScript = null;
@@ -309,7 +306,7 @@ public class PlayerDamage : MonoBehaviour
     /// </summary>
     public void CallKnockBack()
     {
-        audioSource.PlayOneShot(knockbackSound);
+        audioSource.PlayOneShot(seManager.PlayerPunchHitSe);
     }
 
     /// <summary>
