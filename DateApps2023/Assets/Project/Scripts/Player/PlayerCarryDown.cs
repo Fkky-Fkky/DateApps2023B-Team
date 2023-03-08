@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerCarryDown : MonoBehaviour
 {
-    #region
     private PlayerMove playermove = null;
     private CarryEnergy energyItem = null;
     private CarryCannon cannonItem = null;
@@ -21,7 +20,6 @@ public class PlayerCarryDown : MonoBehaviour
     private bool isCarry = false;
     private bool isCanUsed = false;
     private bool isCarryDamage = false;
-    #endregion
 
     void Start()
     {

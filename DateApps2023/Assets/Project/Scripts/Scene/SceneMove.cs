@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneMove : MonoBehaviour
 {
-    #region
     [SerializeField]
     private string sceneName = "New Scene";
 
@@ -32,7 +31,6 @@ public class SceneMove : MonoBehaviour
     private bool isPlaying = false;
     private bool isSceneChange = false;
     private bool isAnimation = false;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

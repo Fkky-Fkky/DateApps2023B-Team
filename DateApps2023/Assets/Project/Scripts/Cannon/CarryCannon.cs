@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class CarryCannon : MonoBehaviour
 {
-    #region
     [SerializeField]
     private float defaultPosY = 51;
 
@@ -33,7 +32,6 @@ public class CarryCannon : MonoBehaviour
         Medium,
         Large
     }
-    #endregion
 
     // Start is called before the first frame update
     void Start()

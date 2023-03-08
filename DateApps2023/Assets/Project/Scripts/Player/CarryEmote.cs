@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class CarryEmote : MonoBehaviour
 {
-    #region
     [SerializeField]
     private Sprite carryEmoteIcon = null;
 
@@ -36,7 +35,6 @@ public class CarryEmote : MonoBehaviour
     private Vector3 setSize = Vector3.zero;
 
     const float MIRROR_ROT_Y = -180.0f;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class CarryEnergy : MonoBehaviour
 {
-    #region
     [SerializeField]
     private float defaultPosY = 51;
 
@@ -32,13 +31,12 @@ public class CarryEnergy : MonoBehaviour
         Medium,
         Large
     }
-   
+
     public int MyItemSizeCount
     {
         get { return (int)myItemSize; }
         private set { MyItemSizeCount = (int)myItemSize; }
     }
-    #endregion
 
     // Start is called before the first frame update
     void Start()

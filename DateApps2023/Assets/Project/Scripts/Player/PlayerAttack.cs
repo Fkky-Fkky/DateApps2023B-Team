@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerAttack : MonoBehaviour
 {
-    #region
     [SerializeField]
     private float hitTime = 0.25f;
 
@@ -38,7 +37,6 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttack = false;
     private bool isCarry = false;
     private bool isDamage = false;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

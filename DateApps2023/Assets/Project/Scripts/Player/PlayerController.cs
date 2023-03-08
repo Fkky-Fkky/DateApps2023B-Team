@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    #region
     [SerializeField]
     [Tooltip("ˆÚ“®‚Ì‘¬‚³")]
     private float moveSpeed = 250.0f;
@@ -53,8 +52,6 @@ public class PlayerController : MonoBehaviour
 
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
-
-    #endregion
 
     // Start is called before the first frame update
     void Start()

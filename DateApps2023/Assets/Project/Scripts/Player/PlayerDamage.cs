@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class PlayerDamage : MonoBehaviour
 {
-    #region
     [SerializeField]
     private float stanTime = 5.0f;
 
@@ -63,7 +62,6 @@ public class PlayerDamage : MonoBehaviour
     private bool isCurrentDamage = false;
     private bool isCurrentCapture = false;
     private bool hasDestroyStanEffect = false;
-    #endregion
 
     private void Start()
     {

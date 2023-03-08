@@ -8,7 +8,6 @@ using UnityEngine.Video;
 /// </summary>
 public class TitleVideoManager : MonoBehaviour
 {
-    #region
     [SerializeField]
     private Animator animationImage = null;
 
@@ -37,7 +36,6 @@ public class TitleVideoManager : MonoBehaviour
     private bool isFinished = false;
 
     private const float ANIM_END_TIME = 1.0f;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

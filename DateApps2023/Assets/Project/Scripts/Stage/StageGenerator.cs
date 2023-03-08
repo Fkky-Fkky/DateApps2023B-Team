@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class StageGenerator : MonoBehaviour
 {
-    #region
     [SerializeField]
     private GameObject[] stagePattern = null;
 
@@ -13,7 +12,6 @@ public class StageGenerator : MonoBehaviour
     private Vector3 generatePos = Vector3.zero;
 
     private int number = 0;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class TimeCount : MonoBehaviour
 {
-    #region
     [SerializeField]
     private string sceneName = "New Scene";
 
@@ -14,7 +13,6 @@ public class TimeCount : MonoBehaviour
     private bool isMain = true;
 
     public static float SecondsCount = 0;
-    #endregion
 
     // Start is called before the first frame update
     void Start()
