@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// ボスの移動
+/// </summary>
 public class BossMove : MonoBehaviour
 {
-    [SerializeField]
-    private float moveSpeed  =  2.0f;
-    [SerializeField]
-    private float multiplier = 50.0f;
-
     [SerializeField]
     private GameObject cenetrTarget = null;
     [SerializeField]
@@ -17,8 +12,6 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private GameObject rightTarget  = null;
 
-    [SerializeField]
-    private GameObject hpGauge                = null;
     [SerializeField]
     private GameObject warningDisplay         = null;
     [SerializeField]
@@ -44,6 +37,9 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private AudioClip lastAttackSE      = null;
 
+    //[SerializeField]
+    private BossHPBarUI bossHPBarUI = null;
+
     private bool isDamageFlag = false;
     private bool isAppearance = true;
     private bool isNotMove    = false;
@@ -53,6 +49,7 @@ public class BossMove : MonoBehaviour
     private int seCount      = 0;
     private int messageCount = 0;
 
+    private float moveSpeed = 0.0f;
     private float warningFlashTime = 0.0f;
     private float dangerFlashTime  = 0.0f;
     private float moveTime         = 0.0f;
@@ -68,29 +65,16 @@ public class BossMove : MonoBehaviour
 
     public int BossHp = 0;
     public bool IsGameOver { get; private set; }
-    public bool IsLanding { get; private set; }
     public bool IsHazard { get; private set; }
 
-    const int MIN_HP       = 1;
-    const int SMALE_MAX_HP = 2;
-    const int NOMAL_MAX_HP = 5;
-    const int BIG_MIN_HP   = 7;
-    const int MAX_HP       = 9;
+    const int MAX_HP = 9;
     const float HALF_INDEX             =   0.5f;
     const float UNDER_POSITION         = -54.5f;
     const float DANGER_FLASH_TIME_MAX  =   0.5f;
     const float WARNING_FLASH_TIME_MAX =   1.0f;
     const float MOVE_TIME_MAX          =   3.0f;
-    const float BOSS_SCALE_Y           =  18.0f;
     const float SIDE_POS               =   0.1f;
-
-    const float NOMAL_UI_POSITION_X =  4.0f;
-    const float MINI_UI_POSITION_X  = 13.0f;
-    const float BIG_UI_POSITION_X   =  4.2f;
-
-    const float NOMAL_CENETR_UI_POSITION_Y =  0.1f;
-    const float NOMAL_SIDE_UI_POSITION_Y   = 0.05f;
-    const float MINI_UI_POSITION_Y         = -0.7f;
+    const float MULTIPLIER             =  50.0f;
 
     const float WARNING_DISPLAY_POSITION = 100.0f;
     const float ATTACK_OFF_POSITION      =  50.0f;
@@ -119,26 +103,27 @@ public class BossMove : MonoBehaviour
 
     void Start()
     {
+        bossAttack = GetComponent<BossAttack>();
+        bossHPBarUI= GetComponent<BossHPBarUI>();
+        rb = GetComponent<Rigidbody>();
+
         if (transform.position.x == 0.0f)
         {
             tag = "Center";
-            BossUIPositionCneter();
+            bossHPBarUI.BossUIPositionCneter();
         }
 
         if (transform.position.x >= SIDE_POS)
         {
             tag = "Right";
-            BossUIPositionRight();
+            bossHPBarUI.BossUIPositionRight();
         }
 
         if (transform.position.x <= -SIDE_POS)
         {
             tag = "Left";
-            BossUIPositionLeft();
+            bossHPBarUI.BossUIPositionLeft();
         }
-
-        bossAttack = GetComponent<BossAttack>();
-        rb = GetComponent<Rigidbody>();
 
         camera = Camera.main;
         canvas.worldCamera = camera;
@@ -146,7 +131,6 @@ public class BossMove : MonoBehaviour
         warningDisplay.SetActive(false);
         gameOverWarningDisplay.SetActive(false);
 
-        IsLanding    = false;
         IsHazard     = false;
         IsGameOver   = false;
     }
@@ -160,7 +144,6 @@ public class BossMove : MonoBehaviour
             if (transform.position.y <= UNDER_POSITION)
             {
                 Instantiate(shockWaveEffect, gameObject.transform.position, Quaternion.identity);
-                IsLanding = true;
                 pos.y = UNDER_POSITION;
                 transform.position = pos;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -180,14 +163,7 @@ public class BossMove : MonoBehaviour
                 moveTime = 0.0f;
             }
         }
-
-        if (!isDamageFlag)
-        {
-            if (!bossAttack.IsAttackAll())
-            {
-                Move();
-            }
-        }
+        Move();
 
         if (isLastAttack)
         {
@@ -217,78 +193,22 @@ public class BossMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce((multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
+        rb.AddForce((MULTIPLIER - 1f) * Physics.gravity, ForceMode.Acceleration);
     }
 
-    private void BossUIPositionCneter()
-    {
-        if (BossHp >= MIN_HP && BossHp <= NOMAL_MAX_HP)
-        {
-            if (gameObject.transform.localScale.y > BOSS_SCALE_Y)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, NOMAL_CENETR_UI_POSITION_Y, 0);
-            }
-        }
-        if (BossHp >= MIN_HP && BossHp <= SMALE_MAX_HP)
-        {
-            if (gameObject.transform.localScale.y < BOSS_SCALE_Y)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, MINI_UI_POSITION_Y, 0);
-            }
-        }
-        if (BossHp >= BIG_MIN_HP && BossHp <= MAX_HP)
-        {
-            hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        }
-
-    }
-
-    private void BossUIPositionRight()
-    {
-        if (BossHp >= MIN_HP && BossHp <= NOMAL_MAX_HP)
-        {
-            if (gameObject.transform.localScale.y > BOSS_SCALE_Y)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(NOMAL_UI_POSITION_X, NOMAL_SIDE_UI_POSITION_Y, 0);
-            }
-        }
-        if (BossHp >= MIN_HP && BossHp <= SMALE_MAX_HP)
-        {
-            if (gameObject.transform.localScale.y < BOSS_SCALE_Y)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(MINI_UI_POSITION_X, MINI_UI_POSITION_Y, 0);
-            }
-        }
-        if (BossHp >= BIG_MIN_HP && BossHp <= MAX_HP)
-        {
-            hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(BIG_UI_POSITION_X, 0, 0);
-        }
-    }
-
-    private void BossUIPositionLeft()
-    {
-        if (BossHp >= MIN_HP && BossHp <= NOMAL_MAX_HP)
-        {
-            if (gameObject.transform.localScale.y > BOSS_SCALE_Y)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-NOMAL_UI_POSITION_X, NOMAL_SIDE_UI_POSITION_Y, 0.0f);
-            }
-        }
-        if (BossHp >= MIN_HP && BossHp <= SMALE_MAX_HP)
-        {
-            if (gameObject.transform.localScale.y < BOSS_SCALE_Y)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-MINI_UI_POSITION_X, MINI_UI_POSITION_Y, 0.0f);
-            }
-        }
-        if (BossHp >= BIG_MIN_HP && BossHp <= MAX_HP)
-        {
-            hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-BIG_UI_POSITION_X, 0, 0);
-        }
-
-    }
+    /// <summary>
+    /// ボスの移動
+    /// </summary>
     private void Move()
     {
+        if (isDamageFlag)
+        {
+            return;
+        }
+        if (bossAttack.IsAttackAll())
+        {
+            return;
+        }
         if (!isAppearance && !isNotMove && !isLastAttack)
         {
             if (gameObject.tag == "Center")
@@ -305,7 +225,10 @@ public class BossMove : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// 目的先に移動する
+    /// </summary>
+    /// <param name="target">目的先のオブジェクト</param>
     private void MoveTarget(GameObject target)
     {
         Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
@@ -368,7 +291,9 @@ public class BossMove : MonoBehaviour
             gameOverWarningDisplay.SetActive(false);
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     private void GameOverAnimasiton()
     {
         if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && animationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
@@ -401,11 +326,18 @@ public class BossMove : MonoBehaviour
     {
         isDamageFlag = false;
     }
+    /// <summary>
+    /// 登場するフラグを返す
+    /// </summary>
+    /// <returns>登場するフラグ</returns>
     public bool IsAppearance()
     {
         return isAppearance;
     }
-
+    /// <summary>
+    /// 攻撃しないフラグを返す
+    /// </summary>
+    /// <returns>攻撃しないフラグ</returns>
     public bool IsAttackOff()
     {
         return isAttackOff;

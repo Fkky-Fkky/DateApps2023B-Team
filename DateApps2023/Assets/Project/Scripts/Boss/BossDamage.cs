@@ -32,22 +32,21 @@ public class BossDamage : MonoBehaviour
     private bool isBossDamage   = false;
     private bool isBossFellDown = false;
 
-    private int maxHp        =  0;
-    private int isBullet     = -1;
-    private int smallDamage  =  0;
-    private int mediumDamage =  0;
-    private int largeDamage  =  0;
+    private int maxHp              =  0;
+    private int bulletType         = -1;
+    private int smallEnergyDamage  =  0;
+    private int mediumEnergyDamage =  0;
+    private int largeEnergyDamage  =  0;
 
-    private float invincibleTime = 0.0f;
+    private float invincibleTime   = 0.0f;
     private float bossDamgeOffTime = 0.0f;
-    private float knockbackTime = 0.0f;
-    private float bossDestroyTime = 0.0f;
+    private float knockbackTime    = 0.0f;
+    private float bossDestroyTime  = 0.0f;
 
     private BossMove bossMove   = null;
     private DamageCSV damageCSV = null;
 
     public bool IsInvincible { get; private set; }
-
 
     const float EFFECT_POS_Y             = -40.0f;
     const float BOSS_DAMGE_OFF_TIME_MAX  =   0.6f;
@@ -62,17 +61,15 @@ public class BossDamage : MonoBehaviour
     const float BOSS_MAX_HP_POS_X       = 0.2f;
     const float BOSS_HP_BAR_POS_Y       = 0.7f;
 
-
-
     void Start()
     {
         bossMove = GetComponent<BossMove>();
 
         damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
-        smallDamage  = damageCSV.Small;
-        mediumDamage = damageCSV.Medium;
-        largeDamage  = damageCSV.Large;
+        smallEnergyDamage  = damageCSV.Small;
+        mediumEnergyDamage = damageCSV.Medium;
+        largeEnergyDamage  = damageCSV.Large;
 
         IsInvincible = false;
 
@@ -122,7 +119,6 @@ public class BossDamage : MonoBehaviour
                 hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, 0, 0);
                 break;
         }
-
     }
 
     void Update()
@@ -148,11 +144,11 @@ public class BossDamage : MonoBehaviour
             if (!bossMove.IsAppearance())
             {
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-                IsBullet();
+                BulletTypeDamage();
                 DamageAnimation();
 
                 IsInvincible = true;
-                isBullet = -1;
+                bulletType = -1;
                 isDamage = false;
             }
         }
@@ -193,21 +189,21 @@ public class BossDamage : MonoBehaviour
         }
     }
 
-    private void IsBullet()
+    private void BulletTypeDamage()
     {
-        if (isBullet == 0)
+        if (bulletType == 0)
         {
-            Damage(smallDamage);
+            Damage(smallEnergyDamage);
             hpBar[bossMove.BossHp + 0].SetActive(false);
         }
-        else if (isBullet == 1)
+        else if (bulletType == 1)
         {
-            Damage(mediumDamage);
+            Damage(mediumEnergyDamage);
             HpBarMediumActive();
         }
-        else if (isBullet == 2)
+        else if (bulletType == 2)
         {
-            Damage(largeDamage);
+            Damage(largeEnergyDamage);
             HpBarLargeActive();
         }
     }
@@ -223,7 +219,7 @@ public class BossDamage : MonoBehaviour
 
     private void HpBarMediumActive()
     {
-        for (int i = 0; i < mediumDamage; i++)
+        for (int i = 0; i < mediumEnergyDamage; i++)
         {
             if (bossMove.BossHp + i < maxHp)
             {
@@ -279,7 +275,7 @@ public class BossDamage : MonoBehaviour
                 isKnockback = true;
                 isDamage = true;
                 isBossDamage = true;
-                isBullet = Bullet;
+                bulletType = Bullet;
                 bossMove.DamageTrue();
             }
         }
@@ -289,12 +285,10 @@ public class BossDamage : MonoBehaviour
     {
         return isBossFellDown;
     }
-
     public bool IsDamage()
     {
         return isDamage;
     }
-
     public bool IsBossDamage()
     {
         return isBossDamage;

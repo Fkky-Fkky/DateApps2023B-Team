@@ -651,9 +651,10 @@ GameObject:
   - component: {fileID: 1697093568606495979}
   - component: {fileID: 1648196746715476570}
   - component: {fileID: 1648196746715476573}
-  - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
   - component: {fileID: 131829114075476459}
+  - component: {fileID: 1648196746715476574}
+  - component: {fileID: 5815961928366846247}
   - component: {fileID: 7804359188918254647}
   m_Layer: 0
   m_Name: BossMini
@@ -731,28 +732,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5, y: 3.5, z: 3}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &1648196746715476574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invincibleTimeMax: 4
-  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
-  fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
-  hpCores: {fileID: 2355321504207012441}
-  hpBar: []
-  hpMemori:
-  - {fileID: 9092979992807707289}
-  - {fileID: 8455852809812342072}
-  animationImage: {fileID: 1697093568606495979}
-  damagePoint: {fileID: 3490875008881636801}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +760,7 @@ MonoBehaviour:
   audioSource: {fileID: 7804359188918254647}
   lastAttackAudio: {fileID: 7608898300750626355}
   lastAttackSE: {fileID: 8300000, guid: 57114c44b6aab894393d0f842374e5d2, type: 3}
+  bossHPBarUI: {fileID: 5815961928366846247}
   BossHp: 0
 --- !u!114 &131829114075476459
 MonoBehaviour:
@@ -806,6 +786,43 @@ MonoBehaviour:
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
   IsAttack: 0
+--- !u!114 &1648196746715476574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibleTimeMax: 4
+  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
+  fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
+  hpCores: {fileID: 2355321504207012441}
+  hpBar: []
+  hpMemori:
+  - {fileID: 9092979992807707289}
+  - {fileID: 8455852809812342072}
+  animationImage: {fileID: 1697093568606495979}
+  damagePoint: {fileID: 3490875008881636801}
+--- !u!114 &5815961928366846247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d25f295797c6a4995af948a32e206b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpGauge: {fileID: 8481605770265837695}
+  canvas: {fileID: 9112739422148324377}
+  bossMove: {fileID: 1648196746715476545}
 --- !u!82 &7804359188918254647
 AudioSource:
   m_ObjectHideFlags: 0

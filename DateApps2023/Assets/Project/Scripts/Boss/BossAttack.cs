@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class BossAttack : MonoBehaviour
 {
@@ -43,8 +40,8 @@ public class BossAttack : MonoBehaviour
 
     private float time               = 0.0f;
     private float attackIntervalTime = 0.0f;
-    private float chargeTime = 0.0f;
-    private float beamOffTime = 0.0f;
+    private float chargeTime         = 0.0f;
+    private float beamOffTime        = 0.0f;
 
     private Vector3 dangerCenter = new Vector3(0.0f, -1.2f, 0.0f);
     private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
@@ -56,7 +53,7 @@ public class BossAttack : MonoBehaviour
     private AudioSource audioSource           = null;
     private BossCSVGenerator bossCSVGenerator = null;
 
-    public bool IsAttack = false;
+    public bool IsAttack { get; private set; }
     public bool IsCharge { get; private set; }
 
     const int AREA_COUNT_MAX = 1;
@@ -74,6 +71,7 @@ public class BossAttack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
+        IsAttack = false;
         IsCharge = false;
     }
     
