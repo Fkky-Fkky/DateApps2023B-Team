@@ -166,6 +166,13 @@ public class PlayerAttack : MonoBehaviour
     public void OnIsDamage()
     {
         isDamage = true;
+        animator.SetBool("Attack", false);
+        boxCol.enabled = false;
+        playerMove.EndAttack();
+        instantPunch = null;
+
+        isAttack = false;
+        time = 0;
     }
 
     /// <summary>
