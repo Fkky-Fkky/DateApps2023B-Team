@@ -108,14 +108,14 @@ public class Operator : MonoBehaviour
     /// </summary>
     void FirstEnergyGenerate()
     {
-        energy.Generate();
+        energy.GenerateEnergy();
     }
     /// <summary>
     /// チュートリアル中の2回目のエネルギー物資生成
     /// </summary>
     void SecondEnergyGenerate()
     {
-         energy.Generate();
+         energy.GenerateEnergy();
     }
     #endregion
 

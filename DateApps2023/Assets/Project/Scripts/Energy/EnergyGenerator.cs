@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// エネルギー物資の生成をするクラス
+/// </summary>
 public class EnergyGenerator : MonoBehaviour
 {
     [SerializeField]
@@ -13,41 +14,50 @@ public class EnergyGenerator : MonoBehaviour
     [SerializeField]
     private TutorialEnergyGenerator tutorialGenerator = null;
 
-    private bool IsGeneratorChange = false;
-    private EnergyGeneratorBase generator = null;
+    private bool isChangeGenerator = false;
+    private EnergyGeneratorBase energyGenerator = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        generator = tutorialGenerator;
+        energyGenerator = tutorialGenerator;
+        normalGenerator.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (gameManager.IsGameOver)
-        {
-            return;
-        }
-
-        if (IsGeneratorChange)
+        if (isChangeGenerator)
         {
             return;
         }
 
         if (gameManager.IsGameStart)
         {
-            generator = normalGenerator;
-            const int ADD_GENERATE = 2;
-            for (int i = 0; i < ADD_GENERATE; ++i)
-            {
-                Generate();
-            }
-            IsGeneratorChange = true;
+            ChangeEnergyGenerator();
         }
     }
 
-    public void Generate()
+    /// <summary>
+    /// エネルギージェネレーターを切り替える
+    /// </summary>
+    private void ChangeEnergyGenerator()
     {
-        generator.Generate();
+        normalGenerator.gameObject.SetActive(true);
+        energyGenerator = normalGenerator;
+        GenerateEnergy();
+        isChangeGenerator = true;
+        tutorialGenerator.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// エネルギー物資の生成
+    /// </summary>
+    public void GenerateEnergy()
+    {
+        if (gameManager.IsGameOver)
+        {
+            return;
+        }
+        energyGenerator.GenerateEnergyResource();
     }
 }

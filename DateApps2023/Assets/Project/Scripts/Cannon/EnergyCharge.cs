@@ -103,7 +103,7 @@ public class EnergyCharge : MonoBehaviour
         Energy = Mathf.Min(Energy + ADD_ENERGY, MAX_ENERGY);
         Instantiate(energyChargeEffect[ChrgeEnergyType], transform.position, Quaternion.identity);
         audioSource.PlayOneShot(seManager.EnergyChargeSe);
-        generateEnergy.Generate();
+        generateEnergy.GenerateEnergy();
         cannonLaser.transform.localScale = laserScale[ChrgeEnergyType];
         if (Energy >= MAX_ENERGY)
         {

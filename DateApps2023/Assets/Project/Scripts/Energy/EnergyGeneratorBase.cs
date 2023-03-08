@@ -16,13 +16,13 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     protected private Transform generatePosMax = null;
 
     protected float[] createArea = new float[5];
-    protected Vector3[] halfExtents = new Vector3[3];
     protected List<int> createEnergyTypeList = new List<int>();
     protected List<Vector3> createPositionList = new List<Vector3>();
 
     protected const int MAX_MISS_COUNT = 30;
     protected const float GENERATE_POS_Y = 20.0f;
     protected const float GENERATE_ROT_Y = 180.0f;
+    protected Vector3 halfExtent = Vector3.zero;
 
     private const int MAX_AREA = 4;
 
@@ -34,11 +34,8 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
         SortEnergies();
 
         const int HALF = 2;
-        for (int i = 0; i < energies.Length; i++)
-        {
-            halfExtents[i] = energies[i].transform.localScale / HALF;
-        }
-
+        halfExtent = energies[energies.Length - 1].transform.localScale / HALF;
+        
         float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
         for (int i = 0; i <= MAX_AREA; i++)
         {
@@ -73,14 +70,15 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     protected void GeneratePosition()
     {
         int miss = 0;
-        int energyType = createEnergyTypeList[0];
         int areaIndex  = Random.Range(0, MAX_AREA);
-        Vector3 genaratePos = Vector3.one;
+        Vector3 genaratePos = Vector3.zero;
+        const float GENERATE_POS_Y = 0.5f;
+        genaratePos.y = GENERATE_POS_Y;
         while (miss < MAX_MISS_COUNT)
         {
             genaratePos.x = Random.Range(createArea[areaIndex], createArea[areaIndex + 1]);
             genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
-            if (!Physics.CheckBox(genaratePos, halfExtents[energyType]))
+            if (!Physics.CheckBox(genaratePos, halfExtent))
             {
                 createPositionList.Add(genaratePos);
                 break;
@@ -92,7 +90,7 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     /// <summary>
     /// エネルギー物資の生成
     /// </summary>
-    protected void EnergyGenerate()
+    protected void GenerateEnergy()
     {
         Vector3 position = new Vector3(createPositionList[0].x, GENERATE_POS_Y, createPositionList[0].z);
         Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
@@ -115,5 +113,5 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     /// <summary>
     /// エネルギー物資を生成する
     /// </summary>
-    public abstract void Generate();
+    public abstract void GenerateEnergyResource();
 }
