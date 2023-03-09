@@ -1,129 +1,136 @@
+// 担当者：吹上純平
 using UnityEngine;
 
-/// <summary>
-/// エネルギーのチャージ処理をするクラス
-/// </summary>
-public class EnergyCharge : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private ParticleSystem[] energyChargeEffects = new ParticleSystem[3];
-
-    [SerializeField]
-    private SEManager seManager = null;
-
-    [SerializeField]
-    private EnergyGenerator generateEnergy = null;
-
-    [SerializeField]
-    private GameObject cannonLaser = null;
-
-    private float coolTime = 0.0f;
-    private bool isSetCoolTime = false;
-    private Vector3[] laserScale = new Vector3[3];
-    private BoxCollider boxCol = null;
-    private AudioSource audioSource = null;
-
     /// <summary>
-    /// エネルギーがチャージされているかを返す
+    /// エネルギーのチャージ処理をするクラス
     /// </summary>
-    public bool IsEnergyCharge { get; private set; }
-
-    /// <summary>
-    /// チャージされたエネルギーの種類を返す
-    /// </summary>
-    public int ChargeEnergyType { get; private set; }
-
-    public enum ENERGY_TYPE
+    public class EnergyCharge : MonoBehaviour
     {
-        SMALL,
-        MEDIUM,
-        LARGE,
-    }
+        [SerializeField]
+        private ParticleSystem[] energyChargeEffects = new ParticleSystem[3];
 
-    private void Start()
-    {
-        const float SMALL_LASER_SCALE  = 0.3f;
-        const float MEDIUM_LASER_SCALE = 1.0f;
-        const float LARGE_LASER_SCALE  = 1.5f;
-        boxCol = GetComponent<BoxCollider>();
-        audioSource = transform.parent.GetComponent<AudioSource>();
-        IsEnergyCharge = false;
-        laserScale[(int)ENERGY_TYPE.SMALL] = new Vector3(SMALL_LASER_SCALE, SMALL_LASER_SCALE, SMALL_LASER_SCALE);
-        laserScale[(int)ENERGY_TYPE.MEDIUM] = new Vector3(MEDIUM_LASER_SCALE, MEDIUM_LASER_SCALE, MEDIUM_LASER_SCALE);
-        laserScale[(int)ENERGY_TYPE.LARGE] = new Vector3(LARGE_LASER_SCALE, LARGE_LASER_SCALE, LARGE_LASER_SCALE);
-    }
+        [SerializeField]
+        private SEManager seManager = null;
 
-    private void Update()
-    {
-        if (!isSetCoolTime)
+        [SerializeField]
+        private EnergyGenerator generateEnergy = null;
+
+        [SerializeField]
+        private GameObject cannonLaser = null;
+
+        private float coolTime = 0.0f;
+        private bool isSetCoolTime = false;
+        private Vector3[] laserScale = new Vector3[3];
+        private BoxCollider boxCol = null;
+        private AudioSource audioSource = null;
+
+        /// <summary>
+        /// エネルギーがチャージされているかを返す
+        /// </summary>
+        public bool IsEnergyCharge { get; private set; }
+
+        /// <summary>
+        /// チャージされたエネルギーの種類を返す
+        /// </summary>
+        public int ChargeEnergyType { get; private set; }
+
+        /// <summary>
+        /// エネルギーの種類
+        /// </summary>
+        public enum ENERGY_TYPE
         {
-            return;
+            SMALL,
+            MEDIUM,
+            LARGE,
         }
 
-        coolTime = Mathf.Max(coolTime - Time.deltaTime, 0.0f);
-        if (coolTime <= 0.0f)
+        private void Start()
         {
-            isSetCoolTime = false;
-            boxCol.enabled = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.gameObject.CompareTag("item"))
-        {
-            return;
+            const float SMALL_LASER_SCALE = 0.3f;
+            const float MEDIUM_LASER_SCALE = 1.0f;
+            const float LARGE_LASER_SCALE = 1.5f;
+            boxCol = GetComponent<BoxCollider>();
+            audioSource = transform.parent.GetComponent<AudioSource>();
+            IsEnergyCharge = false;
+            laserScale[(int)ENERGY_TYPE.SMALL] = new Vector3(SMALL_LASER_SCALE, SMALL_LASER_SCALE, SMALL_LASER_SCALE);
+            laserScale[(int)ENERGY_TYPE.MEDIUM] = new Vector3(MEDIUM_LASER_SCALE, MEDIUM_LASER_SCALE, MEDIUM_LASER_SCALE);
+            laserScale[(int)ENERGY_TYPE.LARGE] = new Vector3(LARGE_LASER_SCALE, LARGE_LASER_SCALE, LARGE_LASER_SCALE);
         }
 
-        if (other.transform.parent == null)
+        private void Update()
         {
-            return;
+            if (!isSetCoolTime)
+            {
+                return;
+            }
+
+            coolTime = Mathf.Max(coolTime - Time.deltaTime, 0.0f);
+            if (coolTime <= 0.0f)
+            {
+                isSetCoolTime = false;
+                boxCol.enabled = true;
+            }
         }
 
-        int itemSize = other.GetComponent<CarryEnergy>().MyItemSizeCount;
-        switch (itemSize)
+        private void OnTriggerEnter(Collider other)
         {
-            case (int)CarryEnergy.ItemSize.Small:
-                ChargeEnergyType = (int)ENERGY_TYPE.SMALL;
-                break;
+            if (!other.gameObject.CompareTag("item"))
+            {
+                return;
+            }
 
-            case (int)CarryEnergy.ItemSize.Medium:
-                ChargeEnergyType = (int)ENERGY_TYPE.MEDIUM;
-                break;
+            if (other.transform.parent == null)
+            {
+                return;
+            }
 
-            case (int)CarryEnergy.ItemSize.Large:
-                ChargeEnergyType = (int)ENERGY_TYPE.LARGE;
-                break;
+            int itemSize = other.GetComponent<CarryEnergy>().MyItemSizeCount;
+            switch (itemSize)
+            {
+                case (int)CarryEnergy.ItemSize.Small:
+                    ChargeEnergyType = (int)ENERGY_TYPE.SMALL;
+                    break;
+
+                case (int)CarryEnergy.ItemSize.Medium:
+                    ChargeEnergyType = (int)ENERGY_TYPE.MEDIUM;
+                    break;
+
+                case (int)CarryEnergy.ItemSize.Large:
+                    ChargeEnergyType = (int)ENERGY_TYPE.LARGE;
+                    break;
+            }
+            other.GetComponent<CarryEnergy>().DestroyMe();
+            ChargeEnergy();
         }
-        other.GetComponent<CarryEnergy>().DestroyMe();
-        ChargeEnergy();
-    }
 
-    /// <summary>
-    /// エネルギーをチャージする
-    /// </summary>
-    private void ChargeEnergy()
-    {
-        IsEnergyCharge = true;
-        energyChargeEffects[ChargeEnergyType].gameObject.SetActive(true);
-        audioSource.PlayOneShot(seManager.EnergyChargeSe);
-        generateEnergy.GenerateEnergy();
-        cannonLaser.transform.localScale = laserScale[ChargeEnergyType];
-        boxCol.enabled = false;
-    }
-
-    /// <summary>
-    /// エネルギーを減らす
-    /// </summary>
-    public void DisChargeEnergy()
-    {
-        const float COOL_TIME_MAX = 3.0f;
-        IsEnergyCharge = false;
-        if (isSetCoolTime)
+        /// <summary>
+        /// エネルギーをチャージする
+        /// </summary>
+        private void ChargeEnergy()
         {
-            return;
+            IsEnergyCharge = true;
+            energyChargeEffects[ChargeEnergyType].gameObject.SetActive(true);
+            audioSource.PlayOneShot(seManager.EnergyChargeSe);
+            generateEnergy.GenerateEnergy();
+            cannonLaser.transform.localScale = laserScale[ChargeEnergyType];
+            boxCol.enabled = false;
         }
-        isSetCoolTime = true;
-        coolTime = COOL_TIME_MAX;
+
+        /// <summary>
+        /// エネルギーを減らす
+        /// </summary>
+        public void DisChargeEnergy()
+        {
+            const float COOL_TIME_MAX = 3.0f;
+            IsEnergyCharge = false;
+            if (isSetCoolTime)
+            {
+                return;
+            }
+            isSetCoolTime = true;
+            coolTime = COOL_TIME_MAX;
+        }
     }
 }

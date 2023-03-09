@@ -1,26 +1,33 @@
+// 担当者：吹上純平
 using UnityEngine;
 
-/// <summary>
-/// 大砲の発射台クラス
-/// </summary>
-public class CannonStand : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private STAND_POSITION standPosition = STAND_POSITION.NONE;
-
     /// <summary>
-    /// 発射台の場所を返す
+    /// 大砲の発射台クラス
     /// </summary>
-    public int ConnectingPos
+    public class CannonStand : MonoBehaviour
     {
-        get { return (int)standPosition; }
-    }
+        [SerializeField]
+        private STAND_POSITION standPosition = STAND_POSITION.NONE;
 
-    public enum STAND_POSITION
-    {
-        NONE = -1,
-        LEFT,
-        CENTRE,
-        RIGHT
+        /// <summary>
+        /// 発射台の場所を返す
+        /// </summary>
+        public int ConnectingPos
+        {
+            get { return (int)standPosition; }
+        }
+
+        /// <summary>
+        /// 発射台の位置
+        /// </summary>
+        public enum STAND_POSITION
+        {
+            NONE = -1,
+            LEFT,
+            CENTRE,
+            RIGHT
+        }
     }
 }

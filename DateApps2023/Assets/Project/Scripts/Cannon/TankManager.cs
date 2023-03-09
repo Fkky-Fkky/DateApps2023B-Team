@@ -1,46 +1,50 @@
+// 担当者：吹上純平
 using UnityEngine;
 
-/// <summary>
-/// エネルギータンクのマネージャークラス
-/// </summary>
-public class TankManager : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private EnergyCharge energyCharge = null;
-
-    private bool oldEnergy = false;
-    private TankCharge energyTank = null;
-
-    private void Start()
-    {
-        energyTank = GetComponentInChildren<TankCharge>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        bool doEnergyCharge = energyCharge.IsEnergyCharge != oldEnergy;
-
-        if (!doEnergyCharge)
-        {
-            return;
-        }
-        EnergyCharge();
-    }
-
     /// <summary>
-    /// エネルギータンクの見た目を変更する
+    /// エネルギータンクのマネージャークラス
     /// </summary>
-    private void EnergyCharge()
+    public class TankManager : MonoBehaviour
     {
-        if (energyCharge.IsEnergyCharge)
+        [SerializeField]
+        private EnergyCharge energyCharge = null;
+
+        private bool oldEnergy = false;
+        private TankCharge energyTank = null;
+
+        private void Start()
         {
-            energyTank.Charge(energyCharge.ChargeEnergyType);
+            energyTank = GetComponentInChildren<TankCharge>();
         }
-        else
+
+        // Update is called once per frame
+        void Update()
         {
-            energyTank.DisCharge();
+            bool doEnergyCharge = energyCharge.IsEnergyCharge != oldEnergy;
+
+            if (!doEnergyCharge)
+            {
+                return;
+            }
+            EnergyCharge();
         }
-        oldEnergy = energyCharge.IsEnergyCharge;
+
+        /// <summary>
+        /// エネルギータンクの見た目を変更する
+        /// </summary>
+        private void EnergyCharge()
+        {
+            if (energyCharge.IsEnergyCharge)
+            {
+                energyTank.Charge(energyCharge.ChargeEnergyType);
+            }
+            else
+            {
+                energyTank.DisCharge();
+            }
+            oldEnergy = energyCharge.IsEnergyCharge;
+        }
     }
 }

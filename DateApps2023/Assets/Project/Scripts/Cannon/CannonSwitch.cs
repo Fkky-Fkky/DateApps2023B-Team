@@ -1,115 +1,119 @@
+// 担当者：吹上純平
 using UnityEngine;
 
-/// <summary>
-/// 大砲のスイッチクラス
-/// </summary>
-public class CannonSwitch : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private EnergyCharge energyCharge = null;
-
-    [SerializeField]
-    private CannonShot cannonShot = null;
-
-    [SerializeField]
-    private CannonConnect cannonConnect = null;
-
-    [SerializeField]
-    private GameManager gameManager = null;
-    
-    private Vector3 defaultScale  = Vector3.zero;
-    private Vector3 switchOnScale = Vector3.zero;
-    private GameObject button = null;
-    private BoxCollider boxCollider = null;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 大砲のスイッチクラス
+    /// </summary>
+    public class CannonSwitch : MonoBehaviour
     {
-        button = transform.GetChild(1).gameObject;
-        defaultScale  = button.transform.localScale;
-        switchOnScale = new Vector3(0.0f, defaultScale.y, defaultScale.z);
-        boxCollider = GetComponent<BoxCollider>();
-        SwitchOn();
-    }
+        [SerializeField]
+        private EnergyCharge energyCharge = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (gameManager.IsGameOver)
+        [SerializeField]
+        private CannonShot cannonShot = null;
+
+        [SerializeField]
+        private CannonConnect cannonConnect = null;
+
+        [SerializeField]
+        private GameManager gameManager = null;
+
+        private Vector3 defaultScale = Vector3.zero;
+        private Vector3 switchOnScale = Vector3.zero;
+        private GameObject button = null;
+        private BoxCollider boxCollider = null;
+
+        // Start is called before the first frame update
+        void Start()
         {
+            button = transform.GetChild(1).gameObject;
+            defaultScale = button.transform.localScale;
+            switchOnScale = new Vector3(0.0f, defaultScale.y, defaultScale.z);
+            boxCollider = GetComponent<BoxCollider>();
             SwitchOn();
         }
 
-        if (!CanCannonShot())
+        // Update is called once per frame
+        void Update()
         {
-            SwitchOn();
-        }
-        else
-        {
-            SwitchOff();
-        }
-    }
+            if (gameManager.IsGameOver)
+            {
+                SwitchOn();
+            }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.gameObject.CompareTag("PlayerAttackPoint"))
-        {
-            return;
-        }
-
-        if (CanCannonShot())
-        {
-            cannonShot.Shot();
-            SwitchOn();
-        }
-    }
-
-    /// <summary>
-    /// 大砲を発射できるかを返す
-    /// </summary>
-    /// <returns>大砲を発射できるか</returns>
-    private bool CanCannonShot()
-    {
-        if (cannonShot.IsShotting)
-        {
-            return false;
+            if (!CanCannonShot())
+            {
+                SwitchOn();
+            }
+            else
+            {
+                SwitchOff();
+            }
         }
 
-        if (!energyCharge.IsEnergyCharge)
+        private void OnTriggerEnter(Collider other)
         {
-            return false;
+            if (!other.gameObject.CompareTag("PlayerAttackPoint"))
+            {
+                return;
+            }
+
+            if (CanCannonShot())
+            {
+                cannonShot.Shot();
+                SwitchOn();
+            }
         }
 
-        if (!cannonConnect.IsConnect)
+        /// <summary>
+        /// 大砲を発射できるかを返す
+        /// </summary>
+        /// <returns>大砲を発射できるか</returns>
+        private bool CanCannonShot()
         {
-            return false;
-        }
-        return true;
-    }
+            if (cannonShot.IsShotting)
+            {
+                return false;
+            }
 
-    /// <summary>
-    /// 大砲のスイッチをオンにする
-    /// </summary>
-    private void SwitchOn()
-    {
-        if (!boxCollider.enabled)
-        {
-            return;
-        }
-        boxCollider.enabled = false;
-        button.transform.localScale = switchOnScale;
-    }
+            if (!energyCharge.IsEnergyCharge)
+            {
+                return false;
+            }
 
-    /// <summary>
-    /// 大砲のスイッチをオフにする
-    /// </summary>
-    private void SwitchOff()
-    {
-        if (boxCollider.enabled)
-        {
-            return;
+            if (!cannonConnect.IsConnect)
+            {
+                return false;
+            }
+            return true;
         }
-        boxCollider.enabled = true;
-        button.transform.localScale = defaultScale;
+
+        /// <summary>
+        /// 大砲のスイッチをオンにする
+        /// </summary>
+        private void SwitchOn()
+        {
+            if (!boxCollider.enabled)
+            {
+                return;
+            }
+            boxCollider.enabled = false;
+            button.transform.localScale = switchOnScale;
+        }
+
+        /// <summary>
+        /// 大砲のスイッチをオフにする
+        /// </summary>
+        private void SwitchOff()
+        {
+            if (boxCollider.enabled)
+            {
+                return;
+            }
+            boxCollider.enabled = true;
+            button.transform.localScale = defaultScale;
+        }
     }
 }
