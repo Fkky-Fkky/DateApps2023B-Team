@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// エネミーを生み出すジェネレータークラス
+/// </summary>
 public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField]
@@ -23,18 +26,19 @@ public class EnemyGenerator : MonoBehaviour
 
     [SerializeField]
     [Tooltip("スパイダーの生成感覚")]
-    private int spiderSpoanTime = 3;
+    private int spiderSpoanTime = 10;
 
     public GameObject spider = null;
 
-    float x = 0;
+    private float x = 0;
 
-    float z = 0;
-    float spiderTime = 0;
+    private float z = 0;
 
-    int rnd = 0;
+    private float spiderTime = 0;
 
-    bool endFlag = false;
+    private int rnd = 0;
+
+    private bool endFlag = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,15 +51,21 @@ public class EnemyGenerator : MonoBehaviour
     {
         spiderTime += Time.deltaTime;
 
-        if (spider.transform.position.y <= -15&&endFlag==false)
+        if (spider.transform.position.y <= -15 && endFlag == false)
         {
-            Rigidbody rb = spider.GetComponent<Rigidbody>();
-            rb.useGravity = false;
-            rb.constraints = RigidbodyConstraints.FreezePosition;
-            endFlag = true;
+            //Rigidbody rb = spider.GetComponent<Rigidbody>();
+            //rb.useGravity = false;
+            //rb.constraints = RigidbodyConstraints.FreezePosition;
+            //endFlag = true;
         }
-
-        if(spiderTime >= spiderSpoanTime && rnd==1) 
+        SummonSpider();
+    }
+    /// <summary>
+    /// エネミーを生み出す
+    /// </summary>
+    private void SummonSpider()
+    {
+        if (spiderTime >= spiderSpoanTime && rnd == 1)
         {
             spiderTime = 0;
 
@@ -76,6 +86,5 @@ public class EnemyGenerator : MonoBehaviour
             Instantiate(spider, new Vector3(x, -8, z), spider.transform.rotation);
             rnd = Random.Range(1, 3);
         }
-
     }
 }

@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// オペレーターの管理
+/// </summary>
+
 public class Operator : MonoBehaviour
 {
     [SerializeField] private Op_text optext = null;
@@ -48,7 +52,7 @@ public class Operator : MonoBehaviour
             Game();
         }
     }
-    #region オペレーターチュートリアル
+
     /// <summary>
     /// チュートリアルで呼ぶアニメーターのトリガー
     /// </summary>
@@ -117,9 +121,7 @@ public class Operator : MonoBehaviour
     {
          energy.Generate();
     }
-    #endregion
 
-    #region ゲーム中のオペレーターのセリフ
     /// <summary>
     /// ゲーム中のオペレーターの動き
     /// </summary>
@@ -143,7 +145,6 @@ public class Operator : MonoBehaviour
             time = RESET;
         }
     }
-    #region ボスの情報受け取り
 
     /// <summary>
     /// ボスの種類の情報受け取り
@@ -193,9 +194,8 @@ public class Operator : MonoBehaviour
             operatorTextFlag = false;
         }
     }
-    #endregion
 
-    #region アニメーターのトリガー呼び出し
+
    
     /// <summary>
     ///通常ボス出現時のアニメーター呼び出し 
@@ -239,6 +239,4 @@ public class Operator : MonoBehaviour
     {
         animator.SetTrigger("charge");
     }
-    #endregion
 }
-#endregion

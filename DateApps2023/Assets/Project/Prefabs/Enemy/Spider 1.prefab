@@ -738,7 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8241050366123001487}
   - component: {fileID: 1739945634644183694}
-  - component: {fileID: 1739945634644183695}
+  - component: {fileID: 88783933701059038}
   m_Layer: 0
   m_Name: RigHeadGizmo
   m_TagString: Untagged
@@ -774,7 +774,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4219205, y: 0.7753946, z: 0.7926383}
   m_Center: {x: -0.07380435, y: -0.039154973, z: -0.0037282628}
---- !u!114 &1739945634644183695
+--- !u!114 &88783933701059038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6809e72c5397443b2e7082f8e58498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 8749434787197111639}
+  enemy: {fileID: 5506049316064473160}
 --- !u!1 &8241050366122842801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8241050366123001545}
   - component: {fileID: 1413706645459310227}
-  - component: {fileID: 8749434787197111639}
+  - component: {fileID: 5506049316064473160}
   - component: {fileID: 4194858472674933786}
   - component: {fileID: 8241050366122842850}
   - component: {fileID: 8241050366122842848}
@@ -1230,7 +1230,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8749434787197111639
+--- !u!114 &5506049316064473160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8241050366122842857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 771faeb4f0e684b4e9f9c623759ff10c, type: 3}
+  m_Script: {fileID: 11500000, guid: 08c639235f9f5a047828730080c004b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   players:
@@ -1247,20 +1247,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  PlayerDamage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Centerpoint: {fileID: 0}
-  rirurnTransform: {fileID: 0}
-  spderpositionA: {fileID: 0}
-  spderpositionD: {fileID: 0}
-  ex_x: 17
-  ex_mx: -17
-  ex_z: 10
-  ex_mz: -10
-  climbing_speed: 3
+  playerDamage: []
+  centerPoint: {fileID: 0}
+  climbingSpeed: 3
+  enemyHp: 3
   rnd: 0
 --- !u!136 &4194858472674933786
 CapsuleCollider:
@@ -1285,7 +1275,7 @@ Rigidbody:
   m_GameObject: {fileID: 8241050366122842857}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
