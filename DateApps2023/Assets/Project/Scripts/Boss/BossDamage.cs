@@ -14,9 +14,6 @@ public class BossDamage : MonoBehaviour
     private GameObject fellDownEffect  = null;
 
     [SerializeField]
-    private Animator damageAnimation = null;
-
-    [SerializeField]
     private Transform damagePoint = null;
 
     private bool isKnockback    = false;
@@ -32,9 +29,10 @@ public class BossDamage : MonoBehaviour
     private float knockbackTime    = 0.0f;
     private float bossDestroyTime  = 0.0f;
 
-    private BossMove bossMove                   = null;
-    private DamageCSV damageCSV                 = null;
-    private BossDamageHPBarUI bossDamageHPBarUI = null;
+    private BossMove bossMove                      = null;
+    private DamageCSV damageCSV                    = null;
+    private BossDamageHPBarUI bossDamageHPBarUI    = null;
+    private BossAnimatorControl bossAnimatorControl= null;
 
     /// <summary>
     /// 無敵フラグ
@@ -53,7 +51,6 @@ public class BossDamage : MonoBehaviour
     /// </summary>
     public bool IsFellDown { get; private set; }
 
-
     const float EFFECT_POS_Y             = -40.0f;
     const float BOSS_DAMGE_OFF_TIME_MAX  =   0.6f;
     const float KNOCK_BACK_TIME_MAX      =   1.5f;
@@ -64,6 +61,7 @@ public class BossDamage : MonoBehaviour
     {
         bossMove = GetComponent<BossMove>();
         bossDamageHPBarUI = GetComponent<BossDamageHPBarUI>();
+        bossAnimatorControl = GetComponent<BossAnimatorControl>();
 
         damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
@@ -105,7 +103,7 @@ public class BossDamage : MonoBehaviour
             {
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 BulletTypeDamage();
-                DamageAnimation();
+                bossAnimatorControl.DamageAnimation(bossMove.BossHp);
 
                 IsInvincible = true;
                 bulletType = -1;
@@ -119,7 +117,7 @@ public class BossDamage : MonoBehaviour
             if (invincibleTime >= invincibleTimeEnd)
             {
                 IsInvincible = false;
-                damageAnimation.SetTrigger("Walk");
+                bossAnimatorControl.SetTrigger("Walk");
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
@@ -181,20 +179,6 @@ public class BossDamage : MonoBehaviour
         if (bossMove.BossHp < 0)
         {
             bossMove.BossHp = 0;
-        }
-    }
-    /// <summary>
-    /// 攻撃された時のアニメーション
-    /// </summary>
-    private void DamageAnimation()
-    {
-        if (bossMove.BossHp > 0)
-        {
-            damageAnimation.SetTrigger("Damage");
-        }
-        else
-        {
-            damageAnimation.SetTrigger("Die");
         }
     }
     /// <summary>

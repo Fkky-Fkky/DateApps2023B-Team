@@ -56,9 +56,10 @@ public class BossMove : MonoBehaviour
     private AudioClip dangerSE = null;
     private Rigidbody rb       = null;
 
-    private BossCSVGenerator bossCSVGenerator = null;
-    private BossAttack bossAttack             = null;
-    private BossHPBarUI bossHPBarUI           = null;
+    private BossCSVGenerator bossCSVGenerator       = null;
+    private BossAttack bossAttack                   = null;
+    private BossHPBarUI bossHPBarUI                 = null;
+    private BossAnimatorControl bossAnimatorControl = null;
 
     public int BossHp = 0;
     /// <summary>
@@ -114,6 +115,7 @@ public class BossMove : MonoBehaviour
     {
         bossAttack = GetComponent<BossAttack>();
         bossHPBarUI = GetComponent<BossHPBarUI>();
+        bossAnimatorControl = GetComponent<BossAnimatorControl>();
         rb = GetComponent<Rigidbody>();
 
         if (transform.position.x == 0.0f)
@@ -158,7 +160,7 @@ public class BossMove : MonoBehaviour
                 pos.y = UNDER_POSITION;
                 transform.position = pos;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
-                moveAnimation.SetTrigger("StandBy");
+                bossAnimatorControl.SetTrigger("StandBy");
                 isNotMove = true;
                 IsAppearance = false;
             }
@@ -169,7 +171,7 @@ public class BossMove : MonoBehaviour
             moveTime += Time.deltaTime;
             if (moveTime >= MOVE_TIME_MAX)
             {
-                moveAnimation.SetTrigger("Walk");
+                bossAnimatorControl.SetTrigger("Walk");
                 isNotMove = false;
                 moveTime = 0.0f;
             }
@@ -185,7 +187,7 @@ public class BossMove : MonoBehaviour
 
             gameOverDisplay.enabled = repeatValue >= DANGER_FLASH_TIME_MAX * HALF_INDEX;
 
-            GameOverAnimasiton();
+            GameOverTransition();
         }
 
         if (IsHazard)
@@ -294,7 +296,7 @@ public class BossMove : MonoBehaviour
             audioSource.Play();
 
             isLastAttack = true;
-            moveAnimation.SetTrigger("LastAttack");
+           bossAnimatorControl.SetTrigger("LastAttack");
         }
         else
         {
@@ -304,9 +306,9 @@ public class BossMove : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲームオーバーまでのアニメーション
+    /// ゲームオーバーに移行する為の処理
     /// </summary>
-    private void GameOverAnimasiton()
+    private void GameOverTransition()
     {
         if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
         {
@@ -338,5 +340,4 @@ public class BossMove : MonoBehaviour
     {
         isDamageFlag = false;
     }
-
 }

@@ -25,9 +25,6 @@ public class BossAttack : MonoBehaviour
     private Transform chargePos = null;
 
     [SerializeField]
-    private Animator attackAnimation = null;
-
-    [SerializeField]
     private AudioClip beamSE = null;
 
     [SerializeField]
@@ -51,8 +48,9 @@ public class BossAttack : MonoBehaviour
     private List<GameObject> effectList     = new List<GameObject>();
     private List<GameObject> dangerAreaList = new List<GameObject>();
 
-    private AudioSource audioSource           = null;
-    private BossCSVGenerator bossCSVGenerator = null;
+    private AudioSource audioSource                 = null;
+    private BossCSVGenerator bossCSVGenerator       = null;
+    private BossAnimatorControl bossAnimatorControl = null;
 
     /// <summary>
     /// ビームを発射した
@@ -81,6 +79,7 @@ public class BossAttack : MonoBehaviour
     {
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
         audioSource = GetComponent<AudioSource>();
+        bossAnimatorControl = GetComponent<BossAnimatorControl>();
 
         attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
         IsAttackAll = false;
@@ -118,7 +117,7 @@ public class BossAttack : MonoBehaviour
             if (time >= attackIntervalTime)
             {
                 IsAttackAll = true;
-                attackAnimation.SetBool("Attack", true);
+                bossAnimatorControl.SetBoolTrue("Attack");
                 Charge();
                 ShootBeam();
             }
@@ -247,14 +246,20 @@ public class BossAttack : MonoBehaviour
         chargeTime  = 0.0f;
         beamOffTime = 0.0f;
         time        = 0.0f;
-        attackAnimation.SetBool("Attack", false);
+        bossAnimatorControl.SetBoolFalse("Attack");
     }
-
+    /// <summary>
+    /// チャージが終了する時間を返す
+    /// </summary>
+    /// <returns>チャージが終了する時間</returns>
     public float BeamTimeMax()
     {
         return chageTimeMax;
     }
-
+    /// <summary>
+    /// ビームが発射終わるまでの時間を返す
+    /// </summary>
+    /// <returns>ビームが発射終わるまでの時間</returns>
     public float BeamOffTimeMax()
     {
         return BEAM_OFF_TIME_MAX;
