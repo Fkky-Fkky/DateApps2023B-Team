@@ -37,13 +37,13 @@ public class ProgressControlV3D : MonoBehaviour {
     private EffectType effectType = EffectType.Boss;
 
     [SerializeField]
-    private BossAttack bossAttack;
+    private Resistance.BossAttack bossAttack;
 
     [SerializeField]
-    private CannonShot cannonShot;
+    private Resistance.CannonShot cannonShot;
 
     [SerializeField]
-    private EnergyCharge energyCharge;
+    private Resistance.EnergyCharge energyCharge;
 
     private bool isColorChage = false;
 
@@ -128,13 +128,13 @@ public class ProgressControlV3D : MonoBehaviour {
                 {
                     switch (energyCharge.ChargeEnergyType)
                     {
-                        case (int)EnergyCharge.ENERGY_TYPE.SMALL:
+                        case (int)Resistance.EnergyCharge.ENERGY_TYPE.SMALL:
                             finalColor = new Color(0, 0.7f, 1, 1);
                             break;
-                        case (int)EnergyCharge.ENERGY_TYPE.MEDIUM:
+                        case (int)Resistance.EnergyCharge.ENERGY_TYPE.MEDIUM:
                             finalColor = new Color(0.3f, 0.23f, 0.1f, 1);
                             break;
-                        case (int)EnergyCharge.ENERGY_TYPE.LARGE:
+                        case (int)Resistance.EnergyCharge.ENERGY_TYPE.LARGE:
                             finalColor = new Color(1, 0.3f, 0, 1);
                             break;
                     }

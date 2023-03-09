@@ -20,7 +20,7 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
     private ProgressControlV3D.EffectType effectType;
 
     [SerializeField]
-    private BossAttack bossAttack;
+    private Resistance.BossAttack bossAttack;
 
     void Start()
     {
