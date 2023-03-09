@@ -2,43 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DangerZoon : MonoBehaviour
+namespace Resistance
 {
-    public BossAttack bossAttack;
-
-    private float time = 0.0f;
-    private float effectTime;
-
-    [SerializeField]
-    private Renderer dangerRenderer;
-
-    private float flashTime = 0.0f;
-    private float flashTimeMax = 0.3f;
-
-    void Start()
+    public class DangerZoon : MonoBehaviour
     {
-        time = 0.0f;
+        public BossAttack bossAttack;
 
-        effectTime = bossAttack.BeamTimeMax();
+        private float time = 0.0f;
+        private float effectTime;
 
-    }
+        [SerializeField]
+        private Renderer dangerRenderer;
 
-    void Update()
-    {
-        time += Time.deltaTime;
-        if (time > effectTime)
+        private float flashTime = 0.0f;
+        private float flashTimeMax = 0.3f;
+
+        void Start()
         {
-            Destroy(gameObject);
             time = 0.0f;
+
+            effectTime = bossAttack.BeamTimeMax();
+
         }
 
-        if (time > effectTime - 4.0f)
+        void Update()
         {
-            flashTime += Time.deltaTime;
+            time += Time.deltaTime;
+            if (time > effectTime)
+            {
+                Destroy(gameObject);
+                time = 0.0f;
+            }
 
-            var repeatValue = Mathf.Repeat(flashTime, flashTimeMax);
+            if (time > effectTime - 4.0f)
+            {
+                flashTime += Time.deltaTime;
 
-            dangerRenderer.enabled = repeatValue >= flashTimeMax * 0.5f;
+                var repeatValue = Mathf.Repeat(flashTime, flashTimeMax);
+
+                dangerRenderer.enabled = repeatValue >= flashTimeMax * 0.5f;
+            }
         }
     }
 }

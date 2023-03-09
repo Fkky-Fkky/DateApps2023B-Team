@@ -132,7 +132,7 @@ public class PlayerCarryDown : MonoBehaviour
         }
         if (carryItem.CompareTag("Cannon"))
         {
-            if (!carryItem.GetComponent<CannonShot>().IsShotting)
+            if (!carryItem.GetComponent<Resistance.CannonShot>().IsShotting)
             {
                 cannonItem = carryItem.GetComponent<CarryCannon>();
                 cannonItem.GetGrabPoint(this.gameObject);
