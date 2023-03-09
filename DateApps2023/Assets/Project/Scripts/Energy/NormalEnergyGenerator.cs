@@ -7,50 +7,55 @@ using UnityEngine;
 public class NormalEnergyGenerator : EnergyGeneratorBase
 {
     [SerializeField]
-    private float GENERATE_INTERVAL_TIME = 10.0f;
+    private float energyGenerateInterval = 10.0f;
 
-    private bool isGenerate = false;
+    private int generateNum = 0;
+    private bool isGenerateEnergy = false;
     private List<float> generateTimeList = new List<float>();
 
     // Start is called before the first frame update
     void Start()
     {
         base.Initialize();
-        isGenerate = false;
     }
 
     private void Update()
     {
-        int create = 0;
+        CalculateEnergyGenerateTime();
+        if (isGenerateEnergy)
+        {
+            GenerateEnergy();
+        }
+    }
+
+    /// <summary>
+    /// エネルギーを生成する時間を計る
+    /// </summary>
+    private void CalculateEnergyGenerateTime()
+    {
         for (int i = 0; i < generateTimeList.Count; i++)
         {
             generateTimeList[i] -= Time.deltaTime;
             if (generateTimeList[i] <= 0.0f)
             {
-                isGenerate = true;
-                create++;
+                isGenerateEnergy = true;
+                generateNum++;
             }
-        }
-
-        if (isGenerate)
-        {
-            for (int i = 0; i < create; ++i)
-            {
-                base.GenerateEnergy();
-                RemoveList();
-            }
-            isGenerate = false;
         }
     }
 
     /// <summary>
     /// エネルギー物資を生成する
     /// </summary>
-    public override void GenerateEnergyResource()
+    private void GenerateEnergy()
     {
-        GenerateEnergyType();
-        GeneratePosition();
-        generateTimeList.Add(GENERATE_INTERVAL_TIME);
+        for (int i = 0; i < generateNum; ++i)
+        {
+            base.GenerateEnergy();
+            base.RemoveList();
+            generateTimeList.RemoveAt(0);
+        }
+        isGenerateEnergy = false;
     }
 
     /// <summary>
@@ -74,9 +79,13 @@ public class NormalEnergyGenerator : EnergyGeneratorBase
         createEnergyTypeList.Add(type);
     }
 
-    private void RemoveList()
+    /// <summary>
+    /// エネルギー物資を生成する
+    /// </summary>
+    public override void GenerateEnergyResource()
     {
-        base.RemoveList();
-        generateTimeList.RemoveAt(0);
+        GenerateEnergyType();
+        GeneratePosition();
+        generateTimeList.Add(energyGenerateInterval);
     }
 }
