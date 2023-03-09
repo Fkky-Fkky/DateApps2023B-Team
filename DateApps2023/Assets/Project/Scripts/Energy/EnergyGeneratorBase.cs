@@ -33,8 +33,8 @@ public abstract class EnergyGeneratorBase : MonoBehaviour
     {
         SortEnergies();
 
-        const int HALF = 2;
-        halfExtent = energies[energies.Length - 1].transform.localScale / HALF;
+        const float HALF = 0.5f;
+        halfExtent = energies[energies.Length - 1].transform.localScale * HALF;
         
         float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
         for (int i = 0; i <= MAX_AREA; i++)

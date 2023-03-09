@@ -9,9 +9,6 @@ public class CannonConnect : MonoBehaviour
     private ParticleSystem connectEffect = null;
 
     [SerializeField]
-    private Transform effectPos = null;
-
-    [SerializeField]
     private SEManager seManager = null;
 
     /// <summary>
@@ -68,8 +65,11 @@ public class CannonConnect : MonoBehaviour
         IsConnect = true;
         standCollision.enabled = false;
         transform.rotation = standTransform.rotation;
-        connectEffect.gameObject.SetActive(true);
-        audioSource.PlayOneShot(seManager.CannonConnectSe);
+        if (!connectEffect.gameObject.activeSelf)
+        {
+            connectEffect.gameObject.SetActive(true);
+            audioSource.PlayOneShot(seManager.CannonConnectSe);
+        }
     }
 
     /// <summary>

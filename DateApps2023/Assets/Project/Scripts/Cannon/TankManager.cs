@@ -8,7 +8,7 @@ public class TankManager : MonoBehaviour
     [SerializeField]
     private EnergyCharge energyCharge = null;
 
-    private int oldEnergy = 0;
+    private bool oldEnergy = false;
     private TankCharge energyTank = null;
 
     private void Start()
@@ -19,15 +19,28 @@ public class TankManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (energyCharge.Energy > oldEnergy)
+        bool doEnergyCharge = energyCharge.IsEnergyCharge != oldEnergy;
+
+        if (!doEnergyCharge)
         {
-            energyTank.Charge(energyCharge.ChrgeEnergyType);
-            oldEnergy = energyCharge.Energy;
+            return;
         }
-        else if(energyCharge.Energy < oldEnergy)
+        EnergyCharge();
+    }
+
+    /// <summary>
+    /// エネルギータンクの見た目を変更する
+    /// </summary>
+    private void EnergyCharge()
+    {
+        if (energyCharge.IsEnergyCharge)
+        {
+            energyTank.Charge(energyCharge.ChargeEnergyType);
+        }
+        else
         {
             energyTank.DisCharge();
-            oldEnergy = energyCharge.Energy;
         }
+        oldEnergy = energyCharge.IsEnergyCharge;
     }
 }

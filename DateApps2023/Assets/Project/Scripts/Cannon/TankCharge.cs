@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 大砲のエネルギータンクに関するクラス
+/// </summary>
 public class TankCharge : MonoBehaviour
 {
     [SerializeField]
@@ -14,6 +17,10 @@ public class TankCharge : MonoBehaviour
         inner.SetActive(false);
     }
 
+    /// <summary>
+    /// チャージされたエネルギーに対応したマテリアルを設定する
+    /// </summary>
+    /// <param name="energyType">チャージされたエネルギーの種類</param>
     public void Charge(int energyType)
     {
         material = materials[energyType];
@@ -21,6 +28,9 @@ public class TankCharge : MonoBehaviour
         inner.SetActive(true);
     }
 
+    /// <summary>
+    /// エネルギータンクを非表示にする
+    /// </summary>
     public void DisCharge()
     {
         inner.SetActive(false);

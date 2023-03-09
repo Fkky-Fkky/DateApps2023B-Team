@@ -24,7 +24,6 @@ public class CannonManager : MonoBehaviour
     /// <summary>
     /// ‘å–C‚Ì”‚ğ•Ô‚·
     /// </summary>
-    /// <returns>‘å–C‚Ì”</returns>
     public int CanonMax { get { return CANNON_MAX; } }
 
     private void Start()
@@ -32,7 +31,7 @@ public class CannonManager : MonoBehaviour
         for (int i = 0; i < CANNON_MAX; i++)
         {
             isShootingList.Add(cannonShot[i].IsNowShot);
-            isShotEnergyTypeList.Add(energyCharge[i].ChrgeEnergyType);
+            isShotEnergyTypeList.Add(energyCharge[i].ChargeEnergyType);
             connectingPosList.Add(cannonConnect[i].ConnectingPos);
         }
     }
@@ -63,7 +62,7 @@ public class CannonManager : MonoBehaviour
         {
             for (int i = 0; i < CANNON_MAX; i++)
             {
-                isShotEnergyTypeList[i] = energyCharge[i].ChrgeEnergyType;
+                isShotEnergyTypeList[i] = energyCharge[i].ChargeEnergyType;
             }
             return isShotEnergyTypeList;
         }
@@ -91,6 +90,6 @@ public class CannonManager : MonoBehaviour
     /// <returns>ˆê‚Â–Ú‚Ì‘å–C‚ÉƒGƒlƒ‹ƒM[‚ªƒ`ƒƒ[ƒW‚³‚ê‚Ä‚¢‚é‚©‚ğ•Ô‚·</returns>
     public bool IsFirstCharge()
     {
-        return energyCharge[0].IsEnergyCharged();
+        return energyCharge[0].IsEnergyCharge;
     }
 }
