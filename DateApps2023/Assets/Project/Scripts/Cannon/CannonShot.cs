@@ -6,19 +6,13 @@ using UnityEngine;
 public class CannonShot : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] smokeEffects = new GameObject[3];
+    private ParticleSystem[] shotSmokeEffects = new ParticleSystem[3];
 
     [SerializeField]
-    private GameObject[] shotChargeEffects = new GameObject[3];
+    private ParticleSystem[] shotChargeEffects = new ParticleSystem[3];
 
     [SerializeField]
-    private GameObject coolDownEffect = null;
-
-    [SerializeField]
-    private Transform[] coolDownPos = new Transform[2];
-
-    [SerializeField]
-    private Transform smokePosition = null;
+    private ParticleSystem[] coolDownEffects = new ParticleSystem[2];
 
     [SerializeField]
     private EnergyCharge energyCharge = null;
@@ -26,7 +20,14 @@ public class CannonShot : MonoBehaviour
     [SerializeField]
     private SEManager seManager = null;
 
+    /// <summary>
+    /// ビームが発射中か
+    /// </summary>
     public bool IsShotting { get; private set; }
+
+    /// <summary>
+    /// ビームが発射されたか
+    /// </summary>
     public bool IsNowShot { get; private set; }
 
     private int energyType = 0;
@@ -38,10 +39,13 @@ public class CannonShot : MonoBehaviour
 
     private void Start()
     {
+        const float SMALL_LASER_END_TIME  = 1.0f;
+        const float MEDIUM_LASER_END_TIME = 1.5f;
+        const float LARGE_LASER_END_TIME  = 2.0f;
         audioSource = GetComponent<AudioSource>();
-        laserEndTime[0] = 1.0f;
-        laserEndTime[1] = 1.5f;
-        laserEndTime[2] = 2.0f;
+        laserEndTime[(int)EnergyCharge.ENERGY_TYPE.SMALL]  = SMALL_LASER_END_TIME;
+        laserEndTime[(int)EnergyCharge.ENERGY_TYPE.MEDIUM] = MEDIUM_LASER_END_TIME;
+        laserEndTime[(int)EnergyCharge.ENERGY_TYPE.LARGE]  = LARGE_LASER_END_TIME;
     }
 
     // Update is called once per frame
@@ -79,27 +83,27 @@ public class CannonShot : MonoBehaviour
     {
         const float INVOKE_TIME = 2.0f;
         IsShotting = true;
-        energyType = energyCharge.ChrgeEnergyType;
+        energyType = energyCharge.ChargeEnergyType;
         audioSource.PlayOneShot(seManager.GetCannonBeamSe(energyType));
-        CreateChageEffect();
-        Invoke(nameof(CreateSmoke), INVOKE_TIME);
+        PlayShotChargeEffect();
+        Invoke(nameof(PlayShotSmoke), INVOKE_TIME);
     }
 
     /// <summary>
-    /// ビーム発射前のエフェクト生成
+    /// ビーム発射前のエフェクト再生
     /// </summary>
-    private void CreateChageEffect()
+    private void PlayShotChargeEffect()
     {
-        shotCharge = Instantiate(shotChargeEffects[energyType], smokePosition);
+        shotChargeEffects[energyType].gameObject.SetActive(true);
     }
 
     /// <summary>
-    /// 発射時の煙生成
+    /// 発射時の煙エフェクト再生
     /// </summary>
-    private void CreateSmoke()
+    private void PlayShotSmoke()
     {
         const float MAX_COOL_TIME = 3.0f;
-        Instantiate(smokeEffects[energyType], smokePosition);
+        shotSmokeEffects[energyType].gameObject.SetActive(true);
         coolTime   = MAX_COOL_TIME;
         IsNowShot  = true;
         isCoolTime = true;
@@ -113,17 +117,17 @@ public class CannonShot : MonoBehaviour
     private void LaserEnd()
     {
         IsNowShot = false;
-        CreateCoolDownEffects();
+        PlayCoolDownEffects();
     }
 
     /// <summary>
     /// クールダウンエフェクト生成
     /// </summary>
-    private void CreateCoolDownEffects()
+    private void PlayCoolDownEffects()
     {
-        for (int i = 0; i < coolDownPos.Length; i++)
+        for (int i = 0; i < coolDownEffects.Length; i++)
         {
-            Instantiate(coolDownEffect, coolDownPos[i].position, Quaternion.identity);
+            coolDownEffects[i].gameObject.SetActive(true);
         }
     }
 
@@ -136,9 +140,9 @@ public class CannonShot : MonoBehaviour
         IsShotting = false;
         isCoolTime = false;
         IsNowShot  = false;
-        Destroy(shotCharge);
+        shotChargeEffects[energyType].gameObject.SetActive(false);
         CancelInvoke();
         audioSource.Stop();
-        CreateCoolDownEffects();
+        PlayCoolDownEffects();
     }
 }
