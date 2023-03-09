@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System;
-
+/// <summary>
+/// エネルギーのダメージをCSVファイルから読み込み
+/// </summary>
 public class DamageCSV : MonoBehaviour
 {
     private TextAsset csvFile = null;
@@ -22,7 +22,9 @@ public class DamageCSV : MonoBehaviour
     {
         DamageCSVLoad();
     }
-
+    /// <summary>
+    /// CSVファイル読み込み
+    /// </summary>
     private void CsvReader()
     {
         csvFile = Resources.Load("CSV/EnergyDamage") as TextAsset;

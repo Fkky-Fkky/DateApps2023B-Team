@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System;
-
+/// <summary>
+/// ボスのデータをCSVファイル読み込み
+/// </summary>
 public class BossCSV : MonoBehaviour
 {
     [SerializeField]
@@ -37,7 +37,9 @@ public class BossCSV : MonoBehaviour
 
         BossCSVLoad();
     }
-
+    /// <summary>
+    /// CSVファイル読み込み
+    /// </summary>
     private void CsvReader()
     {
         csvFile = Resources.Load("CSV/BossSample") as TextAsset;
