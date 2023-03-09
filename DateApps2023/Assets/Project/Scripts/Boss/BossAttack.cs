@@ -86,7 +86,6 @@ public class BossAttack : MonoBehaviour
         IsAttack = false;
         IsCharge = false;
     }
-    
     void Update()
     {
         if (!bossMove.IsAttackOff)
@@ -105,7 +104,6 @@ public class BossAttack : MonoBehaviour
             ListDestroy(dangerAreaList);
         }
     }
-
     /// <summary>
     /// ボスが攻撃する
     /// </summary>
@@ -123,7 +121,6 @@ public class BossAttack : MonoBehaviour
             }
         }
     }
-
     /// <summary>
     /// チャージ
     /// </summary>
@@ -189,7 +186,6 @@ public class BossAttack : MonoBehaviour
             list.RemoveAt(i);
         }
     }
-
     /// <summary>
     /// 当たり判定を出す
     /// </summary>

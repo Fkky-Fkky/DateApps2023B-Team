@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 当たり判定エリアのデストロイを行う
+/// </summary>
 public class DamageArea : MonoBehaviour
 {
     public BossAttack BossAttack = null;

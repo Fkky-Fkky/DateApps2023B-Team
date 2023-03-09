@@ -36,9 +36,9 @@ public class BossCSVGenerator : MonoBehaviour
     private float centerPosX         = 0.0f;
     private float leftPosX           = 0.0f;
     private float rightPosX          = 0.0f;
+    private float time               = 0.0f;
     private float dangerOffTime      = 0.0f;
     private float killOffTime        = 0.0f;
-    private float time               = 0.0f;
     private float bossTypeOffTime    = 0.0f;
     private float attackIntervalDate = 0.0f;
     private float posZ               = 0.0f;
@@ -90,15 +90,14 @@ public class BossCSVGenerator : MonoBehaviour
     {
         bossCount = GetComponent<BossCount>();
         IsKill      = false;
-
+        IsGameOver  = false;
+        IsDanger    = false;
         leftPosX  = -sidePos;
         rightPosX =  sidePos;
-
     }
 
     void Update()
     {
-
         for (int i = 0; i < bossList.Count; i++)
         {
             if (bossList[i].IsFellDown)
@@ -289,37 +288,46 @@ public class BossCSVGenerator : MonoBehaviour
     {
         isLeftLine = false;
     }
-
     public void IsLeftLineTrue()
     {
         isLeftLine = true;
     }
-
     public void IsRightLineFalse()
     {
         isRightLine = false;
     }
-
     public void IsRightLineTrue()
     {
         isRightLine = true;
     }
-
+    /// <summary>
+    /// 攻撃する時間間隔を返す
+    /// </summary>
+    /// <returns>攻撃する時間間隔</returns>
     public float AttackIntervalTime()
     {
         return attackIntervalDate;
     }
-
+    /// <summary>
+    /// ボスの体力を返す
+    /// </summary>
+    /// <returns>ボスの体力</returns>
     public int BossHP()
     {
         return bossHpDate;
     }
-
+    /// <summary>
+    /// ボスの移動スピードを返す
+    /// </summary>
+    /// <returns>ボスの移動スピード</returns>
     public float BossMoveSpeed()
     {
         return moveSpeedDate;
     }
-
+    /// <summary>
+    /// ボスの種類のデータを返す
+    /// </summary>
+    /// <returns>ボスの種類のデータ</returns>
     public int BossTypeDate()
     {
         return bossType;

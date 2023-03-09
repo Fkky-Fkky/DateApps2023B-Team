@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 攻撃当たるエリアをデストロイ
+/// </summary>
 public class DangerZoon : MonoBehaviour
 {
     [SerializeField]

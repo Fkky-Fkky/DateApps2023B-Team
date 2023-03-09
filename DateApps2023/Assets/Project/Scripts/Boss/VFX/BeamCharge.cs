@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// ビームチャージのエフェクトの表示時間
+/// </summary>
 public class BeamCharge : MonoBehaviour
 {
     private float time       = 0.0f;

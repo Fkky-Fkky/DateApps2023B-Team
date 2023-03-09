@@ -7,28 +7,23 @@ public class BossDamage : MonoBehaviour
 {
     [SerializeField]
     private float invincibleTimeEnd = 4.0f;
-
     [SerializeField]
     private GameObject explosionEffect = null;
     [SerializeField]
     private GameObject fellDownEffect  = null;
-
     [SerializeField]
     private Transform damagePoint = null;
 
     private bool isKnockback    = false;
-
     private int maxHp              =  0;
     private int bulletType         = -1;
     private int smallEnergyDamage  =  0;
     private int mediumEnergyDamage =  0;
     private int largeEnergyDamage  =  0;
-
     private float invincibleTime   = 0.0f;
     private float bossDamgeOffTime = 0.0f;
     private float knockbackTime    = 0.0f;
     private float bossDestroyTime  = 0.0f;
-
     private BossMove bossMove                      = null;
     private DamageCSV damageCSV                    = null;
     private BossDamageHPBarUI bossDamageHPBarUI    = null;
@@ -62,7 +57,6 @@ public class BossDamage : MonoBehaviour
         bossMove = GetComponent<BossMove>();
         bossDamageHPBarUI = GetComponent<BossDamageHPBarUI>();
         bossAnimatorControl = GetComponent<BossAnimatorControl>();
-
         damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
 
         smallEnergyDamage  = damageCSV.Small;
@@ -75,7 +69,6 @@ public class BossDamage : MonoBehaviour
         IsFellDown = false;
 
         maxHp = bossMove.BossHp;
-
         bossDamageHPBarUI.HpMemoriPosition(maxHp);
     }
 
@@ -104,7 +97,6 @@ public class BossDamage : MonoBehaviour
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 BulletTypeDamage();
                 bossAnimatorControl.DamageAnimation(bossMove.BossHp);
-
                 IsInvincible = true;
                 bulletType = -1;
                 IsDamage = false;
@@ -168,7 +160,6 @@ public class BossDamage : MonoBehaviour
             bossDamageHPBarUI.HpBarLargeActive(maxHp, bossMove.BossHp);
         }
     }
-
     /// <summary>
     /// ëÃóÕÇÃå∏è≠ó 
     /// </summary>
