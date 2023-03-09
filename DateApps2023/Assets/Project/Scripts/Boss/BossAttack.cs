@@ -35,8 +35,6 @@ public class BossAttack : MonoBehaviour
     [SerializeField]
     private BossDamage bossDamage = null;
 
-    private bool isAttackAll = false;
-
     private int effectStop = 0;
     private int areaCount  = 0;
     private int seCount    = 0;
@@ -56,8 +54,19 @@ public class BossAttack : MonoBehaviour
     private AudioSource audioSource           = null;
     private BossCSVGenerator bossCSVGenerator = null;
 
+    /// <summary>
+    /// ビームを発射した
+    /// </summary>
     public bool IsAttack { get; private set; }
+    /// <summary>
+    /// チャージ開始
+    /// </summary>
     public bool IsCharge { get; private set; }
+    /// <summary>
+    /// チャージ～ビームを発射後まで
+    /// </summary>
+    public bool IsAttackAll { get; private set; }
+
 
     const int AREA_COUNT_MAX = 1;
     const int SE_COUNT_MAX   = 1;
@@ -74,6 +83,7 @@ public class BossAttack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
+        IsAttackAll = false;
         IsAttack = false;
         IsCharge = false;
     }
@@ -107,10 +117,10 @@ public class BossAttack : MonoBehaviour
         {
             if (time >= attackIntervalTime)
             {
-                isAttackAll = true;
+                IsAttackAll = true;
                 attackAnimation.SetBool("Attack", true);
                 Charge();
-                AttackAnimation();
+                ShootBeam();
             }
         }
     }
@@ -153,7 +163,7 @@ public class BossAttack : MonoBehaviour
     /// <summary>
     /// ビームを発射
     /// </summary>
-    void AttackAnimation()
+    private void ShootBeam()
     {
          chargeTime += Time.deltaTime;
         if (chargeTime >= chageTimeMax)
@@ -230,7 +240,7 @@ public class BossAttack : MonoBehaviour
     private void AttackOff()
     {
         IsAttack    = false;
-        isAttackAll = false;
+        IsAttackAll = false;
         seCount    = 0;
         effectStop = 0;
         areaCount  = 0;
@@ -248,10 +258,5 @@ public class BossAttack : MonoBehaviour
     public float BeamOffTimeMax()
     {
         return BEAM_OFF_TIME_MAX;
-    }
-
-    public bool IsAttackAll()
-    {
-        return isAttackAll;
     }
 }

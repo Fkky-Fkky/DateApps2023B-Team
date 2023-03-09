@@ -20,7 +20,6 @@ public class BossDamage : MonoBehaviour
     private Transform damagePoint = null;
 
     private bool isKnockback    = false;
-    private bool isBossFellDown = false;
 
     private int maxHp              =  0;
     private int bulletType         = -1;
@@ -37,9 +36,23 @@ public class BossDamage : MonoBehaviour
     private DamageCSV damageCSV                 = null;
     private BossDamageHPBarUI bossDamageHPBarUI = null;
 
+    /// <summary>
+    /// 無敵フラグ
+    /// </summary>
     public bool IsInvincible { get; private set; }
+    /// <summary>
+    /// ボスがダメージを受けているフラグ
+    /// </summary>
     public bool IsBossDamage { get; private set; }
+    /// <summary>
+    /// ボスがダメージを受けたフラグ
+    /// </summary>
     public bool IsDamage { get; private set; }
+    /// <summary>
+    /// ボスが倒れたフラグ
+    /// </summary>
+    public bool IsFellDown { get; private set; }
+
 
     const float EFFECT_POS_Y             = -40.0f;
     const float BOSS_DAMGE_OFF_TIME_MAX  =   0.6f;
@@ -61,6 +74,7 @@ public class BossDamage : MonoBehaviour
         IsBossDamage = false;
         IsInvincible = false;
         IsDamage     = false;
+        IsFellDown = false;
 
         maxHp = bossMove.BossHp;
 
@@ -87,7 +101,7 @@ public class BossDamage : MonoBehaviour
 
         if (IsDamage)
         {
-            if (!bossMove.IsAppearance())
+            if (!bossMove.IsAppearance)
             {
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
                 BulletTypeDamage();
@@ -116,7 +130,7 @@ public class BossDamage : MonoBehaviour
             bossDestroyTime += Time.deltaTime;
             if (bossDestroyTime >= BOSS_DESTROY_TIME_MAX)
             {
-                isBossFellDown = true;
+                IsFellDown = true;
                 Vector3 pos = new Vector3(transform.position.x, EFFECT_POS_Y, transform.position.z);
                 Instantiate(fellDownEffect, pos, Quaternion.identity);
                 Destroy(gameObject);
@@ -214,7 +228,7 @@ public class BossDamage : MonoBehaviour
         {
             return;
         }
-        if (!bossMove.IsAppearance())
+        if (!bossMove.IsAppearance)
         {
             if (!IsInvincible)
             {
@@ -225,10 +239,5 @@ public class BossDamage : MonoBehaviour
                 bossMove.DamageTrue();
             }
         }
-    }
-
-    public bool IsFellDown()
-    {
-        return isBossFellDown;
     }
 }

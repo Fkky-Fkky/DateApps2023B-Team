@@ -53,9 +53,21 @@ public class BossCSVGenerator : MonoBehaviour
     private GameObject boss     = null;
     private BossCount bossCount = null;
 
+    /// <summary>
+    /// ボスが倒れた
+    /// </summary>
     public bool IsKill { get; private set; }
+    /// <summary>
+    /// ボスがかなり近いとき
+    /// </summary>
     public bool IsDanger { get; private set; }
+    /// <summary>
+    /// チャージ開始
+    /// </summary>
     public bool IsCharge { get; private set; }
+    /// <summary>
+    /// ゲームオーバー
+    /// </summary>
     public bool IsGameOver { get; private set; }
 
     const int NOMAL_NOSS_INDEX = 1;
@@ -89,7 +101,7 @@ public class BossCSVGenerator : MonoBehaviour
 
         for (int i = 0; i < bossList.Count; i++)
         {
-            if (bossList[i].IsFellDown())
+            if (bossList[i].IsFellDown)
             {
                 if (messageCount < 1)
                 {

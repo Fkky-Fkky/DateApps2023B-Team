@@ -39,14 +39,13 @@ public class BossMove : MonoBehaviour
 
 
     private bool isDamageFlag = false;
-    private bool isAppearance = true;
     private bool isNotMove    = false;
     private bool isLastAttack = false;
 
     private int seCount      = 0;
     private int messageCount = 0;
 
-    private float moveSpeed = 0.0f;
+    private float moveSpeed        = 0.0f;
     private float warningFlashTime = 0.0f;
     private float dangerFlashTime  = 0.0f;
     private float moveTime         = 0.0f;
@@ -62,10 +61,22 @@ public class BossMove : MonoBehaviour
     private BossHPBarUI bossHPBarUI           = null;
 
     public int BossHp = 0;
+    /// <summary>
+    /// ゲームオーバーにする
+    /// </summary>
     public bool IsGameOver { get; private set; }
+    /// <summary>
+    /// ボスが防衛エリア付近に接近したとき
+    /// </summary>
     public bool IsHazard { get; private set; }
+    /// <summary>
+    /// 攻撃しないフラグ
+    /// </summary>
     public bool IsAttackOff { get; private set; }
-
+    /// <summary>
+    /// 登場するフラグを返す
+    /// </summary>
+    public bool IsAppearance { get; private set; }
 
     const int MAX_HP = 9;
     const float HALF_INDEX             =   0.5f;
@@ -77,15 +88,15 @@ public class BossMove : MonoBehaviour
     const float MULTIPLIER             =  50.0f;
 
     const float WARNING_DISPLAY_POSITION = 100.0f;
-    const float ATTACK_OFF_POSITION      =  50.0f;
-    const float DANGER_DISPLAY_POSITION  =  40.0f;
+    const float ATTACK_OFF_POSITION      = 50.0f;
+    const float DANGER_DISPLAY_POSITION  = 40.0f;
 
     const float GAME_OVER_TIME = 0.6f;
 
     private void Awake()
     {
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
-        BossHp =  bossCSVGenerator.BossHP();
+        BossHp = bossCSVGenerator.BossHP();
 
         if (BossHp > MAX_HP)
         {
@@ -99,12 +110,10 @@ public class BossMove : MonoBehaviour
         audioSource.clip = dangerSE;
         audioSource.Stop();
     }
-
-
     void Start()
     {
         bossAttack = GetComponent<BossAttack>();
-        bossHPBarUI= GetComponent<BossHPBarUI>();
+        bossHPBarUI = GetComponent<BossHPBarUI>();
         rb = GetComponent<Rigidbody>();
 
         if (transform.position.x == 0.0f)
@@ -131,14 +140,15 @@ public class BossMove : MonoBehaviour
         warningDisplay.SetActive(false);
         gameOverWarningDisplay.SetActive(false);
 
-        IsHazard    = false;
-        IsGameOver  = false;
-        IsAttackOff = false;
+        IsHazard     = false;
+        IsGameOver   = false;
+        IsAttackOff  = false;
+        IsAppearance = true;
     }
 
     void Update()
     {
-        if (isAppearance)
+        if (IsAppearance)
         {
             Vector3 pos = transform.position;
 
@@ -150,7 +160,7 @@ public class BossMove : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 moveAnimation.SetTrigger("StandBy");
                 isNotMove = true;
-                isAppearance = false;
+                IsAppearance = false;
             }
         }
 
@@ -206,11 +216,11 @@ public class BossMove : MonoBehaviour
         {
             return;
         }
-        if (bossAttack.IsAttackAll())
+        if (bossAttack.IsAttackAll)
         {
             return;
         }
-        if (!isAppearance && !isNotMove && !isLastAttack)
+        if (!IsAppearance && !isNotMove && !isLastAttack)
         {
             if (gameObject.tag == "Center")
             {
@@ -328,16 +338,5 @@ public class BossMove : MonoBehaviour
     {
         isDamageFlag = false;
     }
-    /// <summary>
-    /// 登場するフラグを返す
-    /// </summary>
-    /// <returns>登場するフラグ</returns>
-    public bool IsAppearance()
-    {
-        return isAppearance;
-    }
-    /// <summary>
-    /// 攻撃しないフラグを返す
-    /// </summary>
-    /// <returns>攻撃しないフラグ</returns>
+
 }
