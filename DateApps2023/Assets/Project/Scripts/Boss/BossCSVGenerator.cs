@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// É{ÉXÇÃê∂ê¨
+/// </summary>
 public class BossCSVGenerator : MonoBehaviour
 {
     [SerializeField]
