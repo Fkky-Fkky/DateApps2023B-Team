@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class FallEnergy : MonoBehaviour
 {
-    private bool isLand = false;
+    private bool isEnergyResourceLanded = false;
     private Vector3 position = Vector3.zero;
 
     private const float FALL_SPEED = 15.0f;
@@ -19,17 +19,23 @@ public class FallEnergy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLand)
+        if (isEnergyResourceLanded)
         {
             return;
         }
+        Fall();
+    }
 
+    /// <summary>
+    /// ÉGÉlÉãÉMÅ[ï®éëÇóéâ∫Ç≥ÇπÇÈ
+    /// </summary>
+    private void Fall()
+    {
         position.y = Mathf.Max(position.y - FALL_SPEED * Time.deltaTime, 0.0f);
-
         transform.position = position;
-        if(transform.position.y <= 0.0f)
+        if (transform.position.y <= 0.0f)
         {
-            isLand = true;
+            isEnergyResourceLanded = true;
         }
     }
 }

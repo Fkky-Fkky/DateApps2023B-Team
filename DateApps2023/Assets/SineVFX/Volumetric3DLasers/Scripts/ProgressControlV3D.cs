@@ -126,7 +126,7 @@ public class ProgressControlV3D : MonoBehaviour {
             {
                 if (!isColorChage)
                 {
-                    switch (energyCharge.ChrgeEnergyType)
+                    switch (energyCharge.ChargeEnergyType)
                     {
                         case (int)EnergyCharge.ENERGY_TYPE.SMALL:
                             finalColor = new Color(0, 0.7f, 1, 1);

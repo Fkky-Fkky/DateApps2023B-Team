@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 大砲のスイッチクラス
+/// </summary>
 public class CannonSwitch : MonoBehaviour
 {
     [SerializeField]
@@ -14,7 +17,7 @@ public class CannonSwitch : MonoBehaviour
     [SerializeField]
     private GameManager gameManager = null;
     
-    private Vector3 defaultScale = Vector3.zero;
+    private Vector3 defaultScale  = Vector3.zero;
     private Vector3 switchOnScale = Vector3.zero;
     private GameObject button = null;
     private BoxCollider boxCollider = null;
@@ -37,7 +40,7 @@ public class CannonSwitch : MonoBehaviour
             SwitchOn();
         }
 
-        if (!IsShot())
+        if (!CanCannonShot())
         {
             SwitchOn();
         }
@@ -54,21 +57,25 @@ public class CannonSwitch : MonoBehaviour
             return;
         }
 
-        if (IsShot())
+        if (CanCannonShot())
         {
             cannonShot.Shot();
             SwitchOn();
         }
     }
 
-    private bool IsShot()
+    /// <summary>
+    /// 大砲を発射できるかを返す
+    /// </summary>
+    /// <returns>大砲を発射できるか</returns>
+    private bool CanCannonShot()
     {
         if (cannonShot.IsShotting)
         {
             return false;
         }
 
-        if (!energyCharge.IsEnergyCharged())
+        if (!energyCharge.IsEnergyCharge)
         {
             return false;
         }
@@ -80,6 +87,9 @@ public class CannonSwitch : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 大砲のスイッチをオンにする
+    /// </summary>
     private void SwitchOn()
     {
         if (!boxCollider.enabled)
@@ -90,6 +100,9 @@ public class CannonSwitch : MonoBehaviour
         button.transform.localScale = switchOnScale;
     }
 
+    /// <summary>
+    /// 大砲のスイッチをオフにする
+    /// </summary>
     private void SwitchOff()
     {
         if (boxCollider.enabled)
