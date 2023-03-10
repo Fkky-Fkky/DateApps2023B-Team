@@ -121,7 +121,7 @@ public class PlayerDamage : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyScript = other.gameObject.GetComponent<Enemy>();
-            if (!isCurrentDamage && myPlayerNo == enemyScript.random)
+            if (!isCurrentDamage && myPlayerNo == enemyScript.Random)
             {
                 CallCapture();
             }
@@ -294,7 +294,7 @@ public class PlayerDamage : MonoBehaviour
     public void JudgeCapture(GameObject enemy)
     {
         enemyScript = enemy.GetComponent<Enemy>();
-        if (!isCurrentDamage && myPlayerNo == enemyScript.random)
+        if (!isCurrentDamage && myPlayerNo == enemyScript.Random)
         {
             CallCapture();
         }

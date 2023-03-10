@@ -20,7 +20,7 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField]
     private int spiderSpawnTime = 10;
 
-    public GameObject spider = null;
+    public GameObject Spider = null;
 
     private float x = 0;
 
@@ -55,7 +55,7 @@ public class EnemyGenerator : MonoBehaviour
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
             z = Random.Range(rangeA.position.z, rangeB.position.z);
-            Instantiate(spider, new Vector3(x, -8, z), spider.transform.rotation);
+            Instantiate(Spider, new Vector3(x, -8, z), Spider.transform.rotation);
             random = Random.Range(1, 3);
         }
 
@@ -66,7 +66,7 @@ public class EnemyGenerator : MonoBehaviour
             x = Random.Range(rangeC.position.x, rangeD.position.x);
 
             z = Random.Range(rangeC.position.z, rangeD.position.z);
-            Instantiate(spider, new Vector3(x, -8, z), spider.transform.rotation);
+            Instantiate(Spider, new Vector3(x, -8, z), Spider.transform.rotation);
             random = Random.Range(1, 3);
         }
     }

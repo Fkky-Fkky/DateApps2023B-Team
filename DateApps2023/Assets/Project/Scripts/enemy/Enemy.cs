@@ -45,8 +45,6 @@ public class Enemy : MonoBehaviour
 
     private bool isJumpFlag = false;
 
-    public int random = 0;
-
     private int destroyPosition = -25;
 
     private int rotationStatePosition = 4;
@@ -56,6 +54,8 @@ public class Enemy : MonoBehaviour
     private float jumpStatePosition = -0.5f;
 
     private float jumpPower = 18.0f;
+
+    public int Random = 0;
 
     void Start()
     {
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent.enabled = false;
 
-        random = Random.Range(0, 3);
+        Random = UnityEngine.Random.Range(0, 3);
     }
 
     void Update()
@@ -88,6 +88,29 @@ public class Enemy : MonoBehaviour
         End();
 
     }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject == players[Random])
+        {
+            agent.enabled = false;
+            animator.SetTrigger("attack");
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        agent.enabled = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerAttackPoint"))
+        {
+            enemyHp -= 1;
+        }
+    }
+
     /// <summary>
     /// 最初のエネミーの方向設定
     /// </summary>
@@ -105,7 +128,7 @@ public class Enemy : MonoBehaviour
     private void End()
     {
         if (gameState == SUMMON.END)
-            agent.destination = players[random].transform.position;
+            agent.destination = players[Random].transform.position;
     }
 
     /// <summary>
@@ -123,7 +146,7 @@ public class Enemy : MonoBehaviour
         }
     }
     /// <summary>
-    ///エネミーが壁を登る関数 
+    ///エネミーが壁を登る関数
     /// </summary>
     private void Climb(Vector3 pos)
     {
@@ -200,7 +223,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void OnAttackCollider()
     {
-        playerDamage[random].CallDamage();
+        playerDamage[Random].CallDamage();
     }
 
     /// <summary>
@@ -209,27 +232,5 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
-    }
-
-    void OnCollisionStay(Collision collision)//Trigger
-    {
-        if (collision.gameObject == players[random])
-        {
-            agent.enabled = false;
-            animator.SetTrigger("attack");
-        }
-    }
-
-    void OnCollisionExit(Collision collision)//Trigger
-    {
-        agent.enabled = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("PlayerAttackPoint"))
-        {
-            enemyHp -= 1;
-        }
     }
 }
