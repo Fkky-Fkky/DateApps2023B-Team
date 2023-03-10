@@ -1241,11 +1241,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
---- !u!1 &1063289416 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9044244031334181988, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
-  m_PrefabInstance: {fileID: 1129589458}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1090356572 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
@@ -1511,26 +1506,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 750471181196943849, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
-      propertyPath: connectEffect
-      value: 
-      objectReference: {fileID: 8153850905824846523, guid: 03f9061cfeda50747a48b1683240e697, type: 3}
     - target: {fileID: 5669519291030049210, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 6651277262274826888, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
-      propertyPath: cannonLaser
-      value: 
-      objectReference: {fileID: 1063289416}
-    - target: {fileID: 6651277262274826888, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
-    - target: {fileID: 8940703026763407472, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
-      propertyPath: energyCharge
-      value: 
-      objectReference: {fileID: 1352015659}
     - target: {fileID: 9043751800428089512, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1652,6 +1635,10 @@ PrefabInstance:
       propertyPath: bossManager
       value: 
       objectReference: {fileID: 131766972}
+    - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
+      propertyPath: bossCountMax
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossCSV
       value: 
