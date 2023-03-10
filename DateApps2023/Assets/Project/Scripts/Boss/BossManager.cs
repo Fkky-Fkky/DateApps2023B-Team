@@ -1,23 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ボスのマネージャー
+/// </summary>
 public class BossManager : MonoBehaviour
 {
     [SerializeField]
-    private CannonManager cannonManager = null;
-
+    private CannonManager cannonManager       = null;
     [SerializeField]
     private BossCSVGenerator bossCSVGenerator = null;
 
-    public BossDamage bossDamage;
-
-    public BossAttack bossAttack;
-
-    private GameObject centerBoss;
-    private GameObject leftBoss;
-    private GameObject rightBoss;
-
+    private GameObject centerBoss = null;
+    private GameObject leftBoss   = null;
+    private GameObject rightBoss  = null;
 
     void Update()
     {
@@ -25,6 +20,9 @@ public class BossManager : MonoBehaviour
         BossFellDown();
     }
 
+    /// <summary>
+    /// どのボスが攻撃を受けるか
+    /// </summary>
     private void BossDamage()
     {
         for (int i = 0; i < cannonManager.CanonMax; i++)
@@ -75,9 +73,11 @@ public class BossManager : MonoBehaviour
                     break;
             }
         }
-
     }
 
+    /// <summary>
+    /// ボスがいないレーンを探す
+    /// </summary>
     private void BossFellDown()
     {
         centerBoss = GameObject.FindGameObjectWithTag("Center");
@@ -110,48 +110,26 @@ public class BossManager : MonoBehaviour
             bossCSVGenerator.IsRightLineTrue();
         }
     }
-
-    public bool IsBossFirstLanding()
-    {
-        //怪獣が地面に着地したら
-        return bossCSVGenerator.IsLanding;
-    }
-
-
-    public bool ISBossFirstKill()
-    {
-        //最初の怪獣撃破
-        return bossCSVGenerator.IsFirstKill;
-    }
-
     public bool IsBossKill()
     {
-        //怪獣撃破時
-        return bossCSVGenerator.IsKill;
+        return bossCSVGenerator.IsKill;//怪獣撃破時
     }
-
 
     public int BossType()
     {
-        //中 1, ミニ 2, Big 3
-        return bossCSVGenerator.BossTypeDate();
+        return bossCSVGenerator.BossTypeDate();//中 1, ミニ 2, Big 3
     }
 
     public bool Charge()
-    {
-        //破壊光線チャージ時
-        return bossCSVGenerator.IsCharge;
+    {  
+        return bossCSVGenerator.IsCharge;//破壊光線チャージ時
     }
-
-    //接近時
     public bool Danger()
     {
-        return bossCSVGenerator.IsDanger;
+        return bossCSVGenerator.IsDanger;//接近時
     }
-    
-    //ゲームオーバーフラグ
     public bool IsGameOver()
     {
-        return bossCSVGenerator.IsGameOver;
+        return bossCSVGenerator.IsGameOver;//ゲームオーバーフラグ
     }
 }

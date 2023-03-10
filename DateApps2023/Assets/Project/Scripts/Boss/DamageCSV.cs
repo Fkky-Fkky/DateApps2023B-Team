@@ -1,26 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System;
-
+/// <summary>
+/// エネルギーのダメージをCSVファイルから読み込み
+/// </summary>
 public class DamageCSV : MonoBehaviour
 {
-    private TextAsset csvFile;
+    private TextAsset csvFile = null;
+
     private List<string[]> damageDate = new List<string[]>();
 
-    public int small;
-    public int medium;
-    public int large;
-
     private int height = 0;
-    int i = 1;
+    private int i      = 1;
+
+    public int Small = 0;
+    public int Medium = 0;
+    public int Large = 0;
+
 
     private void Awake()
     {
         DamageCSVLoad();
     }
-
+    /// <summary>
+    /// CSVファイル読み込み
+    /// </summary>
     private void CsvReader()
     {
         csvFile = Resources.Load("CSV/EnergyDamage") as TextAsset;
@@ -39,9 +43,9 @@ public class DamageCSV : MonoBehaviour
 
         for (i = 1; i < height; i++)
         {
-            small = int.Parse(damageDate[i][0]);
-            medium = int.Parse(damageDate[i][1]);
-            large = int.Parse(damageDate[i][2]);
+            Small  = int.Parse(damageDate[i][0]);
+            Medium = int.Parse(damageDate[i][1]);
+            Large  = int.Parse(damageDate[i][2]);
         }
     }
 }

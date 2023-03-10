@@ -113,7 +113,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1646241457149395611
 GameObject:
@@ -766,9 +766,13 @@ GameObject:
   - component: {fileID: 1697093568606495979}
   - component: {fileID: 1648196746715476570}
   - component: {fileID: 1648196746715476573}
-  - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
   - component: {fileID: 1763202426801422486}
+  - component: {fileID: 1648196746715476574}
+  - component: {fileID: 4632261809333114858}
+  - component: {fileID: 9160722335523510000}
+  - component: {fileID: 6859374911819928823}
+  - component: {fileID: 6803953396093080576}
   - component: {fileID: 2131339584734462358}
   m_Layer: 0
   m_Name: Boss
@@ -794,7 +798,6 @@ Transform:
   - {fileID: 3490875008881636801}
   - {fileID: 5787170837169423892}
   - {fileID: 1461122879849451673}
-  - {fileID: 8376872536337460165}
   - {fileID: 8073096529853142443}
   - {fileID: 6894195546415373965}
   m_Father: {fileID: 0}
@@ -849,34 +852,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5, y: 3.5, z: 3}
   m_Center: {x: 0, y: 2, z: 0.5}
---- !u!114 &1648196746715476574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossCount: {fileID: 7051107079401279416, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
-  AnimationImage: {fileID: 1697093568606495979}
-  damagePoint: {fileID: 3490875008881636801}
-  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
-  fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
-  invincibleTimeMax: 4
-  isTrance: 0
-  stunPos: {fileID: 8376872536337460165}
-  hpCores: {fileID: 8795518692298031283}
-  hpBar: []
-  hpMemori:
-  - {fileID: 6279242887004648553}
-  - {fileID: 6001111178997636547}
-  - {fileID: 789059881321242861}
-  - {fileID: 4851294355652372020}
-  - {fileID: 6408652694721961419}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,24 +864,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8cc92c29a0b84faa73b36b8d3d196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHp: 3
-  moveSpeed: 2
   cenetrTarget: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
   leftTarget: {fileID: 5361787869608923537, guid: 8e8fe64f0743dde4aa9ad854c3a41e1d, type: 3}
   rightTarget: {fileID: 5361787869608923537, guid: 5f57609d3392f774d8b893aa664e0991, type: 3}
-  AnimationImage: {fileID: 1697093568606495979}
-  canvas: {fileID: 6056768188561019884}
-  hpGauge: {fileID: 3361275692408546406}
   warningDisplay: {fileID: 3711339312594873015}
-  warningRenderer: {fileID: 3047338309723908256}
   gameOverWarningDisplay: {fileID: 537261317771004103}
+  shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
+  moveAnimation: {fileID: 1697093568606495979}
+  canvas: {fileID: 6056768188561019884}
+  warningRenderer: {fileID: 3047338309723908256}
   gameOverDisplay: {fileID: 2215697549118671568}
   audioSource: {fileID: 2131339584734462358}
-  shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
-  Multiplier: 50
-  isLastAttack: 0
   lastAttackAudio: {fileID: 6494494502361812846}
   lastAttackSE: {fileID: 8300000, guid: 57114c44b6aab894393d0f842374e5d2, type: 3}
+  BossHp: 0
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,18 +890,96 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAnimation: {fileID: 1697093568606495979}
+  chageTimeMax: 10
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
   damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
-  chargePos: {fileID: 8073096529853142443}
   chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
-  isAttack: 0
-  beamTimeMax: 7
+  chargePos: {fileID: 8073096529853142443}
   beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
+--- !u!114 &1648196746715476574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibleTimeEnd: 4
+  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
+  fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
+  damagePoint: {fileID: 3490875008881636801}
+--- !u!114 &4632261809333114858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d25f295797c6a4995af948a32e206b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpGauge: {fileID: 3361275692408546406}
+  canvas: {fileID: 6056768188561019884}
+  bossMove: {fileID: 1648196746715476545}
+--- !u!114 &9160722335523510000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8cadae97223df42bdc6f876dafca8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpCores: {fileID: 8795518692298031283}
+  hpBar: []
+  hpMemori:
+  - {fileID: 6279242887004648553}
+  - {fileID: 6001111178997636547}
+  - {fileID: 789059881321242861}
+  - {fileID: 4851294355652372020}
+  - {fileID: 6408652694721961419}
+--- !u!114 &6859374911819928823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78410edd1d6cb242b262c40dc49487a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 1697093568606495979}
+--- !u!114 &6803953396093080576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d2cd8ca2c8c604b82a43bbf0a0d1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warningDisplay: {fileID: 3711339312594873015}
+  gameOverWarningDisplay: {fileID: 537261317771004103}
+  warningRenderer: {fileID: 3047338309723908256}
+  gameOverDisplay: {fileID: 2215697549118671568}
 --- !u!82 &2131339584734462358
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1132,37 +1181,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -80.1039, y: -2.447403, z: 17.706985}
     m_Extent: {x: 241.08421, y: 215.05971, z: 397.3723}
   m_DirtyAABB: 0
---- !u!1 &3361146547246162671
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8376872536337460165}
-  m_Layer: 0
-  m_Name: StunPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8376872536337460165
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3361146547246162671}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3361275692408546406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,7 +1419,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &6494494502361812846
 AudioSource:

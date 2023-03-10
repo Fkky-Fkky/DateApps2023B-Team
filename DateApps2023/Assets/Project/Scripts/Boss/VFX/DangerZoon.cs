@@ -1,26 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 攻撃当たるエリアをデストロイ
+/// </summary>
 public class DangerZoon : MonoBehaviour
 {
-    public BossAttack bossAttack;
-
-    private float time = 0.0f;
-    private float effectTime;
-
     [SerializeField]
-    private Renderer dangerRenderer;
+    private Renderer dangerRenderer = null;
 
-    private float flashTime = 0.0f;
-    private float flashTimeMax = 0.3f;
+    public BossAttack BossAttack = null;
+
+    private float time       = 0.0f;
+    private float effectTime = 0.0f;
+
+    private float flashTime          = 0.0f;
+    private const float flashTimeMax = 0.3f;
 
     void Start()
     {
-        time = 0.0f;
-
-        effectTime = bossAttack.BeamTimeMax();
-
+        effectTime = BossAttack.BeamTimeMax();
     }
 
     void Update()

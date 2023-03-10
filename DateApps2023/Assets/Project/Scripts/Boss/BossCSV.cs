@@ -1,42 +1,45 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System;
-
+/// <summary>
+/// ボスのデータをCSVファイル読み込み
+/// </summary>
 public class BossCSV : MonoBehaviour
 {
-    private TextAsset csvFile;
+    [SerializeField]
+    private int bossMaxCount = 11;
+
+    private TextAsset csvFile       = null;
+
     private List<string[]> bossDate = new List<string[]>();
 
-    public string[] bossType;
-    public float[] appearanceTime;
-    public float[] attackIntervalTime;
-    public int[] appearanceLane;
-    public float[] positionZ;
-    public int[] bossHp;
-    public float[] bossSpeed;
-
     private int height = 0;
-    private int i = 1;
+    private int i      = 1;
 
-    [SerializeField]
-    private int BossMaxCount = 11;
+    public int[] AppearanceLane       = null;
+    public int[] BossHp               = null;
+    public float[] AppearanceTime     = null;
+    public float[] AttackIntervalTime = null;
+    public float[] PositionZ          = null;
+    public float[] BossSpeed          = null;
+    public string[] BossType          = null;
 
     private void Awake()
     {
 
-        bossType = new string[BossMaxCount];
-        appearanceTime = new float[BossMaxCount];
-        attackIntervalTime = new float[BossMaxCount];
-        appearanceLane = new int[BossMaxCount];
-        positionZ = new float[BossMaxCount];
-        bossHp = new int[BossMaxCount];
-        bossSpeed = new float[BossMaxCount];
+        BossType           = new string[bossMaxCount];
+        AppearanceTime     = new float[bossMaxCount];
+        AttackIntervalTime = new float[bossMaxCount];
+        AppearanceLane     = new int[bossMaxCount];
+        PositionZ          = new float[bossMaxCount];
+        BossHp             = new int[bossMaxCount];
+        BossSpeed          = new float[bossMaxCount];
 
         BossCSVLoad();
     }
-
+    /// <summary>
+    /// CSVファイル読み込み
+    /// </summary>
     private void CsvReader()
     {
         csvFile = Resources.Load("CSV/BossSample") as TextAsset;
@@ -55,13 +58,13 @@ public class BossCSV : MonoBehaviour
 
         for (i = 1; i < height; i++)
         {
-            bossType[i] = bossDate[i][0];
-            appearanceTime[i] = float.Parse(bossDate[i][1]);
-            attackIntervalTime[i] = float.Parse(bossDate[i][2]);
-            appearanceLane[i] = int.Parse(bossDate[i][3]);
-            positionZ[i] = float.Parse(bossDate[i][4]);
-            bossHp[i] = int.Parse(bossDate[i][5]);
-            bossSpeed[i] = float.Parse(bossDate[i][6]);
+            BossType[i]           = bossDate[i][0];
+            AppearanceTime[i]     = float.Parse(bossDate[i][1]);
+            AttackIntervalTime[i] = float.Parse(bossDate[i][2]);
+            AppearanceLane[i]     = int.Parse(bossDate[i][3]);
+            PositionZ[i]          = float.Parse(bossDate[i][4]);
+            BossHp[i]             = int.Parse(bossDate[i][5]);
+            BossSpeed[i]          = float.Parse(bossDate[i][6]);
 
         }
     }

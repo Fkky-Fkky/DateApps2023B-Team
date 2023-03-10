@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// ビームチャージのエフェクトの表示時間
+/// </summary>
 public class BeamCharge : MonoBehaviour
 {
-    public BossAttack bossAttack;
+    private float time       = 0.0f;
+    private float effectTime = 0.0f;
 
-    private float time = 0.0f;
-    private float effectTime;
+    public BossAttack BossAttack = null;
 
     void Start()
     {
-        time = 0.0f;
-
-        effectTime = bossAttack.BeamTimeMax();
-
+        effectTime = BossAttack.BeamTimeMax();
     }
 
     void Update()

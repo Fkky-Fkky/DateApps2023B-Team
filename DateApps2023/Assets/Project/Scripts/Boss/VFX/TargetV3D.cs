@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// ビームの狙う場所
+/// </summary>
 public class TargetV3D : MonoBehaviour
 {
 

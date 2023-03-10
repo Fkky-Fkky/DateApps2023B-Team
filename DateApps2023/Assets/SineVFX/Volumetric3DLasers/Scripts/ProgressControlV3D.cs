@@ -110,7 +110,7 @@ public class ProgressControlV3D : MonoBehaviour {
         //if (Input.GetMouseButton(0) || always == true)
         if (effectType == EffectType.Boss)
         {
-            if (bossAttack.isAttack || always == true)
+            if (bossAttack.IsAttack || always == true)
             {
                 globalProgress = 0f;
                 endPointEffect.emit = true;
@@ -155,7 +155,7 @@ public class ProgressControlV3D : MonoBehaviour {
         if (effectType == EffectType.Boss)
         {
 
-            if (bossAttack.isAttack)
+            if (bossAttack.IsAttack)
             {
                 globalImpactProgress = 0f;
             }

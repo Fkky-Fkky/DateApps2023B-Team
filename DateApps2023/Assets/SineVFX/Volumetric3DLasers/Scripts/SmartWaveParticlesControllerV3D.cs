@@ -44,7 +44,7 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
             return;
         }
 
-        if (bossAttack.isAttack)//|| Input.GetMouseButtonDown(0))
+        if (bossAttack.IsAttack)//|| Input.GetMouseButtonDown(0))
         {
             distortionSpherePS.Emit(1);
             controlPS.Emit(1);

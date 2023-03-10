@@ -1,112 +1,107 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// ボスの移動のスプリクト
+/// </summary>
 public class BossMove : MonoBehaviour
 {
-
-    public int bossHp;
-
-    private Rigidbody rb;
-
-    private BossAttack bossAttack;
-    private BossDamage bossDamage;
-    private BossCSVGenerator bossCSVGenerator;
+    [SerializeField]
+    private GameObject cenetrTarget = null;
+    [SerializeField]
+    private GameObject leftTarget   = null;
+    [SerializeField]
+    private GameObject rightTarget  = null;
 
     [SerializeField]
-    private float moveSpeed = 2.0f;
+    private GameObject warningDisplay         = null;
+    [SerializeField]
+    private GameObject gameOverWarningDisplay = null;
 
     [SerializeField]
-    private GameObject cenetrTarget;
-    [SerializeField]
-    private GameObject leftTarget;
-    [SerializeField]
-    private GameObject rightTarget;
-
-
-
-    [SerializeField] Animator AnimationImage = null;
-
-
-    private bool damageFlag = false;
-
-    private Camera camera;
+    private GameObject shockWaveEffect = null;
 
     [SerializeField]
-    private Canvas canvas;
+    private Animator moveAnimation = null;
 
     [SerializeField]
-    private GameObject hpGauge;
+    private Canvas canvas            = null;
+    [SerializeField]
+    private Renderer warningRenderer = null;
+    [SerializeField]
+    private Renderer gameOverDisplay = null;
 
     [SerializeField]
-    private GameObject warningDisplay;
-
+    private AudioSource audioSource     = null;
     [SerializeField]
-    private Renderer warningRenderer;
-
-    private float warningFlashTime = 0.0f;
-    private float warningFlashTimeMax = 1.0f;
-
+    private AudioSource lastAttackAudio = null;
     [SerializeField]
-    private GameObject gameOverWarningDisplay;
+    private AudioClip lastAttackSE      = null;
 
-    [SerializeField]
-    private Renderer gameOverDisplay;
 
-    private float flashTime = 0.0f;
-    private float flashTimeMax = 0.5f;
-
-    [SerializeField]
-    private AudioSource audioSource;
-    private AudioClip dangerSE;
-    private string songName;
-
-    private float underPos = -54.5f;
-
-    private bool isAppearance = false;
-    private bool isNotMove = false;
-
-    private float moveTime    = 0.0f;
-    private float moveTimeMax = 3.0f;
-
-    [SerializeField]
-    private GameObject shockWaveEffect;
-
-    [SerializeField]
-    private float Multiplier = 50.0f;
-
-    [SerializeField]
+    private bool isDamageFlag = false;
+    private bool isNotMove    = false;
     private bool isLastAttack = false;
 
-    [SerializeField]
-    private AudioSource lastAttackAudio;
-    [SerializeField]
-    private AudioClip lastAttackSE;
-
-    public bool IsGameOver { get; private set; }
-
-    private float gameOverTime = 0.0f;
-    private float gameOverTimeCenterMax = 7.0f;
-    private float gameOverTimeSideMax = 6.5f;
-
-    private bool isAttackOff = false;
-    public bool IsLanding { get; private set; }
-
-    public bool isHazard { get; private set; }
-
+    private int seCount      = 0;
     private int messageCount = 0;
 
-    private int seCount = 0;
+    private float moveSpeed        = 0.0f;
+    private float warningFlashTime = 0.0f;
+    private float dangerFlashTime  = 0.0f;
+    private float moveTime         = 0.0f;
+
+    private string songName = null;
+
+    private new Camera camera  = null;
+    private AudioClip dangerSE = null;
+    private Rigidbody rb       = null;
+
+    private BossCSVGenerator bossCSVGenerator       = null;
+    private BossAttack bossAttack                   = null;
+    private BossHPBarUI bossHPBarUI                 = null;
+    private BossAnimatorControl bossAnimatorControl = null;
+
+    public int BossHp = 0;
+    /// <summary>
+    /// ゲームオーバーにする
+    /// </summary>
+    public bool IsGameOver { get; private set; }
+    /// <summary>
+    /// ボスが防衛エリア付近に接近したとき
+    /// </summary>
+    public bool IsHazard { get; private set; }
+    /// <summary>
+    /// 攻撃しないフラグ
+    /// </summary>
+    public bool IsAttackOff { get; private set; }
+    /// <summary>
+    /// 登場するフラグを返す
+    /// </summary>
+    public bool IsAppearance { get; private set; }
+
+    const int MAX_HP = 9;
+    const float HALF_INDEX             =   0.5f;
+    const float UNDER_POSITION         = -54.5f;
+    const float DANGER_FLASH_TIME_MAX  =   0.5f;
+    const float WARNING_FLASH_TIME_MAX =   1.0f;
+    const float MOVE_TIME_MAX          =   3.0f;
+    const float SIDE_POS               =   0.1f;
+    const float MULTIPLIER             =  50.0f;
+
+    const float WARNING_DISPLAY_POSITION = 100.0f;
+    const float ATTACK_OFF_POSITION      = 50.0f;
+    const float DANGER_DISPLAY_POSITION  = 40.0f;
+
+    const float GAME_OVER_TIME = 0.6f;
 
     private void Awake()
     {
         bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
-        bossHp =  bossCSVGenerator.BossHP();
+        BossHp = bossCSVGenerator.BossHP();
 
-        if (bossHp > 9)
+        if (BossHp > MAX_HP)
         {
-            bossHp = 9;
+            BossHp = MAX_HP;
         }
 
         moveSpeed = bossCSVGenerator.BossMoveSpeed();
@@ -116,88 +111,30 @@ public class BossMove : MonoBehaviour
         audioSource.clip = dangerSE;
         audioSource.Stop();
     }
-
-
     void Start()
     {
+        bossAttack = GetComponent<BossAttack>();
+        bossHPBarUI = GetComponent<BossHPBarUI>();
+        bossAnimatorControl = GetComponent<BossAnimatorControl>();
+        rb = GetComponent<Rigidbody>();
 
         if (transform.position.x == 0.0f)
         {
             tag = "Center";
-
-            if (bossHp >= 1 && bossHp <= 5)
-            {
-                if (gameObject.transform.localScale.y > 18.0f)
-                {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0.1f, 0);
-                }
-            }
-            if (bossHp >= 1 && bossHp <= 2)
-            {
-                if (gameObject.transform.localScale.y < 18.0f)
-                {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -0.7f, 0);
-                }
-            }
-            if (bossHp >= 7 && bossHp <= 9)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-            }
-
+            bossHPBarUI.BossUIPositionCneter(BossHp);
         }
 
-        if (transform.position.x >= 0.1f)
+        if (transform.position.x >= SIDE_POS)
         {
             tag = "Right";
-            if (bossHp >= 1 && bossHp <= 5)
-            {
-                if (gameObject.transform.localScale.y > 18.0f)
-                {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4.0f, 0.05f, 0);
-                }
-            }
-            if (bossHp >= 1 && bossHp <= 2)
-            {
-                if (gameObject.transform.localScale.y < 18.0f)
-                {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(13.0f, -0.7f, 0);
-                }
-            }
-            if (bossHp >= 7 && bossHp <= 9)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(4.2f, 0, 0);
-            }
+            bossHPBarUI.BossUIPositionRight(BossHp);
         }
 
-
-        if (transform.position.x <= -0.1f)
+        if (transform.position.x <= -SIDE_POS)
         {
             tag = "Left";
-            if (bossHp >= 1 && bossHp <= 5)
-            {
-                if (gameObject.transform.localScale.y > 18.0f)
-                {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4.0f, 0.05f, 0.0f);
-                }
-            }
-            if (bossHp >= 1 && bossHp <= 2)
-            {
-                if (gameObject.transform.localScale.y < 18.0f)
-                {
-                    hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-13.0f, -0.7f, 0.0f);
-                }
-            }
-            if (bossHp >= 7 && bossHp <= 9)
-            {
-                hpGauge.GetComponent<RectTransform>().anchoredPosition = new Vector3(-4.2f, 0, 0);
-            }
-
-
+            bossHPBarUI.BossUIPositionLeft(BossHp);
         }
-
-        bossAttack = GetComponent<BossAttack>();
-        bossDamage = GetComponent<BossDamage>();
-        rb = GetComponent<Rigidbody>();
 
         camera = Camera.main;
         canvas.worldCamera = camera;
@@ -205,93 +142,55 @@ public class BossMove : MonoBehaviour
         warningDisplay.SetActive(false);
         gameOverWarningDisplay.SetActive(false);
 
-        isAppearance = true;
-        isNotMove = true;
-
-
-        isLastAttack = false;
-        isAttackOff = false;
-
-        IsLanding = false;
-        isHazard = false;
-
-        IsGameOver = false;
+        IsHazard     = false;
+        IsGameOver   = false;
+        IsAttackOff  = false;
+        IsAppearance = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isAppearance)
+        if (IsAppearance)
         {
             Vector3 pos = transform.position;
 
-            if (transform.position.y <= underPos)
+            if (transform.position.y <= UNDER_POSITION)
             {
                 Instantiate(shockWaveEffect, gameObject.transform.position, Quaternion.identity);
-                IsLanding = true;
-                pos.y = underPos;
+                pos.y = UNDER_POSITION;
                 transform.position = pos;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
-                AnimationImage.SetTrigger("StandBy");
+                bossAnimatorControl.SetTrigger("StandBy");
                 isNotMove = true;
-                isAppearance = false;
+                IsAppearance = false;
             }
         }
 
         if (isNotMove)
         {
             moveTime += Time.deltaTime;
-            if (moveTime >= moveTimeMax)
+            if (moveTime >= MOVE_TIME_MAX)
             {
-                AnimationImage.SetTrigger("Walk");
+                bossAnimatorControl.SetTrigger("Walk");
                 isNotMove = false;
                 moveTime = 0.0f;
             }
         }
-
-        if (!damageFlag && !bossDamage.isTrance)
-        {
-            if (!bossAttack.IsAttackAll())
-            {
-                Move();
-            }
-        }
+        Move();
 
         if (isLastAttack)
         {
             gameOverWarningDisplay.SetActive(true);
-            flashTime += Time.deltaTime;
+            dangerFlashTime += Time.deltaTime;
 
-            var repeatValue = Mathf.Repeat(flashTime, flashTimeMax);
+            var repeatValue = Mathf.Repeat(dangerFlashTime, DANGER_FLASH_TIME_MAX);
 
-            gameOverDisplay.enabled = repeatValue >= flashTimeMax * 0.5f;
+            gameOverDisplay.enabled = repeatValue >= DANGER_FLASH_TIME_MAX * HALF_INDEX;
 
-
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
-            {
-                if (seCount < 1)
-                {
-                    lastAttackAudio.PlayOneShot(lastAttackSE);
-                    seCount++;
-                }
-            }
-
-
-            if (AnimationImage.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && AnimationImage.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
-            {
-                //ゲームオーバーフラグ
-                IsGameOver = true;
-            }
-            if ((gameOverTime < gameOverTimeCenterMax || gameOverTime < gameOverTimeSideMax) && damageFlag)
-            {
-                gameOverTime = 0.0f;
-                audioSource.Stop();
-                seCount = 0;
-                isLastAttack = false;
-            }
+            GameOverTransition();
         }
 
-        if (isHazard)
+        if (IsHazard)
         {
             songName = "FirstDanger";
             dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
@@ -299,7 +198,7 @@ public class BossMove : MonoBehaviour
             audioSource.Play();
         }
 
-        if (damageFlag)
+        if (isDamageFlag)
         {
             audioSource.Stop();
         }
@@ -307,31 +206,42 @@ public class BossMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce((Multiplier - 1f) * Physics.gravity, ForceMode.Acceleration);
+        rb.AddForce((MULTIPLIER - 1f) * Physics.gravity, ForceMode.Acceleration);
     }
 
+    /// <summary>
+    /// ボスの移動
+    /// </summary>
     private void Move()
     {
-        if (!isAppearance && !isNotMove && !isLastAttack)
+        if (isDamageFlag)
         {
-            if (gameObject.tag=="Center")
+            return;
+        }
+        if (bossAttack.IsAttackAll)
+        {
+            return;
+        }
+        if (!IsAppearance && !isNotMove && !isLastAttack)
+        {
+            if (gameObject.tag == "Center")
             {
                 MoveTarget(cenetrTarget);
             }
-
             if (gameObject.tag == "Left")
             {
                 MoveTarget(leftTarget);
             }
-
             if (gameObject.tag == "Right")
             {
                 MoveTarget(rightTarget);
             }
-
         }
     }
-
+    /// <summary>
+    /// 目的先に移動する
+    /// </summary>
+    /// <param name="target">目的先のオブジェクト</param>
     private void MoveTarget(GameObject target)
     {
         Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
@@ -345,42 +255,38 @@ public class BossMove : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);
 
 
-        if ((transform.position.z - target.transform.position.z) <= 100.0f)
+        if ((transform.position.z - target.transform.position.z) <= WARNING_DISPLAY_POSITION)
         {
             warningDisplay.SetActive(true);
 
-            
-
             warningFlashTime += Time.deltaTime;
-            var repeatValue = Mathf.Repeat(warningFlashTime, warningFlashTimeMax);
+            var repeatValue = Mathf.Repeat(warningFlashTime, WARNING_FLASH_TIME_MAX);
 
-            warningRenderer.enabled = repeatValue >= warningFlashTimeMax * 0.5f;
+            warningRenderer.enabled = repeatValue >= WARNING_FLASH_TIME_MAX * HALF_INDEX;
 
             if (messageCount == 0)
             {
-                isHazard = true;
+                IsHazard = true;
                 messageCount++;
             }
             else
             {
-                isHazard = false;
+                IsHazard = false;
             }
         }
-        else if ((transform.position.z - target.transform.position.z) > 100.0f)
+        else if ((transform.position.z - target.transform.position.z) > WARNING_DISPLAY_POSITION)
         {
             warningDisplay.SetActive(false);
-            isHazard = false;
+            IsHazard = false;
             messageCount = 0;
-
         }
 
-
-        if ((transform.position.z - target.transform.position.z) <= 50.0f)
+        if ((transform.position.z - target.transform.position.z) <= ATTACK_OFF_POSITION)
         {
-            isAttackOff = true;
+            IsAttackOff = true;
         }
 
-        if ((transform.position.z - target.transform.position.z) <= 40.0f)
+        if ((transform.position.z - target.transform.position.z) <= DANGER_DISPLAY_POSITION)
         {
             warningDisplay.SetActive(false);
 
@@ -390,9 +296,7 @@ public class BossMove : MonoBehaviour
             audioSource.Play();
 
             isLastAttack = true;
-            AnimationImage.SetTrigger("LastAttack");
-
-
+           bossAnimatorControl.SetTrigger("LastAttack");
         }
         else
         {
@@ -401,25 +305,39 @@ public class BossMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ゲームオーバーに移行する為の処理
+    /// </summary>
+    private void GameOverTransition()
+    {
+        if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+        {
+            if (seCount < 1)
+            {
+                lastAttackAudio.PlayOneShot(lastAttackSE);
+                seCount++;
+            }
+        }
+
+        if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
+        {
+            IsGameOver = true;//ゲームオーバーフラグ
+        }
+        if (isLastAttack && isDamageFlag)
+        {
+            audioSource.Stop();
+            seCount = 0;
+            isLastAttack = false;
+        }
+    }
+
     public void DamageTrue()
     {
-        damageFlag = true;
+        isDamageFlag = true;
     }
 
     public void DamageFalse()
     {
-        damageFlag = false;
+        isDamageFlag = false;
     }
-
-    public bool IsAppearance()
-    {
-        return isAppearance;
-    }
-
-    public bool IsAttackOff()
-    {
-        return isAttackOff;
-    }
-
-
 }

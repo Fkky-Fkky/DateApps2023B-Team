@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b355bc299752dde438b5ffefeeffd8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
+  BossAttack: {fileID: 1763202426801422486, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
 --- !u!54 &-2311345579795306821
 Rigidbody:
   m_ObjectHideFlags: 0
