@@ -3,7 +3,6 @@ using UnityEngine;
 /// <summary>
 /// オペレーターの管理
 /// </summary>
-
 public class Operator : MonoBehaviour
 {
     [SerializeField] private EnergyGenerator energy = null;
