@@ -1,20 +1,19 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
 
 /// <summary>
 /// エネミーのクラス
 /// </summary>
-//[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private GameObject[] players = null;
+    [SerializeField]
+    private GameObject[] players = null;
 
-    [SerializeField] private PlayerDamage[] playerDamage = null;
+    [SerializeField]
+    private PlayerDamage[] playerDamage = null;
 
-    [SerializeField] private Transform centerPoint = null;
+    [SerializeField]
+    private Transform centerPoint = null;
 
     [SerializeField]
     private float climbingSpeed = 3;
