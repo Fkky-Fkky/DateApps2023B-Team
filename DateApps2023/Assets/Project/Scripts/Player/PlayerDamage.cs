@@ -39,7 +39,7 @@ public class PlayerDamage : MonoBehaviour
     private Transform damageStanPoint = null;
 
     [SerializeField]
-    private SEManager seManager = null;
+    private Resistance.SEManager seManager = null;
 
     private PlayerMove playerMove = null;
     private PlayerCarryDown playerCarryDown = null;

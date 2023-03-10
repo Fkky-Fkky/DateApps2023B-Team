@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
     private Transform fistPos = null;
 
     [SerializeField]
-    private SEManager seManager = null;
+    private Resistance.SEManager seManager = null;
 
     private BoxCollider boxCol = null;
     private Animator animator = null;

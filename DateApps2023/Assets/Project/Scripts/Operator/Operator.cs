@@ -5,9 +5,9 @@ using UnityEngine;
 /// </summary>
 public class Operator : MonoBehaviour
 {
-    [SerializeField] private EnergyGenerator energy = null;
+    [SerializeField] private Resistance.EnergyGenerator energy = null;
 
-    [SerializeField] private CannonManager cannon = null;
+    [SerializeField] private Resistance.CannonManager cannon = null;
 
     [SerializeField] private BossCSVGenerator csv = null;
 

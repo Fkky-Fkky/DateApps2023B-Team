@@ -6,7 +6,7 @@ using UnityEngine;
 public class BossManager : MonoBehaviour
 {
     [SerializeField]
-    private CannonManager cannonManager       = null;
+    private Resistance.CannonManager cannonManager       = null;
     [SerializeField]
     private BossCSVGenerator bossCSVGenerator = null;
 
@@ -62,13 +62,13 @@ public class BossManager : MonoBehaviour
 
             switch (cannonManager.IsShotEnergyType[i])
             {
-                case (int)EnergyCharge.ENERGY_TYPE.SMALL:
+                case (int)Resistance.EnergyCharge.ENERGY_TYPE.SMALL:
                     boss.GetComponent<BossDamage>().KnockbackTrueSmall();
                     break;
-                case (int)EnergyCharge.ENERGY_TYPE.MEDIUM:
+                case (int)Resistance.EnergyCharge.ENERGY_TYPE.MEDIUM:
                     boss.GetComponent<BossDamage>().KnockbackTrueMedium();
                     break;
-                case (int)EnergyCharge.ENERGY_TYPE.LARGE:
+                case (int)Resistance.EnergyCharge.ENERGY_TYPE.LARGE:
                     boss.GetComponent<BossDamage>().KnockbackTrueLarge();
                     break;
             }
