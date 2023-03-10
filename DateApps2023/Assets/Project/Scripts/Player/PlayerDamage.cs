@@ -188,10 +188,7 @@ public class PlayerDamage : MonoBehaviour
         knockCount = 0;
         stanBoxCol.enabled = false;
         capsuleCol.enabled = true;
-        if (hasDestroyStanEffect)
-        {
-            DeleteStanEffect();
-        }
+        DeleteStanEffect();
 
         playerMove.NotPlayerDamage();
         playerCarryDown.OffCarryDamage();
@@ -263,6 +260,7 @@ public class PlayerDamage : MonoBehaviour
 
         animationImage.SetBool("Carry", false);
         animationImage.SetBool("CarryMove", false);
+        animationImage.SetBool("Attack", false);
 
         playerMove.PlayerDamage();
         playerCarryDown.CarryCancel();

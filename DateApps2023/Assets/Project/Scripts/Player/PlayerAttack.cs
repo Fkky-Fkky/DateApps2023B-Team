@@ -28,7 +28,6 @@ public class PlayerAttack : MonoBehaviour
     private BoxCollider boxCol = null;
     private Animator animator = null;
     private AudioSource audioSource = null;
-    private GameObject instantPunch = null;
     private PlayerMove playerMove = null;
 
     private int myPlayerNo = 5;
@@ -88,12 +87,6 @@ public class PlayerAttack : MonoBehaviour
                 return;
 
             rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
-
-            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
-            if (!nav)
-                return;
-
-            nav.enabled = false;
         }
     }
 
@@ -108,7 +101,7 @@ public class PlayerAttack : MonoBehaviour
             boxCol.enabled = true;
             playerMove.StartAttack();
             Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-            instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
+            Instantiate(fistObject, fistPos.position, fistPos.rotation);
             audioSource.PlayOneShot(seManager.PlayerAttackSe);
 
             isAttack = true;
@@ -126,7 +119,6 @@ public class PlayerAttack : MonoBehaviour
             animator.SetBool("Attack", false);
             boxCol.enabled = false;
             playerMove.EndAttack();
-            instantPunch = null;
 
             isAttack = false;
             time = 0;
