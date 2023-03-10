@@ -58,6 +58,7 @@ namespace Resistance
                 base.RemoveList();
                 generateTimeList.RemoveAt(0);
             }
+            generateNum = 0;
             isGenerateEnergy = false;
         }
 
