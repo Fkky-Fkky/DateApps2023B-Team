@@ -13,15 +13,19 @@ public class BossCSVGenerator : MonoBehaviour
 
     [SerializeField]
     private GameObject nomalBoss = null;
+
     [SerializeField]
     private GameObject miniBoss  = null;
+
     [SerializeField]
     private GameObject bigBoss   = null;
 
     [SerializeField]
     private BossManager bossManager = null;
+
     [SerializeField]
-    private opretar opretar         = null;
+    private Operator myOperator     = null;
+
     [SerializeField]
     private BossCSV bossCSV         = null;
 
@@ -116,7 +120,7 @@ public class BossCSVGenerator : MonoBehaviour
         }
 
         //スタートフラグ
-        if (!opretar.Getstartflag())
+        if (!myOperator.GetStartFlag())
         {
             return;
         }
@@ -248,7 +252,7 @@ public class BossCSVGenerator : MonoBehaviour
         bossList.Add(boss.GetComponent<BossDamage>());
         bossMoveList.Add(boss.GetComponent<BossMove>());
         bossAttackList.Add(boss.GetComponent<BossAttack>());
-        if (opretar.Getstartflag())
+        if (myOperator.GetStartFlag())
         {
             bossCountOne++;
         }
