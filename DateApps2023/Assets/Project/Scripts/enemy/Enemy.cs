@@ -128,7 +128,9 @@ public class Enemy : MonoBehaviour
     private void End()
     {
         if (gameState == SUMMON.END)
+        {
             agent.destination = players[Random].transform.position;
+        }
     }
 
     /// <summary>
