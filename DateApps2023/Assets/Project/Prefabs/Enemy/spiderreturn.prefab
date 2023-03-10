@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2818820075863427155}
   m_Layer: 0
-  m_Name: spderreturn
+  m_Name: spiderreturn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
