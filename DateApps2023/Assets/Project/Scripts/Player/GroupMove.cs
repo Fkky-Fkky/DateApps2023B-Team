@@ -1,12 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// 運搬中のプレイヤー移動に関するクラス
-/// </summary>
-public class PlayerController : MonoBehaviour
+public class GroupMove : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 250.0f;
@@ -18,9 +17,6 @@ public class PlayerController : MonoBehaviour
     private float animationSpeed = 0.001f;
 
     [SerializeField]
-    private int carryTextOrderInLayer = 0;
-
-    [SerializeField]
     private float[] smallCarrySpeed = null;
 
     [SerializeField]
@@ -29,17 +25,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float[] largeCarrySpeed = null;
 
-
     private Rigidbody rb = null;
-    private TextMeshPro carryText = null;
-    private Outline outline = null;
+    private GroupManager groupManager = null;
 
     private int itemSizeCount = 0;
     private int playerCount = 0;
     private int needCarryCount = 0;
 
     private float mySpeed = 1.0f;
-    private float defaultMass = 1.0f;
     private float defaultCarryOverSpeed = 0.0f;
 
     private bool isControlFrag = false;
@@ -47,7 +40,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 groupVec = Vector3.zero;
 
     private const string runAnimSpeed = "RunSpeed";
-
 
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
@@ -58,7 +50,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.Sleep();
         rb.useGravity = false;
-        defaultMass = rb.mass;
+
+        groupManager = GetComponent<GroupManager>();
 
         defaultCarryOverSpeed = carryOverSpeed;
         itemSizeCount = 0;
@@ -68,7 +61,7 @@ public class PlayerController : MonoBehaviour
         groupVec = Vector3.zero;
 
         isControlFrag = false;
-        for(int i= 0;i<isGamepadFrag.Length;i++)
+        for (int i = 0; i < isGamepadFrag.Length; i++)
         {
             isGamepadFrag[i] = false;
         }
@@ -82,26 +75,7 @@ public class PlayerController : MonoBehaviour
         if (isControlFrag)
         {
             OnControllFrag();
-            CheckOnlyChild();
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            for (int i = 0; i < this.transform.childCount; i++)
-            {
-                if (transform.GetChild(i).gameObject.CompareTag("Player"))
-                {
-                    transform.GetChild(i).gameObject.GetComponent<PlayerDamage>().JudgeCapture(other.gameObject);
-                }
-            }
-        }
-
-        if (other.gameObject.CompareTag("BossAttack"))
-        {
-            DamageChild();
+            groupManager.CheckOnlyChild();
         }
     }
 
@@ -147,47 +121,12 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// グループ配下のオブジェクトが一つだけ残っていないかを判定する
-    /// 残っていた場合はタグで区別してオブジェクトの関数を呼び出す
-    /// </summary>
-    void CheckOnlyChild()
-    {
-        if (transform.childCount <= 1)
-        {
-            ItemOutGroup();
-            AllFragFalse();
-        }
-    }
-
-    /// <summary>
-    /// 運搬するアイテムの情報を取得する
-    /// アイテムがグループ配下に入る際に呼び出す
-    /// </summary>
-    /// <param name="itemSize">アイテムのサイズ(重さ)</param>
-    /// <param name="itemType">アイテムのタイプ　1=エネルギー物資,2=大砲</param>
-    /// <param name="gameObject">アイテムのゲームオブジェクト</param>
-    public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
-    {
-        itemSizeCount = itemSize;
-
-        carryText = gameObject.GetComponentInChildren<TextMeshPro>();
-        carryText.gameObject.GetComponent<MeshRenderer>().sortingOrder = carryTextOrderInLayer;
-        outline = gameObject.GetComponentInChildren<Outline>();
-        outline.enabled = false;
-        if (itemType == 2)
-        {
-            rb.mass *= 10;
-        }
-        CheckPlayerCount();
-    }
-
-    /// <summary>
     /// 運搬を開始するプレイヤーの情報を取得する
     /// プレイヤーがグループ配下に入る際に呼び出す
     /// </summary>
     /// <param name="childNo">入るプレイヤーの番号</param>
     /// <param name="gameObject">入るプレイヤーのゲームオブジェクト</param>
-    public void GetMyNo(int childNo,GameObject gameObject)
+    public void GetMyNo(int childNo, GameObject gameObject)
     {
         ChildPlayer[childNo] = gameObject;
         AnimationImage[childNo] = gameObject.GetComponent<Animator>();
@@ -196,43 +135,6 @@ public class PlayerController : MonoBehaviour
         playerCount++;
         isControlFrag = true;
         CheckPlayerCount();
-    }
-
-    /// <summary>
-    /// グループがグループ配下のオブジェクトを離す際に呼び出す
-    /// </summary>
-    public void ReleaseChild()
-    {
-        SetNullPlayer();
-        AllFragFalse();
-    }
-
-    /// <summary>
-    /// 運搬中のグループがダメージを受けた際に呼び出す
-    /// グループ配下のオブジェクトを離す
-    /// </summary>
-    private void DamageChild()
-    {
-        SetNullPlayer();
-        ItemOutGroup();
-        AllFragFalse();
-    }
-
-    /// <summary>
-    /// グループ配下のプレイヤーのアニメーションを止める
-    /// </summary>
-    void SetNullPlayer()
-    {
-        for (int i = 0; i < ChildPlayer.Length; i++)
-        {
-            if (ChildPlayer[i] != null || AnimationImage[i] != null)
-            {
-                AnimationImage[i].SetBool("CarryMove", false);
-
-                ChildPlayer[i] = null;
-                AnimationImage[i] = null;
-            }
-        }
     }
 
     /// <summary>
@@ -249,77 +151,18 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// グループ配下のアイテムのグループからぬける関数を呼び出す
+    /// グループ配下のプレイヤーのアニメーションを止める
     /// </summary>
-    void ItemOutGroup()
+    public void SetNullPlayer()
     {
-        if(transform.childCount >= 1)
+        for (int i = 0; i < ChildPlayer.Length; i++)
         {
-            for (int i = 0; i < this.transform.childCount; i++)
+            if (ChildPlayer[i] != null || AnimationImage[i] != null)
             {
-                if (transform.GetChild(i).gameObject.CompareTag("item"))
-                {
-                    transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
-                }
-                else if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
-                {
-                    transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
-                }
-            }
-        }
-    }
+                AnimationImage[i].SetBool("CarryMove", false);
 
-    /// <summary>
-    /// 運搬中のグループが運搬を終了する際に呼び出す
-    /// </summary>
-    void AllFragFalse()
-    {
-        for(int i = 0; i < isGamepadFrag.Length; i++)
-        {
-            isGamepadFrag[i] = false;
-        }
-        isControlFrag = false;
-        playerCount = 0;
-        outline.enabled = true;
-        outline = null;
-        CheckPlayerCount();
-        carryText.text = null;
-        carryText = null;
-        rb.mass = defaultMass;
-        groupVec = Vector3.zero;
-        rb.velocity = groupVec;
-    }
-
-    /// <summary>
-    /// 運搬中のテキスト表示に関する処理を行う
-    /// </summary>
-    void CheckCarryText()
-    {
-        carryText.text = playerCount.ToString("0") + "/" + needCarryCount.ToString("0");
-        if (playerCount >= needCarryCount)
-        {
-            carryText.color = Color.white;
-            for (int i = 0; i < ChildPlayer.Length; i++)
-            {
-                if (ChildPlayer[i] != null)
-                {
-                    ChildPlayer[i].GetComponent<PlayerMove>().EndCarryEmote();
-                }
-            }
-        }
-        else if (playerCount <= 0)
-        {
-            carryText.text = null;
-        }
-        else
-        {
-            carryText.color = Color.red;
-            for (int i = 0; i < ChildPlayer.Length; i++)
-            {
-                if (ChildPlayer[i] != null)
-                {
-                    ChildPlayer[i].GetComponent<PlayerMove>().StartCarryEmote();
-                }
+                ChildPlayer[i] = null;
+                AnimationImage[i] = null;
             }
         }
     }
@@ -338,7 +181,7 @@ public class PlayerController : MonoBehaviour
             case 1:
                 needCarryCount = 2;
                 mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
-                break; 
+                break;
             case 2:
                 needCarryCount = 4;
                 mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
@@ -364,9 +207,9 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 運搬中のプレイヤーの人数を確認する   
     /// </summary>
-    void CheckPlayerCount()
+    public void CheckPlayerCount()
     {
-        if(playerCount < 0)
+        if (playerCount < 0)
         {
             playerCount = 0;
         }
@@ -377,10 +220,28 @@ public class PlayerController : MonoBehaviour
 
         CheckMySpeed();
         CheckCarryOver();
+        groupManager.CheckCarryText(playerCount, needCarryCount);
+    }
 
-        if (carryText != null)
+    /// <summary>
+    /// ゲームパッドからの入力を止める時に呼び出す
+    /// </summary>
+    public void FalseGamepad()
+    {
+        for (int i = 0; i < isGamepadFrag.Length; i++)
         {
-            CheckCarryText();
+            isGamepadFrag[i] = false;
         }
+        isControlFrag = false;
+        playerCount = 0;
+    }
+
+    /// <summary>
+    /// アイテムの重さを設定する際に呼び出す
+    /// </summary>
+    /// <param name="itemSize">アイテムの重さ</param>
+    public void SetItenSizeCount(int itemSize)
+    {
+        itemSizeCount = itemSize;
     }
 }

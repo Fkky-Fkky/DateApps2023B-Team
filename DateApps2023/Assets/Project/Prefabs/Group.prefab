@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6544279265657264574}
   - component: {fileID: 6544279265657264513}
-  - component: {fileID: 6544279265657264575}
+  - component: {fileID: 7001849335438779558}
+  - component: {fileID: 3438604394855183967}
   m_Layer: 8
   m_Name: Group
   m_TagString: Group1
@@ -49,7 +50,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &6544279265657264575
+--- !u!114 &7001849335438779558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,24 +59,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6544279265657264512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d9d963d5da4484494b8098025642d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f1e0c6c6be12d844b1d59b429105ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 50
-  ChildPlayer:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  AnimationImage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  animationSpeed: 0.001
-  HasItem: 0
   carryOverSpeed: 0.1
-  carryTextOrderInLayer: 0
+  animationSpeed: 0.01
   smallCarrySpeed:
   - 0
   - 1
@@ -94,3 +83,26 @@ MonoBehaviour:
   - 0.5
   - 0.75
   - 1.5
+  ChildPlayer:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  AnimationImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &3438604394855183967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6544279265657264512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5bbeeeb76a4f54f86629bdfc90f573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carryTextOrderInLayer: 0
