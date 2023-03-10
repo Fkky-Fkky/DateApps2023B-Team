@@ -132,8 +132,8 @@ public class Operator : MonoBehaviour
             BossType();
 
             BossMove();
-        }
-        //オペレーターのテキストクールタイム
+        } 
+
         if (!operatorTextFlag)
         {
             time += Time.deltaTime;

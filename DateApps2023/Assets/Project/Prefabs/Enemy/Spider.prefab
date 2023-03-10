@@ -1172,7 +1172,7 @@ GameObject:
   - component: {fileID: 8241050366122842850}
   - component: {fileID: 8241050366122842848}
   m_Layer: 0
-  m_Name: Spider 1
+  m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1251,7 +1251,7 @@ MonoBehaviour:
   centerPoint: {fileID: 0}
   climbingSpeed: 3
   enemyHp: 3
-  rnd: 0
+  random: 0
 --- !u!136 &4194858472674933786
 CapsuleCollider:
   m_ObjectHideFlags: 0

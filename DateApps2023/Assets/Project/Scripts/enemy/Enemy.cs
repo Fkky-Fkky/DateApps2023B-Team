@@ -28,6 +28,10 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent agent = null;
 
+
+    /// <summary>
+    /// エネミーが登場してからプレイヤーを負い始めるまでのステート
+    /// </summary>
     enum SUMMON
     {
         CLIMB,
@@ -40,9 +44,9 @@ public class Enemy : MonoBehaviour
     }
     SUMMON gameState = SUMMON.CLIMB;
 
-    private bool jumpFlag = false;
+    private bool isJumpFlag = false;
 
-    public int rnd;
+    public int random = 0;
 
     private int destroyPosition = -25;
 
@@ -56,13 +60,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        //中央を向く
-        Vector3 vec = centerPoint.transform.position - this.transform.position;
-        vec.y = 0f;
-        Quaternion quaternion = Quaternion.LookRotation(vec);
-        this.transform.rotation = quaternion;
-        this.transform.Rotate(-90, 0f, 0f);
-
+        CenterRotate();
+       
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
 
@@ -71,7 +70,16 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent.enabled = false;
 
-        rnd = Random.Range(0, 3);
+        random = Random.Range(0, 3);
+    }
+
+    private void CenterRotate()
+    {
+        Vector3 vec = centerPoint.transform.position - this.transform.position;
+        vec.y = 0f;
+        Quaternion quaternion = Quaternion.LookRotation(vec);
+        this.transform.rotation = quaternion;
+        this.transform.Rotate(-90, 0f, 0f);
     }
 
     void Update()
@@ -97,7 +105,7 @@ public class Enemy : MonoBehaviour
     private void End()
     {
         if (gameState == SUMMON.END)
-            agent.destination = players[rnd].transform.position;
+            agent.destination = players[random].transform.position;
     }
 
     /// <summary>
@@ -122,7 +130,7 @@ public class Enemy : MonoBehaviour
         if (gameState == SUMMON.CLIMB)
         {
             if (pos.y >= climbingPosition)
-                jumpFlag = true;
+                isJumpFlag = true;
 
             animator.SetTrigger("work");
             transform.position += new Vector3(0, climbingSpeed, 0) * Time.deltaTime;
@@ -135,7 +143,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void OnJumpFlag(Vector3 pos)
     {
-        if (jumpFlag)
+        if (isJumpFlag)
         {
             if (pos.x > 0)
             {
@@ -151,7 +159,7 @@ public class Enemy : MonoBehaviour
 
             rb.useGravity = true;
             gameState = SUMMON.JUMP;
-            jumpFlag = false;
+            isJumpFlag = false;
         }
     }
 
@@ -176,7 +184,7 @@ public class Enemy : MonoBehaviour
         }
     }
     /// <summary>
-    /// 着地の関数
+    /// 着地時の関数
     /// </summary>
     private void Lamding()
     {
@@ -192,7 +200,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void OnAttackCollider()
     {
-        playerDamage[rnd].CallDamage();
+        playerDamage[random].CallDamage();
     }
 
     /// <summary>
@@ -205,7 +213,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionStay(Collision collision)//Trigger
     {
-        if (collision.gameObject == players[rnd])
+        if (collision.gameObject == players[random])
         {
             agent.enabled = false;
             animator.SetTrigger("attack");
