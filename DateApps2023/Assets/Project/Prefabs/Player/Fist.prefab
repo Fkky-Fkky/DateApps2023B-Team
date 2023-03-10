@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7179200389508621577}
   - component: {fileID: 4875884507748694104}
   m_Layer: 0
-  m_Name: kobusi
+  m_Name: Fist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
