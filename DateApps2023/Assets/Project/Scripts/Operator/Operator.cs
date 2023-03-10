@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Operator : MonoBehaviour
 {
-    [SerializeField] private Op_text optext = null;
-
     [SerializeField] private EnergyGenerator energy = null;
 
     [SerializeField] private CannonManager cannon = null;
@@ -19,7 +17,7 @@ public class Operator : MonoBehaviour
     /// <summary>
     /// チュートリアルとゲームの状態のステート
     /// </summary>
-    enum GAME_STATE
+    private enum GAME_STATE
     {
         TUTORIAL,
 
@@ -28,7 +26,7 @@ public class Operator : MonoBehaviour
 
     GAME_STATE gameState = GAME_STATE.TUTORIAL;
 
-    Animator animator = null;
+    private Animator animator = null;
 
     private bool gameStartFlag = false;
 
