@@ -16,7 +16,6 @@ public class CarryCannon : MonoBehaviour
     ItemSize myItemSize = ItemSize.Small;
 
     private BoxCollider boxCol = null;
-    //private PlayerController playercontroller;
     private GroupManager groupManager;
     private GameObject[] myGrabPoint = null;
     private PlayerCarryDown[] playerCarryDowns = null;
@@ -27,6 +26,9 @@ public class CarryCannon : MonoBehaviour
 
     public int GroupNumber = 1;
 
+    /// <summary>
+    /// ƒAƒCƒeƒ€‚Ì‘å‚«‚³
+    /// </summary>
     enum ItemSize
     {
         Small,
@@ -38,7 +40,6 @@ public class CarryCannon : MonoBehaviour
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
-        //playercontroller = null;
         groupManager = null;
         Array.Resize(ref myGrabPoint, 0);
         Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
@@ -72,7 +73,6 @@ public class CarryCannon : MonoBehaviour
         while (!isGroup)
         {
             GameObject group = GameObject.FindWithTag("Group" + GroupNumber);
-            //playercontroller = group.GetComponent<PlayerController>();
             groupManager = group.GetComponent<GroupManager>();
 
             if (group.transform.childCount <= 0)
@@ -83,8 +83,6 @@ public class CarryCannon : MonoBehaviour
                     this.gameObject.transform.position.z
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
-                //playercontroller = group.GetComponent<PlayerController>();
-                //playercontroller.GetItemSize(myItemSizeCount, 2, this.gameObject);
                 groupManager = group.GetComponent<GroupManager>();
                 groupManager.GetItemSize(myItemSizeCount, 2, this.gameObject);
 
@@ -98,7 +96,6 @@ public class CarryCannon : MonoBehaviour
                 {
                     GroupNumber = 1;
                 }
-                //playercontroller = null;
                 groupManager = null;
             }
         }

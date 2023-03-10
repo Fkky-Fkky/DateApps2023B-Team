@@ -16,7 +16,6 @@ public class CarryEnergy : MonoBehaviour
     ItemSize myItemSize = ItemSize.Small;
 
     private BoxCollider boxCol = null;
-    //private PlayerController playercontroller = null;
     private GroupManager groupManager = null;
     private GameObject[] myGrabPoint = null;
     private PlayerCarryDown[] playerCarryDowns = null;
@@ -26,6 +25,9 @@ public class CarryEnergy : MonoBehaviour
 
     public int GroupNumber = 1;
 
+    /// <summary>
+    /// ƒAƒCƒeƒ€‚Ì‘å‚«‚³
+    /// </summary>
     public enum ItemSize
     {
         Small,
@@ -43,7 +45,6 @@ public class CarryEnergy : MonoBehaviour
     void Start()
     {
         boxCol = GetComponent<BoxCollider>();
-        //playercontroller = null;
         groupManager = null;
         Array.Resize(ref myGrabPoint, 0);
         Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
@@ -71,7 +72,6 @@ public class CarryEnergy : MonoBehaviour
         while (!isGroup)
         {
             GameObject group = GameObject.FindWithTag("Group" + GroupNumber);
-            //playercontroller = group.GetComponent<PlayerController>();
             groupManager = group.GetComponent<GroupManager>();
 
             if (group.transform.childCount <= 0)
@@ -82,8 +82,6 @@ public class CarryEnergy : MonoBehaviour
                     this.gameObject.transform.position.z
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
-                //playercontroller = group.GetComponent<PlayerController>();
-                //playercontroller.GetItemSize(MyItemSizeCount, 1, this.gameObject);
                 groupManager = group.GetComponent<GroupManager>();
                 groupManager.GetItemSize(MyItemSizeCount, 1, this.gameObject);
                 
@@ -97,7 +95,6 @@ public class CarryEnergy : MonoBehaviour
                 {
                     GroupNumber = 1;
                 }
-                //playercontroller = null;
                 groupManager = null;
             }
         }
@@ -127,7 +124,6 @@ public class CarryEnergy : MonoBehaviour
     /// </summary>
     public void DestroyMe()
     {
-        //playercontroller.ReleaseChild();
         groupManager.ReleaseChild();
 
         DoCarryCancel();
