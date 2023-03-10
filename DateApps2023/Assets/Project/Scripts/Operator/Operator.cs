@@ -1,9 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// オペレーターの管理
+/// </summary>
+
 public class Operator : MonoBehaviour
 {
-    [SerializeField] private Op_text optext = null;
-
     [SerializeField] private EnergyGenerator energy = null;
 
     [SerializeField] private CannonManager cannon = null;
@@ -12,7 +14,10 @@ public class Operator : MonoBehaviour
 
     [SerializeField] private BossManager boss = null;
 
-    enum GAME_STATE
+    /// <summary>
+    /// チュートリアルとゲームの状態のステート
+    /// </summary>
+    private enum GAME_STATE
     {
         TUTORIAL,
 
@@ -21,9 +26,9 @@ public class Operator : MonoBehaviour
 
     GAME_STATE gameState = GAME_STATE.TUTORIAL;
 
-    Animator animator = null;
+    private Animator animator = null;
 
-    private bool startFlag = false;
+    private bool gameStartFlag = false;
 
     private bool operatorTextFlag = false;
 
@@ -48,7 +53,7 @@ public class Operator : MonoBehaviour
             Game();
         }
     }
-    #region オペレーターチュートリアル
+
     /// <summary>
     /// チュートリアルで呼ぶアニメーターのトリガー
     /// </summary>
@@ -94,14 +99,14 @@ public class Operator : MonoBehaviour
     {
         animator.SetTrigger("tutorial_end");
         gameState = GAME_STATE.GAME;
-        startFlag = true;
+        gameStartFlag = true;
     }
     /// <summary>
     /// チュートリアル終了のフラグの受け渡し
     /// </summary>
     public bool GetStartFlag()
     {
-        return startFlag;
+        return gameStartFlag;
     }
     /// <summary>
     /// チュートリアル中の1回目のエネルギー物資生成
@@ -117,9 +122,7 @@ public class Operator : MonoBehaviour
     {
          energy.GenerateEnergy();
     }
-    #endregion
 
-    #region ゲーム中のオペレーターのセリフ
     /// <summary>
     /// ゲーム中のオペレーターの動き
     /// </summary>
@@ -130,8 +133,8 @@ public class Operator : MonoBehaviour
             BossType();
 
             BossMove();
-        }
-        //オペレーターのテキストクールタイム
+        } 
+
         if (!operatorTextFlag)
         {
             time += Time.deltaTime;
@@ -143,7 +146,6 @@ public class Operator : MonoBehaviour
             time = RESET;
         }
     }
-    #region ボスの情報受け取り
 
     /// <summary>
     /// ボスの種類の情報受け取り
@@ -193,9 +195,8 @@ public class Operator : MonoBehaviour
             operatorTextFlag = false;
         }
     }
-    #endregion
 
-    #region アニメーターのトリガー呼び出し
+
    
     /// <summary>
     ///通常ボス出現時のアニメーター呼び出し 
@@ -239,6 +240,4 @@ public class Operator : MonoBehaviour
     {
         animator.SetTrigger("charge");
     }
-    #endregion
 }
-#endregion

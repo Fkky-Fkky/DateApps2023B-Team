@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5925748087450168991}
   - component: {fileID: 5925748087450168984}
   m_Layer: 0
-  m_Name: enemy_j
+  m_Name: EnemyGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,4 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeA: {fileID: 0}
   rangeB: {fileID: 0}
+  rangeC: {fileID: 0}
+  rangeD: {fileID: 0}
+  spiderSpoanTime: 9999
   spider: {fileID: 0}
