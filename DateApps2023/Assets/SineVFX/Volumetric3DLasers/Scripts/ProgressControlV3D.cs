@@ -37,7 +37,7 @@ public class ProgressControlV3D : MonoBehaviour {
     private EffectType effectType = EffectType.Boss;
 
     [SerializeField]
-    private Resistance.BossAttack bossAttack;
+    private BossAttack bossAttack;
 
     [SerializeField]
     private Resistance.CannonShot cannonShot;
