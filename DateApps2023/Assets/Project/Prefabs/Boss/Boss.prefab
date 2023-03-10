@@ -772,7 +772,6 @@ GameObject:
   - component: {fileID: 4632261809333114858}
   - component: {fileID: 9160722335523510000}
   - component: {fileID: 6859374911819928823}
-  - component: {fileID: 6803953396093080576}
   - component: {fileID: 2131339584734462358}
   m_Layer: 0
   m_Name: Boss
@@ -964,22 +963,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: {fileID: 1697093568606495979}
---- !u!114 &6803953396093080576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d2cd8ca2c8c604b82a43bbf0a0d1c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningDisplay: {fileID: 3711339312594873015}
-  gameOverWarningDisplay: {fileID: 537261317771004103}
-  warningRenderer: {fileID: 3047338309723908256}
-  gameOverDisplay: {fileID: 2215697549118671568}
 --- !u!82 &2131339584734462358
 AudioSource:
   m_ObjectHideFlags: 0

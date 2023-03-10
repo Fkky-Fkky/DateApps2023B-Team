@@ -29,17 +29,12 @@ public class BossCSVGenerator : MonoBehaviour
     [SerializeField]
     private BossCSV bossCSV         = null;
 
-    private bool isCenterLine = false;
-    private bool isRightLine  = false;
-    private bool isLeftLine   = false;
-
     private int bossCountOne = 1;
     private int messageCount = 0;
     private int bossType     = 0;
     private int bossLane     = 0;
     private int bossHpDate   = 0;
 
-    private float centerPosX         = 0.0f;
     private float leftPosX           = 0.0f;
     private float rightPosX          = 0.0f;
     private float time               = 0.0f;
@@ -84,6 +79,7 @@ public class BossCSVGenerator : MonoBehaviour
     const int SECOND_BOSS_LANE    = 3;
     const int TUTORIAL_BOSS_HP    = 3;
     const int TUTORIAL_BOSS_SPEED = 3;
+    const float CENTER_POS_X            =     0.0f;
     const float TUTORIAL_BOSS_POS_Z     =   345.0f;
     const float TUTORIAL_ATTACKINTERVAL = 10000.0f;
     const float FALL_POSITION           =   500.0f;
@@ -219,24 +215,21 @@ public class BossCSVGenerator : MonoBehaviour
         switch (bossLane)
         {
             case 1:
-                if (!isLeftLine)
+                if (!bossManager.IsLeftLine)
                 {
                     BossAppearanceDate(leftPosX);
-                    isLeftLine = true;
                 }
                 break;
             case 2:
-                if (!isCenterLine)
+                if (!bossManager.IsCenterLine)
                 {
-                    BossAppearanceDate(centerPosX);
-                    isCenterLine = true;
+                    BossAppearanceDate(CENTER_POS_X);
                 }
                 break;
             case 3:
-                if (!isRightLine)
+                if (!bossManager.IsRightLine)
                 {
                     BossAppearanceDate(rightPosX);
-                    isRightLine = true;
                 }
                 break;
         }
@@ -281,31 +274,6 @@ public class BossCSVGenerator : MonoBehaviour
         }
     }
 
-    public void IsCenterLineFalse()
-    {
-        isCenterLine = false;
-    }
-
-    public void IsCenterLineTrue()
-    {
-        isCenterLine = true;
-    }
-    public void IsLeftLineFalse()
-    {
-        isLeftLine = false;
-    }
-    public void IsLeftLineTrue()
-    {
-        isLeftLine = true;
-    }
-    public void IsRightLineFalse()
-    {
-        isRightLine = false;
-    }
-    public void IsRightLineTrue()
-    {
-        isRightLine = true;
-    }
     /// <summary>
     /// çUåÇÇ∑ÇÈéûä‘ä‘äuÇï‘Ç∑
     /// </summary>
@@ -367,5 +335,4 @@ public class BossCSVGenerator : MonoBehaviour
 
         BossGanarater();
     }
-
 }

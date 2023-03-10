@@ -14,6 +14,27 @@ public class BossManager : MonoBehaviour
     private GameObject leftBoss   = null;
     private GameObject rightBoss  = null;
 
+    /// <summary>
+    /// 中央のレーンにボスがいるかのフラグ
+    /// </summary>
+    public bool IsCenterLine { get; private set; }
+    /// <summary>
+    /// 右側のレーンにボスがいるかのフラグ
+    /// </summary>
+    public bool IsRightLine { get; private set; }
+    /// <summary>
+    /// 左側のレーンにボスがいるかのフラグ
+    /// </summary>
+    public bool IsLeftLine { get; private set; }
+
+
+    private void Start()
+    {
+        IsCenterLine = false;
+        IsRightLine  = false;
+        IsLeftLine   = false;
+    }
+
     void Update()
     {
         BossDamage();
@@ -83,31 +104,31 @@ public class BossManager : MonoBehaviour
         centerBoss = GameObject.FindGameObjectWithTag("Center");
         if (centerBoss == null)
         {
-            bossCSVGenerator.IsCenterLineFalse();
+            IsCenterLine = false;
         }
         else
         {
-            bossCSVGenerator.IsCenterLineTrue();
+            IsCenterLine= true;
         }
 
         leftBoss = GameObject.FindGameObjectWithTag("Left");
         if (leftBoss == null)
         {
-            bossCSVGenerator.IsLeftLineFalse();
+            IsLeftLine = false;
         }
         else
         {
-            bossCSVGenerator.IsLeftLineTrue();
+            IsLeftLine= true;
         }
 
         rightBoss = GameObject.FindGameObjectWithTag("Right");
         if (rightBoss == null)
         {
-            bossCSVGenerator.IsRightLineFalse();
+            IsRightLine= false;
         }
         else
         {
-            bossCSVGenerator.IsRightLineTrue();
+            IsRightLine= true;
         }
     }
     public bool IsBossKill()

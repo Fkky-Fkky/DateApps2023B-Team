@@ -926,7 +926,6 @@ GameObject:
   - component: {fileID: 4240107976694890436}
   - component: {fileID: 5173374277789823423}
   - component: {fileID: 5732676804227016846}
-  - component: {fileID: 4000926406330560985}
   - component: {fileID: 6624093822019089606}
   m_Layer: 0
   m_Name: BigBoss
@@ -1122,22 +1121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: {fileID: 1697093568606495979}
---- !u!114 &4000926406330560985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d2cd8ca2c8c604b82a43bbf0a0d1c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningDisplay: {fileID: 2259809880304689657}
-  gameOverWarningDisplay: {fileID: 6965900654096559664}
-  warningRenderer: {fileID: 474976241827062766}
-  gameOverDisplay: {fileID: 8746228795527572519}
 --- !u!82 &6624093822019089606
 AudioSource:
   m_ObjectHideFlags: 0

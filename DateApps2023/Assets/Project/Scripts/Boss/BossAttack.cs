@@ -28,9 +28,9 @@ public class BossAttack : MonoBehaviour
     private AudioClip beamSE = null;
 
     [SerializeField]
-    private BossMove bossMove     = null;
+    private BossMove bossMove       = null;
     [SerializeField]
-    private BossDamage bossDamage = null;
+    private BossDamage bossDamage   = null;
 
     private int effectStop = 0;
     private int areaCount  = 0;
@@ -65,10 +65,8 @@ public class BossAttack : MonoBehaviour
     /// </summary>
     public bool IsAttackAll { get; private set; }
 
-
     const int AREA_COUNT_MAX = 1;
     const int SE_COUNT_MAX   = 1;
-
     const float CENTER_TARGET         =   0.0f;
     const float RIGHT_TARGET          =   0.1f;
     const float LEFT_TARGET           =  -0.1f;
