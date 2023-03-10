@@ -138,7 +138,8 @@ public class PlayerMove : MonoBehaviour
     {
         GameObject group = GameObject.Find("Group" + groupNo);
         gameObject.transform.SetParent(group.gameObject.transform);
-        group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
+        //group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
+        group.GetComponent<GroupMove>().GetMyNo(playerNo, this.gameObject);
 
         isGroup = true;
         attack.OnIsCarry();
@@ -160,7 +161,8 @@ public class PlayerMove : MonoBehaviour
         if (isGroup)
         {
             carryEmote.CallEndCarryEmote();
-            gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
+            //gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
+            gameObject.transform.parent.GetComponent<GroupMove>().PlayerOutGroup(playerNo);
             gameObject.transform.parent = null;
             isEnterItem = false;
             isGroup = false;
