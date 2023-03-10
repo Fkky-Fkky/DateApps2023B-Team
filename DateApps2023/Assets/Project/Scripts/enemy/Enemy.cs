@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     private Animator animator = null;
 
-    private Rigidbody rigidbody = null;
+    private Rigidbody myRigidbody = null;
 
     private NavMeshAgent agent = null;
 
@@ -61,8 +61,8 @@ public class Enemy : MonoBehaviour
     {
         CenterRotate();
        
-        rigidbody = this.GetComponent<Rigidbody>();
-        rigidbody.useGravity = false;
+        myRigidbody = this.GetComponent<Rigidbody>();
+        myRigidbody.useGravity = false;
 
         agent = this.GetComponent<NavMeshAgent>();
 
@@ -148,16 +148,16 @@ public class Enemy : MonoBehaviour
             if (pos.x > 0)
             {
                 Vector3 force = new Vector3(-5.0f, jumpPower, 0.0f);
-                rigidbody.AddForce(force, ForceMode.Impulse);
+                myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
             if (pos.x < 0)
             {
                 Vector3 force = new Vector3(5.0f, jumpPower, 0.0f);
-                rigidbody.AddForce(force, ForceMode.Impulse);
+                myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
-            rigidbody.useGravity = true;
+            myRigidbody.useGravity = true;
             gameState = SUMMON.JUMP;
             isJumpFlag = false;
         }
@@ -177,7 +177,7 @@ public class Enemy : MonoBehaviour
 
             if (pos.y <= jumpStatePosition)
             {
-                rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                myRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                 gameState = SUMMON.LAMDING;
                 animator.SetTrigger("idle");
             }

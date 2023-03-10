@@ -29,9 +29,9 @@ public class Operator : MonoBehaviour
 
     private bool gameStartFlag = false;
 
-    private bool operatorTextFlag = false;
+    private bool isOperatorTextCooltime = false;
 
-    private  float time = 0;
+    private  float coolTime = 0;
     
     private const float OPERATOR_TEXT_COOLTIME = 2;
 
@@ -127,22 +127,22 @@ public class Operator : MonoBehaviour
     /// </summary>
     private void Game()
     {
-        if (operatorTextFlag)
+        if (isOperatorTextCooltime)
         {
             BossType();
 
             BossMove();
         } 
 
-        if (!operatorTextFlag)
+        if (!isOperatorTextCooltime)
         {
-            time += Time.deltaTime;
+            coolTime += Time.deltaTime;
         }
 
-        if (time >= OPERATOR_TEXT_COOLTIME)
+        if (coolTime >= OPERATOR_TEXT_COOLTIME)
         {
-            operatorTextFlag = true;
-            time = RESET;
+            isOperatorTextCooltime = true;
+            coolTime = RESET;
         }
     }
 
@@ -155,17 +155,17 @@ public class Operator : MonoBehaviour
         {
             case 1:
                 SummonBoss();
-                operatorTextFlag = false;
+                isOperatorTextCooltime = false;
                 break;
 
             case 2:
                 SummonMiniBoss();
-                operatorTextFlag = false;
+                isOperatorTextCooltime = false;
                 break;
 
             case 3:
                 SummonBigBoss();
-                operatorTextFlag = false;
+                isOperatorTextCooltime = false;
                 break;
         }
     }
@@ -179,19 +179,19 @@ public class Operator : MonoBehaviour
         if (boss.Charge())
         {
             BossAttackCharge();
-            operatorTextFlag = false;
+            isOperatorTextCooltime = false;
         }
         //ボス接近時
         if (boss.Danger())
         {
             Approach();
-            operatorTextFlag = false;
+            isOperatorTextCooltime = false;
         }
         //ボス討伐
         if (boss.IsBossKill())
         {
             BossKill();
-            operatorTextFlag = false;
+            isOperatorTextCooltime = false;
         }
     }
 
