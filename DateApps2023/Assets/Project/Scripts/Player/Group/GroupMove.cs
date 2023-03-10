@@ -1,29 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// ‰^”À’†‚ÌˆÚ“®‚ÉŠÖ‚·‚éƒNƒ‰ƒX
+/// </summary>
 public class GroupMove : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 250.0f;
-
-    [SerializeField]
-    private float carryOverSpeed = 0.1f;
-
-    [SerializeField]
-    private float animationSpeed = 0.001f;
-
-    [SerializeField]
-    private float[] smallCarrySpeed = null;
-
-    [SerializeField]
-    private float[] midiumCarrySpeed = null;
-
-    [SerializeField]
-    private float[] largeCarrySpeed = null;
+    private CarrySpeedData carrySpeedData;
 
     private Rigidbody rb = null;
     private GroupManager groupManager = null;
@@ -31,6 +16,13 @@ public class GroupMove : MonoBehaviour
     private int itemSizeCount = 0;
     private int playerCount = 0;
     private int needCarryCount = 0;
+
+    private float moveSpeed = 250.0f;
+    private float carryOverSpeed = 0.1f;
+    private float animationSpeed = 0.001f;
+    private float[] smallCarrySpeed = null;
+    private float[] midiumCarrySpeed = null;
+    private float[] largeCarrySpeed = null;
 
     private float mySpeed = 1.0f;
     private float defaultCarryOverSpeed = 0.0f;
@@ -57,6 +49,14 @@ public class GroupMove : MonoBehaviour
         itemSizeCount = 0;
         playerCount = 0;
         needCarryCount = 0;
+
+        moveSpeed = carrySpeedData.MoveSpeed;
+        carryOverSpeed = carrySpeedData.CarryOverSpeed;
+        animationSpeed = carrySpeedData.AnimationSpeed;
+        smallCarrySpeed = carrySpeedData.SmallCarrySpeed;
+        midiumCarrySpeed = carrySpeedData.MidiumCarrySpeed;
+        largeCarrySpeed = carrySpeedData.LargeCarrySpeed;
+
         mySpeed = 1.0f;
         groupVec = Vector3.zero;
 
@@ -110,8 +110,8 @@ public class GroupMove : MonoBehaviour
                     before[i] = Vector2.zero;
                 }
 
-                float walkSpeed = mySpeed * animationSpeed;
-                AnimationImage[i].SetFloat(runAnimSpeed, walkSpeed);
+                float runSpeed = mySpeed * animationSpeed;
+                AnimationImage[i].SetFloat(runAnimSpeed, runSpeed);
             }
         }
 

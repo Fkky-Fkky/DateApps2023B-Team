@@ -9,22 +9,16 @@ public class EmoteData : ScriptableObject
 {
     [SerializeField]
     private float startTime = 0.4f;
-
     [SerializeField]
     private float endTime = 0.4f;
-
     [SerializeField]
     private float moveY = 0.2f;
-
     [SerializeField]
     private float smallTime = 0.4f;
-
     [SerializeField]
     private float bigTime = 0.4f;
-
     [SerializeField]
     private float sizeChange = 0.2f;
-
     [SerializeField]
     private float startSizeChange = 0.2f;
 

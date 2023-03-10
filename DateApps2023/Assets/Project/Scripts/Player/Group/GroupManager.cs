@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// 運搬中のグループ配下のオブジェクト処理に関するクラス
+/// </summary>
 public class GroupManager : MonoBehaviour
 {
     [SerializeField]
