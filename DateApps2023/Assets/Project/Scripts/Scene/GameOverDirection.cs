@@ -1,68 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
+// 担当者：吹上純平
 using UnityEngine;
 
-public class GameOverDirection : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private GameObject explosionEffect = null;
-
-    [SerializeField]
-    private Transform explosionPointA = null;
-    
-    [SerializeField]
-    private Transform explosionPointB = null;
-
-    private int generateCount = 0;
-    private float generateTime = 0.0f;
-    private bool isFirstGenerate = false;
-    private GameManager gameManager = null;
-
-    const int MAX_GENERATE_COUNT = 15;
-    const float MAX_GENERATE_TIME = 0.5f;
-    
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ゲームオーバー時の爆発処理
+    /// </summary>
+    public class GameOverDirection : MonoBehaviour
     {
-        generateCount = 0;
-        generateTime = 0.0f;
-        isFirstGenerate = false;
-        gameManager = GetComponentInParent<GameManager>();
-    }
+        [SerializeField]
+        private ParticleSystem[] explosionEffects = new ParticleSystem[5];
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!gameManager.IsGameOver)
+        private int effectIndex = 0;
+        private float generateTime = 0.0f;
+        private GameManager gameManager = null;
+
+        const float MAX_GENERATE_TIME = 0.5f;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            return;
+            generateTime = 0.0f;
+            gameManager  = GetComponentInParent<GameManager>();
         }
 
-        if(generateCount > MAX_GENERATE_COUNT)
+        // Update is called once per frame
+        void Update()
         {
-            return;
+            if (!gameManager.IsGameOver)
+            {
+                return;
+            }
+
+            generateTime -= Time.deltaTime;
+            if (generateTime <= 0.0f)
+            {
+                PlayExplosionEffect();
+                generateTime = MAX_GENERATE_TIME;
+            }
         }
 
-        generateTime -= Time.deltaTime;
-
-        if(generateTime <= 0.0f)
+        /// <summary>
+        /// 爆発エフェクトを再生する
+        /// </summary>
+        private void PlayExplosionEffect()
         {
-            GenerateExplosion();
-            generateTime = MAX_GENERATE_TIME;
+            if (explosionEffects[effectIndex].gameObject.activeSelf)
+            {
+                return;
+            }
+            explosionEffects[effectIndex].gameObject.SetActive(true);
+            effectIndex++;
+            if(effectIndex >= explosionEffects.Length)
+            {
+                effectIndex = 0;
+            }
         }
-    }
-
-    void GenerateExplosion()
-    {
-        Vector3 position = Vector3.one;
-        position.x = Random.Range(explosionPointA.position.x, explosionPointB.position.x);
-        position.z = Random.Range(explosionPointB.position.z, explosionPointA.position.z);
-        if (!isFirstGenerate) {
-            position.x = 0.0f;
-            position.z = 0.0f;
-            isFirstGenerate = true;
-        }
-        Instantiate(explosionEffect, position, Quaternion.identity);
-        generateCount++;
     }
 }
