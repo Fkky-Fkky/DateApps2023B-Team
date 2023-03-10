@@ -16,6 +16,9 @@ public class Operator : MonoBehaviour
 
     [SerializeField] private BossManager boss = null;
 
+    /// <summary>
+    /// チュートリアルとゲームの状態のステート
+    /// </summary>
     enum GAME_STATE
     {
         TUTORIAL,
@@ -27,7 +30,7 @@ public class Operator : MonoBehaviour
 
     Animator animator = null;
 
-    private bool startFlag = false;
+    private bool gameStartFlag = false;
 
     private bool operatorTextFlag = false;
 
@@ -98,14 +101,14 @@ public class Operator : MonoBehaviour
     {
         animator.SetTrigger("tutorial_end");
         gameState = GAME_STATE.GAME;
-        startFlag = true;
+        gameStartFlag = true;
     }
     /// <summary>
     /// チュートリアル終了のフラグの受け渡し
     /// </summary>
     public bool GetStartFlag()
     {
-        return startFlag;
+        return gameStartFlag;
     }
     /// <summary>
     /// チュートリアル中の1回目のエネルギー物資生成

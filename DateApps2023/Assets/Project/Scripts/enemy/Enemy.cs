@@ -24,13 +24,13 @@ public class Enemy : MonoBehaviour
 
     private Animator animator = null;
 
-    private Rigidbody rb = null;
+    private Rigidbody rigidbody = null;
 
     private NavMeshAgent agent = null;
 
 
     /// <summary>
-    /// エネミーが登場してからプレイヤーを負い始めるまでのステート
+    /// エネミーが登場してからプレイヤーを追い始めるまでのステート
     /// </summary>
     enum SUMMON
     {
@@ -62,8 +62,8 @@ public class Enemy : MonoBehaviour
     {
         CenterRotate();
        
-        rb = this.GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        rigidbody = this.GetComponent<Rigidbody>();
+        rigidbody.useGravity = false;
 
         agent = this.GetComponent<NavMeshAgent>();
 
@@ -71,15 +71,6 @@ public class Enemy : MonoBehaviour
         agent.enabled = false;
 
         random = Random.Range(0, 3);
-    }
-
-    private void CenterRotate()
-    {
-        Vector3 vec = centerPoint.transform.position - this.transform.position;
-        vec.y = 0f;
-        Quaternion quaternion = Quaternion.LookRotation(vec);
-        this.transform.rotation = quaternion;
-        this.transform.Rotate(-90, 0f, 0f);
     }
 
     void Update()
@@ -98,7 +89,17 @@ public class Enemy : MonoBehaviour
         End();
 
     }
-
+    /// <summary>
+    /// 最初のエネミーの方向設定
+    /// </summary>
+    private void CenterRotate()
+    {
+        Vector3 vec = centerPoint.transform.position - this.transform.position;
+        vec.y = 0f;
+        Quaternion quaternion = Quaternion.LookRotation(vec);
+        this.transform.rotation = quaternion;
+        this.transform.Rotate(-90, 0f, 0f);
+    }
     /// <summary>
     /// 着地後のプレイヤー追いかける時の関数
     /// </summary>
@@ -148,16 +149,16 @@ public class Enemy : MonoBehaviour
             if (pos.x > 0)
             {
                 Vector3 force = new Vector3(-5.0f, jumpPower, 0.0f);
-                rb.AddForce(force, ForceMode.Impulse);
+                rigidbody.AddForce(force, ForceMode.Impulse);
             }
 
             if (pos.x < 0)
             {
                 Vector3 force = new Vector3(5.0f, jumpPower, 0.0f);
-                rb.AddForce(force, ForceMode.Impulse);
+                rigidbody.AddForce(force, ForceMode.Impulse);
             }
 
-            rb.useGravity = true;
+            rigidbody.useGravity = true;
             gameState = SUMMON.JUMP;
             isJumpFlag = false;
         }
@@ -177,7 +178,7 @@ public class Enemy : MonoBehaviour
 
             if (pos.y <= jumpStatePosition)
             {
-                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                 gameState = SUMMON.LAMDING;
                 animator.SetTrigger("idle");
             }
