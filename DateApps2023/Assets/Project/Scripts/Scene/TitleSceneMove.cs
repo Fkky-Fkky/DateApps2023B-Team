@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class TitleSceneMove : MonoBehaviour
 {
-    #region
     [SerializeField]
     private string sceneName = "New Scene";
 
@@ -42,7 +41,6 @@ public class TitleSceneMove : MonoBehaviour
     private bool[] isAccept = null;
 
     private const float ANIM_END_TIME = 1.0f;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

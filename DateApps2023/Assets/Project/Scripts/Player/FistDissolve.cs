@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class FistDissolve : MonoBehaviour
 {
-    #region
     [SerializeField]
     private float startTime = 0.5f;
 
@@ -26,7 +25,6 @@ public class FistDissolve : MonoBehaviour
     private bool isStartDissolve = false;
     private bool isEndDissolve = false;
     private bool isIntervalDissolve = false;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

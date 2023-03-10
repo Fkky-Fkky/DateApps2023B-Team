@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerEmote : MonoBehaviour
 {
-    #region
     [SerializeField]
     private Sprite emoteIconL = null;
 
@@ -42,7 +41,6 @@ public class PlayerEmote : MonoBehaviour
     private Vector3 movePos = Vector3.zero;
     private Vector3 defaultSize = Vector3.zero;
     private Vector3 setSize = Vector3.zero;
-    #endregion
 
     // Start is called before the first frame update
     void Start()

@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerAttack : MonoBehaviour
 {
-    #region
     [SerializeField]
     private float hitTime = 0.25f;
 
@@ -24,12 +23,11 @@ public class PlayerAttack : MonoBehaviour
     private Transform fistPos = null;
 
     [SerializeField]
-    private AudioClip attackSound = null;
+    private SEManager seManager = null;
 
     private BoxCollider boxCol = null;
     private Animator animator = null;
     private AudioSource audioSource = null;
-    private GameObject instantPunch = null;
     private PlayerMove playerMove = null;
 
     private int myPlayerNo = 5;
@@ -38,7 +36,6 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttack = false;
     private bool isCarry = false;
     private bool isDamage = false;
-    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -75,9 +72,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (isAttack)
             {
-                instantPunch.GetComponent<FistDissolve>().CallEndDissolve();
                 EndAttack();
-                time = 0;
             }
         }
     }
@@ -92,12 +87,6 @@ public class PlayerAttack : MonoBehaviour
                 return;
 
             rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
-
-            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
-            if (!nav)
-                return;
-
-            nav.enabled = false;
         }
     }
 
@@ -112,8 +101,8 @@ public class PlayerAttack : MonoBehaviour
             boxCol.enabled = true;
             playerMove.StartAttack();
             Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-            instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
-            audioSource.PlayOneShot(attackSound);
+            Instantiate(fistObject, fistPos.position, fistPos.rotation);
+            audioSource.PlayOneShot(seManager.PlayerAttackSe);
 
             isAttack = true;
         }
@@ -130,7 +119,6 @@ public class PlayerAttack : MonoBehaviour
             animator.SetBool("Attack", false);
             boxCol.enabled = false;
             playerMove.EndAttack();
-            instantPunch = null;
 
             isAttack = false;
             time = 0;

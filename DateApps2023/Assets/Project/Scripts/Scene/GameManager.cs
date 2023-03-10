@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    #region
     [SerializeField]
     private BossManager bossManager = null;
 
@@ -37,7 +36,6 @@ public class GameManager : MonoBehaviour
     public bool IsGameStart { get { return myOperator.GetStartFlag(); } }
 
     const float SCENE_MOVE_TIME = 5.0f;
-    #endregion
 
     private void Start()
     {

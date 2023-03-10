@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class AudioMaster : MonoBehaviour
 {
-    #region
     [SerializeField]
     private AudioClip[] firstBGM = null;
 
@@ -27,7 +26,6 @@ public class AudioMaster : MonoBehaviour
     private bool isFirstHalf = true;
     private bool isFadeOut = true;
     private bool isEnd = false;
-    #endregion
 
     private void Start()
     {

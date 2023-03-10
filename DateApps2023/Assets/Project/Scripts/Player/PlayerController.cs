@@ -8,9 +8,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    #region
     [SerializeField]
-    [Tooltip("移動の速さ")]
     private float moveSpeed = 250.0f;
 
     [SerializeField]
@@ -53,8 +51,6 @@ public class PlayerController : MonoBehaviour
 
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
-
-    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -102,6 +98,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
         if (other.gameObject.CompareTag("BossAttack"))
         {
             DamageChild();
@@ -157,14 +154,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.childCount <= 1)
         {
-            if (transform.GetChild(0).gameObject.CompareTag("item"))
-            {
-                transform.GetChild(0).gameObject.GetComponent<CarryEnergy>().OutGroup();
-            }
-            else if (transform.GetChild(0).gameObject.CompareTag("Cannon"))
-            {
-                transform.GetChild(0).gameObject.GetComponent<CarryCannon>().OutGroup();
-            }
+            ItemOutGroup();
             AllFragFalse();
         }
     }
@@ -213,16 +203,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ReleaseChild()
     {
-        for (int i = 0; i < ChildPlayer.Length; i++)
-        {
-            if (ChildPlayer[i] != null || AnimationImage[i] != null)
-            {
-                AnimationImage[i].SetBool("CarryMove", false);
-
-                ChildPlayer[i] = null;
-                AnimationImage[i] = null;
-            }
-        }
+        SetNullPlayer();
         AllFragFalse();
     }
 
@@ -231,6 +212,16 @@ public class PlayerController : MonoBehaviour
     /// グループ配下のオブジェクトを離す
     /// </summary>
     private void DamageChild()
+    {
+        SetNullPlayer();
+        ItemOutGroup();
+        AllFragFalse();
+    }
+
+    /// <summary>
+    /// グループ配下のプレイヤーのアニメーションを止める
+    /// </summary>
+    void SetNullPlayer()
     {
         for (int i = 0; i < ChildPlayer.Length; i++)
         {
@@ -242,18 +233,6 @@ public class PlayerController : MonoBehaviour
                 AnimationImage[i] = null;
             }
         }
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            if (transform.GetChild(i).gameObject.CompareTag("item"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
-            }
-            else if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
-            {
-                transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
-            }
-        }
-        AllFragFalse();
     }
 
     /// <summary>
@@ -267,6 +246,27 @@ public class PlayerController : MonoBehaviour
         isGamepadFrag[outChildNo] = false;
         playerCount--;
         CheckPlayerCount();
+    }
+
+    /// <summary>
+    /// グループ配下のアイテムのグループからぬける関数を呼び出す
+    /// </summary>
+    void ItemOutGroup()
+    {
+        if(transform.childCount >= 1)
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                if (transform.GetChild(i).gameObject.CompareTag("item"))
+                {
+                    transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
+                }
+                else if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
+                {
+                    transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -288,25 +288,6 @@ public class PlayerController : MonoBehaviour
         rb.mass = defaultMass;
         groupVec = Vector3.zero;
         rb.velocity = groupVec;
-    }
-
-    /// <summary>
-    /// アイテム運搬に必要な人数を判定する
-    /// </summary>
-    void CheckNeedCarryCount()
-    {
-        if (itemSizeCount == 0)
-        {
-            needCarryCount = 1;
-        }
-        else if (itemSizeCount == 1)
-        {
-            needCarryCount = 2;
-        }
-        else if (itemSizeCount == 2)
-        {
-            needCarryCount = 4;
-        }
     }
 
     /// <summary>
@@ -344,6 +325,28 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// アイテム運搬に必要な人数と運搬中の移動速度を確認する
+    /// </summary>
+    void CheckMySpeed()
+    {
+        switch (itemSizeCount)
+        {
+            case 0:
+                needCarryCount = 1;
+                mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
+                break;
+            case 1:
+                needCarryCount = 2;
+                mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
+                break; 
+            case 2:
+                needCarryCount = 4;
+                mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
+                break;
+        }
+    }
+
+    /// <summary>
     /// 運搬中の人数が運搬に必要な人数かどうかを確認する
     /// </summary>
     void CheckCarryOver()
@@ -355,25 +358,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             carryOverSpeed = defaultCarryOverSpeed;
-        }
-    }
-
-    /// <summary>
-    /// 運搬中の移動速度を算出する
-    /// </summary>
-    void CheckMySpeed()
-    {
-        if (itemSizeCount == 0)
-        {
-            mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
-        }
-        else if (itemSizeCount == 1)
-        {
-            mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
-        }
-        else if (itemSizeCount == 2)
-        {
-            mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
         }
     }
 
@@ -391,14 +375,12 @@ public class PlayerController : MonoBehaviour
             playerCount = 4;
         }
 
-        CheckNeedCarryCount();
+        CheckMySpeed();
+        CheckCarryOver();
 
         if (carryText != null)
         {
             CheckCarryText();
         }
-        
-        CheckCarryOver();
-        CheckMySpeed();
     }
 }
