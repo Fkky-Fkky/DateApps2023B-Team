@@ -187,21 +187,21 @@ public class BossDamage : MonoBehaviour
     /// </summary>
     public void KnockbackTrueSmall()
     {
-        DamageKnockBack(0);
+        DamageKnockBack((int)ENERGY_SIZE.SMALL);
     }
     /// <summary>
     /// エネルギー中の場合
     /// </summary>
     public void KnockbackTrueMedium()
     {
-        DamageKnockBack(1);
+        DamageKnockBack((int)ENERGY_SIZE.MEDIUM);
     }
     /// <summary>
     /// エネルギー大の場合
     /// </summary>
     public void KnockbackTrueLarge()
     {
-        DamageKnockBack(2);
+        DamageKnockBack((int)ENERGY_SIZE.LARGE);
     }
     /// <summary>
     /// ダメージ

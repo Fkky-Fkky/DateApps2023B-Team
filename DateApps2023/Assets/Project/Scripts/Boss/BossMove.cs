@@ -11,18 +11,15 @@ public class BossMove : MonoBehaviour
     private GameObject leftTarget   = null;
     [SerializeField]
     private GameObject rightTarget  = null;
-
     [SerializeField]
     private GameObject warningDisplay         = null;
     [SerializeField]
     private GameObject gameOverWarningDisplay = null;
-
     [SerializeField]
-    private GameObject shockWaveEffect = null;
+    private GameObject shockWaveEffect        = null;
 
     [SerializeField]
     private Animator moveAnimation = null;
-
     [SerializeField]
     private Canvas canvas            = null;
     [SerializeField]
