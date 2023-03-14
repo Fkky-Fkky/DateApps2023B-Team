@@ -84,68 +84,51 @@ public class BossDamage : MonoBehaviour
 
     void Update()
     {
-        if (isKnockback)
+        Knockback();
+        Damage();
+        Invincible();
+        BossFellDown();
+        BossDamageTime();
+    }
+    /// <summary>
+    /// ダメージ受けた時のノックバック
+    /// </summary>
+    private void Knockback()
+    {
+        if (!isKnockback)
         {
-            knockbackTime += Time.deltaTime;
-            if (knockbackTime <= KNOCK_BACK_TIME_MAX)
-            {
-                Vector3 bossPos = transform.position;
-                bossPos.z += KNOCK_BACK_MOVE * Time.deltaTime;
-                transform.position = bossPos;
-            }
-            else
-            {
-                knockbackTime = 0.0f;
-                isKnockback = false;
-            }
+            return;
         }
-
-        if (IsDamage)
+        knockbackTime += Time.deltaTime;
+        if (knockbackTime <= KNOCK_BACK_TIME_MAX)
         {
-            if (!bossMove.IsAppearance)
-            {
-                Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-                BulletTypeDamage();
-                bossAnimatorControl.DamageAnimation(bossMove.BossHp);
-                IsInvincible = true;
-                bulletType = (int)ENERGY_SIZE.None;
-                IsDamage = false;
-            }
+            Vector3 bossPos = transform.position;
+            bossPos.z += KNOCK_BACK_MOVE * Time.deltaTime;
+            transform.position = bossPos;
         }
-
-        if (IsInvincible)
+        else
         {
-            invincibleTime += Time.deltaTime;
-            if (invincibleTime >= invincibleTimeEnd)
-            {
-                IsInvincible = false;
-                bossAnimatorControl.SetTrigger("Walk");
-                bossMove.DamageFalse();
-                invincibleTime = 0.0f;
-            }
+            knockbackTime = 0.0f;
+            isKnockback = false;
         }
-
-        if (bossMove.BossHp <= 0)
+    }
+    /// <summary>
+    /// ボスがダメージ受けた時の処理
+    /// </summary>
+    private void Damage()
+    {
+        if (!IsDamage)
         {
-            bossDestroyTime += Time.deltaTime;
-            if (bossDestroyTime >= BOSS_DESTROY_TIME_MAX)
-            {
-                IsFellDown = true;
-                Vector3 pos = new Vector3(transform.position.x, EFFECT_POS_Y, transform.position.z);
-                Instantiate(fellDownEffect, pos, Quaternion.identity);
-                Destroy(gameObject);
-                bossDestroyTime = 0.0f;
-            }
+            return;
         }
-
-        if (IsBossDamage)
+        if (!bossMove.IsAppearance)
         {
-            bossDamgeOffTime += Time.deltaTime;
-            if (bossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
-            {
-                IsBossDamage = false;
-                bossDamgeOffTime = 0.0f;
-            }
+            Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
+            BulletTypeDamage();
+            bossAnimatorControl.DamageAnimation(bossMove.BossHp);
+            IsInvincible = true;
+            bulletType = (int)ENERGY_SIZE.None;
+            IsDamage = false;
         }
     }
 
@@ -181,6 +164,59 @@ public class BossDamage : MonoBehaviour
         {
             bossMove.BossHp = 0;
         }
+    }
+    /// <summary>
+    /// ボスの無敵
+    /// </summary>
+    private void Invincible()
+    {
+        if (!IsInvincible)
+        {
+            return;
+        }
+        invincibleTime += Time.deltaTime;
+        if (invincibleTime >= invincibleTimeEnd)
+        {
+            IsInvincible = false;
+            bossAnimatorControl.SetTrigger("Walk");
+            bossMove.DamageFalse();
+            invincibleTime = 0.0f;
+        }
+
+    }
+    /// <summary>
+    /// ボスが倒れた
+    /// </summary>
+    private void BossFellDown()
+    {
+        if (bossMove.BossHp <= 0)
+        {
+            bossDestroyTime += Time.deltaTime;
+            if (bossDestroyTime >= BOSS_DESTROY_TIME_MAX)
+            {
+                IsFellDown = true;
+                Vector3 pos = new Vector3(transform.position.x, EFFECT_POS_Y, transform.position.z);
+                Instantiate(fellDownEffect, pos, Quaternion.identity);
+                Destroy(gameObject);
+                bossDestroyTime = 0.0f;
+            }
+        }
+    }
+    /// <summary>
+    /// ボスがダメージ受けた時のフラグをON/OFF
+    /// </summary>
+    private void BossDamageTime()
+    {
+        if (IsBossDamage)
+        {
+            bossDamgeOffTime += Time.deltaTime;
+            if (bossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
+            {
+                IsBossDamage = false;
+                bossDamgeOffTime = 0.0f;
+            }
+        }
+
     }
     /// <summary>
     /// エネルギー小の場合

@@ -51,7 +51,9 @@ public class BossCSV : MonoBehaviour
             height++;
         }
     }
-
+    /// <summary>
+    /// CSVファイルからデータを変換
+    /// </summary>
     public void BossCSVLoad()
     {
         CsvReader();

@@ -36,7 +36,9 @@ public class DamageCSV : MonoBehaviour
             height++;
         }
     }
-
+    /// <summary>
+    /// “Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğintŒ^‚Ö•ÏŠ·
+    /// </summary>
     public void DamageCSVLoad()
     {
         CsvReader();
