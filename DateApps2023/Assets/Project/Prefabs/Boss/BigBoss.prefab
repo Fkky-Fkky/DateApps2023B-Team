@@ -1053,6 +1053,7 @@ MonoBehaviour:
   beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
+  areaControl: {fileID: 1139690476083802783, guid: 45238b1be1aa8fe438b877c0ca02b86a, type: 3}
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0

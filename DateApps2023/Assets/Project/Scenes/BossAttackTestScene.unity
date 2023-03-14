@@ -1660,7 +1660,7 @@ PrefabInstance:
       objectReference: {fileID: 131766972}
     - target: {fileID: 5839445782891812449, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossCountMax
-      value: 13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5868675818485116546, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
       propertyPath: bossCSV
