@@ -37,7 +37,6 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private AudioClip lastAttackSE      = null;
 
-
     private bool isDamageFlag = false;
     private bool isNotMove    = false;
     private bool isLastAttack = false;
@@ -87,12 +86,13 @@ public class BossMove : MonoBehaviour
     const float MOVE_TIME_MAX          =   3.0f;
     const float SIDE_POS               =   0.1f;
     const float MULTIPLIER             =  50.0f;
+    const float SINGLE                 =     1f;
+    const float PARAMETER              =   0.1f;
 
     const float WARNING_DISPLAY_POSITION = 100.0f;
-    const float ATTACK_OFF_POSITION      = 50.0f;
-    const float DANGER_DISPLAY_POSITION  = 40.0f;
-
-    const float GAME_OVER_TIME = 0.6f;
+    const float ATTACK_OFF_POSITION      =  50.0f;
+    const float DANGER_DISPLAY_POSITION  =  40.0f;
+    const float GAME_OVER_TIME           =   0.6f;
 
     private void Awake()
     {
@@ -206,7 +206,7 @@ public class BossMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce((MULTIPLIER - 1f) * Physics.gravity, ForceMode.Acceleration);
+        rb.AddForce((MULTIPLIER - SINGLE) * Physics.gravity, ForceMode.Acceleration);
     }
 
     /// <summary>
@@ -249,7 +249,7 @@ public class BossMove : MonoBehaviour
         lookRotation.z = 0;
         lookRotation.x = 0;
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, PARAMETER);
 
         Vector3 pos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);

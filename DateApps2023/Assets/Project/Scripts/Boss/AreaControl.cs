@@ -14,27 +14,20 @@ public class AreaControl : MonoBehaviour
     [SerializeField]
     private GameObject dangerZone      = null;
 
-    private int areaCount = 0;
-
     private Vector3 dangerCenter = new Vector3(0.0f, -1.2f, 0.0f);
-    private Vector3 dangerLeft = new Vector3(-10.0f, -1.2f, 0.0f);
-    private Vector3 dangerRigth = new Vector3(10.0f, -1.2f, 0.0f);
+    private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
+    private Vector3 dangerRigth  = new Vector3(10.0f, -1.2f, 0.0f);
 
     private List<GameObject> dangerAreaList = new List<GameObject>();
 
-    const int AREA_COUNT_MAX = 1;
-
-    const float CENTER_TARGET         =  0.0f;
-    const float RIGHT_TARGET          =  0.1f;
-    const float LEFT_TARGET           = -0.1f;
     const float DANGER_OBJECT_ANGLE_Y = 180.0f;
 
     /// <summary>
     /// ビームが当たるエリアの表示
     /// </summary>
-    public void DangerZone()
+    public void GenerateDangerZone(GameObject boss)
     {
-        switch (gameObject.tag)
+        switch (boss.tag)
         {
             case "Center":
                 dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
@@ -47,33 +40,16 @@ public class AreaControl : MonoBehaviour
                 break;
         }
     }
-
-    public void GenerateDamageArea()
-    {
-        if (gameObject.transform.position.x == CENTER_TARGET)
-        {
-            DamageObject(dmageAreaCenter);
-        }
-        if (gameObject.transform.position.x >= RIGHT_TARGET)
-        {
-            DamageObject(damageAreaRight);
-        }
-        if (gameObject.transform.position.x <= LEFT_TARGET)
-        {
-            DamageObject(damageAreaLeft);
-        }
-    }
-
+    
     /// <summary>
-    /// 当たり判定エリアを生成
+    /// 攻撃がキャンセルしたときにエフェクトとエリア破壊
     /// </summary>
-    /// <param name="damageArea"></param>
-    private void DamageObject(GameObject damageArea)
+    public void DestroyDamageAreaList()
     {
-        if (areaCount < AREA_COUNT_MAX)
+        for (int i = 0; i < dangerAreaList.Count; i++)
         {
-            Instantiate(damageArea);
-            areaCount++;
+            Destroy(dangerAreaList[i]);
+            dangerAreaList.RemoveAt(i);
         }
     }
 }

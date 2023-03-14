@@ -14,7 +14,7 @@ public class BossDamage : MonoBehaviour
     [SerializeField]
     private Transform damagePoint = null;
 
-    private bool isKnockback    = false;
+    private bool isKnockback = false;
     private int maxHp              =  0;
     private int bulletType         = -1;
     private int smallEnergyDamage  =  0;
@@ -29,6 +29,16 @@ public class BossDamage : MonoBehaviour
     private BossDamageHPBarUI bossDamageHPBarUI    = null;
     private BossAnimatorControl bossAnimatorControl= null;
 
+    /// <summary>
+    /// エネルギーの大きさ
+    /// </summary>
+    private enum ENERGY_SIZE
+    {
+        None = -1,
+        SMALL,
+        MEDIUM,
+        LARGE
+    }
     /// <summary>
     /// 無敵フラグ
     /// </summary>
@@ -98,7 +108,7 @@ public class BossDamage : MonoBehaviour
                 BulletTypeDamage();
                 bossAnimatorControl.DamageAnimation(bossMove.BossHp);
                 IsInvincible = true;
-                bulletType = -1;
+                bulletType = (int)ENERGY_SIZE.None;
                 IsDamage = false;
             }
         }
@@ -144,17 +154,17 @@ public class BossDamage : MonoBehaviour
     /// </summary>
     private void BulletTypeDamage()
     {
-        if (bulletType == 0)
+        if (bulletType == (int)ENERGY_SIZE.SMALL)
         {
             Damage(smallEnergyDamage);
             bossDamageHPBarUI.HpBarSmallActive(bossMove.BossHp);
         }
-        else if (bulletType == 1)
+        else if (bulletType == (int)ENERGY_SIZE.MEDIUM)
         {
             Damage(mediumEnergyDamage);
             bossDamageHPBarUI.HpBarMediumActive(maxHp, bossMove.BossHp, mediumEnergyDamage);
         }
-        else if (bulletType == 2)
+        else if (bulletType == (int)ENERGY_SIZE.LARGE)
         {
             Damage(largeEnergyDamage);
             bossDamageHPBarUI.HpBarLargeActive(maxHp, bossMove.BossHp);

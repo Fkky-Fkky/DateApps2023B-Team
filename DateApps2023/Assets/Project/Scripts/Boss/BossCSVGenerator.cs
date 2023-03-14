@@ -7,25 +7,18 @@ public class BossCSVGenerator : MonoBehaviour
 {
     [SerializeField]
     private int bossCountMax = 10;
-
     [SerializeField]
     private float sidePos = 100.0f;
-
     [SerializeField]
-    private GameObject nomalBoss = null;
-
+    private GameObject nomalBoss    = null;
     [SerializeField]
-    private GameObject miniBoss  = null;
-
+    private GameObject miniBoss     = null;
     [SerializeField]
-    private GameObject bigBoss   = null;
-
+    private GameObject bigBoss      = null;
     [SerializeField]
     private BossManager bossManager = null;
-
     [SerializeField]
     private Operator myOperator     = null;
-
     [SerializeField]
     private BossCSV bossCSV         = null;
 
@@ -55,6 +48,17 @@ public class BossCSVGenerator : MonoBehaviour
     private BossCount bossCount = null;
 
     /// <summary>
+    /// ボスの種類
+    /// </summary>
+    private enum BOSS_TYPE
+    {
+        None,
+        NOMAL,
+        MINI,
+        BIG
+    }
+
+    /// <summary>
     /// ボスが倒れた
     /// </summary>
     public bool IsKill { get; private set; }
@@ -70,10 +74,6 @@ public class BossCSVGenerator : MonoBehaviour
     /// ゲームオーバー
     /// </summary>
     public bool IsGameOver { get; private set; }
-
-    const int NOMAL_NOSS_INDEX = 1;
-    const int MINI_BOSS_INDEX  = 2;
-    const int BIG_BOSS_INDEX   = 3;
 
     const int FIRST_BOSS_LANE     = 2;
     const int SECOND_BOSS_LANE    = 3;
@@ -196,12 +196,12 @@ public class BossCSVGenerator : MonoBehaviour
             }
         }
 
-        if (bossType != 0)
+        if (bossType != (int)BOSS_TYPE.None)
         {
             bossTypeOffTime += Time.deltaTime;
             if (bossTypeOffTime >= BOSS_TYPE_OFF_TIME_MAX)
             {
-                bossType = 0;
+                bossType = (int)BOSS_TYPE.None;
                 bossTypeOffTime = 0.0f;
             }
         }
@@ -249,7 +249,6 @@ public class BossCSVGenerator : MonoBehaviour
         {
             bossCountOne++;
         }
-
         time = 0.0f;
     }
     /// <summary>
@@ -261,15 +260,15 @@ public class BossCSVGenerator : MonoBehaviour
         {
             case "Nomal":
                 boss = Instantiate(nomalBoss);
-                bossType = NOMAL_NOSS_INDEX;
+                bossType = (int)BOSS_TYPE.NOMAL;
                 break;
             case "Mini":
                 boss = Instantiate(miniBoss);
-                bossType = MINI_BOSS_INDEX;
+                bossType = (int)BOSS_TYPE.MINI;
                 break;
             case "Big":
                 boss = Instantiate(bigBoss);
-                bossType = BIG_BOSS_INDEX;
+                bossType = (int)BOSS_TYPE.BIG;
                 break;
         }
     }
