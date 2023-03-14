@@ -15,22 +15,21 @@ public class BossAttack : MonoBehaviour
     private GameObject damageAreaRight = null;
     [SerializeField]
     private GameObject damageAreaLeft  = null;
-
     [SerializeField]
     private GameObject chargeEffect = null;
     [SerializeField]
     private GameObject dangerZone   = null;
-
     [SerializeField]
-    private Transform chargePos = null;
-
-    [SerializeField]
-    private AudioClip beamSE = null;
+    private Transform chargePos     = null;
 
     [SerializeField]
     private BossMove bossMove       = null;
     [SerializeField]
     private BossDamage bossDamage   = null;
+    [SerializeField]
+    private AreaControl areaControl = null;
+    [SerializeField]
+    private SEManager seManager     = null;
 
     private int effectStop = 0;
     private int areaCount  = 0;
@@ -41,12 +40,7 @@ public class BossAttack : MonoBehaviour
     private float chargeTime         = 0.0f;
     private float beamOffTime        = 0.0f;
 
-    private Vector3 dangerCenter = new Vector3(0.0f, -1.2f, 0.0f);
-    private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
-    private Vector3 dangerRigth  = new Vector3(10.0f, -1.2f, 0.0f);
-
     private List<GameObject> effectList     = new List<GameObject>();
-    private List<GameObject> dangerAreaList = new List<GameObject>();
 
     private AudioSource audioSource                 = null;
     private BossCSVGenerator bossCSVGenerator       = null;
@@ -71,7 +65,6 @@ public class BossAttack : MonoBehaviour
     const float RIGHT_TARGET          =   0.1f;
     const float LEFT_TARGET           =  -0.1f;
     const float BEAM_OFF_TIME_MAX     =   2.0f;
-    const float DANGER_OBJECT_ANGLE_Y = 180.0f;
 
     private void Start()
     {
@@ -99,7 +92,7 @@ public class BossAttack : MonoBehaviour
             AttackOff();
 
             ListDestroy(effectList);
-            ListDestroy(dangerAreaList);
+            areaControl.DestroyDamageAreaList();
         }
     }
     /// <summary>
@@ -127,31 +120,13 @@ public class BossAttack : MonoBehaviour
         if (effectStop < 1)
         {
             effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
-            DangerZone();
+            areaControl.GenerateDangerZone(gameObject);
             IsCharge = true;
             effectStop++;
         }
         else
         {
             IsCharge = false;
-        }
-    }
-    /// <summary>
-    /// ビームが当たるエリアの表示
-    /// </summary>
-    private void DangerZone()
-    {
-        switch (gameObject.tag)
-        {
-            case "Center":
-                dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
-                break;
-            case "Left":
-                dangerAreaList.Add(Instantiate(dangerZone, dangerLeft, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
-                break;
-            case "Right":
-                dangerAreaList.Add(Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
-                break;
         }
     }
     /// <summary>
@@ -169,7 +144,7 @@ public class BossAttack : MonoBehaviour
         {
             AttackOff();
             ListDestroy(effectList);
-            ListDestroy(dangerAreaList);
+            areaControl.DestroyDamageAreaList();
         }
     }
     /// <summary>
@@ -191,10 +166,9 @@ public class BossAttack : MonoBehaviour
     {
         if (seCount < SE_COUNT_MAX)
         {
-            audioSource.PlayOneShot(beamSE);
+            audioSource.PlayOneShot(seManager.BossBeamSe);
             seCount++;
         }
-
         if (gameObject.transform.position.x == CENTER_TARGET)
         {
             DamageObject(dmageAreaCenter);
@@ -207,7 +181,6 @@ public class BossAttack : MonoBehaviour
         {
             DamageObject(damageAreaLeft);
         }
-
         beamOffTime += Time.deltaTime;
         if (beamOffTime >= BEAM_OFF_TIME_MAX)
         {
