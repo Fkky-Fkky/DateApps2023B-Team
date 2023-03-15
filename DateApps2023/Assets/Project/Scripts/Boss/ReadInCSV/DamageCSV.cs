@@ -27,7 +27,8 @@ public class DamageCSV : MonoBehaviour
         TWO
     }
 
-    const int LIMIT_INDEX = -1;
+    const int LIMIT_INDEX   = -1;
+    const int INITIAL_VALUE =  1;
 
     private void Awake()
     {
@@ -54,7 +55,7 @@ public class DamageCSV : MonoBehaviour
     {
         CsvReader();
 
-        for (i = 1; i < height; i++)
+        for (i = INITIAL_VALUE; i < height; i++)
         {
             Small  = int.Parse(damageDate[i][(int)DATA_ROW.ZERO]);
             Medium = int.Parse(damageDate[i][(int)DATA_ROW.ONE]);

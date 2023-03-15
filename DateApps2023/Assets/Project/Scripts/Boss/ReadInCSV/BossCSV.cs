@@ -38,7 +38,8 @@ public class BossCSV : MonoBehaviour
     public float[] BossSpeed          = null;
     public string[] BossType          = null;
 
-    const int LIMIT_INDEX = -1;
+    const int LIMIT_INDEX   = -1;
+    const int INITIAL_VALUE =  1;
 
     private void Awake()
     {
@@ -74,7 +75,7 @@ public class BossCSV : MonoBehaviour
     {
         CsvReader();
 
-        for (i = 1; i < height; i++)
+        for (i = INITIAL_VALUE; i < height; i++)
         {
             BossType[i]           = bossDate[i][(int)DATA_ROW.ZERO];
             AppearanceTime[i]     = float.Parse(bossDate[i][(int)DATA_ROW.ONE]);
