@@ -90,31 +90,30 @@ public class GroupMove : MonoBehaviour
 
         for (int i = 0; i < isGamepadFrag.Length; i++)
         {
-            if (!isGamepadFrag[i])
+            if (isGamepadFrag[i])
             {
-                return;
-            }
-            var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
+                var leftStickValue = Gamepad.all[i].leftStick.ReadValue();
 
-            if (leftStickValue.x != 0.0f)
-            {
-                AnimationImage[i].SetBool("CarryMove", true);
-                before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
-            }
-            if (leftStickValue.y != 0.0f)
-            {
-                AnimationImage[i].SetBool("CarryMove", true);
-                before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
-            }
+                if (leftStickValue.x != 0.0f)
+                {
+                    AnimationImage[i].SetBool("CarryMove", true);
+                    before[i].x = mySpeed * Time.deltaTime * leftStickValue.x;
+                }
+                if (leftStickValue.y != 0.0f)
+                {
+                    AnimationImage[i].SetBool("CarryMove", true);
+                    before[i].y = mySpeed * Time.deltaTime * leftStickValue.y;
+                }
 
-            if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
-            {
-                AnimationImage[i].SetBool("CarryMove", false);
-                before[i] = Vector2.zero;
-            }
+                if (leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
+                {
+                    AnimationImage[i].SetBool("CarryMove", false);
+                    before[i] = Vector2.zero;
+                }
 
-            float runSpeed = mySpeed * animationSpeed;
-            AnimationImage[i].SetFloat(runAnimSpeed, runSpeed);
+                float runSpeed = mySpeed * animationSpeed;
+                AnimationImage[i].SetFloat(runAnimSpeed, runSpeed);
+            }
         }
 
         groupVec.x = (before[0].x + before[1].x + before[2].x + before[3].x) * carryOverSpeed;
