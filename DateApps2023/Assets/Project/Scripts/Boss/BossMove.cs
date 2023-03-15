@@ -32,7 +32,7 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private AudioSource lastAttackAudio = null;
     [SerializeField]
-    private SEManager seManager = null; 
+    private SEManager seManager = null;
 
     private bool isDamageFlag = false;
     private bool isNotMove    = false;
@@ -308,7 +308,6 @@ public class BossMove : MonoBehaviour
                 seCount++;
             }
         }
-
         if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
         {
             IsGameOver = true;//ゲームオーバーフラグ

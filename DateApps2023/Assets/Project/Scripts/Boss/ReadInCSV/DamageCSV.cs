@@ -37,7 +37,7 @@ public class DamageCSV : MonoBehaviour
         }
     }
     /// <summary>
-    /// 読み込んだデータをint型へ変換
+    /// 読み込んだデータをint型へ変換 damageDate[行][列]
     /// </summary>
     public void DamageCSVLoad()
     {
