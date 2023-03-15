@@ -50,7 +50,6 @@ public class SceneMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (!isSceneChange)
         {
             NotSceneChange();

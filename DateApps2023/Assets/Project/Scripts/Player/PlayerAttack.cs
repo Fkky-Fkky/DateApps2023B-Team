@@ -95,17 +95,18 @@ public class PlayerAttack : MonoBehaviour
     /// </summary>
     private void FistAttack()
     {
-        if (!isAttack)
+        if (isAttack)
         {
-            animator.SetBool("Attack", true);
-            boxCol.enabled = true;
-            playerMove.StartAttack();
-            Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-            Instantiate(fistObject, fistPos.position, fistPos.rotation);
-            audioSource.PlayOneShot(seManager.PlayerAttackSe);
-
-            isAttack = true;
+            return;
         }
+        animator.SetBool("Attack", true);
+        boxCol.enabled = true;
+        playerMove.StartAttack();
+        Instantiate(attackEffect, effectPos.position, this.transform.rotation);
+        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        audioSource.PlayOneShot(seManager.PlayerAttackSe);
+
+        isAttack = true;
     }
 
     /// <summary>

@@ -65,27 +65,29 @@ public class PlayerCarryDown : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (!isCarry)
+        if (isCarry)
         {
-            if (collision.gameObject.CompareTag("item")
+            return;
+        }
+        if (collision.gameObject.CompareTag("item")
                 || collision.gameObject.CompareTag("Cannon"))
-            {
-                isCanUsed = true;
-                carryItem = collision.gameObject;
-            }
+        {
+            isCanUsed = true;
+            carryItem = collision.gameObject;
         }
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (!isCarry)
+        if (isCarry)
         {
-            if (collision.gameObject.CompareTag("item")
+            return;
+        }
+        if (collision.gameObject.CompareTag("item")
                 || collision.gameObject.CompareTag("Cannon"))
-            {
-                isCanUsed = false;
-                carryItem = null;
-            }
+        {
+            isCanUsed = false;
+            carryItem = null;
         }
     }
 
@@ -94,12 +96,13 @@ public class PlayerCarryDown : MonoBehaviour
     /// </summary>
     void OnPressCarryButton()
     {
-        if (!isCarry)
+        if (isCarry)
         {
-            if (isCanUsed)
-            {
-                CheckItemTag();
-            }
+            return;
+        }
+        if (isCanUsed)
+        {
+            CheckItemTag();
         }
     }
 
@@ -130,15 +133,16 @@ public class PlayerCarryDown : MonoBehaviour
         }
         if (carryItem.CompareTag("Cannon"))
         {
-            if (!carryItem.GetComponent<CannonShot>().IsShotting)
+            if (carryItem.GetComponent<CannonShot>().IsShotting)
             {
-                cannonItem = carryItem.GetComponent<CarryCannon>();
-                cannonItem.GetGrabPoint(this.gameObject);
-                myGroupNo = cannonItem.GroupNumber;
-                isCarry = true;
-                isCanUsed = false;
-                playermove.GetItem(myGroupNo);
+                return;
             }
+            cannonItem = carryItem.GetComponent<CarryCannon>();
+            cannonItem.GetGrabPoint(this.gameObject);
+            myGroupNo = cannonItem.GroupNumber;
+            isCarry = true;
+            isCanUsed = false;
+            playermove.GetItem(myGroupNo);
         }
     }
 

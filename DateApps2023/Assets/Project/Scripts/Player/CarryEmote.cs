@@ -66,21 +66,22 @@ public class CarryEmote : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isEmote)
+        if (!isEmote)
         {
-            time += Time.deltaTime;
-            this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
-            if(transform.parent.gameObject.transform.rotation.y >= 0)
-            {
-                transform.Rotate(new Vector3(0.0f, MIRROR_ROT_Y, 0.0f));
-            }
+            return;
+        }
+        time += Time.deltaTime;
+        this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
+        if (transform.parent.gameObject.transform.rotation.y >= 0)
+        {
+            transform.Rotate(new Vector3(0.0f, MIRROR_ROT_Y, 0.0f));
+        }
 
-            ChangeSize();
+        ChangeSize();
 
-            if (!isEnd)
-            {
-                OnStartTime();
-            }
+        if (!isEnd)
+        {
+            OnStartTime();
         }
     }
 

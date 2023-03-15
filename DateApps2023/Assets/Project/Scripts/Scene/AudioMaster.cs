@@ -61,17 +61,19 @@ public class AudioMaster : MonoBehaviour
     /// </summary>
     void OnFirstHalf()
     {
-        if (BossCount.GetKillCount() >= changeKillCount)
+        if (BossCount.GetKillCount() < changeKillCount)
         {
-            if (isFadeOut)
-            {
-                FadeOutBGM();
-            }
-            else
-            {
-                PlaySecondBGM();
-                isFirstHalf = false;
-            }
+            return;
+        }
+
+        if (isFadeOut)
+        {
+            FadeOutBGM();
+        }
+        else
+        {
+            PlaySecondBGM();
+            isFirstHalf = false;
         }
     }
 

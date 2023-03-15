@@ -85,12 +85,13 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if (isEnterItem)
+        if (!isEnterItem)
         {
-            if(enterItem == null)
-            {
-                isEnterItem = false;
-            }
+            return;
+        }
+        if (enterItem == null)
+        {
+            isEnterItem = false;
         }
     }
 
