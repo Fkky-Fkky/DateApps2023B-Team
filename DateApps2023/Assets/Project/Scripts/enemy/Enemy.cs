@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
 
         JUMP,
 
-        LAMDING,
+        LANDING,
 
         END,
     }
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent.enabled = false;
 
-        Random = UnityEngine.Random.Range(0, 3);
+        Random = 0;//Random = UnityEngine.Random.Range(0, 3);
     }
 
     void Update()
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
 
         Jump(pos);
 
-        Lamding();
+        Landing();
 
         End();
 
@@ -121,16 +121,6 @@ public class Enemy : MonoBehaviour
         Quaternion quaternion = Quaternion.LookRotation(vec);
         this.transform.rotation = quaternion;
         this.transform.Rotate(-90, 0f, 0f);
-    }
-    /// <summary>
-    /// 着地後のプレイヤー追いかける時の関数
-    /// </summary>
-    private void End()
-    {
-        if (gameState == SUMMON.END)
-        {
-            agent.destination = players[Random].transform.position;
-        }
     }
 
     /// <summary>
@@ -203,7 +193,7 @@ public class Enemy : MonoBehaviour
             if (pos.y <= jumpStatePosition)
             {
                 myRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-                gameState = SUMMON.LAMDING;
+                gameState = SUMMON.LANDING;
                 animator.SetTrigger("idle");
             }
         }
@@ -211,15 +201,27 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// 着地時の関数
     /// </summary>
-    private void Lamding()
+    private void Landing()
     {
-        if (gameState == SUMMON.LAMDING)
+        if (gameState == SUMMON.LANDING)
         {
             agent.enabled = true;
             animator.SetTrigger("work");
             gameState = SUMMON.END;
         }
     }
+
+    /// <summary>
+    /// 着地後のプレイヤー追いかける時の関数
+    /// </summary>
+    private void End()
+    {
+        if (gameState == SUMMON.END)
+        {
+            agent.destination = players[Random].transform.position;
+        }
+    }
+
     /// <summary>
     /// ダメージ呼び出し関数
     /// </summary>

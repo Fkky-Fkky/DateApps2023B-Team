@@ -5,13 +5,17 @@ using UnityEngine;
 /// </summary>
 public class Operator : MonoBehaviour
 {
-    [SerializeField] private EnergyGenerator energy = null;
+    [SerializeField] 
+    private EnergyGenerator energy = null;
 
-    [SerializeField] private CannonManager cannon = null;
+    [SerializeField] 
+    private CannonManager cannon = null;
 
-    [SerializeField] private BossCSVGenerator csv = null;
+    [SerializeField]
+    private BossCSVGenerator csv = null;
 
-    [SerializeField] private BossManager boss = null;
+    [SerializeField] 
+    private BossManager boss = null;
 
     /// <summary>
     /// チュートリアルとゲームの状態のステート
@@ -37,7 +41,6 @@ public class Operator : MonoBehaviour
 
     private const float RESET = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
