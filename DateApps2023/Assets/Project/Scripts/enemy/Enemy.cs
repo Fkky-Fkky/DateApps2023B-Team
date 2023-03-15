@@ -1,3 +1,4 @@
+//担当者:丸子羚
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,7 +28,6 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent agent = null;
 
-
     /// <summary>
     /// エネミーが登場してからプレイヤーを追い始めるまでのステート
     /// </summary>
@@ -55,7 +55,9 @@ public class Enemy : MonoBehaviour
 
     private float jumpPower = 18.0f;
 
-    public int Random = 0;
+    private int playerNumber = 0;
+
+    public int Random { get; private set; }
 
     void Start()
     {
@@ -69,7 +71,8 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent.enabled = false;
 
-        Random = 0;//Random = UnityEngine.Random.Range(0, 3);
+        Random = UnityEngine.Random.Range(0, 3);
+        playerNumber = Random;
     }
 
     void Update()

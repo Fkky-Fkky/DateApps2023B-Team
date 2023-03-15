@@ -1,3 +1,4 @@
+//担当者:丸子羚
 using UnityEngine;
 
 /// <summary>
@@ -31,7 +32,7 @@ public class Operator : MonoBehaviour
 
     private Animator animator = null;
 
-    private bool gameStartFlag = false;
+    private bool isGameStart = false;
 
     private bool isOperatorTextCooltime = false;
 
@@ -101,14 +102,14 @@ public class Operator : MonoBehaviour
     {
         animator.SetTrigger("tutorial_end");
         gameState = GAME_STATE.GAME;
-        gameStartFlag = true;
+        isGameStart = true;
     }
     /// <summary>
     /// チュートリアル終了のフラグの受け渡し
     /// </summary>
     public bool GetStartFlag()
     {
-        return gameStartFlag;
+        return isGameStart;
     }
     /// <summary>
     /// チュートリアル中の1回目のエネルギー物資生成
@@ -204,7 +205,7 @@ public class Operator : MonoBehaviour
     ///通常ボス出現時のアニメーター呼び出し 
     /// </summary>
     public void SummonBoss()
-    { 
+    {
         animator.SetTrigger("boss");  
     }
     /// <summary>

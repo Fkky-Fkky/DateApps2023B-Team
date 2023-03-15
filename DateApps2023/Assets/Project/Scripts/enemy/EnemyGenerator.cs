@@ -1,3 +1,4 @@
+//’S“–ŽÒ:ŠÛŽqã·
 using UnityEngine;
 
 /// <summary>
@@ -30,10 +31,13 @@ public class EnemyGenerator : MonoBehaviour
 
     private int random = 0;
 
+    private int spawnPoint = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         random = Random.Range(1, 3);
+        spawnPoint = random;
     }
 
     // Update is called once per frame
@@ -48,7 +52,7 @@ public class EnemyGenerator : MonoBehaviour
     /// </summary>
     private void SummonSpider()
     {
-        if (spiderTime >= spiderSpawnTime && random == 1)
+        if (spiderTime >= spiderSpawnTime && spawnPoint == 1)
         {
             spiderTime = 0;
 
@@ -56,10 +60,10 @@ public class EnemyGenerator : MonoBehaviour
 
             z = Random.Range(rangeA.position.z, rangeB.position.z);
             Instantiate(Spider, new Vector3(x, -8, z), Spider.transform.rotation);
-            random = Random.Range(1, 3);
+            spawnPoint = Random.Range(1, 3);
         }
 
-        if (spiderTime >= spiderSpawnTime && random >= 2)
+        if (spiderTime >= spiderSpawnTime && spawnPoint >= 2)
         {
             spiderTime = 0;
 
@@ -67,7 +71,7 @@ public class EnemyGenerator : MonoBehaviour
 
             z = Random.Range(rangeC.position.z, rangeD.position.z);
             Instantiate(Spider, new Vector3(x, -8, z), Spider.transform.rotation);
-            random = Random.Range(1, 3);
+            spawnPoint = Random.Range(1, 3);
         }
     }
 }
