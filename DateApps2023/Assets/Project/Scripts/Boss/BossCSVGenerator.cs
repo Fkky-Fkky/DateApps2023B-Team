@@ -126,12 +126,12 @@ public class BossCSVGenerator : MonoBehaviour
             time += Time.deltaTime;
             if (time >= bossCSV.AppearanceTime[bossCountOne])
             {
-                bossTypeDate = bossCSV.BossType[bossCountOne];
-                bossLane = bossCSV.AppearanceLane[bossCountOne];
+                bossTypeDate       = bossCSV.BossType[bossCountOne];
+                bossLane           = bossCSV.AppearanceLane[bossCountOne];
                 attackIntervalDate = bossCSV.AttackIntervalTime[bossCountOne];
-                posZ = bossCSV.PositionZ[bossCountOne];
-                bossHpDate = bossCSV.BossHp[bossCountOne];
-                moveSpeedDate = bossCSV.BossSpeed[bossCountOne];
+                posZ               = bossCSV.PositionZ[bossCountOne];
+                bossHpDate         = bossCSV.BossHp[bossCountOne];
+                moveSpeedDate      = bossCSV.BossSpeed[bossCountOne];
 
                 BossGanarater();
             }

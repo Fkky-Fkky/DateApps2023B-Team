@@ -19,8 +19,6 @@ public class BossMove : MonoBehaviour
     private GameObject shockWaveEffect        = null;
 
     [SerializeField]
-    private Animator moveAnimation = null;
-    [SerializeField]
     private Canvas canvas            = null;
     [SerializeField]
     private Renderer warningRenderer = null;
@@ -152,7 +150,6 @@ public class BossMove : MonoBehaviour
         BossLastAttack();
         Hazard();
     }
-
     private void FixedUpdate()
     {
         rb.AddForce((MULTIPLIER - SINGLE) * Physics.gravity, ForceMode.Acceleration);
@@ -300,7 +297,7 @@ public class BossMove : MonoBehaviour
     /// </summary>
     private void GameOverTransition()
     {
-        if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+        if (bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
         {
             if (seCount < 1)
             {
@@ -308,7 +305,7 @@ public class BossMove : MonoBehaviour
                 seCount++;
             }
         }
-        if (moveAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && moveAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
+        if (bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
         {
             IsGameOver = true;//ゲームオーバーフラグ
         }

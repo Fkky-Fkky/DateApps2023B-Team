@@ -11,6 +11,7 @@ public class BossAnimatorControl : MonoBehaviour
     /// ゲームオーバーにする
     /// </summary>
     public bool IsGameOver { get; private set; }
+    public Animator BossAnimation { get { return animation; } }
 
     private void Start()
     {

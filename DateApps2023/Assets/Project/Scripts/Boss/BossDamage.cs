@@ -30,7 +30,7 @@ public class BossDamage : MonoBehaviour
     private BossAnimatorControl bossAnimatorControl= null;
 
     /// <summary>
-    /// エネルギーの大きさ
+    /// エネルギー物資の大きさ
     /// </summary>
     private enum ENERGY_SIZE
     {
