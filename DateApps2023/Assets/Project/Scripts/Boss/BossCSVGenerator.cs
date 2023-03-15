@@ -84,6 +84,7 @@ public class BossCSVGenerator : MonoBehaviour
     /// </summary>
     public bool IsGameOver { get; private set; }
 
+    const int MESSAGE_COUNT_MAX   = 1;
     const int FIRST_BOSS_LANE     = 2;
     const int SECOND_BOSS_LANE    = 3;
     const int TUTORIAL_BOSS_HP    = 3;
@@ -113,7 +114,7 @@ public class BossCSVGenerator : MonoBehaviour
         {
             if (bossList[i].IsFellDown)
             {
-                if (messageCount < 1)
+                if (messageCount < MESSAGE_COUNT_MAX)
                 {
                     IsKill = true;
                     messageCount++;

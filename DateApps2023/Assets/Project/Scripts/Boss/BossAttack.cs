@@ -59,8 +59,9 @@ public class BossAttack : MonoBehaviour
     /// </summary>
     public bool IsAttackAll { get; private set; }
 
-    const int AREA_COUNT_MAX = 1;
-    const int SE_COUNT_MAX   = 1;
+    const int EFFECT_STOP_MAX = 1;
+    const int AREA_COUNT_MAX  = 1;
+    const int SE_COUNT_MAX    = 1;
     const float CENTER_TARGET         =   0.0f;
     const float RIGHT_TARGET          =   0.1f;
     const float LEFT_TARGET           =  -0.1f;
@@ -117,7 +118,7 @@ public class BossAttack : MonoBehaviour
     /// </summary>
     private void Charge()
     {
-        if (effectStop < 1)
+        if (effectStop < EFFECT_STOP_MAX)
         {
             effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
             areaControl.GenerateDangerZone(gameObject);
