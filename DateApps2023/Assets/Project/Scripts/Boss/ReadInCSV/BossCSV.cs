@@ -52,7 +52,7 @@ public class BossCSV : MonoBehaviour
         }
     }
     /// <summary>
-    /// CSVファイルからデータを変換
+    /// CSVファイルからデータを変換 bossDate[行][列]
     /// </summary>
     public void BossCSVLoad()
     {

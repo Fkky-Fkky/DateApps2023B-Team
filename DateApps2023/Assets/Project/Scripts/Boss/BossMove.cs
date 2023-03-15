@@ -32,7 +32,7 @@ public class BossMove : MonoBehaviour
     [SerializeField]
     private AudioSource lastAttackAudio = null;
     [SerializeField]
-    private AudioClip lastAttackSE      = null;
+    private SEManager seManager = null; 
 
     private bool isDamageFlag = false;
     private bool isNotMove    = false;
@@ -147,6 +147,21 @@ public class BossMove : MonoBehaviour
 
     void Update()
     {
+        Appearance();
+        Move();
+        BossLastAttack();
+        Hazard();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.AddForce((MULTIPLIER - SINGLE) * Physics.gravity, ForceMode.Acceleration);
+    }
+    /// <summary>
+    /// ボスの登場から移動開始するまで
+    /// </summary>
+    private void Appearance()
+    {
         if (IsAppearance)
         {
             Vector3 pos = transform.position;
@@ -173,39 +188,8 @@ public class BossMove : MonoBehaviour
                 moveTime = 0.0f;
             }
         }
-        Move();
 
-        if (isLastAttack)
-        {
-            gameOverWarningDisplay.SetActive(true);
-            dangerFlashTime += Time.deltaTime;
-
-            var repeatValue = Mathf.Repeat(dangerFlashTime, DANGER_FLASH_TIME_MAX);
-
-            gameOverDisplay.enabled = repeatValue >= DANGER_FLASH_TIME_MAX * HALF_INDEX;
-
-            GameOverTransition();
-        }
-
-        if (IsHazard)
-        {
-            songName = "FirstDanger";
-            dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
-            audioSource.clip = dangerSE;
-            audioSource.Play();
-        }
-
-        if (isDamageFlag)
-        {
-            audioSource.Stop();
-        }
     }
-
-    private void FixedUpdate()
-    {
-        rb.AddForce((MULTIPLIER - SINGLE) * Physics.gravity, ForceMode.Acceleration);
-    }
-
     /// <summary>
     /// ボスの移動
     /// </summary>
@@ -242,23 +226,18 @@ public class BossMove : MonoBehaviour
     private void MoveTarget(GameObject target)
     {
         Quaternion lookRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
-
         lookRotation.z = 0;
         lookRotation.x = 0;
-
         transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, PARAMETER);
 
         Vector3 pos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);
 
-
         if ((transform.position.z - target.transform.position.z) <= WARNING_DISPLAY_POSITION)
         {
             warningDisplay.SetActive(true);
-
             warningFlashTime += Time.deltaTime;
             var repeatValue = Mathf.Repeat(warningFlashTime, WARNING_FLASH_TIME_MAX);
-
             warningRenderer.enabled = repeatValue >= WARNING_FLASH_TIME_MAX * HALF_INDEX;
 
             if (messageCount == 0)
@@ -287,11 +266,8 @@ public class BossMove : MonoBehaviour
         {
             warningDisplay.SetActive(false);
 
-            songName = "SecondDanger";
-            dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
-            audioSource.clip = dangerSE;
-            audioSource.Play();
-
+            SoundAudio("SecondDanger");
+            
             isLastAttack = true;
            bossAnimatorControl.SetTrigger("LastAttack");
         }
@@ -301,7 +277,24 @@ public class BossMove : MonoBehaviour
             gameOverWarningDisplay.SetActive(false);
         }
     }
+    /// <summary>
+    /// ボスの止めの攻撃の発動
+    /// </summary>
+    private void BossLastAttack()
+    {
+        if (!isLastAttack)
+        {
+            return;
+        }
+        gameOverWarningDisplay.SetActive(true);
+        dangerFlashTime += Time.deltaTime;
 
+        var repeatValue = Mathf.Repeat(dangerFlashTime, DANGER_FLASH_TIME_MAX);
+
+        gameOverDisplay.enabled = repeatValue >= DANGER_FLASH_TIME_MAX * HALF_INDEX;
+
+        GameOverTransition();
+    }
     /// <summary>
     /// ゲームオーバーに移行する為の処理
     /// </summary>
@@ -311,7 +304,7 @@ public class BossMove : MonoBehaviour
         {
             if (seCount < 1)
             {
-                lastAttackAudio.PlayOneShot(lastAttackSE);
+                lastAttackAudio.PlayOneShot(seManager.BossFinalAttack);
                 seCount++;
             }
         }
@@ -326,6 +319,32 @@ public class BossMove : MonoBehaviour
             seCount = 0;
             isLastAttack = false;
         }
+    }
+    /// <summary>
+    /// 近づいた時にSEを鳴らす処理とダメージ受けた時にSEを止める処理
+    /// </summary>
+    private void Hazard()
+    {
+        if (IsHazard)
+        {
+            SoundAudio("FirstDanger");
+        }
+        if (isDamageFlag)
+        {
+            audioSource.Stop();
+        }
+    }
+
+    /// <summary>
+    /// 近づいたときのSEを鳴らす
+    /// </summary>
+    /// <param name="songName">SEの名前</param>
+    private void SoundAudio(string songName)
+    {
+        dangerSE = (AudioClip)Resources.Load("Sound/" + songName);
+        audioSource.clip = dangerSE;
+        audioSource.Play();
+
     }
 
     public void DamageTrue()
