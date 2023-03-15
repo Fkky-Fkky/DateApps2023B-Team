@@ -103,14 +103,4 @@ public class FistDissolve : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    /// <summary>
-    /// 外部からパンチを終了する際に呼び出す
-    /// </summary>
-    public void CallEndDissolve()
-    {
-        isIntervalDissolve = false;
-        isEndDissolve = true;
-        endTime = startTime;
-    }
 }
