@@ -57,6 +57,15 @@ public class BossCSVGenerator : MonoBehaviour
         MINI,
         BIG
     }
+    /// <summary>
+    /// 出現レーン
+    /// </summary>
+    private enum LANE
+    {
+        LEFT = 1,
+        CENTER = 2,
+        RIGHT = 3
+    }
 
     /// <summary>
     /// ボスが倒れた
@@ -214,19 +223,19 @@ public class BossCSVGenerator : MonoBehaviour
     {
         switch (bossLane)
         {
-            case 1:
+            case (int)LANE.LEFT:
                 if (!bossManager.IsLeftLine)
                 {
                     BossAppearanceDate(leftPosX);
                 }
                 break;
-            case 2:
+            case (int)LANE.CENTER:
                 if (!bossManager.IsCenterLine)
                 {
                     BossAppearanceDate(CENTER_POS_X);
                 }
                 break;
-            case 3:
+            case (int)LANE.RIGHT:
                 if (!bossManager.IsRightLine)
                 {
                     BossAppearanceDate(rightPosX);

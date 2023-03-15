@@ -16,6 +16,20 @@ public class BossCSV : MonoBehaviour
     private int height = 0;
     private int i      = 1;
 
+    /// <summary>
+    /// CSVƒf[ƒ^‚Ì—ñ”
+    /// </summary>
+    private enum DATA_ROW
+    {
+        ZERO,
+        ONE,
+        TWO,
+        THREE,
+        FOUR,
+        FIVE,
+        SIX
+    }
+
     public int[] AppearanceLane       = null;
     public int[] BossHp               = null;
     public float[] AppearanceTime     = null;
@@ -23,6 +37,8 @@ public class BossCSV : MonoBehaviour
     public float[] PositionZ          = null;
     public float[] BossSpeed          = null;
     public string[] BossType          = null;
+
+    const int LIMIT_INDEX = -1;
 
     private void Awake()
     {
@@ -44,7 +60,7 @@ public class BossCSV : MonoBehaviour
     {
         csvFile = Resources.Load("CSV/BossSample") as TextAsset;
         StringReader reader = new StringReader(csvFile.text);
-        while (reader.Peek() > -1)
+        while (reader.Peek() > LIMIT_INDEX)
         {
             string line = reader.ReadLine();
             bossDate.Add(line.Split(','));
@@ -60,13 +76,13 @@ public class BossCSV : MonoBehaviour
 
         for (i = 1; i < height; i++)
         {
-            BossType[i]           = bossDate[i][0];
-            AppearanceTime[i]     = float.Parse(bossDate[i][1]);
-            AttackIntervalTime[i] = float.Parse(bossDate[i][2]);
-            AppearanceLane[i]     = int.Parse(bossDate[i][3]);
-            PositionZ[i]          = float.Parse(bossDate[i][4]);
-            BossHp[i]             = int.Parse(bossDate[i][5]);
-            BossSpeed[i]          = float.Parse(bossDate[i][6]);
+            BossType[i]           = bossDate[i][(int)DATA_ROW.ZERO];
+            AppearanceTime[i]     = float.Parse(bossDate[i][(int)DATA_ROW.ONE]);
+            AttackIntervalTime[i] = float.Parse(bossDate[i][(int)DATA_ROW.TWO]);
+            AppearanceLane[i]     = int.Parse(bossDate[i][(int)DATA_ROW.THREE]);
+            PositionZ[i]          = float.Parse(bossDate[i][(int)DATA_ROW.FOUR]);
+            BossHp[i]             = int.Parse(bossDate[i][(int)DATA_ROW.FIVE]);
+            BossSpeed[i]          = float.Parse(bossDate[i][(int)DATA_ROW.SIX]);
 
         }
     }

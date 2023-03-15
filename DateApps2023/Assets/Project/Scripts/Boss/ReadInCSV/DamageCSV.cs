@@ -17,6 +17,17 @@ public class DamageCSV : MonoBehaviour
     public int Medium = 0;
     public int Large = 0;
 
+    /// <summary>
+    /// CSVƒf[ƒ^‚Ì—ñ”
+    /// </summary>
+    private enum DATA_ROW
+    {
+        ZERO,
+        ONE,
+        TWO
+    }
+
+    const int LIMIT_INDEX = -1;
 
     private void Awake()
     {
@@ -29,7 +40,7 @@ public class DamageCSV : MonoBehaviour
     {
         csvFile = Resources.Load("CSV/EnergyDamage") as TextAsset;
         StringReader reader = new StringReader(csvFile.text);
-        while (reader.Peek() > -1)
+        while (reader.Peek() > LIMIT_INDEX)
         {
             string line = reader.ReadLine();
             damageDate.Add(line.Split(','));
@@ -45,9 +56,9 @@ public class DamageCSV : MonoBehaviour
 
         for (i = 1; i < height; i++)
         {
-            Small  = int.Parse(damageDate[i][0]);
-            Medium = int.Parse(damageDate[i][1]);
-            Large  = int.Parse(damageDate[i][2]);
+            Small  = int.Parse(damageDate[i][(int)DATA_ROW.ZERO]);
+            Medium = int.Parse(damageDate[i][(int)DATA_ROW.ONE]);
+            Large  = int.Parse(damageDate[i][(int)DATA_ROW.TWO]);
         }
     }
 }
