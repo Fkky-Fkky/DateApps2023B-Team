@@ -22,6 +22,8 @@ public class FistDissolve : MonoBehaviour
     private float time = 0.0f;
     private float value = 0.0f;
 
+    private const float MAX_VALUE = 1.0f;
+
     private bool isStartDissolve = false;
     private bool isEndDissolve = false;
     private bool isIntervalDissolve = false;
@@ -98,7 +100,7 @@ public class FistDissolve : MonoBehaviour
         if (time >= endTime)
         {
             time = 0.0f;
-            value = 1.0f;
+            value = MAX_VALUE;
             renderer.material.SetFloat("_DisAmount", value);
             Destroy(gameObject);
         }

@@ -31,7 +31,15 @@ public class GroupMove : MonoBehaviour
     private bool[] isGamepadFrag = { false, false, false, false };
     private Vector3 groupVec = Vector3.zero;
 
-    private const string runAnimSpeed = "RunSpeed";
+    private const int NOT_PLAYER_COUNT = 0;
+    private const int MAX_PLAYER_COUNT = 4;
+
+    private const int SMALL_NEED_COUNT = 1;
+    private const int MIDIUM_NEED_COUNT = 2;
+    private const int LARGE_NEED_COUNT = 4;
+
+    private const float DEFAULT_SPEED = 1.0f;
+    private const string RUN_ANIM_NAME = "RunSpeed";
 
     public GameObject[] ChildPlayer = null;
     public Animator[] AnimationImage = null;
@@ -86,7 +94,7 @@ public class GroupMove : MonoBehaviour
     /// </summary>
     void OnControllFrag()
     {
-        Vector2[] before = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
+        Vector2[] before = { Vector2.zero, Vector2.zero, Vector2.zero, Vector2.zero };
 
         for (int i = 0; i < isGamepadFrag.Length; i++)
         {
@@ -112,7 +120,7 @@ public class GroupMove : MonoBehaviour
                 }
 
                 float runSpeed = mySpeed * animationSpeed;
-                AnimationImage[i].SetFloat(runAnimSpeed, runSpeed);
+                AnimationImage[i].SetFloat(RUN_ANIM_NAME, runSpeed);
             }
         }
 
@@ -176,15 +184,15 @@ public class GroupMove : MonoBehaviour
         switch (itemSizeCount)
         {
             case 0:
-                needCarryCount = 1;
+                needCarryCount = SMALL_NEED_COUNT;
                 mySpeed = (moveSpeed * smallCarrySpeed[playerCount]) / playerCount;
                 break;
             case 1:
-                needCarryCount = 2;
+                needCarryCount = MIDIUM_NEED_COUNT;
                 mySpeed = (moveSpeed * midiumCarrySpeed[playerCount]) / playerCount;
                 break;
             case 2:
-                needCarryCount = 4;
+                needCarryCount = LARGE_NEED_COUNT;
                 mySpeed = (moveSpeed * largeCarrySpeed[playerCount]) / playerCount;
                 break;
         }
@@ -197,7 +205,7 @@ public class GroupMove : MonoBehaviour
     {
         if (playerCount >= needCarryCount)
         {
-            carryOverSpeed = 1.0f;
+            carryOverSpeed = DEFAULT_SPEED;
         }
         else
         {
@@ -210,13 +218,13 @@ public class GroupMove : MonoBehaviour
     /// </summary>
     public void CheckPlayerCount()
     {
-        if (playerCount < 0)
+        if (playerCount < NOT_PLAYER_COUNT)
         {
-            playerCount = 0;
+            playerCount = NOT_PLAYER_COUNT;
         }
-        else if (playerCount > 4)
+        else if (playerCount > MAX_PLAYER_COUNT)
         {
-            playerCount = 4;
+            playerCount = MAX_PLAYER_COUNT;
         }
 
         CheckMySpeed();
@@ -234,7 +242,7 @@ public class GroupMove : MonoBehaviour
             isGamepadFrag[i] = false;
         }
         isControlFrag = false;
-        playerCount = 0;
+        playerCount = NOT_PLAYER_COUNT;
     }
 
     /// <summary>

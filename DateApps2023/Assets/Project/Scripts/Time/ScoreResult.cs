@@ -10,6 +10,8 @@ public class ScoreResult : MonoBehaviour
     private int killCount = 0;
     private float scoreSecondsTime = 0;
 
+    private const int ONE_MINUTES_SECONDS = 60;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,7 @@ public class ScoreResult : MonoBehaviour
         scoreSecondsTime = TimeCount.GetTime();
 
         scoreTMP = GetComponent<TextMeshProUGUI>();
-        scoreTMP.text = "Time  " + ((int)(scoreSecondsTime / 60)).ToString("00") + ":" + ((int)scoreSecondsTime % 60).ToString("00") 
+        scoreTMP.text = "Time  " + ((int)(scoreSecondsTime / ONE_MINUTES_SECONDS)).ToString("00") + ":" + ((int)scoreSecondsTime % ONE_MINUTES_SECONDS).ToString("00") 
                + "\n" + "Boss  " + ((int)killCount).ToString("00");
     }
 }

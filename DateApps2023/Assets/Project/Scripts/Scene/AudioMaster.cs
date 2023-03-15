@@ -99,7 +99,7 @@ public class AudioMaster : MonoBehaviour
             fadeTime = fadeOutTime;
             isFadeOut = false;
         }
-        audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
+        audioSource.volume = (float)(defaultVol - fadeTime / fadeOutTime);
         if(audioSource.volume < 0)
         {
             audioSource.volume = 0;
