@@ -30,7 +30,6 @@ public class BossManager : MonoBehaviour
     const int LEFT_POS   = 0;
     const int RIGHT_POS  = 2;
 
-
     private void Start()
     {
         IsCenterLine = false;

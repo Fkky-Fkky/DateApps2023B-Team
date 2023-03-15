@@ -346,12 +346,16 @@ public class BossMove : MonoBehaviour
         audioSource.Play();
 
     }
-
+    /// <summary>
+    /// ダメージ受けたフラグ True
+    /// </summary>
     public void DamageTrue()
     {
         isDamageFlag = true;
     }
-
+    /// <summary>
+    /// ダメージ受けたフラグ False
+    /// </summary>
     public void DamageFalse()
     {
         isDamageFlag = false;
