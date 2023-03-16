@@ -24,7 +24,7 @@ public class BossCSVGenerator : MonoBehaviour
     private BossManager bossManager = null;
 
     [SerializeField]
-    private Operator myOperator     = null;
+    private Resistance.Operator myOperator     = null;
 
     [SerializeField]
     private BossCSV bossCSV         = null;
