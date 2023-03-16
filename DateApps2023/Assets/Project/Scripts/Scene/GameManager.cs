@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private BossManager bossManager = null;
 
     [SerializeField]
-    private AudioMaster audioMaster = null;
+    private Resistance.AudioMaster audioMaster = null;
 
     [SerializeField]
     private Operator myOperator = null;
