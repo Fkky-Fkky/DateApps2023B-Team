@@ -7,25 +7,25 @@ using UnityEngine;
 public class TargetV3D : MonoBehaviour
 {
 
-    public Transform targetCursor;
+    public Transform targetCursor = null;
     public float speed = 1f;
 
     const float CENTER_POS = 0.0f;
-    const float RIGHT_POS  = 1.0f;
-    const float LEFT_POS   = -0.1f;
+    const float RIGHT_POS = 1.0f;
+    const float LEFT_POS = -0.1f;
 
 
     //private Vector3 mouseWorldPosition;
 
     [SerializeField]
-    Transform bossPosition;
+    Transform bossPosition = null;
 
     [SerializeField]
-    Transform targetCenter;
+    Transform targetCenter = null;
     [SerializeField]
-    Transform targetRight;
+    Transform targetRight = null;
     [SerializeField]
-    Transform targetLeft;
+    Transform targetLeft = null;
 
 
     // Positioning cursor prefab

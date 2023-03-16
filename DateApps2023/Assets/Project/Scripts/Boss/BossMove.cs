@@ -298,7 +298,8 @@ public class BossMove : MonoBehaviour
     /// </summary>
     private void GameOverTransition()
     {
-        if (bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
+        if (bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && 
+            bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.0f)
         {
             if (seCount < 1)
             {
@@ -306,7 +307,8 @@ public class BossMove : MonoBehaviour
                 seCount++;
             }
         }
-        if (bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
+        if (bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).IsName("LastAttack") && 
+            bossAnimatorControl.BossAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= GAME_OVER_TIME)
         {
             IsGameOver = true;//ゲームオーバーフラグ
         }
