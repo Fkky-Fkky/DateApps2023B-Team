@@ -45,11 +45,11 @@ public class Enemy : MonoBehaviour
 
     private bool isJumpFlag = false;
 
-    private int rotationStatePosition = 4;
-
-    private int climbingPosition = 1;
-
     private int playerNumber = 0;
+
+    private const int ROTATION_STATE_POSITION = 4;
+
+    private const int CLIMBING_POSITION = 1;
 
     private const int DESTROY_POSITION = -25;
 
@@ -155,7 +155,7 @@ public class Enemy : MonoBehaviour
     {
         if (gameState == SUMMON.CLIMB)
         {
-            if (pos.y >= climbingPosition)
+            if (pos.y >= CLIMBING_POSITION)
                 isJumpFlag = true;
 
             animator.SetTrigger("work");
@@ -196,7 +196,7 @@ public class Enemy : MonoBehaviour
     {
         if (gameState == SUMMON.JUMP)
         {
-            if (pos.y >= rotationStatePosition)
+            if (pos.y >= ROTATION_STATE_POSITION)
             {
                 this.transform.Rotate(JUMP_ROTATE, 0f, 0f);
             }

@@ -19,7 +19,7 @@ public class EnemyGenerator : MonoBehaviour
     private Transform rangeD = null;
 
     [SerializeField]
-    private int spiderSpawnTime = 10;
+    private int spiderSpawnCoolTime = 10;
 
     public GameObject Spider = null;
 
@@ -27,13 +27,13 @@ public class EnemyGenerator : MonoBehaviour
 
     private int spawnPoint = 0;
 
-    private const int SPAWN_POSITION = -8;
-
    private float x = 0;
 
     private float z = 0;
 
-    private float spiderTime = 0;
+    private float spiderSpawnTime = 0;
+
+    private const int SPAWN_POSITION = -8;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +45,7 @@ public class EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spiderTime += Time.deltaTime;
+        spiderSpawnTime += Time.deltaTime;
 
         SummonSpider();
     }
@@ -54,9 +54,9 @@ public class EnemyGenerator : MonoBehaviour
     /// </summary>
     private void SummonSpider()
     {
-        if (spiderTime >= spiderSpawnTime && spawnPoint == 1)
+        if (spiderSpawnTime >= spiderSpawnCoolTime && spawnPoint == 1)
         {
-            spiderTime = 0;
+            spiderSpawnTime = 0;
 
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
@@ -66,9 +66,9 @@ public class EnemyGenerator : MonoBehaviour
             spawnPoint = random;
         }
 
-        if (spiderTime >= spiderSpawnTime && spawnPoint >= 2)
+        if (spiderSpawnTime >= spiderSpawnCoolTime && spawnPoint >= 2)
         {
-            spiderTime = 0;
+            spiderSpawnTime = 0;
 
             x = Random.Range(rangeC.position.x, rangeD.position.x);
 
