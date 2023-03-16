@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private GameObject[] players = null;
 
     [SerializeField]
-    private PlayerDamage[] playerDamage = null;
+    private Resistance.PlayerDamage[] playerDamage = null;
 
     [SerializeField]
     private Transform centerPoint = null;
