@@ -23,15 +23,17 @@ public class EnemyGenerator : MonoBehaviour
 
     public GameObject Spider = null;
 
-    private float x = 0;
+    private int random = 0;
+
+    private int spawnPoint = 0;
+
+    private int spawnPositionY = -8;
+
+   private float x = 0;
 
     private float z = 0;
 
     private float spiderTime = 0;
-
-    private int random = 0;
-
-    private int spawnPoint = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +61,9 @@ public class EnemyGenerator : MonoBehaviour
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
             z = Random.Range(rangeA.position.z, rangeB.position.z);
-            Instantiate(Spider, new Vector3(x, -8, z), Spider.transform.rotation);
-            spawnPoint = Random.Range(1, 3);
+            Instantiate(Spider, new Vector3(x, spawnPositionY, z), Spider.transform.rotation);
+            random = Random.Range(1, 3);
+            spawnPoint = random;
         }
 
         if (spiderTime >= spiderSpawnTime && spawnPoint >= 2)
@@ -70,8 +73,9 @@ public class EnemyGenerator : MonoBehaviour
             x = Random.Range(rangeC.position.x, rangeD.position.x);
 
             z = Random.Range(rangeC.position.z, rangeD.position.z);
-            Instantiate(Spider, new Vector3(x, -8, z), Spider.transform.rotation);
-            spawnPoint = Random.Range(1, 3);
+            Instantiate(Spider, new Vector3(x, spawnPositionY, z), Spider.transform.rotation);
+            random = Random.Range(1, 3);
+            spawnPoint = random;
         }
     }
 }

@@ -51,11 +51,19 @@ public class Enemy : MonoBehaviour
 
     private int climbingPosition = 1;
 
+    private int playerNumber = 0;
+
+    private int leftJumpPower = -5;
+
+    private int lightJumpPower = 5;
+
+    private float jumpRotate = 0.35f;
+
     private float jumpStatePosition = -0.5f;
 
     private float jumpPower = 18.0f;
 
-    private int playerNumber = 0;
+    private float centerRotate = -90 * Time.deltaTime;
 
     public int Random { get; private set; }
 
@@ -72,7 +80,7 @@ public class Enemy : MonoBehaviour
         agent.enabled = false;
 
         Random = UnityEngine.Random.Range(0, 3);
-        playerNumber = Random;
+        playerNumber=Random;
     }
 
     void Update()
@@ -94,7 +102,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject == players[Random])
+        if (collision.gameObject == players[playerNumber])
         {
             agent.enabled = false;
             animator.SetTrigger("attack");
@@ -123,7 +131,7 @@ public class Enemy : MonoBehaviour
         vec.y = 0f;
         Quaternion quaternion = Quaternion.LookRotation(vec);
         this.transform.rotation = quaternion;
-        this.transform.Rotate(-90, 0f, 0f);
+        this.transform.Rotate(centerRotate, 0f, 0f);
     }
 
     /// <summary>
@@ -165,13 +173,13 @@ public class Enemy : MonoBehaviour
         {
             if (pos.x > 0)
             {
-                Vector3 force = new Vector3(-5.0f, jumpPower, 0.0f);
+                Vector3 force = new Vector3(leftJumpPower, jumpPower, 0.0f);
                 myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
             if (pos.x < 0)
             {
-                Vector3 force = new Vector3(5.0f, jumpPower, 0.0f);
+                Vector3 force = new Vector3(lightJumpPower, jumpPower, 0.0f);
                 myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
@@ -190,7 +198,7 @@ public class Enemy : MonoBehaviour
         {
             if (pos.y >= rotationStatePosition)
             {
-                this.transform.Rotate(0.35f, 0f, 0f);
+                this.transform.Rotate(jumpRotate, 0f, 0f);
             }
 
             if (pos.y <= jumpStatePosition)
@@ -221,7 +229,7 @@ public class Enemy : MonoBehaviour
     {
         if (gameState == SUMMON.END)
         {
-            agent.destination = players[Random].transform.position;
+            agent.destination = players[playerNumber].transform.position;
         }
     }
 
@@ -230,7 +238,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void OnAttackCollider()
     {
-        playerDamage[Random].CallDamage();
+        playerDamage[playerNumber].CallDamage();
     }
 
     /// <summary>
