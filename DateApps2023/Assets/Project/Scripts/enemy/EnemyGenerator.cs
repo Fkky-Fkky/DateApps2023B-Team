@@ -27,7 +27,7 @@ public class EnemyGenerator : MonoBehaviour
 
     private int spawnPoint = 0;
 
-    private int spawnPositionY = -8;
+    private const int SPAWN_POSITION = -8;
 
    private float x = 0;
 
@@ -61,7 +61,7 @@ public class EnemyGenerator : MonoBehaviour
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
             z = Random.Range(rangeA.position.z, rangeB.position.z);
-            Instantiate(Spider, new Vector3(x, spawnPositionY, z), Spider.transform.rotation);
+            Instantiate(Spider, new Vector3(x, SPAWN_POSITION, z), Spider.transform.rotation);
             random = Random.Range(1, 3);
             spawnPoint = random;
         }
@@ -73,7 +73,7 @@ public class EnemyGenerator : MonoBehaviour
             x = Random.Range(rangeC.position.x, rangeD.position.x);
 
             z = Random.Range(rangeC.position.z, rangeD.position.z);
-            Instantiate(Spider, new Vector3(x, spawnPositionY, z), Spider.transform.rotation);
+            Instantiate(Spider, new Vector3(x, SPAWN_POSITION, z), Spider.transform.rotation);
             random = Random.Range(1, 3);
             spawnPoint = random;
         }

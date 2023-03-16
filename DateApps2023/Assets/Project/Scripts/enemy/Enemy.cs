@@ -45,25 +45,25 @@ public class Enemy : MonoBehaviour
 
     private bool isJumpFlag = false;
 
-    private int destroyPosition = -25;
-
     private int rotationStatePosition = 4;
 
     private int climbingPosition = 1;
 
     private int playerNumber = 0;
 
-    private int leftJumpPower = -5;
+    private const int DESTROY_POSITION = -25;
 
-    private int lightJumpPower = 5;
+    private const int LEFT_JUMP_POWER = -5;
 
-    private float jumpRotate = 0.35f;
+    private const int LIGHT_JUMP_POWER = 5;
 
-    private float jumpStatePosition = -0.5f;
+    private const float JUMP_ROTATE = 0.35f;
 
-    private float jumpPower = 18.0f;
+    private const float JUMP_STATE_POSITION = -0.5f;
 
-    private float centerRotate = -90 * Time.deltaTime;
+    private const float JUMP_POWER = 18.0f;
+
+    private const float CENTER_ROTATE = -90;
 
     public int Random { get; private set; }
 
@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
         vec.y = 0f;
         Quaternion quaternion = Quaternion.LookRotation(vec);
         this.transform.rotation = quaternion;
-        this.transform.Rotate(centerRotate, 0f, 0f);
+        this.transform.Rotate(CENTER_ROTATE, 0f, 0f);
     }
 
     /// <summary>
@@ -139,7 +139,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Destroy(Vector3 pos)
     {
-        if (destroyPosition >= pos.y)
+        if (DESTROY_POSITION >= pos.y)
             Destroy(gameObject);
 
         if (0 >= enemyHp)
@@ -173,13 +173,13 @@ public class Enemy : MonoBehaviour
         {
             if (pos.x > 0)
             {
-                Vector3 force = new Vector3(leftJumpPower, jumpPower, 0.0f);
+                Vector3 force = new Vector3(LEFT_JUMP_POWER, JUMP_POWER, 0.0f);
                 myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
             if (pos.x < 0)
             {
-                Vector3 force = new Vector3(lightJumpPower, jumpPower, 0.0f);
+                Vector3 force = new Vector3(LIGHT_JUMP_POWER, JUMP_POWER, 0.0f);
                 myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
@@ -198,10 +198,10 @@ public class Enemy : MonoBehaviour
         {
             if (pos.y >= rotationStatePosition)
             {
-                this.transform.Rotate(jumpRotate, 0f, 0f);
+                this.transform.Rotate(JUMP_ROTATE, 0f, 0f);
             }
 
-            if (pos.y <= jumpStatePosition)
+            if (pos.y <= JUMP_STATE_POSITION)
             {
                 myRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                 gameState = SUMMON.LANDING;
