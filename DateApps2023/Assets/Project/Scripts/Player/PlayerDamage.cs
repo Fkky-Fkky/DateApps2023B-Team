@@ -1,10 +1,10 @@
-//ï¿½Sï¿½ï¿½ï¿½ï¿½:ï¿½gï¿½cï¿½ï¿½ï¿½ï¿½
+//’S“–Ò:‹g“c—Ñ
 using UnityEngine;
 
 namespace Resistance
 {
     /// <summary>
-    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ÉŠÖ‚ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
+    /// ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒW‚ÉŠÖ‚·‚éƒNƒ‰ƒX
     /// </summary>
     public class PlayerDamage : MonoBehaviour
     {
@@ -119,7 +119,7 @@ namespace Resistance
             if (other.gameObject.CompareTag("Enemy"))
             {
                 enemyScript = other.gameObject.GetComponent<Enemy>();
-                if (!isCurrentDamage && myPlayerNo == enemyScript.random)
+                if (!isCurrentDamage && myPlayerNo == enemyScript.Random)
                 {
                     CallCapture();
                 }
@@ -136,7 +136,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ô‚ÌÛ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
+        /// ƒvƒŒƒCƒ„[‚ª‹Câó‘Ô‚ÌÛ‚Ìˆ—‚ğs‚¤
         /// </summary>
         void OnCurrentDamage()
         {
@@ -163,7 +163,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½Ô‚ÌÛ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
+        /// ƒvƒŒƒCƒ„[‚ªS‘©ó‘Ô‚ÌÛ‚Ìˆ—‚ğs‚¤
         /// </summary>
         void OnCurrentCapture()
         {
@@ -183,7 +183,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ñ•œ‚ï¿½ï¿½ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
+        /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚©‚ç‰ñ•œ‚µ‚½Û‚ÉŒÄ‚Ño‚·
         /// </summary>
         void CleanUpDamage()
         {
@@ -199,7 +199,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
+        /// ”­¶‚³‚¹‚½ƒXƒ^ƒ“ƒGƒtƒFƒNƒg‚ğíœ‚·‚é
         /// </summary>
         void DeleteStanEffect()
         {
@@ -217,7 +217,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½{ï¿½Xï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
+        /// ƒvƒŒƒCƒ„[‚ªƒ{ƒX‚©‚çUŒ‚‚ğó‚¯‚½Û‚ÉŒÄ‚Ño‚·
         /// </summary>
         public void CallDamage()
         {
@@ -229,7 +229,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Gï¿½lï¿½~ï¿½[ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
+        /// ƒvƒŒƒCƒ„[‚ª¬Œ^ƒGƒlƒ~[‚©‚çUŒ‚‚ğó‚¯‚½Û‚ÉŒÄ‚Ño‚·
         /// </summary>
         public void CallCapture()
         {
@@ -248,7 +248,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
+        /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğó‚¯‚½Û‚Ì€”õ‚ğs‚¤
         /// </summary>
         void SetUpDamage()
         {
@@ -284,13 +284,13 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Gï¿½lï¿½~ï¿½[ï¿½Ì•Wï¿½Iï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ”»’è‚·ï¿½ï¿½
+        /// ©g‚ª¬Œ^ƒGƒlƒ~[‚Ì•W“I‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
         /// </summary>
-        /// <param name="enemy">ï¿½ÎÛ‚Ìï¿½ï¿½^ï¿½Gï¿½lï¿½~ï¿½[ï¿½ÌƒQï¿½[ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g</param>
+        /// <param name="enemy">‘ÎÛ‚Ì¬Œ^ƒGƒlƒ~[‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg</param>
         public void JudgeCapture(GameObject enemy)
         {
             enemyScript = enemy.GetComponent<Enemy>();
-            if (!isCurrentDamage && myPlayerNo == enemyScript.random)
+            if (!isCurrentDamage && myPlayerNo == enemyScript.Random)
             {
                 CallCapture();
             }
@@ -301,7 +301,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Ìƒpï¿½ï¿½ï¿½`ï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
+        /// ‘¼ƒvƒŒƒCƒ„[‚©‚ç‚Ìƒpƒ“ƒ`‚ğó‚¯‚½Û‚ÉŒÄ‚Ño‚·
         /// </summary>
         public void CallKnockBack()
         {
@@ -309,9 +309,9 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ï¿½ï¿½ï¿½gï¿½Ìƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ôï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+        /// ©g‚ÌƒvƒŒƒCƒ„[”Ô†‚ğæ“¾‚·‚é
         /// </summary>
-        /// <param name="myNumber">ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ôï¿½</param>
+        /// <param name="myNumber">ƒvƒŒƒCƒ„[”Ô†</param>
         public void GetPlayerNo(int myNumber)
         {
             myPlayerNo = myNumber;

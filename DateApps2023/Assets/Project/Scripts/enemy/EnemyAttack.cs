@@ -1,17 +1,21 @@
 //担当者:丸子羚
 using UnityEngine;
-/// <summary>
-/// 小型エネミーの攻撃の判定のクラス
-/// </summary>
-public class EnemyAttack : MonoBehaviour
+
+namespace Resistance
 {
-    [SerializeField]
-    private Enemy enemy;
-    void OnTriggerEnter(Collider collision)
+    /// <summary>
+    /// 小型エネミーの攻撃の判定のクラス
+    /// </summary>
+    public class EnemyAttack : MonoBehaviour
     {
-        if (collision.gameObject.CompareTag("Player"))
+        [SerializeField]
+        private Enemy enemy;
+        void OnTriggerEnter(Collider collision)
         {
-            enemy.OnAttackCollider();
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                enemy.OnAttackCollider();
+            }
         }
     }
 }
