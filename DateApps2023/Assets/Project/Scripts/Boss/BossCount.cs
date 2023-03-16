@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:武田碧
 using UnityEngine;
+
 /// <summary>
 /// ボスが倒れたかカウントする
 /// </summary>

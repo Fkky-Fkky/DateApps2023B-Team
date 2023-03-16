@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//担当者:武田碧
+using UnityEngine;
+
 /// <summary>
 /// ビームの狙う場所
 /// </summary>

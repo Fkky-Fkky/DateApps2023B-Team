@@ -1,6 +1,8 @@
+//担当者:武田碧
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
 /// <summary>
 /// ボスのデータをCSVファイル読み込み
 /// </summary>

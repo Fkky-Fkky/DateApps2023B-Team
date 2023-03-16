@@ -1,5 +1,7 @@
+//担当者:武田碧
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// 当たり判定エリアと危険エリアの生成
 /// </summary>
