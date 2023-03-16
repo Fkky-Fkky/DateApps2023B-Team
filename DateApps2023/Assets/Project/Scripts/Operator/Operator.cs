@@ -1,3 +1,4 @@
+//担当者:丸子羚
 using UnityEngine;
 
 /// <summary>
@@ -5,13 +6,17 @@ using UnityEngine;
 /// </summary>
 public class Operator : MonoBehaviour
 {
-    [SerializeField] private Resistance.EnergyGenerator energy = null;
+    [SerializeField] 
+    private EnergyGenerator energy = null;
 
-    [SerializeField] private Resistance.CannonManager cannon = null;
+    [SerializeField] 
+    private CannonManager cannon = null;
 
-    [SerializeField] private BossCSVGenerator csv = null;
+    [SerializeField]
+    private BossCSVGenerator csv = null;
 
-    [SerializeField] private BossManager boss = null;
+    [SerializeField] 
+    private BossManager boss = null;
 
     /// <summary>
     /// チュートリアルとゲームの状態のステート
@@ -27,17 +32,16 @@ public class Operator : MonoBehaviour
 
     private Animator animator = null;
 
-    private bool gameStartFlag = false;
+    private bool isGameStart = false;
 
-    private bool operatorTextFlag = false;
+    private bool isOperatorTextCooltime = false;
 
-    private  float time = 0;
+    private  float coolTime = 0;
     
     private const float OPERATOR_TEXT_COOLTIME = 2;
 
     private const float RESET = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -98,14 +102,14 @@ public class Operator : MonoBehaviour
     {
         animator.SetTrigger("tutorial_end");
         gameState = GAME_STATE.GAME;
-        gameStartFlag = true;
+        isGameStart = true;
     }
     /// <summary>
     /// チュートリアル終了のフラグの受け渡し
     /// </summary>
     public bool GetStartFlag()
     {
-        return gameStartFlag;
+        return isGameStart;
     }
     /// <summary>
     /// チュートリアル中の1回目のエネルギー物資生成
@@ -127,22 +131,22 @@ public class Operator : MonoBehaviour
     /// </summary>
     private void Game()
     {
-        if (operatorTextFlag)
+        if (isOperatorTextCooltime)
         {
             BossType();
 
             BossMove();
         } 
 
-        if (!operatorTextFlag)
+        if (!isOperatorTextCooltime)
         {
-            time += Time.deltaTime;
+            coolTime += Time.deltaTime;
         }
 
-        if (time >= OPERATOR_TEXT_COOLTIME)
+        if (coolTime >= OPERATOR_TEXT_COOLTIME)
         {
-            operatorTextFlag = true;
-            time = RESET;
+            isOperatorTextCooltime = true;
+            coolTime = RESET;
         }
     }
 
@@ -155,17 +159,17 @@ public class Operator : MonoBehaviour
         {
             case 1:
                 SummonBoss();
-                operatorTextFlag = false;
+                isOperatorTextCooltime = false;
                 break;
 
             case 2:
                 SummonMiniBoss();
-                operatorTextFlag = false;
+                isOperatorTextCooltime = false;
                 break;
 
             case 3:
                 SummonBigBoss();
-                operatorTextFlag = false;
+                isOperatorTextCooltime = false;
                 break;
         }
     }
@@ -179,19 +183,19 @@ public class Operator : MonoBehaviour
         if (boss.Charge())
         {
             BossAttackCharge();
-            operatorTextFlag = false;
+            isOperatorTextCooltime = false;
         }
         //ボス接近時
         if (boss.Danger())
         {
             Approach();
-            operatorTextFlag = false;
+            isOperatorTextCooltime = false;
         }
         //ボス討伐
         if (boss.IsBossKill())
         {
             BossKill();
-            operatorTextFlag = false;
+            isOperatorTextCooltime = false;
         }
     }
 
@@ -201,7 +205,7 @@ public class Operator : MonoBehaviour
     ///通常ボス出現時のアニメーター呼び出し 
     /// </summary>
     public void SummonBoss()
-    { 
+    {
         animator.SetTrigger("boss");  
     }
     /// <summary>

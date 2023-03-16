@@ -1,3 +1,4 @@
+//’S“–ŽÒ:ŠÛŽqã·
 using UnityEngine;
 
 /// <summary>
@@ -18,28 +19,33 @@ public class EnemyGenerator : MonoBehaviour
     private Transform rangeD = null;
 
     [SerializeField]
-    private int spiderSpawnTime = 10;
+    private int spiderSpawnCoolTime = 10;
 
-    public GameObject spider = null;
+    public GameObject Spider = null;
 
-    private float x = 0;
+    private int random = 0;
+
+    private int spawnPoint = 0;
+
+   private float x = 0;
 
     private float z = 0;
 
-    private float spiderTime = 0;
+    private float spiderSpawnTime = 0;
 
-    private int random = 0;
+    private const int SPAWN_POSITION = -8;
 
     // Start is called before the first frame update
     void Start()
     {
         random = Random.Range(1, 3);
+        spawnPoint = random;
     }
 
     // Update is called once per frame
     void Update()
     {
-        spiderTime += Time.deltaTime;
+        spiderSpawnTime += Time.deltaTime;
 
         SummonSpider();
     }
@@ -48,26 +54,28 @@ public class EnemyGenerator : MonoBehaviour
     /// </summary>
     private void SummonSpider()
     {
-        if (spiderTime >= spiderSpawnTime && random == 1)
+        if (spiderSpawnTime >= spiderSpawnCoolTime && spawnPoint == 1)
         {
-            spiderTime = 0;
+            spiderSpawnTime = 0;
 
             x = Random.Range(rangeA.position.x, rangeB.position.x);
 
             z = Random.Range(rangeA.position.z, rangeB.position.z);
-            Instantiate(spider, new Vector3(x, -8, z), spider.transform.rotation);
+            Instantiate(Spider, new Vector3(x, SPAWN_POSITION, z), Spider.transform.rotation);
             random = Random.Range(1, 3);
+            spawnPoint = random;
         }
 
-        if (spiderTime >= spiderSpawnTime && random >= 2)
+        if (spiderSpawnTime >= spiderSpawnCoolTime && spawnPoint >= 2)
         {
-            spiderTime = 0;
+            spiderSpawnTime = 0;
 
             x = Random.Range(rangeC.position.x, rangeD.position.x);
 
             z = Random.Range(rangeC.position.z, rangeD.position.z);
-            Instantiate(spider, new Vector3(x, -8, z), spider.transform.rotation);
+            Instantiate(Spider, new Vector3(x, SPAWN_POSITION, z), Spider.transform.rotation);
             random = Random.Range(1, 3);
+            spawnPoint = random;
         }
     }
 }

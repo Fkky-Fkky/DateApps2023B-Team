@@ -1,3 +1,4 @@
+//担当者:丸子羚
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,10 +24,9 @@ public class Enemy : MonoBehaviour
 
     private Animator animator = null;
 
-    private Rigidbody rigidbody = null;
+    private Rigidbody myRigidbody = null;
 
     private NavMeshAgent agent = null;
-
 
     /// <summary>
     /// エネミーが登場してからプレイヤーを追い始めるまでのステート
@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
 
         JUMP,
 
-        LAMDING,
+        LANDING,
 
         END,
     }
@@ -45,31 +45,42 @@ public class Enemy : MonoBehaviour
 
     private bool isJumpFlag = false;
 
-    public int random = 0;
+    private int playerNumber = 0;
 
-    private int destroyPosition = -25;
+    private const int ROTATION_STATE_POSITION = 4;
 
-    private int rotationStatePosition = 4;
+    private const int CLIMBING_POSITION = 1;
 
-    private int climbingPosition = 1;
+    private const int DESTROY_POSITION = -25;
 
-    private float jumpStatePosition = -0.5f;
+    private const int LEFT_JUMP_POWER = -5;
 
-    private float jumpPower = 18.0f;
+    private const int LIGHT_JUMP_POWER = 5;
+
+    private const float JUMP_ROTATE = 0.35f;
+
+    private const float JUMP_STATE_POSITION = -0.5f;
+
+    private const float JUMP_POWER = 18.0f;
+
+    private const float CENTER_ROTATE = -90;
+
+    public int Random { get; private set; }
 
     void Start()
     {
         CenterRotate();
        
-        rigidbody = this.GetComponent<Rigidbody>();
-        rigidbody.useGravity = false;
+        myRigidbody = this.GetComponent<Rigidbody>();
+        myRigidbody.useGravity = false;
 
         agent = this.GetComponent<NavMeshAgent>();
 
         animator = GetComponent<Animator>();
         agent.enabled = false;
 
-        random = Random.Range(0, 3);
+        Random = UnityEngine.Random.Range(0, 3);
+        playerNumber=Random;
     }
 
     void Update()
@@ -83,11 +94,34 @@ public class Enemy : MonoBehaviour
 
         Jump(pos);
 
-        Lamding();
+        Landing();
 
         End();
 
     }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject == players[playerNumber])
+        {
+            agent.enabled = false;
+            animator.SetTrigger("attack");
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        agent.enabled = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerAttackPoint"))
+        {
+            enemyHp -= 1;
+        }
+    }
+
     /// <summary>
     /// 最初のエネミーの方向設定
     /// </summary>
@@ -97,15 +131,7 @@ public class Enemy : MonoBehaviour
         vec.y = 0f;
         Quaternion quaternion = Quaternion.LookRotation(vec);
         this.transform.rotation = quaternion;
-        this.transform.Rotate(-90, 0f, 0f);
-    }
-    /// <summary>
-    /// 着地後のプレイヤー追いかける時の関数
-    /// </summary>
-    private void End()
-    {
-        if (gameState == SUMMON.END)
-            agent.destination = players[random].transform.position;
+        this.transform.Rotate(CENTER_ROTATE, 0f, 0f);
     }
 
     /// <summary>
@@ -113,7 +139,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Destroy(Vector3 pos)
     {
-        if (destroyPosition >= pos.y)
+        if (DESTROY_POSITION >= pos.y)
             Destroy(gameObject);
 
         if (0 >= enemyHp)
@@ -123,13 +149,13 @@ public class Enemy : MonoBehaviour
         }
     }
     /// <summary>
-    ///エネミーが壁を登る関数 
+    ///エネミーが壁を登る関数
     /// </summary>
     private void Climb(Vector3 pos)
     {
         if (gameState == SUMMON.CLIMB)
         {
-            if (pos.y >= climbingPosition)
+            if (pos.y >= CLIMBING_POSITION)
                 isJumpFlag = true;
 
             animator.SetTrigger("work");
@@ -147,17 +173,17 @@ public class Enemy : MonoBehaviour
         {
             if (pos.x > 0)
             {
-                Vector3 force = new Vector3(-5.0f, jumpPower, 0.0f);
-                rigidbody.AddForce(force, ForceMode.Impulse);
+                Vector3 force = new Vector3(LEFT_JUMP_POWER, JUMP_POWER, 0.0f);
+                myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
             if (pos.x < 0)
             {
-                Vector3 force = new Vector3(5.0f, jumpPower, 0.0f);
-                rigidbody.AddForce(force, ForceMode.Impulse);
+                Vector3 force = new Vector3(LIGHT_JUMP_POWER, JUMP_POWER, 0.0f);
+                myRigidbody.AddForce(force, ForceMode.Impulse);
             }
 
-            rigidbody.useGravity = true;
+            myRigidbody.useGravity = true;
             gameState = SUMMON.JUMP;
             isJumpFlag = false;
         }
@@ -170,15 +196,15 @@ public class Enemy : MonoBehaviour
     {
         if (gameState == SUMMON.JUMP)
         {
-            if (pos.y >= rotationStatePosition)
+            if (pos.y >= ROTATION_STATE_POSITION)
             {
-                this.transform.Rotate(0.35f, 0f, 0f);
+                this.transform.Rotate(JUMP_ROTATE, 0f, 0f);
             }
 
-            if (pos.y <= jumpStatePosition)
+            if (pos.y <= JUMP_STATE_POSITION)
             {
-                rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-                gameState = SUMMON.LAMDING;
+                myRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                gameState = SUMMON.LANDING;
                 animator.SetTrigger("idle");
             }
         }
@@ -186,21 +212,33 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// 着地時の関数
     /// </summary>
-    private void Lamding()
+    private void Landing()
     {
-        if (gameState == SUMMON.LAMDING)
+        if (gameState == SUMMON.LANDING)
         {
             agent.enabled = true;
             animator.SetTrigger("work");
             gameState = SUMMON.END;
         }
     }
+
+    /// <summary>
+    /// 着地後のプレイヤー追いかける時の関数
+    /// </summary>
+    private void End()
+    {
+        if (gameState == SUMMON.END)
+        {
+            agent.destination = players[playerNumber].transform.position;
+        }
+    }
+
     /// <summary>
     /// ダメージ呼び出し関数
     /// </summary>
     public void OnAttackCollider()
     {
-        playerDamage[random].CallDamage();
+        playerDamage[playerNumber].CallDamage();
     }
 
     /// <summary>
@@ -209,27 +247,5 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
-    }
-
-    void OnCollisionStay(Collision collision)//Trigger
-    {
-        if (collision.gameObject == players[random])
-        {
-            agent.enabled = false;
-            animator.SetTrigger("attack");
-        }
-    }
-
-    void OnCollisionExit(Collision collision)//Trigger
-    {
-        agent.enabled = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("PlayerAttackPoint"))
-        {
-            enemyHp -= 1;
-        }
     }
 }

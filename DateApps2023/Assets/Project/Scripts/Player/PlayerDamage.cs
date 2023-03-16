@@ -1,10 +1,10 @@
-//’S“–ŽÒ:‹g“c—ŽÑ
+//ï¿½Sï¿½ï¿½ï¿½ï¿½:ï¿½gï¿½cï¿½ï¿½ï¿½ï¿½
 using UnityEngine;
 
 namespace Resistance
 {
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒW‚ÉŠÖ‚·‚éƒNƒ‰ƒX
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ÉŠÖ‚ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
     /// </summary>
     public class PlayerDamage : MonoBehaviour
     {
@@ -136,7 +136,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[‚ª‹Câó‘Ô‚ÌÛ‚Ìˆ—‚ðs‚¤
+        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ô‚ÌÛ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
         /// </summary>
         void OnCurrentDamage()
         {
@@ -163,7 +163,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[‚ªS‘©ó‘Ô‚ÌÛ‚Ìˆ—‚ðs‚¤
+        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½Ô‚ÌÛ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
         /// </summary>
         void OnCurrentCapture()
         {
@@ -183,7 +183,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚©‚ç‰ñ•œ‚µ‚½Û‚ÉŒÄ‚Ño‚·
+        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ñ•œ‚ï¿½ï¿½ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
         /// </summary>
         void CleanUpDamage()
         {
@@ -199,7 +199,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ”­¶‚³‚¹‚½ƒXƒ^ƒ“ƒGƒtƒFƒNƒg‚ðíœ‚·‚é
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
         /// </summary>
         void DeleteStanEffect()
         {
@@ -217,7 +217,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[‚ªƒ{ƒX‚©‚çUŒ‚‚ðŽó‚¯‚½Û‚ÉŒÄ‚Ño‚·
+        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½{ï¿½Xï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
         /// </summary>
         public void CallDamage()
         {
@@ -229,7 +229,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[‚ª¬Œ^ƒGƒlƒ~[‚©‚çUŒ‚‚ðŽó‚¯‚½Û‚ÉŒÄ‚Ño‚·
+        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Gï¿½lï¿½~ï¿½[ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
         /// </summary>
         public void CallCapture()
         {
@@ -248,7 +248,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ðŽó‚¯‚½Û‚Ì€”õ‚ðs‚¤
+        /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
         /// </summary>
         void SetUpDamage()
         {
@@ -284,9 +284,9 @@ namespace Resistance
         }
 
         /// <summary>
-        /// Ž©g‚ª¬Œ^ƒGƒlƒ~[‚Ì•W“I‚©‚Ç‚¤‚©‚ð”»’è‚·‚é
+        /// ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Gï¿½lï¿½~ï¿½[ï¿½Ì•Wï¿½Iï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ð”»’è‚·ï¿½ï¿½
         /// </summary>
-        /// <param name="enemy">‘ÎÛ‚Ì¬Œ^ƒGƒlƒ~[‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg</param>
+        /// <param name="enemy">ï¿½ÎÛ‚Ìï¿½ï¿½^ï¿½Gï¿½lï¿½~ï¿½[ï¿½ÌƒQï¿½[ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g</param>
         public void JudgeCapture(GameObject enemy)
         {
             enemyScript = enemy.GetComponent<Enemy>();
@@ -301,7 +301,7 @@ namespace Resistance
         }
 
         /// <summary>
-        /// ‘¼ƒvƒŒƒCƒ„[‚©‚ç‚Ìƒpƒ“ƒ`‚ðŽó‚¯‚½Û‚ÉŒÄ‚Ño‚·
+        /// ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Ìƒpï¿½ï¿½ï¿½`ï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
         /// </summary>
         public void CallKnockBack()
         {
@@ -309,9 +309,9 @@ namespace Resistance
         }
 
         /// <summary>
-        /// Ž©g‚ÌƒvƒŒƒCƒ„[”Ô†‚ðŽæ“¾‚·‚é
+        /// ï¿½ï¿½ï¿½gï¿½Ìƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ôï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        /// <param name="myNumber">ƒvƒŒƒCƒ„[”Ô†</param>
+        /// <param name="myNumber">ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ôï¿½</param>
         public void GetPlayerNo(int myNumber)
         {
             myPlayerNo = myNumber;
