@@ -1,28 +1,31 @@
 //担当者:武田碧
 using UnityEngine;
 
-/// <summary>
-/// ビームチャージのエフェクトの表示時間
-/// </summary>
-public class BeamCharge : MonoBehaviour
+namespace Resistance
 {
-    private float time       = 0.0f;
-    private float effectTime = 0.0f;
-
-    public BossAttack BossAttack = null;
-
-    void Start()
+    /// <summary>
+    /// ビームチャージのエフェクトの表示時間
+    /// </summary>
+    public class BeamCharge : MonoBehaviour
     {
-        effectTime = BossAttack.BeamTimeMax();
-    }
+        private float time = 0.0f;
+        private float effectTime = 0.0f;
 
-    void Update()
-    {
-        time += Time.deltaTime;
-        if (time > effectTime)
+        public BossAttack BossAttack = null;
+
+        void Start()
         {
-            Destroy(gameObject);
-            time = 0.0f;
+            effectTime = BossAttack.BeamTimeMax();
+        }
+
+        void Update()
+        {
+            time += Time.deltaTime;
+            if (time > effectTime)
+            {
+                Destroy(gameObject);
+                time = 0.0f;
+            }
         }
     }
 }
