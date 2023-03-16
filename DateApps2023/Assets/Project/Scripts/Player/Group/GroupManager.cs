@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:吉田理紗
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// 運搬中のグループ配下のオブジェクト処理に関するクラス
+/// </summary>
 public class GroupManager : MonoBehaviour
 {
     [SerializeField]
@@ -15,6 +16,9 @@ public class GroupManager : MonoBehaviour
     private Outline outline = null;
 
     private float defaultMass = 1.0f;
+
+    private const int ONLY_CHILDCOUNT = 1;
+    private const float ADD_MASS = 10.0f; 
 
     private void Start()
     {
@@ -51,7 +55,7 @@ public class GroupManager : MonoBehaviour
     /// </summary>
     public void CheckOnlyChild()
     {
-        if (transform.childCount <= 1)
+        if (transform.childCount <= ONLY_CHILDCOUNT)
         {
             ItemOutGroup();
             AllFragFalse();
@@ -65,7 +69,7 @@ public class GroupManager : MonoBehaviour
     /// <param name="itemSize">アイテムのサイズ(重さ)</param>
     /// <param name="itemType">アイテムのタイプ　1=エネルギー物資,2=大砲</param>
     /// <param name="gameObject">アイテムのゲームオブジェクト</param>
-    public void GetItemSize(int itemSize, int itemType, GameObject gameObject)
+    public void GetItemSize(int itemSize, GameObject gameObject)
     {
         groupMove.SetItenSizeCount(itemSize);
 
@@ -73,9 +77,9 @@ public class GroupManager : MonoBehaviour
         carryText.gameObject.GetComponent<MeshRenderer>().sortingOrder = carryTextOrderInLayer;
         outline = gameObject.GetComponentInChildren<Outline>();
         outline.enabled = false;
-        if (itemType == 2)
+        if (gameObject.CompareTag("Cannon"))
         {
-            rb.mass *= 10;
+            rb.mass *= ADD_MASS;
         }
         groupMove.CheckPlayerCount();
     }
@@ -105,7 +109,7 @@ public class GroupManager : MonoBehaviour
     /// </summary>
     void ItemOutGroup()
     {
-        if (transform.childCount >= 1)
+        if (transform.childCount >= ONLY_CHILDCOUNT)
         {
             for (int i = 0; i < this.transform.childCount; i++)
             {

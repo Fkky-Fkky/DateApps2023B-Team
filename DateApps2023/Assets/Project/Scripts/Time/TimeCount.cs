@@ -1,3 +1,4 @@
+//íSìñé“:ãgìcóùé—
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class TimeCount : MonoBehaviour
     private bool isMain = true;
 
     public static float SecondsCount = 0;
+    private const int ONE_MINUTES_SECONDS = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +27,12 @@ public class TimeCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isMain)
+        if (!isMain)
         {
-            SecondsCount += Time.deltaTime;
-            timeCdTMP.text = ((int)(SecondsCount / 60)).ToString("00") + ":" + ((int)SecondsCount % 60).ToString("00");
+            return;
         }
+        SecondsCount += Time.deltaTime;
+        timeCdTMP.text = ((int)(SecondsCount / ONE_MINUTES_SECONDS)).ToString("00") + ":" + ((int)SecondsCount % ONE_MINUTES_SECONDS).ToString("00");
     }
 
     /// <summary>

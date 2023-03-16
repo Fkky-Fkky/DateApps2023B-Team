@@ -1,5 +1,5 @@
+//íSìñé“:ãgìcóùé—
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -36,6 +36,8 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttack = false;
     private bool isCarry = false;
     private bool isDamage = false;
+
+    private const float PUSH_POWER = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
             if (!rb)
                 return;
 
-            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
+            rb.AddForce(this.transform.forward * PUSH_POWER, ForceMode.VelocityChange);
         }
     }
 
@@ -95,17 +97,18 @@ public class PlayerAttack : MonoBehaviour
     /// </summary>
     private void FistAttack()
     {
-        if (!isAttack)
+        if (isAttack)
         {
-            animator.SetBool("Attack", true);
-            boxCol.enabled = true;
-            playerMove.StartAttack();
-            Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-            Instantiate(fistObject, fistPos.position, fistPos.rotation);
-            audioSource.PlayOneShot(seManager.PlayerAttackSe);
-
-            isAttack = true;
+            return;
         }
+        animator.SetBool("Attack", true);
+        boxCol.enabled = true;
+        playerMove.StartAttack();
+        Instantiate(attackEffect, effectPos.position, this.transform.rotation);
+        Instantiate(fistObject, fistPos.position, fistPos.rotation);
+        audioSource.PlayOneShot(seManager.PlayerAttackSe);
+
+        isAttack = true;
     }
 
     /// <summary>

@@ -1,3 +1,4 @@
+//’S“–Ò:‹g“c—Ñ
 using UnityEngine;
 
 /// <summary>
@@ -61,17 +62,19 @@ public class AudioMaster : MonoBehaviour
     /// </summary>
     void OnFirstHalf()
     {
-        if (BossCount.GetKillCount() >= changeKillCount)
+        if (BossCount.GetKillCount() < changeKillCount)
         {
-            if (isFadeOut)
-            {
-                FadeOutBGM();
-            }
-            else
-            {
-                PlaySecondBGM();
-                isFirstHalf = false;
-            }
+            return;
+        }
+
+        if (isFadeOut)
+        {
+            FadeOutBGM();
+        }
+        else
+        {
+            PlaySecondBGM();
+            isFirstHalf = false;
         }
     }
 
@@ -97,7 +100,11 @@ public class AudioMaster : MonoBehaviour
             fadeTime = fadeOutTime;
             isFadeOut = false;
         }
-        audioSource.volume = (float)(1.0 - fadeTime / fadeOutTime);
+        audioSource.volume = (float)(defaultVol - fadeTime / fadeOutTime);
+        if(audioSource.volume < 0)
+        {
+            audioSource.volume = 0;
+        }
     }
 
     /// <summary>

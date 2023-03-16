@@ -1,3 +1,4 @@
+//íSìñé“:ãgìcóùé—
 using System;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ public class CarryCannon : MonoBehaviour
     private int myItemSizeCount = 0;
     private int number = 0;
     private bool isGroup = false;
+
+    private const int MAX_GROUP_NUMBER = 4;
+    private const int FIRST_GROUP_NUMBER = 1;
 
     public int GroupNumber = 1;
 
@@ -84,17 +88,17 @@ public class CarryCannon : MonoBehaviour
                     );
                 gameObject.transform.SetParent(group.gameObject.transform);
                 groupManager = group.GetComponent<GroupManager>();
-                groupManager.GetItemSize(myItemSizeCount, 2, this.gameObject);
+                groupManager.GetItemSize(myItemSizeCount, this.gameObject);
 
                 isGroup = true;
                 break;
             }
             else
             {
-                GroupNumber += 1;
-                if (GroupNumber > 4)
+                GroupNumber += FIRST_GROUP_NUMBER;
+                if (GroupNumber > MAX_GROUP_NUMBER)
                 {
-                    GroupNumber = 1;
+                    GroupNumber = FIRST_GROUP_NUMBER;
                 }
                 groupManager = null;
             }

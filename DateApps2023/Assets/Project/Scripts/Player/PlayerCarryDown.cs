@@ -1,8 +1,9 @@
+//ï¿½Sï¿½ï¿½ï¿½ï¿½:ï¿½gï¿½cï¿½ï¿½ï¿½ï¿½
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Ì‰^”À‚ÉŠÖ‚·‚éƒNƒ‰ƒX
+/// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‰^ï¿½ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
 /// </summary>
 public class PlayerCarryDown : MonoBehaviour
 {
@@ -65,46 +66,49 @@ public class PlayerCarryDown : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (!isCarry)
+        if (isCarry)
         {
-            if (collision.gameObject.CompareTag("item")
+            return;
+        }
+        if (collision.gameObject.CompareTag("item")
                 || collision.gameObject.CompareTag("Cannon"))
-            {
-                isCanUsed = true;
-                carryItem = collision.gameObject;
-            }
+        {
+            isCanUsed = true;
+            carryItem = collision.gameObject;
         }
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (!isCarry)
+        if (isCarry)
         {
-            if (collision.gameObject.CompareTag("item")
+            return;
+        }
+        if (collision.gameObject.CompareTag("item")
                 || collision.gameObject.CompareTag("Cannon"))
-            {
-                isCanUsed = false;
-                carryItem = null;
-            }
+        {
+            isCanUsed = false;
+            carryItem = null;
         }
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‰^”Àƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½Û‚Ìˆ—‚ğs‚¤
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
     /// </summary>
     void OnPressCarryButton()
     {
-        if (!isCarry)
+        if (isCarry)
         {
-            if (isCanUsed)
-            {
-                CheckItemTag();
-            }
+            return;
+        }
+        if (isCanUsed)
+        {
+            CheckItemTag();
         }
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‰^”Àƒ{ƒ^ƒ“‚ğ—£‚µ‚½Û‚Ìˆ—‚ğs‚¤
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ğ—£‚ï¿½ï¿½ï¿½ï¿½Û‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
     /// </summary>
     void OnReleaseCarryButton()
     {
@@ -115,7 +119,7 @@ public class PlayerCarryDown : MonoBehaviour
     }
 
     /// <summary>
-    /// ‚Æ‚¤‚Æ‚µ‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚Ìí—Ş‚ğ”»’è‚·‚é
+    /// ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Æ‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìï¿½Ş‚ğ”»’è‚·ï¿½ï¿½
     /// </summary>
     void CheckItemTag()
     {
@@ -130,20 +134,21 @@ public class PlayerCarryDown : MonoBehaviour
         }
         if (carryItem.CompareTag("Cannon"))
         {
-            if (!carryItem.GetComponent<Resistance.CannonShot>().IsShotting)
+            if (carryItem.GetComponent<CannonShot>().IsShotting)
             {
-                cannonItem = carryItem.GetComponent<CarryCannon>();
-                cannonItem.GetGrabPoint(this.gameObject);
-                myGroupNo = cannonItem.GroupNumber;
-                isCarry = true;
-                isCanUsed = false;
-                playermove.GetItem(myGroupNo);
+                return;
             }
+            cannonItem = carryItem.GetComponent<CarryCannon>();
+            cannonItem.GetGrabPoint(this.gameObject);
+            myGroupNo = cannonItem.GroupNumber;
+            isCarry = true;
+            isCanUsed = false;
+            playermove.GetItem(myGroupNo);
         }
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‰^”À‚ğI—¹‚·‚éÛ‚Ìˆ—‚ğs‚¤
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û‚Ìï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
     /// </summary>
     public void CarryCancel()
     {
@@ -159,16 +164,16 @@ public class PlayerCarryDown : MonoBehaviour
     }
 
     /// <summary>
-    /// ©g‚ÌƒvƒŒƒCƒ„[”Ô†‚ğæ“¾‚·‚é
+    /// ï¿½ï¿½ï¿½gï¿½Ìƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ôï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="parentNumber">ƒvƒŒƒCƒ„[”Ô†</param>
+    /// <param name="parentNumber">ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ôï¿½</param>
     public void GetPlayerNo(int parentNumber)
     {
         myPlayerNo = parentNumber;
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğó‚¯‚½Û‚ÉŒÄ‚Ño‚·
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ó‚¯‚ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
     /// </summary>
     public void OnCarryDamage()
     {
@@ -176,7 +181,7 @@ public class PlayerCarryDown : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚©‚ç‰ñ•œ‚µ‚½Û‚ÉŒÄ‚Ño‚·
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ñ•œ‚ï¿½ï¿½ï¿½ï¿½Û‚ÉŒÄ‚Ñoï¿½ï¿½
     /// </summary>
     public void OffCarryDamage()
     {

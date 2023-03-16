@@ -1,3 +1,4 @@
+//íSìñé“:ãgìcóùé—
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -50,7 +51,6 @@ public class SceneMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (!isSceneChange)
         {
             NotSceneChange();

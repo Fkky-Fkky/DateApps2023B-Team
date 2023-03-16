@@ -1,3 +1,4 @@
+//担当者:吉田理紗
 using UnityEngine;
 
 /// <summary>
@@ -21,6 +22,8 @@ public class FistDissolve : MonoBehaviour
 
     private float time = 0.0f;
     private float value = 0.0f;
+
+    private const float MAX_VALUE = 1.0f;
 
     private bool isStartDissolve = false;
     private bool isEndDissolve = false;
@@ -98,19 +101,9 @@ public class FistDissolve : MonoBehaviour
         if (time >= endTime)
         {
             time = 0.0f;
-            value = 1.0f;
+            value = MAX_VALUE;
             renderer.material.SetFloat("_DisAmount", value);
             Destroy(gameObject);
         }
-    }
-
-    /// <summary>
-    /// 外部からパンチを終了する際に呼び出す
-    /// </summary>
-    public void CallEndDissolve()
-    {
-        isIntervalDissolve = false;
-        isEndDissolve = true;
-        endTime = startTime;
     }
 }

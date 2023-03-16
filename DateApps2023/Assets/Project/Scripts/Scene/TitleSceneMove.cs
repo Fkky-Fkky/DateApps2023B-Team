@@ -1,3 +1,4 @@
+//íSìñé“:ãgìcóùé—
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -60,28 +61,29 @@ public class TitleSceneMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isPlay)
+        if (isPlay)
         {
-            if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            {
-                InIdle();
-            }
-            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("PressButton"))
-            {
-                InPressButton();
-            }
-            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("ShowManual"))
-            {
-                InShowManual();
-            }
-            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("WaitPlayer"))
-            {
-                InWaitPlayer();
-            }
-            else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("HideManual"))
-            {
-                InHideManual();
-            }
+            return;
+        }
+        if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            InIdle();
+        }
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("PressButton"))
+        {
+            InPressButton();
+        }
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("ShowManual"))
+        {
+            InShowManual();
+        }
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("WaitPlayer"))
+        {
+            InWaitPlayer();
+        }
+        else if (animationImage.GetCurrentAnimatorStateInfo(0).IsName("HideManual"))
+        {
+            InHideManual();
         }
     }
 
