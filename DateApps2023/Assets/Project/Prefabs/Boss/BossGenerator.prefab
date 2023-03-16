@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossKillCount: 0
+  BossKillCount: 0
 --- !u!114 &5839445782891812449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,11 +58,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e80d1d0546a6a74baa51793d522b00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossManager: {fileID: 0}
-  opretar: {fileID: 0}
-  bossCSV: {fileID: 0}
+  bossCountMax: 2
+  sidePos: 130
   nomalBoss: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
   miniBoss: {fileID: 1647289903949419459, guid: e3012e0cb0841ea448023fc8f17a047d, type: 3}
   bigBoss: {fileID: 1647289903949419459, guid: 0d8b94d41f4737a4d99084fe99ff9bfe, type: 3}
-  bossCountMax: 2
-  sidePos: 130
+  bossManager: {fileID: 954377158567244028, guid: bb8b01402424bda45bf696be88d4ff74, type: 3}
+  myOperator: {fileID: 0}
+  bossCSV: {fileID: 0}
+  isCenterLine: 0
+  isRightLine: 0
+  isLeftLine: 0

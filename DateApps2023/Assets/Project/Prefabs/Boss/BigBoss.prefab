@@ -926,7 +926,6 @@ GameObject:
   - component: {fileID: 4240107976694890436}
   - component: {fileID: 5173374277789823423}
   - component: {fileID: 5732676804227016846}
-  - component: {fileID: 4000926406330560985}
   - component: {fileID: 6624093822019089606}
   m_Layer: 0
   m_Name: BigBoss
@@ -1051,9 +1050,10 @@ MonoBehaviour:
   chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
   chargePos: {fileID: 8804970640072048361}
-  beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
+  areaControl: {fileID: 1139690476083802783, guid: 45238b1be1aa8fe438b877c0ca02b86a, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,22 +1122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: {fileID: 1697093568606495979}
---- !u!114 &4000926406330560985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d2cd8ca2c8c604b82a43bbf0a0d1c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningDisplay: {fileID: 2259809880304689657}
-  gameOverWarningDisplay: {fileID: 6965900654096559664}
-  warningRenderer: {fileID: 474976241827062766}
-  gameOverDisplay: {fileID: 8746228795527572519}
 --- !u!82 &6624093822019089606
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+//íSìñé“:ïêìcï…
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,19 @@ public class BossDamageHPBarUI : MonoBehaviour
     private GameObject[] hpBar = new GameObject[9];
     [SerializeField]
     private GameObject[] hpMemori = new GameObject[9];
+
+    /// <summary>
+    /// É{ÉXÇÃHP
+    /// </summary>
+    private enum BOSS_HP
+    {
+        ONE   = 1,
+        TWO   = 2,
+        THREE = 3,
+        FOUR  = 4,
+        SEVEN = 7,
+        EIGHT = 8
+    }
 
     const float BOSS_COMPARE_SCALE_INDEX = 18.0f;
 
@@ -42,7 +56,7 @@ public class BossDamageHPBarUI : MonoBehaviour
 
         switch (maxHp)
         {
-            case 1:
+            case (int)BOSS_HP.ONE:
                 if (gameObject.transform.localScale.y < BOSS_COMPARE_SCALE_INDEX)
                 {
                     hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(SMALL_BOSS_HP_POS_X, BOSS_HP_BAR_POS_Y, 0);
@@ -52,22 +66,22 @@ public class BossDamageHPBarUI : MonoBehaviour
                     hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(NOMAL_BOSS_MIN_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 }
                 break;
-            case 2:
+            case (int)BOSS_HP.TWO:
                 if (gameObject.transform.localScale.y > BOSS_COMPARE_SCALE_INDEX)
                 {
                     hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(SMALL_BOSS_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 }
                 break;
-            case 3:
+            case (int)BOSS_HP.THREE:
                 hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MIN_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 break;
-            case 4:
+            case (int)BOSS_HP.FOUR:
                 hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, -BOSS_HP_BAR_POS_Y, 0);
                 break;
-            case 7:
+            case (int)BOSS_HP.SEVEN:
                 hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MIN_HP_POS_X, 0, 0);
                 break;
-            case 8:
+            case (int)BOSS_HP.EIGHT:
                 hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(BOSS_MAX_HP_POS_X, 0, 0);
                 break;
         }

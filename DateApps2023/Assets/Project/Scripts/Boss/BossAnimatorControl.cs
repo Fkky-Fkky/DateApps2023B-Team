@@ -1,4 +1,6 @@
+//担当者:武田碧
 using UnityEngine;
+
 /// <summary>
 /// ボスのアニメーション
 /// </summary>
@@ -7,9 +9,19 @@ public class BossAnimatorControl : MonoBehaviour
     [SerializeField]
     private new Animator animation = null;
 
-    private int seCount = 0;
+    /// <summary>
+    /// ゲームオーバーにする
+    /// </summary>
+    public bool IsGameOver { get; private set; }
+    /// <summary>
+    /// ボスのアニメーション
+    /// </summary>
+    public Animator BossAnimation { get { return animation; } }
 
-    const float GAME_OVER_TIME = 0.6f;
+    private void Start()
+    {
+        IsGameOver = false;
+    }
 
     /// <summary>
     /// アニメーションの遷移(Trigger)
@@ -50,5 +62,4 @@ public class BossAnimatorControl : MonoBehaviour
             animation.SetTrigger("Die");
         }
     }
-
 }

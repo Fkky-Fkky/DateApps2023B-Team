@@ -1,4 +1,6 @@
+//担当者:武田碧
 using UnityEngine;
+
 /// <summary>
 /// 攻撃当たるエリアをデストロイ
 /// </summary>
@@ -12,8 +14,12 @@ public class DangerZoon : MonoBehaviour
     private float time       = 0.0f;
     private float effectTime = 0.0f;
 
-    private float flashTime          = 0.0f;
-    private const float flashTimeMax = 0.3f;
+    private float flashTime = 0.0f;
+    
+
+    const float FLASH_TIME_MAX    = 0.3f;
+    const float REMAINING_SECONDS = 4.0f;
+    const float HALF              = 0.5f;
 
     void Start()
     {
@@ -29,13 +35,13 @@ public class DangerZoon : MonoBehaviour
             time = 0.0f;
         }
 
-        if (time > effectTime - 4.0f)
+        if (time > effectTime - REMAINING_SECONDS)
         {
             flashTime += Time.deltaTime;
 
-            var repeatValue = Mathf.Repeat(flashTime, flashTimeMax);
+            var repeatValue = Mathf.Repeat(flashTime, FLASH_TIME_MAX);
 
-            dangerRenderer.enabled = repeatValue >= flashTimeMax * 0.5f;
+            dangerRenderer.enabled = repeatValue >= FLASH_TIME_MAX * HALF;
         }
     }
 }

@@ -1,5 +1,8 @@
+//担当者:武田碧
+
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// ボスの生成
 /// </summary>
@@ -7,31 +10,20 @@ public class BossCSVGenerator : MonoBehaviour
 {
     [SerializeField]
     private int bossCountMax = 10;
-
     [SerializeField]
     private float sidePos = 100.0f;
-
     [SerializeField]
-    private GameObject nomalBoss = null;
-
+    private GameObject nomalBoss    = null;
     [SerializeField]
-    private GameObject miniBoss  = null;
-
+    private GameObject miniBoss     = null;
     [SerializeField]
-    private GameObject bigBoss   = null;
-
+    private GameObject bigBoss      = null;
     [SerializeField]
     private BossManager bossManager = null;
-
     [SerializeField]
-    private Resistance.Operator myOperator     = null;
-
+    private Operator myOperator     = null;
     [SerializeField]
     private BossCSV bossCSV         = null;
-
-    private bool isCenterLine = false;
-    private bool isRightLine  = false;
-    private bool isLeftLine   = false;
 
     private int bossCountOne = 1;
     private int messageCount = 0;
@@ -39,7 +31,6 @@ public class BossCSVGenerator : MonoBehaviour
     private int bossLane     = 0;
     private int bossHpDate   = 0;
 
-    private float centerPosX         = 0.0f;
     private float leftPosX           = 0.0f;
     private float rightPosX          = 0.0f;
     private float time               = 0.0f;
@@ -60,6 +51,26 @@ public class BossCSVGenerator : MonoBehaviour
     private BossCount bossCount = null;
 
     /// <summary>
+    /// ボスの種類
+    /// </summary>
+    private enum BOSS_TYPE
+    {
+        None,
+        NOMAL,
+        MINI,
+        BIG
+    }
+    /// <summary>
+    /// 出現レーン
+    /// </summary>
+    private enum LANE
+    {
+        LEFT = 1,
+        CENTER = 2,
+        RIGHT = 3
+    }
+
+    /// <summary>
     /// ボスが倒れた
     /// </summary>
     public bool IsKill { get; private set; }
@@ -76,14 +87,12 @@ public class BossCSVGenerator : MonoBehaviour
     /// </summary>
     public bool IsGameOver { get; private set; }
 
-    const int NOMAL_NOSS_INDEX = 1;
-    const int MINI_BOSS_INDEX  = 2;
-    const int BIG_BOSS_INDEX   = 3;
-
+    const int MESSAGE_COUNT_MAX   = 1;
     const int FIRST_BOSS_LANE     = 2;
     const int SECOND_BOSS_LANE    = 3;
     const int TUTORIAL_BOSS_HP    = 3;
     const int TUTORIAL_BOSS_SPEED = 3;
+    const float CENTER_POS_X            =     0.0f;
     const float TUTORIAL_BOSS_POS_Z     =   345.0f;
     const float TUTORIAL_ATTACKINTERVAL = 10000.0f;
     const float FALL_POSITION           =   500.0f;
@@ -108,7 +117,7 @@ public class BossCSVGenerator : MonoBehaviour
         {
             if (bossList[i].IsFellDown)
             {
-                if (messageCount < 1)
+                if (messageCount < MESSAGE_COUNT_MAX)
                 {
                     IsKill = true;
                     messageCount++;
@@ -130,12 +139,12 @@ public class BossCSVGenerator : MonoBehaviour
             time += Time.deltaTime;
             if (time >= bossCSV.AppearanceTime[bossCountOne])
             {
-                bossTypeDate = bossCSV.BossType[bossCountOne];
-                bossLane = bossCSV.AppearanceLane[bossCountOne];
+                bossTypeDate       = bossCSV.BossType[bossCountOne];
+                bossLane           = bossCSV.AppearanceLane[bossCountOne];
                 attackIntervalDate = bossCSV.AttackIntervalTime[bossCountOne];
-                posZ = bossCSV.PositionZ[bossCountOne];
-                bossHpDate = bossCSV.BossHp[bossCountOne];
-                moveSpeedDate = bossCSV.BossSpeed[bossCountOne];
+                posZ               = bossCSV.PositionZ[bossCountOne];
+                bossHpDate         = bossCSV.BossHp[bossCountOne];
+                moveSpeedDate      = bossCSV.BossSpeed[bossCountOne];
 
                 BossGanarater();
             }
@@ -200,12 +209,12 @@ public class BossCSVGenerator : MonoBehaviour
             }
         }
 
-        if (bossType != 0)
+        if (bossType != (int)BOSS_TYPE.None)
         {
             bossTypeOffTime += Time.deltaTime;
             if (bossTypeOffTime >= BOSS_TYPE_OFF_TIME_MAX)
             {
-                bossType = 0;
+                bossType = (int)BOSS_TYPE.None;
                 bossTypeOffTime = 0.0f;
             }
         }
@@ -218,25 +227,22 @@ public class BossCSVGenerator : MonoBehaviour
     {
         switch (bossLane)
         {
-            case 1:
-                if (!isLeftLine)
+            case (int)LANE.LEFT:
+                if (!bossManager.IsLeftLine)
                 {
                     BossAppearanceDate(leftPosX);
-                    isLeftLine = true;
                 }
                 break;
-            case 2:
-                if (!isCenterLine)
+            case (int)LANE.CENTER:
+                if (!bossManager.IsCenterLine)
                 {
-                    BossAppearanceDate(centerPosX);
-                    isCenterLine = true;
+                    BossAppearanceDate(CENTER_POS_X);
                 }
                 break;
-            case 3:
-                if (!isRightLine)
+            case (int)LANE.RIGHT:
+                if (!bossManager.IsRightLine)
                 {
                     BossAppearanceDate(rightPosX);
-                    isRightLine = true;
                 }
                 break;
         }
@@ -256,7 +262,6 @@ public class BossCSVGenerator : MonoBehaviour
         {
             bossCountOne++;
         }
-
         time = 0.0f;
     }
     /// <summary>
@@ -268,44 +273,19 @@ public class BossCSVGenerator : MonoBehaviour
         {
             case "Nomal":
                 boss = Instantiate(nomalBoss);
-                bossType = NOMAL_NOSS_INDEX;
+                bossType = (int)BOSS_TYPE.NOMAL;
                 break;
             case "Mini":
                 boss = Instantiate(miniBoss);
-                bossType = MINI_BOSS_INDEX;
+                bossType = (int)BOSS_TYPE.MINI;
                 break;
             case "Big":
                 boss = Instantiate(bigBoss);
-                bossType = BIG_BOSS_INDEX;
+                bossType = (int)BOSS_TYPE.BIG;
                 break;
         }
     }
 
-    public void IsCenterLineFalse()
-    {
-        isCenterLine = false;
-    }
-
-    public void IsCenterLineTrue()
-    {
-        isCenterLine = true;
-    }
-    public void IsLeftLineFalse()
-    {
-        isLeftLine = false;
-    }
-    public void IsLeftLineTrue()
-    {
-        isLeftLine = true;
-    }
-    public void IsRightLineFalse()
-    {
-        isRightLine = false;
-    }
-    public void IsRightLineTrue()
-    {
-        isRightLine = true;
-    }
     /// <summary>
     /// 攻撃する時間間隔を返す
     /// </summary>
@@ -367,5 +347,4 @@ public class BossCSVGenerator : MonoBehaviour
 
         BossGanarater();
     }
-
 }

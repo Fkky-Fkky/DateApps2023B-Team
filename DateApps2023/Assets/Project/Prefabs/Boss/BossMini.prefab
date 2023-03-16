@@ -657,8 +657,6 @@ GameObject:
   - component: {fileID: 6276869664633412888}
   - component: {fileID: 5815961928366846247}
   - component: {fileID: 8123939547839940646}
-  - component: {fileID: 6432010665695254785}
-  - component: {fileID: 5370688747013700439}
   - component: {fileID: 7804359188918254647}
   m_Layer: 0
   m_Name: BossMini
@@ -781,9 +779,10 @@ MonoBehaviour:
   chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
   chargePos: {fileID: 0}
-  beamSE: {fileID: 0}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
+  areaControl: {fileID: 0}
+  seManager: {fileID: 0}
 --- !u!114 &1648196746715476574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,38 +844,6 @@ MonoBehaviour:
   hpMemori:
   - {fileID: 9092979992807707289}
   - {fileID: 8455852809812342072}
---- !u!114 &6432010665695254785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d2cd8ca2c8c604b82a43bbf0a0d1c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningDisplay: {fileID: 3008235584495518477}
-  gameOverWarningDisplay: {fileID: 7655793929458388409}
-  warningRenderer: {fileID: 3491529065014952218}
-  gameOverDisplay: {fileID: 8355823795949604782}
---- !u!114 &5370688747013700439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d2cd8ca2c8c604b82a43bbf0a0d1c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningDisplay: {fileID: 3008235584495518477}
-  gameOverWarningDisplay: {fileID: 7655793929458388409}
-  warningRenderer: {fileID: 3491529065014952218}
-  gameOverDisplay: {fileID: 8355823795949604782}
 --- !u!82 &7804359188918254647
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1825,7 +1792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8219799516786047026, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_Name
-      value: kikenn
+      value: DangerImage
       objectReference: {fileID: 0}
     - target: {fileID: 8219799516786047026, guid: ba7e0be13cff3a040aeea8f52ff5fbac, type: 3}
       propertyPath: m_IsActive

@@ -1,4 +1,6 @@
+//担当者:武田碧
 using UnityEngine;
+
 /// <summary>
 /// 当たり判定エリアのデストロイを行う
 /// </summary>

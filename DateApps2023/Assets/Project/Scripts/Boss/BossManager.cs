@@ -1,3 +1,4 @@
+//担当者:武田碧
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,30 @@ public class BossManager : MonoBehaviour
     private GameObject centerBoss = null;
     private GameObject leftBoss   = null;
     private GameObject rightBoss  = null;
+
+    /// <summary>
+    /// 中央のレーンにボスがいるかのフラグ
+    /// </summary>
+    public bool IsCenterLine { get; private set; }
+    /// <summary>
+    /// 右側のレーンにボスがいるかのフラグ
+    /// </summary>
+    public bool IsRightLine { get; private set; }
+    /// <summary>
+    /// 左側のレーンにボスがいるかのフラグ
+    /// </summary>
+    public bool IsLeftLine { get; private set; }
+
+    const int CENTER_POS = 1;
+    const int LEFT_POS   = 0;
+    const int RIGHT_POS  = 2;
+
+    private void Start()
+    {
+        IsCenterLine = false;
+        IsRightLine  = false;
+        IsLeftLine   = false;
+    }
 
     void Update()
     {
@@ -33,7 +58,7 @@ public class BossManager : MonoBehaviour
             }
 
             GameObject boss = null;
-            if (cannonManager.DoConnectingPos[i] == 1)
+            if (cannonManager.DoConnectingPos[i] == CENTER_POS)
             {
                 boss = GameObject.FindGameObjectWithTag("Center");
                 if (boss == null)
@@ -42,7 +67,7 @@ public class BossManager : MonoBehaviour
                 }
             }
 
-            if (cannonManager.DoConnectingPos[i] == 0)
+            if (cannonManager.DoConnectingPos[i] == LEFT_POS)
             {
                 boss = GameObject.FindGameObjectWithTag("Left");
                 if (boss == null)
@@ -51,7 +76,7 @@ public class BossManager : MonoBehaviour
                 }
             }
 
-            if (cannonManager.DoConnectingPos[i] == 2)
+            if (cannonManager.DoConnectingPos[i] == RIGHT_POS)
             {
                 boss = GameObject.FindGameObjectWithTag("Right");
                 if (boss == null)
@@ -83,51 +108,69 @@ public class BossManager : MonoBehaviour
         centerBoss = GameObject.FindGameObjectWithTag("Center");
         if (centerBoss == null)
         {
-            bossCSVGenerator.IsCenterLineFalse();
+            IsCenterLine = false;
         }
         else
         {
-            bossCSVGenerator.IsCenterLineTrue();
+            IsCenterLine= true;
         }
 
         leftBoss = GameObject.FindGameObjectWithTag("Left");
         if (leftBoss == null)
         {
-            bossCSVGenerator.IsLeftLineFalse();
+            IsLeftLine = false;
         }
         else
         {
-            bossCSVGenerator.IsLeftLineTrue();
+            IsLeftLine= true;
         }
 
         rightBoss = GameObject.FindGameObjectWithTag("Right");
         if (rightBoss == null)
         {
-            bossCSVGenerator.IsRightLineFalse();
+            IsRightLine= false;
         }
         else
         {
-            bossCSVGenerator.IsRightLineTrue();
+            IsRightLine= true;
         }
     }
+    /// <summary>
+    /// 怪獣撃破時のフラグを返す
+    /// </summary>
+    /// <returns>怪獣を撃破したフラグ</returns>
     public bool IsBossKill()
     {
-        return bossCSVGenerator.IsKill;//怪獣撃破時
+        return bossCSVGenerator.IsKill;
     }
-
+    /// <summary>
+    /// ボスの種類の値を返す
+    /// </summary>
+    /// <returns>ボスの種類の値</returns>
     public int BossType()
     {
         return bossCSVGenerator.BossTypeDate();//中 1, ミニ 2, Big 3
     }
-
+    /// <summary>
+    /// 怪獣がチャージするフラグを返す
+    /// </summary>
+    /// <returns>チャージ開始</returns>
     public bool Charge()
     {  
         return bossCSVGenerator.IsCharge;//破壊光線チャージ時
     }
+    /// <summary>
+    /// 怪獣が接近しているフラグを返す
+    /// </summary>
+    /// <returns>接近</returns>
     public bool Danger()
     {
         return bossCSVGenerator.IsDanger;//接近時
     }
+    /// <summary>
+    /// ゲームオーバーのフラグを返す
+    /// </summary>
+    /// <returns>ゲームオーバーのフラグ</returns>
     public bool IsGameOver()
     {
         return bossCSVGenerator.IsGameOver;//ゲームオーバーフラグ
