@@ -752,13 +752,12 @@ MonoBehaviour:
   warningDisplay: {fileID: 3008235584495518477}
   gameOverWarningDisplay: {fileID: 7655793929458388409}
   shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
-  moveAnimation: {fileID: 1697093568606495979}
   canvas: {fileID: 9112739422148324377}
   warningRenderer: {fileID: 3491529065014952218}
   gameOverDisplay: {fileID: 8355823795949604782}
   audioSource: {fileID: 7804359188918254647}
   lastAttackAudio: {fileID: 7608898300750626355}
-  lastAttackSE: {fileID: 8300000, guid: 57114c44b6aab894393d0f842374e5d2, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
   BossHp: 0
 --- !u!114 &131829114075476459
 MonoBehaviour:

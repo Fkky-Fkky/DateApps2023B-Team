@@ -4409,10 +4409,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationImage: {fileID: 1352511582}
-  standingTime: 11
   playVideoScreen: {fileID: 651973160}
   videoSize: {x: 1920, y: 1080}
   screenDepth: 24
+  standingTime: 11
   hasLogoSkip: 1
 --- !u!328 &1450893423
 VideoPlayer:
@@ -4461,7 +4461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c475a297b74f454292f7dde5ac7f426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: CannonTestScene
+  sceneName: MainScene
   animationImage: {fileID: 1352511582}
   playerBackImage:
   - {fileID: 1721107811}
@@ -4473,7 +4473,6 @@ MonoBehaviour:
   - {fileID: 1947200057}
   - {fileID: 1471916384}
   - {fileID: 1940303732}
-  hasCanSkip: 1
   pressButtonSound: {fileID: 8300000, guid: a6768006a690dc748bcec85500d10649, type: 3}
   acceptSound:
   - {fileID: 8300000, guid: a6768006a690dc748bcec85500d10649, type: 3}
@@ -4485,6 +4484,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0810e46c5d78e8e46adf74f2aa9b2db4, type: 3}
   - {fileID: 8300000, guid: 0810e46c5d78e8e46adf74f2aa9b2db4, type: 3}
   - {fileID: 8300000, guid: 0810e46c5d78e8e46adf74f2aa9b2db4, type: 3}
+  hasCanSkip: 1
 --- !u!82 &1450893425
 AudioSource:
   m_ObjectHideFlags: 0
