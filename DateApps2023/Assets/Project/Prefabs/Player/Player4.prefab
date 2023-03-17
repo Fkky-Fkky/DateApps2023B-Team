@@ -65,7 +65,7 @@ MonoBehaviour:
   effectPos: {fileID: 1288940421590001855}
   fistObject: {fileID: 8692326370387051740, guid: 71feb589912087e46beaa3904ceb1cbe, type: 3}
   fistPos: {fileID: 2583457654801406461}
-  attackSound: {fileID: 8300000, guid: 4c824af2f06126643b4e01574eca6850, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
 --- !u!1 &97687718823558519
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,16 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8574373df7a724045b067c2538519b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LShoulderIcon: {fileID: 21300000, guid: eb79c63515d0305439c4a8b2079cf877, type: 3}
-  RShoulderIcon: {fileID: 21300000, guid: f6a32834e68c78b48a54c7210944e751, type: 3}
+  emoteIconL: {fileID: 21300000, guid: eb79c63515d0305439c4a8b2079cf877, type: 3}
+  emoteIconR: {fileID: 21300000, guid: f6a32834e68c78b48a54c7210944e751, type: 3}
+  myEmoteData: {fileID: 11400000, guid: 364424650f3222c4a9445872d39e59c7, type: 2}
   emoteTime: 2.4
-  startTime: 0.2
-  endTime: 0.2
-  moveY: 1.2
-  smallTime: 0.4
-  bigTime: 0.4
-  sizeChange: 0.8
-  startSizeChange: 4
 --- !u!212 &143162081194356471
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -793,13 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carryEmoteIcon: {fileID: 21300000, guid: 55b742e0ddd85a64db1927c8d07897d8, type: 3}
-  startTime: 0.3
-  endTime: 0.3
-  moveY: 0.2
-  smallTime: 0.5
-  bigTime: 0.5
-  sizeChange: 0.25
-  startSizeChange: 0.2
+  myEmoteData: {fileID: 11400000, guid: e97d5fa4921fb4e45a12410f4a254ed8, type: 2}
 --- !u!212 &4457651854317018338
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1382,17 +1370,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stanTime: 10
   captureTime: 10
-  EndStanCount: 3
-  EndCaptureCount: 1
+  endStanCount: 3
+  endCaptureCount: 1
+  damageEffectPosY: -2
+  captureEffectPosY: -1
+  damageEffectInterval: 0.75
   stanBoxCol: {fileID: 7255117873455938838}
   knockbackEffect: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
   stanEffect: {fileID: 5659291355382750488, guid: b3db7d4d711f94d4796743baa5ba7a38, type: 3}
-  damageEffectInterval: 0.75
   damageStanPoint: {fileID: 3703311000721950582}
-  damageEffectPosY: -2
-  captureEffectPosY: -1
-  stanSound: {fileID: 8300000, guid: 7a86a89bae6edb44583b4049eb7957a0, type: 3}
-  knockbackSound: {fileID: 8300000, guid: 5085e4785f1fed94e85533beba9841c0, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
 --- !u!136 &7644300349639810741
 CapsuleCollider:
   m_ObjectHideFlags: 0

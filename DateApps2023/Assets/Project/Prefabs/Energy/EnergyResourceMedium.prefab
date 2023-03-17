@@ -75,6 +75,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bafc153fb9d294045afeff5796bce5d3, type: 2}
+    - target: {fileID: 4480206737243279295, guid: 40e8c0062aab6164aa5f3dd4456b415d, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480206737243279295, guid: 40e8c0062aab6164aa5f3dd4456b415d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5475924408677303931, guid: 40e8c0062aab6164aa5f3dd4456b415d, type: 3}
       propertyPath: myItemSize
       value: 1

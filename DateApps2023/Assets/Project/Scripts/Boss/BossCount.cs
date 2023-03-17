@@ -1,25 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:武田碧
 using UnityEngine;
 
+/// <summary>
+/// ボスが倒れたかカウントする
+/// </summary>
 public class BossCount : MonoBehaviour
 {
-    public int bossKillCount = 0;
-    public static int killCount;
+    public int BossKillCount = 0;
+    public static int KillCount;
 
     void Start()
     {
-        killCount = bossKillCount;
+        KillCount = BossKillCount;
     }
 
-
+    /// <summary>
+    /// ボスが倒れたらカウントを増やす
+    /// </summary>
     public void SetBossKillCount()
     {
-        killCount++;
+        KillCount++;
     }
-
+    /// <summary>
+    /// ボスが倒れたカウントを返す
+    /// </summary>
+    /// <returns>ボスを倒したカウントの値</returns>
     public static int GetKillCount()
     {
-        return killCount;
+        return KillCount;
     }
 }

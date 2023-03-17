@@ -1,32 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+// 担当者：吹上純平
 using UnityEngine;
 
-public class TankManager : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private EnergyCharge energyCharge = null;
-
-    private int oldEnergy = 0;
-    private TankCharge energyTank = null;
-
-    private void Start()
+    /// <summary>
+    /// エネルギータンクのマネージャークラス
+    /// </summary>
+    public class TankManager : MonoBehaviour
     {
-        energyTank = GetComponentInChildren<TankCharge>();
-    }
+        [SerializeField]
+        private EnergyCharge energyCharge = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (energyCharge.Energy > oldEnergy)
+        private bool oldEnergy = false;
+        private TankCharge energyTank = null;
+
+        private void Start()
         {
-            energyTank.Charge(energyCharge.ChrgeEnergyType);
-            oldEnergy = energyCharge.Energy;
+            energyTank = GetComponentInChildren<TankCharge>();
         }
-        else if(energyCharge.Energy < oldEnergy)
+
+        // Update is called once per frame
+        void Update()
         {
-            energyTank.DisCharge();
-            oldEnergy = energyCharge.Energy;
+            bool doEnergyCharge = energyCharge.IsEnergyCharge != oldEnergy;
+
+            if (!doEnergyCharge)
+            {
+                return;
+            }
+            EnergyCharge();
+        }
+
+        /// <summary>
+        /// エネルギータンクの見た目を変更する
+        /// </summary>
+        private void EnergyCharge()
+        {
+            if (energyCharge.IsEnergyCharge)
+            {
+                energyTank.Charge(energyCharge.ChargeEnergyType);
+            }
+            else
+            {
+                energyTank.DisCharge();
+            }
+            oldEnergy = energyCharge.IsEnergyCharge;
         }
     }
 }

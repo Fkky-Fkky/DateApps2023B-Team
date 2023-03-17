@@ -1,72 +1,90 @@
-using System.Collections;
-using System.Collections.Generic;
+// ’S“–ÒFãƒ•½
 using UnityEngine;
 
-public class CannonConnect : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private GameObject connectEffect = null;
-
-    [SerializeField]
-    private Transform effectPos = null;
-
-    [SerializeField]
-    private AudioClip connectSe = null;
-
-    public int ConnectingPos { get; private set; }
-    public bool IsConnect { get; private set; }
-
-    private Transform standTransform = null;
-    private AudioSource audioSource = null;
-    private BoxCollider standCollision = null;
-
-    private const float CANNON_POS_Y = -0.3f;
-
-    private void Start()
+    /// <summary>
+    /// ‘å–C‚ª”­Ë‘ä‚Éİ’u‚³‚ê‚½‚Ìˆ—‚ğ‚·‚éƒNƒ‰ƒX
+    /// </summary>
+    public class CannonConnect : MonoBehaviour
     {
-        audioSource = GetComponent<AudioSource>();
-    }
+        [SerializeField]
+        private ParticleSystem connectEffect = null;
 
-    private void Update()
-    {
-        if (!IsConnect)
+        [SerializeField]
+        private SEManager seManager = null;
+
+        /// <summary>
+        /// ‘å–C‚Ìİ’u‚³‚ê‚Ä‚¢‚éêŠ
+        /// </summary>
+        public int ConnectingPos { get; private set; }
+
+        /// <summary>
+        /// ‘å–C‚ª”­Ë‘ä‚Éİ’u‚³‚ê‚Ä‚¢‚é‚©
+        /// </summary>
+        public bool IsConnect { get; private set; }
+
+        private Transform standTransform = null;
+        private AudioSource audioSource = null;
+        private BoxCollider standCollision = null;
+
+        private const float CANNON_POS_Y = -0.3f;
+
+        private void Start()
         {
-            return;
+            audioSource = GetComponent<AudioSource>();
         }
 
-        if (CANNON_POS_Y < transform.position.y)
+        private void Update()
         {
-            CannonCut();
-        }
-    }
+            if (!IsConnect)
+            {
+                return;
+            }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("CannonStand"))
+            if (CANNON_POS_Y < transform.position.y)
+            {
+                CannonCut();
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
         {
-            return;
+            if (!other.CompareTag("CannonStand"))
+            {
+                return;
+            }
+            standCollision = other.gameObject.GetComponent<BoxCollider>();
+            ConnectingPos = other.GetComponent<CannonStand>().ConnectingPos;
+            standTransform = other.transform;
+            CannontConnect();
         }
-        standCollision = other.gameObject.GetComponent<BoxCollider>();
-        ConnectingPos  = other.GetComponent<CannonStand>().ConnectingPos;
-        standTransform = other.transform;
-        CannontConnect();
-    }
 
-    private void CannontConnect()
-    {
-        IsConnect = true;
-        standCollision.enabled = false;
-        transform.rotation = standTransform.rotation;
-        Instantiate(connectEffect, effectPos.position, Quaternion.identity);
-        audioSource.PlayOneShot(connectSe);
-    }
+        /// <summary>
+        /// ”­Ë‘ä‚Éİ’u‚³‚ê‚½‚Ìˆ—
+        /// </summary>
+        private void CannontConnect()
+        {
+            IsConnect = true;
+            standCollision.enabled = false;
+            transform.rotation = standTransform.rotation;
+            if (!connectEffect.gameObject.activeSelf)
+            {
+                connectEffect.gameObject.SetActive(true);
+                audioSource.PlayOneShot(seManager.CannonConnectSe);
+            }
+        }
 
-    private void CannonCut()
-    {
-        IsConnect = false;
-        standCollision.enabled = true;
-        transform.rotation = Quaternion.identity;
-        standTransform = null;
-        ConnectingPos = -1;
+        /// <summary>
+        /// ‘å–C‚ª”­Ë‘ä‚©‚ç—£‚ê‚½‚Ìˆ—
+        /// </summary>
+        private void CannonCut()
+        {
+            IsConnect = false;
+            standCollision.enabled = true;
+            transform.rotation = Quaternion.identity;
+            standTransform = null;
+            ConnectingPos = (int)CannonStand.STAND_POSITION.NONE;
+        }
     }
 }

@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+// 担当者：吹上純平
 using UnityEngine;
 
-public class CannonDamage : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private EnergyCharge energyCharge = null;
-
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// 大砲がダメージを受けた時の処理クラス
+    /// </summary>
+    public class CannonDamage : MonoBehaviour
     {
-        if (!other.CompareTag("BossAttack"))
+        [SerializeField]
+        private EnergyCharge energyCharge = null;
+
+        private void OnTriggerEnter(Collider other)
         {
-            return;
+            if (!other.CompareTag("BossAttack"))
+            {
+                return;
+            }
+            energyCharge.DisChargeEnergy();
         }
-        energyCharge.DisChargeEnergy();
     }
 }

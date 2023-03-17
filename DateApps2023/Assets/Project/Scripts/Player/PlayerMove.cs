@@ -1,278 +1,310 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
+//担当者:吉田理紗
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UIElements;
 
-
-
-public class PlayerMove : MonoBehaviour
+namespace Resistance
 {
-    #region
-    [SerializeField]
-    [Tooltip("移動の速さ")]
-    private float moveSpeed = 2000.0f;
-
-    private int playerNo;
-
-    Rigidbody rb;
-
-    private bool InGroup = false;
-    private bool EnterItem = false;
-    private bool IsAttack = false;
-
-    private GameObject ItemOfEnter = null;
-
-    public enum PlayerNumber
+    /// <summary>
+    /// 運搬時の移動を除く、プレイヤーの移動に関するクラス
+    /// </summary>
+    public class PlayerMove : MonoBehaviour
     {
-        PL_1P,
-        PL_2P,
-        PL_3P,
-        PL_4P,
-        None
-    }
+        [SerializeField]
+        [Tooltip("移動の速さ")]
+        private float moveSpeed = 2000.0f;
 
-    [SerializeField]
-    PlayerNumber playerNumber = PlayerNumber.None;
+        [SerializeField]
+        PlayerNumber playerNumber = PlayerNumber.None;
 
-    PlayerCarryDown carryDown;
+        private PlayerCarryDown carryDown = null;
+        private PlayerAttack attack = null;
+        private PlayerEmote emote = null;
+        private CarryEmote carryEmote = null;
 
-    private bool playerMoveDamage = false;
-    private float defaultPosY = 54.0f;
+        private Rigidbody rb = null;
+        private Animator animationImage = null;
+        private GameObject enterItem = null;
 
-    private Animator AnimationImage;
+        private int playerNo = 5;
+        private float defaultPosY = 54.0f;
 
-    private PlayerAttack attack;
-    private PlayerEmote emote;
-    private CarryEmote carryEmote;
+        private bool isGroup = false;
+        private bool isEnterItem = false;
+        private bool isAttack = false;
+        private bool isDamage = false;
 
-    #endregion
+        private Vector3 vec = Vector3.zero;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        AnimationImage = GetComponent<Animator>();
-
-        switch (playerNumber)
+        /// <summary>
+        /// プレイヤーの番号
+        /// </summary>
+        public enum PlayerNumber
         {
-            case PlayerNumber.None:
-                Debug.Log("None : " + gameObject.name);
-                break;
-
-            default:
-                playerNo = (int)playerNumber;
-                break;
+            PL_1P,
+            PL_2P,
+            PL_3P,
+            PL_4P,
+            None
         }
 
-        carryDown = GetComponentInChildren<PlayerCarryDown>();
-        carryDown.GetPlayerNo(playerNo);
-
-        attack = GetComponentInChildren<PlayerAttack>();
-        attack.GetPlayerNo(playerNo);
-
-        emote = GetComponentInChildren<PlayerEmote>();
-        emote.GetPlayerNo(playerNo);
-
-        carryEmote = GetComponentInChildren<CarryEmote>();
-        carryEmote.GetPlayerNo(playerNo);
-
-        GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
-
-
-        defaultPosY = this.gameObject.transform.position.y;
-    }
-
-    private void Update()
-    {
-        if (EnterItem)
+        // Start is called before the first frame update
+        void Start()
         {
-            if(ItemOfEnter == null)
+            switch (playerNumber)
             {
-                EnterItem = false;
+                case PlayerNumber.None:
+                    Debug.Log("None : " + gameObject.name);
+                    break;
+
+                default:
+                    playerNo = (int)playerNumber;
+                    break;
+            }
+
+            carryDown = GetComponentInChildren<PlayerCarryDown>();
+            carryDown.GetPlayerNo(playerNo);
+
+            attack = GetComponentInChildren<PlayerAttack>();
+            attack.GetPlayerNo(playerNo);
+
+            emote = GetComponentInChildren<PlayerEmote>();
+            emote.GetPlayerNo(playerNo);
+
+            carryEmote = GetComponentInChildren<CarryEmote>();
+            GetComponent<PlayerDamage>().GetPlayerNo(playerNo);
+
+            rb = GetComponent<Rigidbody>();
+            animationImage = GetComponent<Animator>();
+            enterItem = null;
+            defaultPosY = this.gameObject.transform.position.y;
+
+            isGroup = false;
+            isEnterItem = false;
+            isAttack = false;
+            isDamage = false;
+
+            vec = Vector3.zero;
+        }
+
+        private void Update()
+        {
+            if (!isEnterItem)
+            {
+                return;
+            }
+            if (enterItem == null)
+            {
+                isEnterItem = false;
             }
         }
-    }
 
-    private void FixedUpdate()
-    {
-        GamepadMove();
-    }
-
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("item"))
+        private void FixedUpdate()
         {
-            EnterItem = true;
-            ItemOfEnter = collision.gameObject;
+            GamepadMove();
         }
-        else if (collision.gameObject.CompareTag("Group1")
-           || collision.gameObject.CompareTag("Group2")
-           || collision.gameObject.CompareTag("Group3")
-           || collision.gameObject.CompareTag("Group4"))
-        {
-            EnterItem = true;
-        }
-    }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("item")
-           || collision.gameObject.CompareTag("Group1")
-           || collision.gameObject.CompareTag("Group2")
-           || collision.gameObject.CompareTag("Group3")
-           || collision.gameObject.CompareTag("Group4")
-           )
+        private void OnCollisionStay(Collision collision)
         {
-            EnterItem = false;
-            ItemOfEnter = null;
+            if (collision.gameObject.CompareTag("item"))
+            {
+                isEnterItem = true;
+                enterItem = collision.gameObject;
+            }
+            else if (collision.gameObject.CompareTag("Group1")
+               || collision.gameObject.CompareTag("Group2")
+               || collision.gameObject.CompareTag("Group3")
+               || collision.gameObject.CompareTag("Group4"))
+            {
+                isEnterItem = true;
+            }
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("item")
+               || collision.gameObject.CompareTag("Group1")
+               || collision.gameObject.CompareTag("Group2")
+               || collision.gameObject.CompareTag("Group3")
+               || collision.gameObject.CompareTag("Group4")
+               )
+            {
+                isEnterItem = false;
+                enterItem = null;
+                this.gameObject.transform.position = new Vector3(
+                    this.gameObject.transform.position.x,
+                    defaultPosY,
+                    this.gameObject.transform.position.z);
+            }
+        }
+
+        /// <summary>
+        /// プレイヤーが物資・大砲を持った際に呼び出す
+        /// </summary>
+        /// <param name="groupNo">グループ番号</param>
+        public void GetItem(int groupNo)
+        {
+            GameObject group = GameObject.Find("Group" + groupNo);
+            gameObject.transform.SetParent(group.gameObject.transform);
+            group.GetComponent<GroupMove>().GetMyNo(playerNo, this.gameObject);
+
+            isGroup = true;
+            attack.OnIsCarry();
+
+            animationImage.SetBool("Move", false);
+            animationImage.SetBool("Carry", true);
+
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            Destroy(rigidbody);
+            rb = GetComponentInParent<Rigidbody>();
+
+        }
+
+        /// <summary>
+        /// プレイヤーと物資・大砲が離れた際に呼び出す
+        /// </summary>
+        public void RemoveItem()
+        {
+            if (isGroup)
+            {
+                carryEmote.CallEndCarryEmote();
+                gameObject.transform.parent.GetComponent<GroupMove>().PlayerOutGroup(playerNo);
+                gameObject.transform.parent = null;
+                isEnterItem = false;
+                isGroup = false;
+            }
+
+            attack.OffIsCarry();
+
+            rb = this.gameObject.AddComponent<Rigidbody>();
+            rb = this.gameObject.GetComponent<Rigidbody>();
+
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
             this.gameObject.transform.position = new Vector3(
-                this.gameObject.transform.position.x,
-                defaultPosY,
-                this.gameObject.transform.position.z);
+                       this.gameObject.transform.position.x,
+                       defaultPosY,
+                       this.gameObject.transform.position.z);
+
+            animationImage.SetBool("Carry", false);
+            animationImage.SetBool("CarryMove", false);
         }
 
-        if (collision.gameObject.CompareTag("Group1")
-           || collision.gameObject.CompareTag("Group2")
-           || collision.gameObject.CompareTag("Group3")
-           || collision.gameObject.CompareTag("Group4"))
-        {
-            EnterItem = false;
-            this.gameObject.transform.position = new Vector3(
-                  this.gameObject.transform.position.x,
-                  defaultPosY,
-                  this.gameObject.transform.position.z);
-        }
-    }
-
-    public void GetItem(int groupNo)
-    {
-        GameObject group = GameObject.Find("Group" + groupNo);
-        gameObject.transform.SetParent(group.gameObject.transform);
-        group.GetComponent<PlayerController>().GetMyNo(playerNo, this.gameObject);
-
-        InGroup = true;
-        attack.OnIsCarry();
-
-        AnimationImage.SetBool("Move", false);
-        AnimationImage.SetBool("Carry", true);
-
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        Destroy(rigidbody);
-        rb = GetComponentInParent<Rigidbody>();
-
-    }
-
-    public void RemoveItem()
-    {
-        if (InGroup)
-        {
-            carryEmote.CallEndCarryEmote();
-            gameObject.transform.parent.GetComponent<PlayerController>().PlayerOutGroup(playerNo);
-            gameObject.transform.parent = null;
-            EnterItem = false;
-            InGroup = false;
-        }
-        
-        attack.OffIsCarry();
-
-        rb = this.gameObject.AddComponent<Rigidbody>();
-        rb = this.gameObject.GetComponent<Rigidbody>();
-
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-
-        this.gameObject.transform.position = new Vector3(
-                   this.gameObject.transform.position.x,
-                   defaultPosY,
-                   this.gameObject.transform.position.z);
-
-        AnimationImage.SetBool("Carry", false);
-        AnimationImage.SetBool("CarryMove", false);
-    }
-
-    void GamepadMove()
-    {
-        if (!playerMoveDamage)
+        /// <summary>
+        /// プレイヤーの番号に応じたゲームパッドの入力を取得する
+        /// </summary>
+        void GamepadMove()
         {
             var leftStickValue = Gamepad.all[playerNo].leftStick.ReadValue();
 
-            if (!InGroup)
+            if (!isGroup)
             {
-                Vector3 vec = new Vector3(0, 0, 0);
-
-                if (!IsAttack)
-                {
-                    if (leftStickValue.x != 0.0f)
-                    {
-                        AnimationImage.SetBool("Move", true);
-                        vec.x = moveSpeed * Time.deltaTime * leftStickValue.x;
-                    }
-                    if (leftStickValue.y != 0.0f)
-                    {
-                        AnimationImage.SetBool("Move", true);
-                        vec.z = moveSpeed * Time.deltaTime * leftStickValue.y;
-                    }
-
-                    if (!EnterItem)
-                    {
-                        if (leftStickValue.x != 0 || leftStickValue.y != 0)
-                        {
-                            var direction = new Vector3(leftStickValue.x, 0, leftStickValue.y);
-                            transform.localRotation = Quaternion.LookRotation(direction);
-                        }
-                    }
-                }
-
-                if(leftStickValue.x == 0.0f && leftStickValue.y == 0.0f)
-                {
-                    AnimationImage.SetBool("Move", false);
-                }
-
-                rb.velocity = vec;
+                NotIsGroup(leftStickValue);
             }
         }
-    }
 
-    public void PlayerDamage()
-    {
-        playerMoveDamage = true;
-        InGroup = false;
-        IsAttack = false;
-        EnterItem = false;
-    }
+        /// <summary>
+        /// ゲームパッドの入力によって移動を行う
+        /// </summary>
+        /// <param name="StickValue">コントローラー左スティックの入力</param>
+        void NotIsGroup(Vector2 StickValue)
+        {
+            vec = Vector3.zero;
 
-    public void NotPlayerDamage()
-    {
-        playerMoveDamage = false;
-        InGroup = false;
-        IsAttack = false;
-        EnterItem = false;
-    }
+            if (!isAttack && !isDamage)
+            {
+                NotIsAttack(StickValue);
+            }
 
-    public void StartAttack()
-    {
-        IsAttack = true;
-    }
+            if (StickValue.x == 0.0f && StickValue.y == 0.0f)
+            {
+                animationImage.SetBool("Move", false);
+            }
 
-    public void EndAttack()
-    {
-        IsAttack = false;
-    }
+            rb.velocity = vec;
+        }
 
-    public void StartCarryEmote()
-    {
-        carryEmote.CallStartCarryEmote();
-    }
+        /// <summary>
+        /// スティック入力の量に応じた移動量を算出する
+        /// スティックの傾きに応じてプレイヤーの向きを決める
+        /// </summary>
+        /// <param name="StickValue">コントローラー左スティックの入力</param>
+        void NotIsAttack(Vector2 StickValue)
+        {
 
-    public void EndCarryEmote()
-    {
-        carryEmote.CallEndCarryEmote();
-    }
+            if (StickValue.x != 0.0f)
+            {
+                animationImage.SetBool("Move", true);
+                vec.x = moveSpeed * Time.deltaTime * StickValue.x;
+            }
+            if (StickValue.y != 0.0f)
+            {
+                animationImage.SetBool("Move", true);
+                vec.z = moveSpeed * Time.deltaTime * StickValue.y;
+            }
 
+            if (!isEnterItem)
+            {
+                if (StickValue.x != 0 || StickValue.y != 0)
+                {
+                    var direction = new Vector3(StickValue.x, 0, StickValue.y);
+                    transform.localRotation = Quaternion.LookRotation(direction);
+                }
+            }
+        }
+
+        /// <summary>
+        /// プレイヤーがダメージを受けた際に呼び出す
+        /// </summary>
+        public void PlayerDamage()
+        {
+            isGroup = false;
+            isAttack = false;
+            isEnterItem = false;
+            isDamage = true;
+        }
+
+        /// <summary>
+        /// プレイヤーの気絶・拘束が終了した際に呼び出す
+        /// </summary>
+        public void NotPlayerDamage()
+        {
+            isGroup = false;
+            isAttack = false;
+            isEnterItem = false;
+            isDamage = false;
+        }
+
+        /// <summary>
+        /// プレイヤーがアタックを開始した際に呼び出す
+        /// </summary>
+        public void StartAttack()
+        {
+            isAttack = true;
+        }
+
+        /// <summary>
+        /// プレイヤーのアタックが終了した際に呼び出す
+        /// </summary>
+        public void EndAttack()
+        {
+            isAttack = false;
+        }
+
+        /// <summary>
+        /// CarryEmoteの開始を外部から更に呼び出すための処理
+        /// </summary>
+        public void StartCarryEmote()
+        {
+            carryEmote.CallStartCarryEmote();
+        }
+
+        /// <summary>
+        /// CarryEmoteの終了を外部から更に呼び出すための処理
+        /// </summary>
+        public void EndCarryEmote()
+        {
+            carryEmote.CallEndCarryEmote();
+        }
+
+    }
 }

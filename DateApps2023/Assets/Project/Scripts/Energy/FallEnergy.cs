@@ -1,34 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
+// 担当者：吹上純平
 using UnityEngine;
 
-public class FallEnergy : MonoBehaviour
+namespace Resistance
 {
-    private bool isLand = false;
-    private Vector3 position = Vector3.zero;
-
-    private const float FALL_SPEED = 15.0f;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// エネルギー物資の落下処理クラス
+    /// </summary>
+    public class FallEnergy : MonoBehaviour
     {
-       position = transform.position;
-    }
+        private bool isEnergyResourceLanded = false;
+        private Vector3 position = Vector3.zero;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isLand)
+        private const float FALL_SPEED = 15.0f;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            return;
+            position = transform.position;
         }
 
-        position.y = Mathf.Max(position.y - FALL_SPEED * Time.deltaTime, 0.0f);
-
-        transform.position = position;
-        if(transform.position.y <= 0.0f)
+        // Update is called once per frame
+        void Update()
         {
-            isLand = true;
+            if (isEnergyResourceLanded)
+            {
+                return;
+            }
+            Fall();
+        }
+
+        /// <summary>
+        /// エネルギー物資を落下させる
+        /// </summary>
+        private void Fall()
+        {
+            position.y = Mathf.Max(position.y - FALL_SPEED * Time.deltaTime, 0.0f);
+            transform.position = position;
+            if (transform.position.y <= 0.0f)
+            {
+                isEnergyResourceLanded = true;
+            }
         }
     }
 }

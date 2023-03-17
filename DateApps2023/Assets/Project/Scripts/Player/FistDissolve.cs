@@ -1,48 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:吉田理紗
 using UnityEngine;
 
-public class FistDissolve : MonoBehaviour
+namespace Resistance
 {
-    private new Renderer renderer;
-
-    [SerializeField]
-    private float startTime = 0.5f;
-
-    [SerializeField]
-    private float endTime = 1.0f;
-
-    [SerializeField]
-    private float intervalTime = 0.2f;
-
-    private float time = 0.0f;
-    private float value = 0.0f;
-
-    private bool isStartDissolve = false;
-    private bool isEndDissolve = false;
-    private bool isIntervalDissolve = false;
-
-    [SerializeField]
-    private float pushForward = 0.8f;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// プレイヤーのパンチ表示に関する処理を行うクラス
+    /// </summary>
+    public class FistDissolve : MonoBehaviour
     {
-        renderer= GetComponent<Renderer>();
-        isEndDissolve = false;
-        isIntervalDissolve = false;
-        isStartDissolve = true;
-    }
+        [SerializeField]
+        private float startTime = 0.5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isStartDissolve)
+        [SerializeField]
+        private float endTime = 1.0f;
+
+        [SerializeField]
+        private float intervalTime = 0.2f;
+
+        [SerializeField]
+        private float pushForward = 0.8f;
+
+        private new Renderer renderer = null;
+
+        private float time = 0.0f;
+        private float value = 0.0f;
+
+        private const float MAX_VALUE = 1.0f;
+
+        private bool isStartDissolve = false;
+        private bool isEndDissolve = false;
+        private bool isIntervalDissolve = false;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            renderer = GetComponent<Renderer>();
+            time = 0.0f;
+            value = 0.0f;
+
+            isStartDissolve = true;
+            isEndDissolve = false;
+            isIntervalDissolve = false;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (isStartDissolve)
+            {
+                StartDissolve();
+            }
+            if (isIntervalDissolve)
+            {
+                IntervalDissolve();
+            }
+            if (isEndDissolve)
+            {
+                EndDissolve();
+            }
+        }
+
+        /// <summary>
+        /// パンチの表示を開始する処理を行う
+        /// </summary>
+        void StartDissolve()
         {
             time += Time.deltaTime;
-            //renderer.material.SetFloat("_DisAmount", value - time / startTime);
             transform.position += pushForward * Time.deltaTime * transform.up / startTime;
-            if(time >= startTime)
+            if (time >= startTime)
             {
                 time = 0.0f;
                 value = 0;
@@ -52,10 +77,14 @@ public class FistDissolve : MonoBehaviour
                 isEndDissolve = false;
             }
         }
-        if (isIntervalDissolve)
+
+        /// <summary>
+        /// 開始時と終了時の間の処理を行う
+        /// </summary>
+        void IntervalDissolve()
         {
             time += Time.deltaTime;
-            if(time >= intervalTime)
+            if (time >= intervalTime)
             {
                 time = 0.0f;
                 isStartDissolve = false;
@@ -63,24 +92,21 @@ public class FistDissolve : MonoBehaviour
                 isEndDissolve = true;
             }
         }
-        if(isEndDissolve)
+
+        /// <summary>
+        /// パンチの表示を終了する処理を行う
+        /// </summary>
+        void EndDissolve()
         {
             time += Time.deltaTime;
             renderer.material.SetFloat("_DisAmount", value + time / endTime);
             if (time >= endTime)
             {
                 time = 0.0f;
-                value = 1.0f;
+                value = MAX_VALUE;
                 renderer.material.SetFloat("_DisAmount", value);
                 Destroy(gameObject);
             }
         }
-    }
-
-    public void OnEndDissolve()
-    {
-        isIntervalDissolve = false;
-        isEndDissolve = true;
-        endTime = startTime;
     }
 }

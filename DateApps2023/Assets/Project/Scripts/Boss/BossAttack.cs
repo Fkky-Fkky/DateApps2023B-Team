@@ -1,269 +1,240 @@
-using System.Collections;
+//担当者:武田碧
+
 using System.Collections.Generic;
-using Unity.VisualScripting;
-//using UnityEditorInternal;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class BossAttack : MonoBehaviour
+namespace Resistance
 {
-    private float time = 0.0f;
-
-    private float attackIntervalTime;
-
-    [SerializeField]
-    Animator attackAnimation = null;
-
-    float centerTarget = 0.0f;
-    float rightTarget = 0.1f;
-    float leftTarget = -0.1f;
-
-
-    [SerializeField]
-    GameObject dmageAreaCenter;
-    [SerializeField]
-    GameObject damageAreaRight;
-    [SerializeField]
-    GameObject damageAreaLeft;
-
-    [SerializeField]
-    private Transform chargePos;
-
-    public bool IsCharge { get; private set; }
-
-
-    [SerializeField]
-    private GameObject chargeEffect;
-    private int effectStop = 0;
-
-    private List<GameObject> effectList = new List<GameObject>();
-
-    [SerializeField]
-    private GameObject dangerZone;
-
-    private Vector3 dangerCenter = new Vector3(  0.0f, -1.2f, 0.0f);
-    private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
-    private Vector3 dangerRigth  = new Vector3( 10.0f, -1.2f, 0.0f);
-
-    private List<GameObject> dangerAreaList = new List<GameObject>();
-
-    private float dangerAngle = 180.0f;
-
-    int areaCount;
-    int areaCountMax = 1;
-
-    float beamOffTime    = 0.0f;
-    float beamOffTimeMax = 2.0f;
-
-    public bool isAttack = false;
-
-    private bool isAttackAll = false;
-
-    private float beamTime    = 0.0f;
-    [SerializeField]
-    private float beamTimeMax = 10.0f;
-
-    private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip beamSE;
-
-    private int seCount = 0;
-
-    public BossMove bossMove;
-
-    public BossDamage bossDamage;
-
-    private BossCSVGenerator bossCSVGenerator;
-
-    private void Start()
+    /// <summary>
+    /// ボスの攻撃のスプリクト
+    /// </summary>
+    public class BossAttack : MonoBehaviour
     {
-        areaCount= 0;
-        isAttack = false;
-        bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
+        [SerializeField]
+        private float chageTimeMax = 10.0f;
 
-        audioSource = GetComponent<AudioSource>();
+        [SerializeField]
+        private GameObject dmageAreaCenter = null;
+        [SerializeField]
+        private GameObject damageAreaRight = null;
+        [SerializeField]
+        private GameObject damageAreaLeft = null;
+        [SerializeField]
+        private GameObject chargeEffect = null;
+        [SerializeField]
+        private GameObject dangerZone = null;
+        [SerializeField]
+        private Transform chargePos = null;
 
-        attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
+        [SerializeField]
+        private BossMove bossMove = null;
+        [SerializeField]
+        private BossDamage bossDamage = null;
+        [SerializeField]
+        private AreaControl areaControl = null;
+        [SerializeField]
+        private SEManager seManager = null;
 
-        IsCharge = false;
-    }
-    
-    void Update()
-    {
-        if (!bossMove.IsAttackOff())
+        private int effectStop = 0;
+        private int areaCount = 0;
+        private int seCount = 0;
+
+        private float time = 0.0f;
+        private float attackIntervalTime = 0.0f;
+        private float chargeTime = 0.0f;
+        private float beamOffTime = 0.0f;
+
+        private List<GameObject> effectList = new List<GameObject>();
+
+        private AudioSource audioSource = null;
+        private BossCSVGenerator bossCSVGenerator = null;
+        private BossAnimatorControl bossAnimatorControl = null;
+
+        /// <summary>
+        /// ビームを発射した
+        /// </summary>
+        public bool IsAttack { get; private set; }
+        /// <summary>
+        /// チャージ開始
+        /// </summary>
+        public bool IsCharge { get; private set; }
+        /// <summary>
+        /// チャージ～ビームを発射後まで
+        /// </summary>
+        public bool IsAttackAll { get; private set; }
+
+        const int EFFECT_STOP_MAX = 1;
+        const int AREA_COUNT_MAX = 1;
+        const int SE_COUNT_MAX = 1;
+        const float CENTER_TARGET = 0.0f;
+        const float RIGHT_TARGET = 0.1f;
+        const float LEFT_TARGET = -0.1f;
+        const float BEAM_OFF_TIME_MAX = 2.0f;
+
+        private void Start()
         {
-            if (!bossDamage.isInvincible)
-            {
-                Attack();
-            }
+            bossCSVGenerator = GameObject.Find("BossGenerator").GetComponent<BossCSVGenerator>();
+            audioSource = GetComponent<AudioSource>();
+            bossAnimatorControl = GetComponent<BossAnimatorControl>();
 
-        }
-
-        
-
-        if (bossDamage.isTrance || bossMove.bossHp <= 0||bossDamage.isInvincible)
-        {
-
-            AttackOff();
-            for (int i = 0; i < effectList.Count; i++)
-            {
-                Destroy(effectList[i]);
-                effectList.RemoveAt(i);
-            }
-
-            for (int i = 0; i < dangerAreaList.Count; i++)
-            {
-                Destroy(dangerAreaList[i]);
-                dangerAreaList.RemoveAt(i);
-            }
-        }
-
-    }
-
-    private void Attack()
-    {
-        time += Time.deltaTime;
-        if (bossMove.bossHp > 0 && !bossDamage.IsDamage())
-        {
-            if (time >= attackIntervalTime)
-            {
-                isAttackAll = true;
-                attackAnimation.SetBool("Attack", true);
-                Charge();
-                AttackAnimation();
-            }
-        }
-    }
-
-    private void Charge()
-    {
-        if (effectStop < 1)
-        {
-            effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
-            DangerZone();
-
-            IsCharge = true;
-
-            effectStop++;
-        }
-        else
-        {
+            attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
+            IsAttackAll = false;
+            IsAttack = false;
             IsCharge = false;
         }
-    }
-
-
-    private void DangerZone()
-    {
-        if (gameObject.tag == "Center")
+        void Update()
         {
-            dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
-        }
-
-        if (gameObject.tag == "Left")
-        {
-            dangerAreaList.Add(Instantiate(dangerZone, dangerLeft,   Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
-        }
-
-        if (gameObject.tag == "Right")
-        {
-            dangerAreaList.Add(Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, dangerAngle, 0.0f)));
-        }
-    }
-    void AttackAnimation()
-    {
-         beamTime += Time.deltaTime;
-        if (beamTime >= beamTimeMax)
-        {
-            isAttack = true;
-            DamageAreaControl();
-        }
-        else if (beamTime < beamTimeMax && bossDamage.IsBossDamage())
-        {
-            AttackOff();
-
-            for (int i = 0; i < effectList.Count; i++)
+            if (!bossMove.IsAttackOff)
             {
-                Destroy(effectList[i]);
-                effectList.RemoveAt(i);
+                if (!bossDamage.IsInvincible)
+                {
+                    Attack();
+                }
             }
 
-            for (int i = 0; i < dangerAreaList.Count; i++)
+            if (bossMove.BossHp <= 0 || bossDamage.IsInvincible)
             {
-                Destroy(dangerAreaList[i]);
-                dangerAreaList.RemoveAt(i);
+                AttackOff();
+
+                ListDestroy(effectList);
+                areaControl.DestroyDamageAreaList();
             }
-
         }
-    }
-    void DamageAreaControl()
-    {
-        if (seCount < 1)
+        /// <summary>
+        /// ボスが攻撃する
+        /// </summary>
+        private void Attack()
         {
-            audioSource.PlayOneShot(beamSE);
-            seCount++;
-        }
-
-        if (gameObject.transform.position.x == centerTarget)
-        {
-            if (areaCount < areaCountMax)
+            time += Time.deltaTime;
+            if (bossMove.BossHp > 0 && !bossDamage.IsDamage)
             {
-                Instantiate(dmageAreaCenter);
+                if (time >= attackIntervalTime)
+                {
+                    IsAttackAll = true;
+                    bossAnimatorControl.SetBoolTrue("Attack");
+                    Charge();
+                    ShootBeam();
+                }
+            }
+        }
+        /// <summary>
+        /// チャージ
+        /// </summary>
+        private void Charge()
+        {
+            if (effectStop < EFFECT_STOP_MAX)
+            {
+                effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
+                areaControl.GenerateDangerZone(gameObject);
+                IsCharge = true;
+                effectStop++;
+            }
+            else
+            {
+                IsCharge = false;
+            }
+        }
+        /// <summary>
+        /// ビームを発射
+        /// </summary>
+        private void ShootBeam()
+        {
+            chargeTime += Time.deltaTime;
+            if (chargeTime >= chageTimeMax)
+            {
+                IsAttack = true;
+                DamageAreaControl();
+            }
+            else if (chargeTime < chageTimeMax && bossDamage.IsBossDamage)
+            {
+                AttackOff();
+                ListDestroy(effectList);
+                areaControl.DestroyDamageAreaList();
+            }
+        }
+        /// <summary>
+        /// 攻撃がキャンセルしたときにエフェクトとエリア破壊
+        /// </summary>
+        /// <param name="list">デストロイするオブジェクト</param>
+        private void ListDestroy(List<GameObject> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                Destroy(list[i]);
+                list.RemoveAt(i);
+            }
+        }
+        /// <summary>
+        /// 当たり判定を出す
+        /// </summary>
+        private void DamageAreaControl()
+        {
+            if (seCount < SE_COUNT_MAX)
+            {
+                audioSource.PlayOneShot(seManager.BossBeamSe);
+                seCount++;
+            }
+            if (gameObject.transform.position.x == CENTER_TARGET)
+            {
+                DamageObject(dmageAreaCenter);
+            }
+            if (gameObject.transform.position.x >= RIGHT_TARGET)
+            {
+                DamageObject(damageAreaRight);
+            }
+            if (gameObject.transform.position.x <= LEFT_TARGET)
+            {
+                DamageObject(damageAreaLeft);
+            }
+            beamOffTime += Time.deltaTime;
+            if (beamOffTime >= BEAM_OFF_TIME_MAX)
+            {
+                AttackOff();
+            }
+        }
+
+        /// <summary>
+        /// 当たり判定エリアを生成
+        /// </summary>
+        /// <param name="damageArea"></param>
+        private void DamageObject(GameObject damageArea)
+        {
+            if (areaCount < AREA_COUNT_MAX)
+            {
+                Instantiate(damageArea);
                 areaCount++;
             }
         }
-
-        if (gameObject.transform.position.x >= rightTarget)
+        /// <summary>
+        /// 攻撃終了
+        /// </summary>
+        private void AttackOff()
         {
-            if (areaCount < areaCountMax)
-            {
-                Instantiate(damageAreaRight);
-                areaCount++;
-            }
+            IsAttack = false;
+            IsAttackAll = false;
+            seCount = 0;
+            effectStop = 0;
+            areaCount = 0;
+            chargeTime = 0.0f;
+            beamOffTime = 0.0f;
+            time = 0.0f;
+            bossAnimatorControl.SetBoolFalse("Attack");
         }
-
-        if (gameObject.transform.position.x <= leftTarget)
+        /// <summary>
+        /// チャージが終了する時間を返す
+        /// </summary>
+        /// <returns>チャージが終了する時間</returns>
+        public float BeamTimeMax()
         {
-            if (areaCount < areaCountMax)
-            {
-                Instantiate(damageAreaLeft);
-                areaCount++;
-            }
+            return chageTimeMax;
         }
-
-        beamOffTime += Time.deltaTime;
-        if (beamOffTime >= beamOffTimeMax)
+        /// <summary>
+        /// ビームが発射終わるまでの時間を返す
+        /// </summary>
+        /// <returns>ビームが発射終わるまでの時間</returns>
+        public float BeamOffTimeMax()
         {
-            AttackOff();
+            return BEAM_OFF_TIME_MAX;
         }
-    }
-
-    private void AttackOff()
-    {
-        isAttack = false;
-        isAttackAll = false;
-        effectStop = 0;
-        attackAnimation.SetBool("Attack", false);
-        seCount = 0;
-        beamTime = 0.0f;
-        beamOffTime = 0.0f;
-        areaCount = 0;
-        time = 0.0f;
-
-    }
-
-    public float BeamTimeMax()
-    {
-        return beamTimeMax;
-    }
-
-    public float BeamOffTimeMax()
-    {
-        return beamOffTimeMax;
-    }
-
-    public bool IsAttackAll()
-    {
-        return isAttackAll;
     }
 }

@@ -1,26 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:吉田理紗
 using UnityEngine;
 
-public class StageGenerator : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private GameObject[] stagePattern;
-
-    [SerializeField]
-    private Vector3 GeneratePos = Vector3.zero;
-
-    private int number;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ステージ配置に関する処理を行うクラス
+    /// </summary>
+    public class StageGenerator : MonoBehaviour
     {
-        OnGenerate();
-    }
+        [SerializeField]
+        private GameObject[] stagePattern = null;
 
-    void OnGenerate()
-    {
-        number = Random.Range(0, stagePattern.Length);
-        Instantiate(stagePattern[0], GeneratePos, Quaternion.identity);
+        [SerializeField]
+        private Vector3 generatePos = Vector3.zero;
+
+        private int number = 0;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            OnGenerate();
+        }
+
+        /// <summary>
+        /// 設定された配列の中からランダムでステージを生成する
+        /// </summary>
+        void OnGenerate()
+        {
+            number = Random.Range(0, stagePattern.Length);
+            Instantiate(stagePattern[number], generatePos, Quaternion.identity);
+        }
     }
 }

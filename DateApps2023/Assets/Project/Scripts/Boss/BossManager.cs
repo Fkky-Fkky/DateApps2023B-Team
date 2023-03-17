@@ -1,157 +1,181 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:武田碧
 using UnityEngine;
 
-public class BossManager : MonoBehaviour
+namespace Resistance
 {
-    [SerializeField]
-    private CannonManager cannonManager = null;
-
-    [SerializeField]
-    private BossCSVGenerator bossCSVGenerator = null;
-
-    public BossDamage bossDamage;
-
-    public BossAttack bossAttack;
-
-    private GameObject centerBoss;
-    private GameObject leftBoss;
-    private GameObject rightBoss;
-
-
-    void Update()
+    /// <summary>
+    /// ボスのマネージャー
+    /// </summary>
+    public class BossManager : MonoBehaviour
     {
-        BossDamage();
-        BossFellDown();
-    }
+        [SerializeField]
+        private Resistance.CannonManager cannonManager = null;
+        [SerializeField]
+        private BossCSVGenerator bossCSVGenerator = null;
 
-    private void BossDamage()
-    {
-        for (int i = 0; i < cannonManager.CanonMax; i++)
+        private GameObject centerBoss = null;
+        private GameObject leftBoss = null;
+        private GameObject rightBoss = null;
+
+        /// <summary>
+        /// 中央のレーンにボスがいるかのフラグ
+        /// </summary>
+        public bool IsCenterLine { get; private set; }
+        /// <summary>
+        /// 右側のレーンにボスがいるかのフラグ
+        /// </summary>
+        public bool IsRightLine { get; private set; }
+        /// <summary>
+        /// 左側のレーンにボスがいるかのフラグ
+        /// </summary>
+        public bool IsLeftLine { get; private set; }
+
+        const int CENTER_POS = 1;
+        const int LEFT_POS = 0;
+        const int RIGHT_POS = 2;
+
+        private void Start()
         {
-            if (!cannonManager.IsShooting[i])
-            {
-                continue;
-            }
+            IsCenterLine = false;
+            IsRightLine = false;
+            IsLeftLine = false;
+        }
 
-            GameObject boss = null;
-            if (cannonManager.DoConnectingPos[i] == 1)
+        void Update()
+        {
+            BossDamage();
+            BossFellDown();
+        }
+
+        /// <summary>
+        /// どのボスが攻撃を受けるか
+        /// </summary>
+        private void BossDamage()
+        {
+            for (int i = 0; i < cannonManager.CanonMax; i++)
             {
-                boss = GameObject.FindGameObjectWithTag("Center");
-                if (boss == null)
+                if (!cannonManager.IsShooting[i])
                 {
                     continue;
                 }
-            }
 
-            if (cannonManager.DoConnectingPos[i] == 0)
-            {
-                boss = GameObject.FindGameObjectWithTag("Left");
-                if (boss == null)
+                GameObject boss = null;
+                if (cannonManager.DoConnectingPos[i] == CENTER_POS)
                 {
-                    continue;
+                    boss = GameObject.FindGameObjectWithTag("Center");
+                    if (boss == null)
+                    {
+                        continue;
+                    }
+                }
+
+                if (cannonManager.DoConnectingPos[i] == LEFT_POS)
+                {
+                    boss = GameObject.FindGameObjectWithTag("Left");
+                    if (boss == null)
+                    {
+                        continue;
+                    }
+                }
+
+                if (cannonManager.DoConnectingPos[i] == RIGHT_POS)
+                {
+                    boss = GameObject.FindGameObjectWithTag("Right");
+                    if (boss == null)
+                    {
+                        continue;
+                    }
+                }
+
+                switch (cannonManager.IsShotEnergyType[i])
+                {
+                    case (int)Resistance.EnergyCharge.ENERGY_TYPE.SMALL:
+                        boss.GetComponent<BossDamage>().KnockbackTrueSmall();
+                        break;
+                    case (int)Resistance.EnergyCharge.ENERGY_TYPE.MEDIUM:
+                        boss.GetComponent<BossDamage>().KnockbackTrueMedium();
+                        break;
+                    case (int)Resistance.EnergyCharge.ENERGY_TYPE.LARGE:
+                        boss.GetComponent<BossDamage>().KnockbackTrueLarge();
+                        break;
                 }
             }
+        }
 
-            if (cannonManager.DoConnectingPos[i] == 2)
+        /// <summary>
+        /// ボスがいないレーンを探す
+        /// </summary>
+        private void BossFellDown()
+        {
+            centerBoss = GameObject.FindGameObjectWithTag("Center");
+            if (centerBoss == null)
             {
-                boss = GameObject.FindGameObjectWithTag("Right");
-                if (boss == null)
-                {
-                    continue;
-                }
+                IsCenterLine = false;
+            }
+            else
+            {
+                IsCenterLine = true;
             }
 
-            switch (cannonManager.IsShotEnergyType[i])
+            leftBoss = GameObject.FindGameObjectWithTag("Left");
+            if (leftBoss == null)
             {
-                case (int)EnergyCharge.EnergyType.SMALL:
-                    boss.GetComponent<BossDamage>().KnockbackTrueSmall();
-                    break;
-                case (int)EnergyCharge.EnergyType.MEDIUM:
-                    boss.GetComponent<BossDamage>().KnockbackTrueMedium();
-                    break;
-                case (int)EnergyCharge.EnergyType.LARGE:
-                    boss.GetComponent<BossDamage>().KnockbackTrueLarge();
-                    break;
+                IsLeftLine = false;
+            }
+            else
+            {
+                IsLeftLine = true;
+            }
+
+            rightBoss = GameObject.FindGameObjectWithTag("Right");
+            if (rightBoss == null)
+            {
+                IsRightLine = false;
+            }
+            else
+            {
+                IsRightLine = true;
             }
         }
-
-    }
-
-    private void BossFellDown()
-    {
-        centerBoss = GameObject.FindGameObjectWithTag("Center");
-        if (centerBoss == null)
+        /// <summary>
+        /// 怪獣撃破時のフラグを返す
+        /// </summary>
+        /// <returns>怪獣を撃破したフラグ</returns>
+        public bool IsBossKill()
         {
-            bossCSVGenerator.IsCenterLineFalse();
+            return bossCSVGenerator.IsKill;
         }
-        else
+        /// <summary>
+        /// ボスの種類の値を返す
+        /// </summary>
+        /// <returns>ボスの種類の値</returns>
+        public int BossType()
         {
-            bossCSVGenerator.IsCenterLineTrue();
+            return bossCSVGenerator.BossTypeDate();//中 1, ミニ 2, Big 3
         }
-
-        leftBoss = GameObject.FindGameObjectWithTag("Left");
-        if (leftBoss == null)
+        /// <summary>
+        /// 怪獣がチャージするフラグを返す
+        /// </summary>
+        /// <returns>チャージ開始</returns>
+        public bool Charge()
         {
-            bossCSVGenerator.IsLeftLineFalse();
+            return bossCSVGenerator.IsCharge;//破壊光線チャージ時
         }
-        else
+        /// <summary>
+        /// 怪獣が接近しているフラグを返す
+        /// </summary>
+        /// <returns>接近</returns>
+        public bool Danger()
         {
-            bossCSVGenerator.IsLeftLineTrue();
+            return bossCSVGenerator.IsDanger;//接近時
         }
-
-        rightBoss = GameObject.FindGameObjectWithTag("Right");
-        if (rightBoss == null)
+        /// <summary>
+        /// ゲームオーバーのフラグを返す
+        /// </summary>
+        /// <returns>ゲームオーバーのフラグ</returns>
+        public bool IsGameOver()
         {
-            bossCSVGenerator.IsRightLineFalse();
+            return bossCSVGenerator.IsGameOver;//ゲームオーバーフラグ
         }
-        else
-        {
-            bossCSVGenerator.IsRightLineTrue();
-        }
-    }
-
-    public bool IsBossFirstLanding()
-    {
-        //怪獣が地面に着地したら
-        return bossCSVGenerator.IsLanding;
-    }
-
-
-    public bool ISBossFirstKill()
-    {
-        //最初の怪獣撃破
-        return bossCSVGenerator.IsFirstKill;
-    }
-
-    public bool IsBossKill()
-    {
-        //怪獣撃破時
-        return bossCSVGenerator.IsKill;
-    }
-
-
-    public int BossType()
-    {
-        //中 1, ミニ 2, Big 3
-        return bossCSVGenerator.BossTypeDate();
-    }
-
-    public bool Charge()
-    {
-        //破壊光線チャージ時
-        return bossCSVGenerator.IsCharge;
-    }
-
-    //接近時
-    public bool Danger()
-    {
-        return bossCSVGenerator.IsDanger;
-    }
-    
-    //ゲームオーバーフラグ
-    public bool IsGameOver()
-    {
-        return bossCSVGenerator.IsGameOver;
     }
 }

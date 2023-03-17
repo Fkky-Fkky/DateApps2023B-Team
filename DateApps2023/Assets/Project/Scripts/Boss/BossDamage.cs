@@ -1,150 +1,113 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+//担当者:武田碧
+
 using UnityEngine;
-using UnityEngine.UI;
 
-public class BossDamage : MonoBehaviour
+namespace Resistance
 {
-    public BossCount bossCount = null;
-    BossMove bossMove;
-
-    private DamageCSV damageCSV = null;
-
-    [SerializeField] Animator AnimationImage = null;
-
-    [SerializeField]
-    private Transform damagePoint = null;
-
-    [SerializeField]
-    private GameObject explosionEffect = null;
-    [SerializeField]
-    GameObject fellDownEffect;
-
-    float effectPosY = -40.0f;
-
-    public bool isInvincible { get; private set; }
-    private float invincibleTime = 0.0f;
-    [SerializeField]
-    private float invincibleTimeMax = 4.0f;
-
-    private bool isDamage = false;
-
-    private bool isBossDamage = false;
-
-    private float BossDamgeOffTime    = 0.0f;
-    private float BossDamgeOffTimeMax = 0.6f;
-
-
-    bool isKnockback = false;
-    float knockbackTime = 0.0f;
-    float knockbackTimeMax = 1.5f;
-
-    private bool isBossFellDown = false;
-
-    private float bossDestroyTime = 0.0f;
-    private float bossDestroyTimeMax = 2.5f;
-
-    public bool isTrance = false; 
-
-    [SerializeField]
-    private Transform stunPos;
-
-    private int isBullet = -1;
-    private int maxHp = 0;
-
-    [SerializeField]
-    private GameObject hpCores;
-
-    [SerializeField]
-    private GameObject[] hpBar = new GameObject[9];
-
-    [SerializeField]
-    private GameObject[] hpMemori = new GameObject[9];
-
- 
-    private int smallDamage;
-
-    private int MediumDamage;
-
-    private int LargeDamage;
-
-
-
-    void Start()
+    /// <summary>
+    /// ボスが攻撃されたときのダメージスプリクト
+    /// </summary>
+    public class BossDamage : MonoBehaviour
     {
-        bossMove = GetComponent<BossMove>();
+        [SerializeField]
+        private float invincibleTimeEnd = 4.0f;
+        [SerializeField]
+        private GameObject explosionEffect = null;
+        [SerializeField]
+        private GameObject fellDownEffect = null;
+        [SerializeField]
+        private Transform damagePoint = null;
 
-        isDamage = false;
+        private bool isKnockback = false;
+        private int maxHp = 0;
+        private int bulletType = -1;
+        private int smallEnergyDamage = 0;
+        private int mediumEnergyDamage = 0;
+        private int largeEnergyDamage = 0;
+        private float invincibleTime = 0.0f;
+        private float bossDamgeOffTime = 0.0f;
+        private float knockbackTime = 0.0f;
+        private float bossDestroyTime = 0.0f;
+        private BossMove bossMove = null;
+        private DamageCSV damageCSV = null;
+        private BossDamageHPBarUI bossDamageHPBarUI = null;
+        private BossAnimatorControl bossAnimatorControl = null;
 
-        damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
-
-        smallDamage  = damageCSV.small;
-        MediumDamage = damageCSV.medium;
-        LargeDamage  = damageCSV.large;
-
-        isInvincible = false;
-
-        maxHp = bossMove.bossHp;
-
-        hpBar = new GameObject[maxHp];
-
-        for (int i = 0; i < hpMemori.Length; i++)
+        /// <summary>
+        /// エネルギー物資の大きさ
+        /// </summary>
+        private enum ENERGY_SIZE
         {
-            hpMemori[i].SetActive(false);
+            None = -1,
+            SMALL,
+            MEDIUM,
+            LARGE
+        }
+        /// <summary>
+        /// 無敵フラグ
+        /// </summary>
+        public bool IsInvincible { get; private set; }
+        /// <summary>
+        /// ボスがダメージを受けているフラグ
+        /// </summary>
+        public bool IsBossDamage { get; private set; }
+        /// <summary>
+        /// ボスがダメージを受けたフラグ
+        /// </summary>
+        public bool IsDamage { get; private set; }
+        /// <summary>
+        /// ボスが倒れたフラグ
+        /// </summary>
+        public bool IsFellDown { get; private set; }
+
+        const float EFFECT_POS_Y = -40.0f;
+        const float BOSS_DAMGE_OFF_TIME_MAX = 0.6f;
+        const float KNOCK_BACK_TIME_MAX = 1.5f;
+        const float KNOCK_BACK_MOVE = 3.0f;
+        const float BOSS_DESTROY_TIME_MAX = 2.5f;
+
+        void Start()
+        {
+            bossMove = GetComponent<BossMove>();
+            bossDamageHPBarUI = GetComponent<BossDamageHPBarUI>();
+            bossAnimatorControl = GetComponent<BossAnimatorControl>();
+            damageCSV = GameObject.Find("BossManager").GetComponent<DamageCSV>();
+
+            smallEnergyDamage = damageCSV.Small;
+            mediumEnergyDamage = damageCSV.Medium;
+            largeEnergyDamage = damageCSV.Large;
+
+            IsBossDamage = false;
+            IsInvincible = false;
+            IsDamage = false;
+            IsFellDown = false;
+
+            maxHp = bossMove.BossHp;
+            bossDamageHPBarUI.HpMemoriPosition(maxHp);
         }
 
-        for (int i = 0; i < maxHp; i++)
+        void Update()
         {
-            hpBar[i] = hpMemori[i];
-            hpMemori[i].SetActive(true);
+            Knockback();
+            Damage();
+            Invincible();
+            BossFellDown();
+            BossDamageTime();
         }
-
-        switch (maxHp) 
+        /// <summary>
+        /// ダメージ受けた時のノックバック
+        /// </summary>
+        private void Knockback()
         {
-            case 1:
-                if (gameObject.transform.localScale.y < 180.0f)
-                {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, 0.7f, 0);
-                }
-                if (gameObject.transform.localScale.y > 18.0f)
-                {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.8f, -0.7f, 0);
-                }
-                break;
-            case 2:
-                if (gameObject.transform.localScale.y > 18.0f)
-                {
-                    hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.6f, -0.7f, 0);
-                }
-                break;
-            case 3:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.4f, -0.7f, 0);
-                break;
-            case 4:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.2f, -0.7f, 0);
-                break;
-            case 7:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.4f, 0, 0);
-                break;
-            case 8:
-                hpCores.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.2f, 0, 0);
-                break;
-        }
-
-    }
-
-    void Update()
-    {
-
-
-        if (isKnockback)
-        {
+            if (!isKnockback)
+            {
+                return;
+            }
             knockbackTime += Time.deltaTime;
-            if (knockbackTime <= knockbackTimeMax)
+            if (knockbackTime <= KNOCK_BACK_TIME_MAX)
             {
                 Vector3 bossPos = transform.position;
-                bossPos.z += 3.0f * Time.deltaTime;
+                bossPos.z += KNOCK_BACK_MOVE * Time.deltaTime;
                 transform.position = bossPos;
             }
             else
@@ -153,170 +116,154 @@ public class BossDamage : MonoBehaviour
                 isKnockback = false;
             }
         }
-
-        if (isDamage)
+        /// <summary>
+        /// ボスがダメージ受けた時の処理
+        /// </summary>
+        private void Damage()
         {
-            if (!bossMove.IsAppearance())
+            if (!IsDamage)
+            {
+                return;
+            }
+            if (!bossMove.IsAppearance)
             {
                 Instantiate(explosionEffect, damagePoint.position, Quaternion.identity);
-                IsBullet();
-                if (bossMove.bossHp > 0.0f)
-                {
-                    AnimationImage.SetTrigger("Damage");
-                }
-                else
-                {
-                    AnimationImage.SetTrigger("Die");
-                }
-
-                isInvincible = true;
-                isBullet = -1;
-                isDamage = false;
+                BulletTypeDamage();
+                bossAnimatorControl.DamageAnimation(bossMove.BossHp);
+                IsInvincible = true;
+                bulletType = (int)ENERGY_SIZE.None;
+                IsDamage = false;
             }
         }
 
-
-        if (isInvincible)
+        /// <summary>
+        /// エネルギーごとのダメージ量
+        /// </summary>
+        private void BulletTypeDamage()
         {
-            invincibleTime += Time.deltaTime;
-            if (invincibleTime >= invincibleTimeMax)
+            if (bulletType == (int)ENERGY_SIZE.SMALL)
             {
-                isInvincible = false;
-                AnimationImage.SetTrigger("Walk");
+                Damage(smallEnergyDamage);
+                bossDamageHPBarUI.HpBarSmallActive(bossMove.BossHp);
+            }
+            else if (bulletType == (int)ENERGY_SIZE.MEDIUM)
+            {
+                Damage(mediumEnergyDamage);
+                bossDamageHPBarUI.HpBarMediumActive(maxHp, bossMove.BossHp, mediumEnergyDamage);
+            }
+            else if (bulletType == (int)ENERGY_SIZE.LARGE)
+            {
+                Damage(largeEnergyDamage);
+                bossDamageHPBarUI.HpBarLargeActive(maxHp, bossMove.BossHp);
+            }
+        }
+        /// <summary>
+        /// 体力の減少量
+        /// </summary>
+        /// <param name="damage">受けるダメージの値</param>
+        private void Damage(int damage)
+        {
+            bossMove.BossHp -= damage;
+            if (bossMove.BossHp < 0)
+            {
+                bossMove.BossHp = 0;
+            }
+        }
+        /// <summary>
+        /// ボスの無敵
+        /// </summary>
+        private void Invincible()
+        {
+            if (!IsInvincible)
+            {
+                return;
+            }
+            invincibleTime += Time.deltaTime;
+            if (invincibleTime >= invincibleTimeEnd)
+            {
+                IsInvincible = false;
+                bossAnimatorControl.SetTrigger("Walk");
                 bossMove.DamageFalse();
                 invincibleTime = 0.0f;
             }
-        }
 
-        if (bossMove.bossHp <= 0.0f)
+        }
+        /// <summary>
+        /// ボスが倒れた
+        /// </summary>
+        private void BossFellDown()
         {
-            bossDestroyTime += Time.deltaTime;
-            if (bossDestroyTime >= bossDestroyTimeMax)
+            if (bossMove.BossHp <= 0)
             {
-                isBossFellDown = true;
-                Vector3 pos = new Vector3(transform.position.x, effectPosY, transform.position.z);
-                Instantiate(fellDownEffect, pos, Quaternion.identity);
-                Destroy(gameObject);
-                bossDestroyTime = 0.0f;
+                bossDestroyTime += Time.deltaTime;
+                if (bossDestroyTime >= BOSS_DESTROY_TIME_MAX)
+                {
+                    IsFellDown = true;
+                    Vector3 pos = new Vector3(transform.position.x, EFFECT_POS_Y, transform.position.z);
+                    Instantiate(fellDownEffect, pos, Quaternion.identity);
+                    Destroy(gameObject);
+                    bossDestroyTime = 0.0f;
+                }
             }
         }
-
-        if (isBossDamage)
+        /// <summary>
+        /// ボスがダメージ受けた時のフラグをON/OFF
+        /// </summary>
+        private void BossDamageTime()
         {
-            BossDamgeOffTime += Time.deltaTime;
-            if (BossDamgeOffTime >= BossDamgeOffTimeMax)
+            if (IsBossDamage)
             {
-                isBossDamage = false;
-                BossDamgeOffTime = 0.0f;
-            }
-        }
-        if (bossMove.bossHp < 0)
-        {
-            bossMove.bossHp = 0;
-        }
-
-    }
-
-    private void IsBullet()
-    {
-        if (isBullet == 0)
-        {
-            bossMove.bossHp -= smallDamage;
-            hpBar[bossMove.bossHp + 0].SetActive(false);
-        }
-        else if (isBullet == 1)
-        {
-            bossMove.bossHp -= MediumDamage;
-
-            if (bossMove.bossHp < 0)
-            {
-                bossMove.bossHp = 0;
+                bossDamgeOffTime += Time.deltaTime;
+                if (bossDamgeOffTime >= BOSS_DAMGE_OFF_TIME_MAX)
+                {
+                    IsBossDamage = false;
+                    bossDamgeOffTime = 0.0f;
+                }
             }
 
-            
-            HpBarMediumActive();
         }
-        else if (isBullet == 2)
+        /// <summary>
+        /// エネルギー小の場合
+        /// </summary>
+        public void KnockbackTrueSmall()
         {
-            bossMove.bossHp -= LargeDamage;
-
-            if (bossMove.bossHp < 0)
+            DamageKnockBack((int)ENERGY_SIZE.SMALL);
+        }
+        /// <summary>
+        /// エネルギー中の場合
+        /// </summary>
+        public void KnockbackTrueMedium()
+        {
+            DamageKnockBack((int)ENERGY_SIZE.MEDIUM);
+        }
+        /// <summary>
+        /// エネルギー大の場合
+        /// </summary>
+        public void KnockbackTrueLarge()
+        {
+            DamageKnockBack((int)ENERGY_SIZE.LARGE);
+        }
+        /// <summary>
+        /// ダメージ
+        /// </summary>
+        /// <param name="Bullet">エネルギーの種類の値</param>
+        void DamageKnockBack(int Bullet)
+        {
+            if (isKnockback)
             {
-                bossMove.bossHp = 0;
+                return;
             }
-
-            HpBarLargeActive();
-        }
-
-    }
-
-    private void HpBarMediumActive()
-    {
-        for (int i = 0; i < MediumDamage; i++)
-        {
-            if (bossMove.bossHp + i < maxHp)
+            if (!bossMove.IsAppearance)
             {
-                hpBar[bossMove.bossHp + i].SetActive(false);
-            }
-        }
-    }
-    private void HpBarLargeActive()
-    {
-        for(int i = 0; i < maxHp; i++)
-        {
-            hpBar[bossMove.bossHp + i].SetActive(false);
-        }
-    }
-
-    public void KnockbackTrueSmall()
-    {
-        DamageKnockBack(0);
-
-    }
-    public void KnockbackTrueMedium()
-    {
-        DamageKnockBack(1);
-
-    }
-
-    public void KnockbackTrueLarge()
-    {
-
-        DamageKnockBack(2);
-
-    }
-
-    void DamageKnockBack(int Bullet)
-    {
-        if (isKnockback)
-            return;
-
-        if (!bossMove.IsAppearance())
-        {
-            if (!isInvincible)
-            {
-                isKnockback = true;
-                isDamage = true;
-                isBossDamage = true;
-                isBullet = Bullet;
-                bossMove.DamageTrue();
+                if (!IsInvincible)
+                {
+                    isKnockback = true;
+                    IsDamage = true;
+                    IsBossDamage = true;
+                    bulletType = Bullet;
+                    bossMove.DamageTrue();
+                }
             }
         }
-
-    }
-
-    public bool IsFellDown()
-    {
-        return isBossFellDown;
-    }
-
-    public bool IsDamage()
-    {
-        return isDamage;
-    }
-
-    public bool IsBossDamage()
-    {
-        return isBossDamage;
     }
 }

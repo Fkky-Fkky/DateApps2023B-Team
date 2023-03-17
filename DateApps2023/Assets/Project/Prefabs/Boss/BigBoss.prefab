@@ -920,9 +920,12 @@ GameObject:
   - component: {fileID: 1697093568606495979}
   - component: {fileID: 1648196746715476570}
   - component: {fileID: 1648196746715476573}
-  - component: {fileID: 1648196746715476574}
   - component: {fileID: 1648196746715476545}
   - component: {fileID: 1763202426801422486}
+  - component: {fileID: 1648196746715476574}
+  - component: {fileID: 4240107976694890436}
+  - component: {fileID: 5173374277789823423}
+  - component: {fileID: 5732676804227016846}
   - component: {fileID: 6624093822019089606}
   m_Layer: 0
   m_Name: BigBoss
@@ -948,7 +951,6 @@ Transform:
   - {fileID: 3490875008881636801}
   - {fileID: 5787170837169423892}
   - {fileID: 1884187481272459562}
-  - {fileID: 1112019383089711780}
   - {fileID: 8804970640072048361}
   - {fileID: 8573440320537602893}
   m_Father: {fileID: 0}
@@ -1003,38 +1005,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5, y: 3.5, z: 3}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &1648196746715476574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647289903949419459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossCount: {fileID: 7051107079401279416, guid: 1280ba353a1add64ea640925fdb1cbb9, type: 3}
-  AnimationImage: {fileID: 1697093568606495979}
-  damagePoint: {fileID: 3490875008881636801}
-  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
-  fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
-  invincibleTimeMax: 4
-  isTrance: 0
-  stunPos: {fileID: 1112019383089711780}
-  hpCores: {fileID: 2839734621503120385}
-  hpBar: []
-  hpMemori:
-  - {fileID: 7017444213541244991}
-  - {fileID: 5420664016034269783}
-  - {fileID: 4257785353035036898}
-  - {fileID: 4441024315028026696}
-  - {fileID: 1521302198776576838}
-  - {fileID: 6133416746199228358}
-  - {fileID: 7808282442513585404}
-  - {fileID: 4872820380709997989}
-  - {fileID: 8714391739070088121}
 --- !u!114 &1648196746715476545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,24 +1017,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8cc92c29a0b84faa73b36b8d3d196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHp: 9
-  moveSpeed: 1
   cenetrTarget: {fileID: 5361787869608923537, guid: 13e439a99f61be34fad8d5e134db632c, type: 3}
   leftTarget: {fileID: 5361787869608923537, guid: 8e8fe64f0743dde4aa9ad854c3a41e1d, type: 3}
   rightTarget: {fileID: 5361787869608923537, guid: 5f57609d3392f774d8b893aa664e0991, type: 3}
-  AnimationImage: {fileID: 1697093568606495979}
-  canvas: {fileID: 2309201643668946977}
-  hpGauge: {fileID: 5793764350385881774}
   warningDisplay: {fileID: 2259809880304689657}
-  warningRenderer: {fileID: 474976241827062766}
   gameOverWarningDisplay: {fileID: 6965900654096559664}
+  shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
+  canvas: {fileID: 2309201643668946977}
+  warningRenderer: {fileID: 474976241827062766}
   gameOverDisplay: {fileID: 8746228795527572519}
   audioSource: {fileID: 6624093822019089606}
-  shockWaveEffect: {fileID: 1714681308540598, guid: 4baa7663f80495d449f97e097acbdb90, type: 3}
-  Multiplier: 50
-  isLastAttack: 0
   lastAttackAudio: {fileID: 2336347795683078930}
-  lastAttackSE: {fileID: 8300000, guid: 57114c44b6aab894393d0f842374e5d2, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
+  BossHp: 0
 --- !u!114 &1763202426801422486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1077,18 +1042,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee33e4445af2e8841b57e936a40fd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAnimation: {fileID: 1697093568606495979}
+  chageTimeMax: 7
   dmageAreaCenter: {fileID: 5240159467103147246, guid: 9ed903443d9d95c4fb5b362a04796ade, type: 3}
   damageAreaRight: {fileID: 4317837726763900373, guid: d260d0b6aedcbe44097861b08f747f2e, type: 3}
   damageAreaLeft: {fileID: 5808908900923386091, guid: 7542c47b97b37f2408ff0ae6a47da26b, type: 3}
-  chargePos: {fileID: 8804970640072048361}
   chargeEffect: {fileID: 7118574584337306178, guid: 5e6a1a6eb185e574bab504dc6e1c7d03, type: 3}
   dangerZone: {fileID: 4271847066460393594, guid: c40ecd7181443054db0eed0792a78822, type: 3}
-  isAttack: 0
-  beamTimeMax: 7
-  beamSE: {fileID: 8300000, guid: ff8c1b91dde5fec488f79906dfa91dad, type: 3}
+  chargePos: {fileID: 8804970640072048361}
   bossMove: {fileID: 1648196746715476545}
   bossDamage: {fileID: 1648196746715476574}
+  areaControl: {fileID: 1139690476083802783, guid: 45238b1be1aa8fe438b877c0ca02b86a, type: 3}
+  seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
+--- !u!114 &1648196746715476574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ccac82ae6a40c40b18fa36a8863d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibleTimeEnd: 4
+  explosionEffect: {fileID: 5864795667926474768, guid: c86f9027676eb994caf7ab2744535dfb, type: 3}
+  fellDownEffect: {fileID: 5622218218409466823, guid: 4f3aff866503c1b4d9862ab882bc02fc, type: 3}
+  damagePoint: {fileID: 3490875008881636801}
+--- !u!114 &4240107976694890436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d25f295797c6a4995af948a32e206b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpGauge: {fileID: 5793764350385881774}
+  canvas: {fileID: 2309201643668946977}
+  bossMove: {fileID: 1648196746715476545}
+--- !u!114 &5173374277789823423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8cadae97223df42bdc6f876dafca8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpCores: {fileID: 2839734621503120385}
+  hpBar: []
+  hpMemori:
+  - {fileID: 7017444213541244991}
+  - {fileID: 5420664016034269783}
+  - {fileID: 4257785353035036898}
+  - {fileID: 4441024315028026696}
+  - {fileID: 1521302198776576838}
+  - {fileID: 6133416746199228358}
+  - {fileID: 7808282442513585404}
+  - {fileID: 4872820380709997989}
+  - {fileID: 8714391739070088121}
+--- !u!114 &5732676804227016846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647289903949419459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78410edd1d6cb242b262c40dc49487a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 1697093568606495979}
 --- !u!82 &6624093822019089606
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1290,37 +1322,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -80.1039, y: -2.447403, z: 17.706985}
     m_Extent: {x: 241.08421, y: 215.05971, z: 397.3723}
   m_DirtyAABB: 0
---- !u!1 &2831081767476128819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1112019383089711780}
-  m_Layer: 0
-  m_Name: StunPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1112019383089711780
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2831081767476128819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2839734621503120385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,7 +1772,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6133416746199228358
 GameObject:
@@ -1887,7 +1888,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643879179760658977}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2336347795683078930
 AudioSource:

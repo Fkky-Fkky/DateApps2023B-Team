@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131905478442208739}
   - component: {fileID: 7051107079401279416}
-  - component: {fileID: 5868675818485116546}
+  - component: {fileID: 5839445782891812449}
   m_Layer: 0
   m_Name: BossGenerator
   m_TagString: Untagged
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c48b9cafdbd1654694eb6dcb41fed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossKillCount: 0
---- !u!114 &5868675818485116546
+  BossKillCount: 0
+--- !u!114 &5839445782891812449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,14 +55,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 131905478442208737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07c20481f463104cb93ccc5c82807ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e80d1d0546a6a74baa51793d522b00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossManager: {fileID: 0}
-  opretar: {fileID: 0}
-  bossCSV: {fileID: 0}
+  bossCountMax: 13
+  sidePos: 130
   nomalBoss: {fileID: 1647289903949419459, guid: 99439ca5e90864841aaf3f75ddf4b4d6, type: 3}
   miniBoss: {fileID: 1647289903949419459, guid: e3012e0cb0841ea448023fc8f17a047d, type: 3}
   bigBoss: {fileID: 1647289903949419459, guid: 0d8b94d41f4737a4d99084fe99ff9bfe, type: 3}
-  sidePos: 130
-  bossCountMax: 13
+  bossManager: {fileID: 0}
+  myOperator: {fileID: 0}
+  bossCSV: {fileID: 0}

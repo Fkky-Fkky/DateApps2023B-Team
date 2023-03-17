@@ -1,153 +1,174 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:吉田理紗
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class PlayerAttack : MonoBehaviour
+namespace Resistance
 {
-    private int myPlayerNo = 5;
-    private BoxCollider boxCol= null;
-
-    [SerializeField]
-    private float hitTime = 0.25f;
-
-    private PlayerMove playerMove;
-
-    Animator animator;
-    float time = 0;
-
-    private bool myAttack = false;
-    private bool isCarry = false;
-    private bool isDamage = false;
-
-    [SerializeField]
-    private GameObject attackEffect = null;
-
-    [SerializeField]
-    private Transform effectPos = null;
-
-    [SerializeField]
-    private GameObject fistObject = null;
-    [SerializeField]
-    private Transform fistPos = null;
-
-    [SerializeField]
-    private AudioClip attackSound = null;
-    private AudioSource audioSource;
-
-    private GameObject instantPunch = null;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// プレイヤーのアクションに関するクラス
+    /// </summary>
+    public class PlayerAttack : MonoBehaviour
     {
-        boxCol = GetComponent<BoxCollider>();
-        boxCol.enabled = false;
+        [SerializeField]
+        private float hitTime = 0.25f;
 
-        animator = GetComponentInParent<Animator>();
+        [SerializeField]
+        private GameObject attackEffect = null;
 
-        playerMove = GetComponentInParent<PlayerMove>();
-        audioSource= GetComponentInParent<AudioSource>();
-    }
+        [SerializeField]
+        private Transform effectPos = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(!isCarry && !isDamage)
+        [SerializeField]
+        private GameObject fistObject = null;
+
+        [SerializeField]
+        private Transform fistPos = null;
+
+        [SerializeField]
+        private Resistance.SEManager seManager = null;
+
+        private BoxCollider boxCol = null;
+        private Animator animator = null;
+        private AudioSource audioSource = null;
+        private PlayerMove playerMove = null;
+
+        private int myPlayerNo = 5;
+        private float time = 0;
+
+        private bool isAttack = false;
+        private bool isCarry = false;
+        private bool isDamage = false;
+
+        private const float PUSH_POWER = 5f;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
+            boxCol = GetComponent<BoxCollider>();
+            boxCol.enabled = false;
+
+            animator = GetComponentInParent<Animator>();
+            playerMove = GetComponentInParent<PlayerMove>();
+            audioSource = GetComponentInParent<AudioSource>();
+
+            time = 0;
+
+            isAttack = false;
+            isCarry = false;
+            isDamage = false;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (!isCarry && !isDamage)
             {
-                if (!myAttack)
+                if (Gamepad.all[myPlayerNo].aButton.wasPressedThisFrame)
                 {
                     FistAttack();
                 }
-            }
-            if (myAttack)
-            {
-                time += Time.deltaTime;
-                if (time >= hitTime)
+                if (isAttack)
                 {
                     EndAttack();
-                    time = 0;
+                }
+            }
+            else if (isCarry || isDamage)
+            {
+                if (isAttack)
+                {
+                    EndAttack();
                 }
             }
         }
-        else if(isCarry || isDamage)
+
+        void OnTriggerEnter(Collider other)
         {
-            if (myAttack)
+            if (other.gameObject.CompareTag("Enemy"))
             {
-                instantPunch.GetComponent<FistDissolve>().OnEndDissolve();
-                EndAttack();
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+
+                if (!rb)
+                    return;
+
+                rb.AddForce(this.transform.forward * PUSH_POWER, ForceMode.VelocityChange);
+            }
+        }
+
+        /// <summary>
+        /// プレイヤーがアクションを開始した際に呼び出す
+        /// </summary>
+        private void FistAttack()
+        {
+            if (isAttack)
+            {
+                return;
+            }
+            animator.SetBool("Attack", true);
+            boxCol.enabled = true;
+            playerMove.StartAttack();
+            Instantiate(attackEffect, effectPos.position, this.transform.rotation);
+            Instantiate(fistObject, fistPos.position, fistPos.rotation);
+            audioSource.PlayOneShot(seManager.PlayerAttackSe);
+
+            isAttack = true;
+        }
+
+        /// <summary>
+        /// プレイヤーのアクションが終了した際に呼び出す
+        /// </summary>
+        private void EndAttack()
+        {
+            time += Time.deltaTime;
+            if (time >= hitTime)
+            {
+                animator.SetBool("Attack", false);
+                boxCol.enabled = false;
+                playerMove.EndAttack();
+
+                isAttack = false;
                 time = 0;
             }
         }
-    }
 
-    private void FistAttack()
-    {
-        animator.SetBool("Attack", true);
-        boxCol.enabled = true;
-        playerMove.StartAttack();
-        Instantiate(attackEffect, effectPos.position, this.transform.rotation);
-        instantPunch = Instantiate(fistObject, fistPos.position, fistPos.rotation);
-        audioSource.PlayOneShot(attackSound);
-
-        myAttack = true;
-    }
-
-    private void EndAttack()
-    {
-        animator.SetBool("Attack", false);
-        boxCol.enabled = false;
-        playerMove.EndAttack();
-        instantPunch = null;
-
-        myAttack = false;
-    }
-
-    public void GetPlayerNo(int parentNumber)
-    {
-        myPlayerNo = parentNumber;
-    }
-
-    public void OnIsCarry()
-    {
-        isCarry = true;
-    }
-
-    public void OffIsCarry()
-    {
-        isCarry = false;
-    }
-
-    public void OnIsDamage()
-    {
-        isDamage = true;
-    }
-
-    public void OffIsDamage()
-    {
-        isDamage = false;
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
+        /// <summary>
+        /// 自身のプレイヤー番号を外部から取得する
+        /// </summary>
+        /// <param name="parentNumber">プレイヤー番号</param>
+        public void GetPlayerNo(int parentNumber)
         {
-            Rigidbody rb = other.GetComponent<Rigidbody>();
+            myPlayerNo = parentNumber;
+        }
 
-            if (!rb)
-                return;
+        /// <summary>
+        /// プレイヤーが運搬を開始した際に呼び出す
+        /// </summary>
+        public void OnIsCarry()
+        {
+            isCarry = true;
+        }
 
-            //Vector3 pw = new Vector3(0, 30.0f, 0.0f);
-            //rb.AddForce(pw, ForceMode.Impulse);
-            rb.AddForce(this.transform.forward * 5f, ForceMode.VelocityChange);
+        /// <summary>
+        /// プレイヤーが運搬を終了した際に呼び出す
+        /// </summary>
+        public void OffIsCarry()
+        {
+            isCarry = false;
+        }
 
-            NavMeshAgent nav = other.GetComponent<NavMeshAgent>();
-            if (!nav)
-                return;
+        /// <summary>
+        /// プレイヤーがダメージを受けた際に呼び出す
+        /// </summary>
+        public void OnIsDamage()
+        {
+            isDamage = true;
+        }
 
-            nav.enabled = false;
+        /// <summary>
+        /// プレイヤーのダメージが終了した際に呼び出す
+        /// </summary>
+        public void OffIsDamage()
+        {
+            isDamage = false;
         }
     }
-
 }

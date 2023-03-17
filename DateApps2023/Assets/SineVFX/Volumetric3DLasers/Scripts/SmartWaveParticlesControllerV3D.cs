@@ -20,7 +20,7 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
     private ProgressControlV3D.EffectType effectType;
 
     [SerializeField]
-    private BossAttack bossAttack;
+    private Resistance.BossAttack bossAttack;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class SmartWaveParticlesControllerV3D : MonoBehaviour
             return;
         }
 
-        if (bossAttack.isAttack)//|| Input.GetMouseButtonDown(0))
+        if (bossAttack.IsAttack)//|| Input.GetMouseButtonDown(0))
         {
             distortionSpherePS.Emit(1);
             controlPS.Emit(1);

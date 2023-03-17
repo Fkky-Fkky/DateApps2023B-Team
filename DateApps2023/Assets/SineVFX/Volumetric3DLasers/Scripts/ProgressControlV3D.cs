@@ -37,13 +37,13 @@ public class ProgressControlV3D : MonoBehaviour {
     private EffectType effectType = EffectType.Boss;
 
     [SerializeField]
-    private BossAttack bossAttack;
+    private Resistance.BossAttack bossAttack;
 
     [SerializeField]
-    private CannonShot cannonShot;
+    private Resistance.CannonShot cannonShot;
 
     [SerializeField]
-    private EnergyCharge energyCharge;
+    private Resistance.EnergyCharge energyCharge;
 
     private bool isColorChage = false;
 
@@ -110,7 +110,7 @@ public class ProgressControlV3D : MonoBehaviour {
         //if (Input.GetMouseButton(0) || always == true)
         if (effectType == EffectType.Boss)
         {
-            if (bossAttack.isAttack || always == true)
+            if (bossAttack.IsAttack || always == true)
             {
                 globalProgress = 0f;
                 endPointEffect.emit = true;
@@ -126,15 +126,15 @@ public class ProgressControlV3D : MonoBehaviour {
             {
                 if (!isColorChage)
                 {
-                    switch (energyCharge.ChrgeEnergyType)
+                    switch (energyCharge.ChargeEnergyType)
                     {
-                        case (int)EnergyCharge.EnergyType.SMALL:
+                        case (int)Resistance.EnergyCharge.ENERGY_TYPE.SMALL:
                             finalColor = new Color(0, 0.7f, 1, 1);
                             break;
-                        case (int)EnergyCharge.EnergyType.MEDIUM:
+                        case (int)Resistance.EnergyCharge.ENERGY_TYPE.MEDIUM:
                             finalColor = new Color(0.3f, 0.23f, 0.1f, 1);
                             break;
-                        case (int)EnergyCharge.EnergyType.LARGE:
+                        case (int)Resistance.EnergyCharge.ENERGY_TYPE.LARGE:
                             finalColor = new Color(1, 0.3f, 0, 1);
                             break;
                     }
@@ -155,7 +155,7 @@ public class ProgressControlV3D : MonoBehaviour {
         if (effectType == EffectType.Boss)
         {
 
-            if (bossAttack.isAttack)
+            if (bossAttack.IsAttack)
             {
                 globalImpactProgress = 0f;
             }

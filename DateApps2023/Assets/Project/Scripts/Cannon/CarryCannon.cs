@@ -1,118 +1,141 @@
+//担当者:吉田理紗
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CarryCannon : MonoBehaviour
+namespace Resistance
 {
-    #region
-    private GameObject[] myGrabPoint = null;
-    private PlayerCarryDown[] playerCarryDowns = null;
-    private PlayerController playercontroller;
-    int number = 0;
-    public int groupNumber = 1;
-    private bool InGroup = false;
-
-    [SerializeField]
-    private float defaultPosY = 51;
-
-    [SerializeField]
-    private float carryPosY = 60;
-
-    BoxCollider boxCol = null;
-
-
-    enum ItemSize
+    /// <summary>
+    /// 大砲の運搬に関するクラス
+    /// </summary>
+    public class CarryCannon : MonoBehaviour
     {
-        Small,
-        Medium,
-        Large
-    }
+        [SerializeField]
+        private float defaultPosY = 51;
 
-    [SerializeField]
-    ItemSize myItemSize = ItemSize.Small;
-    private int myItemSizeCount = 0;
-    #endregion
+        [SerializeField]
+        private float carryPosY = 60;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        boxCol = GetComponent<BoxCollider>();
+        [SerializeField]
+        ItemSize myItemSize = ItemSize.Small;
 
-        switch (myItemSize)
+        private BoxCollider boxCol = null;
+        private GroupManager groupManager;
+        private GameObject[] myGrabPoint = null;
+        private PlayerCarryDown[] playerCarryDowns = null;
+
+        private int myItemSizeCount = 0;
+        private int number = 0;
+        private bool isGroup = false;
+
+        private const int MAX_GROUP_NUMBER = 4;
+        private const int FIRST_GROUP_NUMBER = 1;
+
+        public int GroupNumber = 1;
+
+        /// <summary>
+        /// アイテムの大きさ
+        /// </summary>
+        enum ItemSize
         {
-            default:
-                myItemSizeCount = (int)myItemSize;
-                break;
+            Small,
+            Medium,
+            Large
         }
 
-        Array.Resize(ref myGrabPoint, 0);
-        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
-    }
-
-    public void GetGrabPoint(GameObject thisGrabPoint)
-    {
-        Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);
-        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
-        myGrabPoint[number] = thisGrabPoint;
-        playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
-        number++;
-
-        boxCol.isTrigger = false;
-
-        while (!InGroup)
+        // Start is called before the first frame update
+        void Start()
         {
-            GameObject group = GameObject.FindWithTag("Group" + groupNumber);
-            playercontroller = group.GetComponent<PlayerController>();
+            boxCol = GetComponent<BoxCollider>();
+            groupManager = null;
+            Array.Resize(ref myGrabPoint, 0);
+            Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
 
-            if (group.transform.childCount <= 0)
+            switch (myItemSize)
             {
-                this.gameObject.transform.position = new Vector3(
-                    this.gameObject.transform.position.x,
-                    carryPosY,
-                    this.gameObject.transform.position.z
-                    );
-                gameObject.transform.SetParent(group.gameObject.transform);
-                playercontroller = group.GetComponent<PlayerController>();
-                playercontroller.GetItemSize(myItemSizeCount, 2, this.gameObject);
-
-                InGroup = true;
-                break;
+                default:
+                    myItemSizeCount = (int)myItemSize;
+                    break;
             }
-            else
+            number = 0;
+            isGroup = false;
+
+            GroupNumber = 1;
+        }
+
+        /// <summary>
+        /// プレイヤーが自身の運搬を開始した際に呼び出す
+        /// </summary>
+        /// <param name="thisGrabPoint">プレイヤーの掴みポイントのゲームオブジェクト</param>
+        public void GetGrabPoint(GameObject thisGrabPoint)
+        {
+            Array.Resize(ref myGrabPoint, myGrabPoint.Length + 1);
+            Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+            myGrabPoint[number] = thisGrabPoint;
+            playerCarryDowns[number] = thisGrabPoint.GetComponent<PlayerCarryDown>();
+            number++;
+
+            boxCol.isTrigger = false;
+
+            while (!isGroup)
             {
-                groupNumber += 1;
-                if (groupNumber > 4)
+                GameObject group = GameObject.FindWithTag("Group" + GroupNumber);
+                groupManager = group.GetComponent<GroupManager>();
+
+                if (group.transform.childCount <= 0)
                 {
-                    groupNumber = 1;
+                    this.gameObject.transform.position = new Vector3(
+                        this.gameObject.transform.position.x,
+                        carryPosY,
+                        this.gameObject.transform.position.z
+                        );
+                    gameObject.transform.SetParent(group.gameObject.transform);
+                    groupManager = group.GetComponent<GroupManager>();
+                    groupManager.GetItemSize(myItemSizeCount, this.gameObject);
+
+                    isGroup = true;
+                    break;
                 }
-                playercontroller = null;
+                else
+                {
+                    GroupNumber += FIRST_GROUP_NUMBER;
+                    if (GroupNumber > MAX_GROUP_NUMBER)
+                    {
+                        GroupNumber = FIRST_GROUP_NUMBER;
+                    }
+                    groupManager = null;
+                }
             }
         }
-    }
 
-    public void OutGroup()
-    {
-        InGroup = false;
-        gameObject.transform.parent = null;
-        DoCarryCancel();
-        
-        this.gameObject.transform.position = new Vector3(
-            this.gameObject.transform.position.x,
-            defaultPosY,
-            this.gameObject.transform.position.z
-            );
-        Array.Resize(ref myGrabPoint, 0);
-        Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
-        number = 0;
-
-    }
-
-    public void DoCarryCancel()
-    {
-        for (int i = 0; i < myGrabPoint.Length; i++)
+        /// <summary>
+        /// 自身の運搬が終了した際に呼び出す
+        /// </summary>
+        public void OutGroup()
         {
-            playerCarryDowns[i].CarryCancel();
+            isGroup = false;
+            gameObject.transform.parent = null;
+            DoCarryCancel();
+
+            this.gameObject.transform.position = new Vector3(
+                this.gameObject.transform.position.x,
+                defaultPosY,
+                this.gameObject.transform.position.z
+                );
+            Array.Resize(ref myGrabPoint, 0);
+            Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+            number = 0;
+
+        }
+
+        /// <summary>
+        /// 自身を運搬していたプレイヤーの関数を呼び出す処理を行う
+        /// </summary>
+        public void DoCarryCancel()
+        {
+            for (int i = 0; i < myGrabPoint.Length; i++)
+            {
+                playerCarryDowns[i].CarryCancel();
+            }
         }
     }
 }

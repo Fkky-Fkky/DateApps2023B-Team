@@ -1,169 +1,163 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:吉田理紗
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class CarryEmote : MonoBehaviour
+namespace Resistance
 {
-    #region
-    private int myPlayerNo;
-    float time = 0;
-    float scaleTime = 0;
-
-    private SpriteRenderer spriteRenderer;
-    private Transform cameraPos;
-
-    [SerializeField]
-    private Sprite carryEmoteIcon = null;
-
-    [SerializeField]
-    private float startTime = 0.4f;
-
-    [SerializeField]
-    private float endTime = 0.4f;
-
-    [SerializeField]
-    private float moveY = 0.2f;
-
-    [SerializeField]
-    private float smallTime = 0.4f;
-
-    [SerializeField]
-    private float bigTime = 0.4f;
-
-    [SerializeField]
-    private float sizeChange = 0.2f;
-
-    [SerializeField]
-    private float startSizeChange = 0.2f;
-
-    private bool IsEmote = false;
-    private bool IsSmall = false;
-    private bool IsBig = false;
-    private bool IsEnd = false;
-
-    private Vector3 defaultPos;
-    private Vector3 movePos = Vector3.zero;
-    private Vector3 defaultSize;
-    private Vector3 setSize;
-    #endregion
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 運搬中の人数が足りない場合に出すエモート(汗)に関するクラス
+    /// </summary>
+    public class CarryEmote : MonoBehaviour
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        cameraPos = Camera.main.transform;
+        [SerializeField]
+        private Sprite carryEmoteIcon = null;
 
-        defaultPos = new Vector3(0.0f, gameObject.transform.localPosition.y, 0.0f);
-        movePos.y = moveY;
-        defaultSize = gameObject.transform.localScale;
-        setSize = gameObject.transform.localScale;
-    }
+        [SerializeField]
+        private EmoteData myEmoteData = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (IsEmote)
+        private SpriteRenderer spriteRenderer = null;
+        private Transform cameraPos = null;
+
+        private float time = 0;
+        private float scaleTime = 0;
+
+        private float startTime = 0.4f;
+        private float moveY = 0.2f;
+        private float smallTime = 0.4f;
+        private float bigTime = 0.4f;
+        private float sizeChange = 0.2f;
+        private float startSizeChange = 0.2f;
+
+        private bool isEmote = false;
+        private bool isSmall = false;
+        private bool isBig = false;
+        private bool isEnd = false;
+
+        private Vector3 defaultPos = Vector3.zero;
+        private Vector3 movePos = Vector3.zero;
+        private Vector3 defaultSize = Vector3.zero;
+        private Vector3 setSize = Vector3.zero;
+
+        const float MIRROR_ROT_Y = -180.0f;
+
+        // Start is called before the first frame update
+        void Start()
         {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            cameraPos = Camera.main.transform;
+
+            time = 0.0f;
+            scaleTime = 0.0f;
+
+            startTime = myEmoteData.StartTime;
+            moveY = myEmoteData.MoveY;
+            smallTime = myEmoteData.SmallTime;
+            bigTime = myEmoteData.BigTime;
+            sizeChange = myEmoteData.SizeChange;
+            startSizeChange = myEmoteData.StartSizeChange;
+
+            isEmote = false;
+            isSmall = false;
+            isBig = false;
+            isEnd = false;
+
+            defaultPos = new Vector3(0.0f, gameObject.transform.localPosition.y, 0.0f);
+            movePos.y = moveY;
+            defaultSize = gameObject.transform.localScale;
+            setSize = gameObject.transform.localScale;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (!isEmote)
+            {
+                return;
+            }
             time += Time.deltaTime;
             this.transform.LookAt(transform.position + cameraPos.rotation * Vector3.forward, cameraPos.rotation * Vector3.up);
-            if(transform.parent.gameObject.transform.rotation.y >= 0)
+            if (transform.parent.gameObject.transform.rotation.y >= 0)
             {
-                transform.Rotate(new Vector3(0.0f, -180.0f, 0.0f));
+                transform.Rotate(new Vector3(0.0f, MIRROR_ROT_Y, 0.0f));
             }
 
             ChangeSize();
 
-            if (IsEnd)
-            {
-                OnEndTime();
-            }
-            else
+            if (!isEnd)
             {
                 OnStartTime();
             }
         }
-    }
 
-    public void CallStartCarryEmote()
-    {
-        IsEmote = true;
-        spriteRenderer.sprite = carryEmoteIcon;
-        IsBig = true;
-        IsEnd = false;
-    }
-
-    public void CallEndCarryEmote()
-    {
-        IsEnd = true;
-        time = 0.0f;
-    }
-
-    void OnStartTime()
-    {
-        if (time <= startTime)
+        /// <summary>
+        /// エモートの開始を外部から呼び出す
+        /// </summary>
+        public void CallStartCarryEmote()
         {
-            gameObject.transform.localPosition += movePos * Time.deltaTime;
-            setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-            gameObject.transform.localScale = setSize;
+            isEmote = true;
+            spriteRenderer.sprite = carryEmoteIcon;
+            isBig = true;
+            isEnd = false;
         }
-    }
 
-    void OnEndTime()
-    {
-        if (time <= endTime)
+        /// <summary>
+        /// エモートの終了を外部から呼び出す
+        /// </summary>
+        public void CallEndCarryEmote()
         {
-            gameObject.transform.localPosition += movePos * Time.deltaTime;
-            IsSmall = false;
-            IsBig = false;
-            setSize -= new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
-            gameObject.transform.localScale = setSize;
-        }
-        else
-        {
-            IsEmote = false;
+            isEmote = false;
             time = 0;
             scaleTime = 0;
             spriteRenderer.sprite = null;
-            IsSmall = false;
-            IsBig = false;
+            isSmall = false;
+            isBig = false;
             gameObject.transform.localPosition = defaultPos;
             gameObject.transform.localScale = defaultSize;
             setSize = defaultSize;
         }
-    }
 
-    void ChangeSize()
-    {
-        scaleTime += Time.deltaTime;
-
-        if (!IsSmall && IsBig)
+        /// <summary>
+        /// エモートが開始された後の数秒間で行う処理
+        /// </summary>
+        void OnStartTime()
         {
-            setSize += new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
-            gameObject.transform.localScale = setSize;
-
-            if (scaleTime >= smallTime)
+            if (time <= startTime)
             {
-                scaleTime = 0;
-                IsSmall = true;
-                IsBig = false;
+                gameObject.transform.localPosition += movePos * Time.deltaTime;
+                setSize += new Vector3(startSizeChange, startSizeChange, startSizeChange) * Time.deltaTime;
+                gameObject.transform.localScale = setSize;
             }
         }
-        else if (IsSmall && !IsBig)
+
+        /// <summary>
+        /// 時間に応じて表示した自身のサイズを拡大縮小する
+        /// </summary>
+        void ChangeSize()
         {
-            setSize -= new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
-            gameObject.transform.localScale = setSize;
-            if (scaleTime >= bigTime)
+            scaleTime += Time.deltaTime;
+
+            if (!isSmall && isBig)
             {
-                scaleTime = 0;
-                IsSmall = false;
-                IsBig = true;
+                setSize += new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
+                gameObject.transform.localScale = setSize;
+
+                if (scaleTime >= smallTime)
+                {
+                    scaleTime = 0;
+                    isSmall = true;
+                    isBig = false;
+                }
+            }
+            else if (isSmall && !isBig)
+            {
+                setSize -= new Vector3(sizeChange, sizeChange, sizeChange) * Time.deltaTime;
+                gameObject.transform.localScale = setSize;
+                if (scaleTime >= bigTime)
+                {
+                    scaleTime = 0;
+                    isSmall = false;
+                    isBig = true;
+                }
             }
         }
-    }
-
-    public void GetPlayerNo(int setNumber)
-    {
-        myPlayerNo = setNumber;
     }
 }

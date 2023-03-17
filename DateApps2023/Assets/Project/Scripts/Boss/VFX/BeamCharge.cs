@@ -1,29 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+//担当者:武田碧
 using UnityEngine;
 
-public class BeamCharge : MonoBehaviour
+namespace Resistance
 {
-    public BossAttack bossAttack;
-
-    private float time = 0.0f;
-    private float effectTime;
-
-    void Start()
+    /// <summary>
+    /// ビームチャージのエフェクトの表示時間
+    /// </summary>
+    public class BeamCharge : MonoBehaviour
     {
-        time = 0.0f;
+        private float time = 0.0f;
+        private float effectTime = 0.0f;
 
-        effectTime = bossAttack.BeamTimeMax();
+        public BossAttack BossAttack = null;
 
-    }
-
-    void Update()
-    {
-        time += Time.deltaTime;
-        if (time > effectTime)
+        void Start()
         {
-            Destroy(gameObject);
-            time = 0.0f;
+            effectTime = BossAttack.BeamTimeMax();
+        }
+
+        void Update()
+        {
+            time += Time.deltaTime;
+            if (time > effectTime)
+            {
+                Destroy(gameObject);
+                time = 0.0f;
+            }
         }
     }
 }

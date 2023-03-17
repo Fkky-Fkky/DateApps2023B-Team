@@ -1,402 +1,353 @@
-using System.Collections;
+//担当者:武田碧
+
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class BossCSVGenerator : MonoBehaviour
+namespace Resistance
 {
-    public BossManager bossManager;
-    private BossCount bossCount;
-    [SerializeField]
-    private opretar opretar;
-
-    [SerializeField]
-    private BossCSV bossCSV = null;
-
-    [SerializeField]
-    private GameObject nomalBoss;
-
-    [SerializeField]
-    private GameObject miniBoss;
-
-    [SerializeField]
-    private GameObject bigBoss;
-
-    private GameObject boss;
-
-    private int bossType = 0;
-
-    private string bossTypeDate;
-    private int bossLane = 0;
-    private float attackIntervalDate;
-    private float posZ;
-    private int bossHpDate;
-    private float moveSpeedDate;
-
-    private float centerPosX =    0.0f;
-    [SerializeField]
-    private float sidePos = 100.0f;
-    private float leftPosX;
-    private float rightPosX;
-
-    private float fallPosition = 500.0f;
-
-    private float time = 0.0f;
-
-    private int bossCountOne = 1;
-    [SerializeField]
-    private int bossCountMax = 10;
-
-    public int BossCountOpe { get; private set; }
-
-    private bool isCenterLine = false;
-    private bool isRightLine = false;
-    private bool isLeftLine = false;
-
-    private List<BossDamage> bossList = new List<BossDamage>();
-    private List<BossMove> bossMoveList = new List<BossMove>();
-    private List<BossAttack> bossAttackList = new List<BossAttack>();
-
-    public bool IsFirstKill { get; private set; }
-    public bool IsKill { get; private set; }
-
-    public bool IsLanding { get; private set; }
-    public bool IsDanger { get; private set; }
-
-    public bool IsCharge { get; private set; }
-
-    public bool IsGameOver { get; private set; }
-
-    private float landingTime=0.0f;
-
-    private float dangerOffTime = 0.0f;
-    private float killOffTime = 0.0f;
-    private float MessageOffTimeMax = 0.05f;
-
-    private int messageCount = 0;
-
-    private int landingCount = 0;
-
-    private float bossTypeOffTime = 0.0f;
-    private float bossTypeOffTimeMax = 0.03f;
-
-
-    void Start()
+    /// <summary>
+    /// ボスの生成
+    /// </summary>
+    public class BossCSVGenerator : MonoBehaviour
     {
-        bossCountOne = 1;
-        nomalBoss.tag = "Boss";
+        [SerializeField]
+        private int bossCountMax = 10;
+        [SerializeField]
+        private float sidePos = 100.0f;
+        [SerializeField]
+        private GameObject nomalBoss = null;
+        [SerializeField]
+        private GameObject miniBoss = null;
+        [SerializeField]
+        private GameObject bigBoss = null;
+        [SerializeField]
+        private BossManager bossManager = null;
+        [SerializeField]
+        private Operator myOperator = null;
+        [SerializeField]
+        private BossCSV bossCSV = null;
 
-        isCenterLine = false;
-        isRightLine = false;
-        isLeftLine = false;
+        private int bossCountOne = 1;
+        private int messageCount = 0;
+        private int bossType = 0;
+        private int bossLane = 0;
+        private int bossHpDate = 0;
 
-        bossCount = GetComponent<BossCount>();
+        private float leftPosX = 0.0f;
+        private float rightPosX = 0.0f;
+        private float time = 0.0f;
+        private float dangerOffTime = 0.0f;
+        private float killOffTime = 0.0f;
+        private float bossTypeOffTime = 0.0f;
+        private float attackIntervalDate = 0.0f;
+        private float posZ = 0.0f;
+        private float moveSpeedDate = 0.0f;
 
-        IsFirstKill = false;
-        IsKill = false;
+        private string bossTypeDate = null;
 
-        IsLanding = false;
+        private List<BossDamage> bossList = new List<BossDamage>();
+        private List<BossMove> bossMoveList = new List<BossMove>();
+        private List<BossAttack> bossAttackList = new List<BossAttack>();
 
+        private GameObject boss = null;
+        private BossCount bossCount = null;
 
-        leftPosX = -sidePos;
-        rightPosX = sidePos;
-
-    }
-
-    void Update()
-    {
-
-        for (int i = 0; i < bossList.Count; i++)
+        /// <summary>
+        /// ボスの種類
+        /// </summary>
+        private enum BOSS_TYPE
         {
-            if (bossList[i].IsFellDown())
-            {
-                if (messageCount < 1)
-                {
-                    IsKill = true;
-                    messageCount++;
-                }
-                bossCount.SetBossKillCount();
-                bossMoveList.RemoveAt(i);
-                bossList.RemoveAt(i);
-            }
+            None,
+            NOMAL,
+            MINI,
+            BIG
+        }
+        /// <summary>
+        /// 出現レーン
+        /// </summary>
+        private enum LANE
+        {
+            LEFT = 1,
+            CENTER = 2,
+            RIGHT = 3
         }
 
-        //スタートフラグ
-        if (!opretar.Getstartflag())
+        /// <summary>
+        /// ボスが倒れた
+        /// </summary>
+        public bool IsKill { get; private set; }
+        /// <summary>
+        /// ボスがかなり近いとき
+        /// </summary>
+        public bool IsDanger { get; private set; }
+        /// <summary>
+        /// チャージ開始
+        /// </summary>
+        public bool IsCharge { get; private set; }
+        /// <summary>
+        /// ゲームオーバー
+        /// </summary>
+        public bool IsGameOver { get; private set; }
+
+        const int MESSAGE_COUNT_MAX = 1;
+        const int FIRST_BOSS_LANE = 2;
+        const int SECOND_BOSS_LANE = 3;
+        const int TUTORIAL_BOSS_HP = 3;
+        const int TUTORIAL_BOSS_SPEED = 3;
+        const float CENTER_POS_X = 0.0f;
+        const float TUTORIAL_BOSS_POS_Z = 345.0f;
+        const float TUTORIAL_ATTACKINTERVAL = 10000.0f;
+        const float FALL_POSITION = 500.0f;
+        const float MESSAGE_OFF_TIME_MAX = 0.05f;
+        const float BOSS_TYPE_OFF_TIME_MAX = 0.03f;
+
+        const string TUTORIAL_BOSS_TYPE = "Nomal";
+
+        void Start()
         {
-            return;
-        }
-
-        if (bossCountOne <= bossCountMax)
-        {
-            time += Time.deltaTime;
-            if (time >= bossCSV.appearanceTime[bossCountOne])
-            {
-                bossTypeDate = bossCSV.bossType[bossCountOne];
-                bossLane = bossCSV.appearanceLane[bossCountOne];
-                attackIntervalDate = bossCSV.attackIntervalTime[bossCountOne];
-                posZ = bossCSV.positionZ[bossCountOne];
-                bossHpDate = bossCSV.bossHp[bossCountOne];
-                moveSpeedDate = bossCSV.bossSpeed[bossCountOne];
-
-                BossTypeGanarate();
-            }
-        }
-
-
-        for (int i = 0; i < bossMoveList.Count; i++)
-        {
-            if (bossMoveList[i].IsLanding)
-            {
-                if (landingCount < 1)
-                {
-                    IsLanding = true;
-                    landingCount++;
-                }
-            }
-            if (bossMoveList[i].isHazard)
-            {
-                IsDanger = true;
-            }
-        }
-
-        for (int i = 0; i < bossAttackList.Count; i++)
-        {
-            if (bossAttackList[i].IsCharge)
-            {
-                IsCharge = true;
-                break;
-            }
-            IsCharge = false;
-        }
-
-        for(int i = 0; i < bossMoveList.Count; i++)
-        {
-            if (bossMoveList[i].IsGameOver)
-            {
-                IsGameOver = true;
-                break;
-            }
+            bossCount = GetComponent<BossCount>();
+            IsKill = false;
             IsGameOver = false;
+            IsDanger = false;
+            leftPosX = -sidePos;
+            rightPosX = sidePos;
         }
 
-        MessageCancel();
-    }
-
-    private void MessageCancel()
-    {
-        if(IsLanding)
+        void Update()
         {
-            landingTime += Time.deltaTime;
-            if (landingTime >= MessageOffTimeMax)
+            for (int i = 0; i < bossList.Count; i++)
             {
-                IsLanding = false;
-                landingTime = 0.0f;
-            }
-        }
-
-        if (IsFirstKill)
-        {
-            killOffTime += Time.deltaTime;
-            if (killOffTime >= MessageOffTimeMax)
-            {
-                messageCount = 0;
-                IsFirstKill = false;
-
-                killOffTime = 0.0f;
-            }
-        }
-
-        if (IsKill)
-        {
-            killOffTime += Time.deltaTime;
-            if (killOffTime >= MessageOffTimeMax)
-            {
-                messageCount = 0;
-                IsKill = false;
-
-                killOffTime = 0.0f;
-            }
-        }
-
-        if(IsDanger)
-        {
-            dangerOffTime += Time.deltaTime;
-            if (dangerOffTime >= MessageOffTimeMax)
-            {
-                IsDanger = false;
-                dangerOffTime = 0.0f;
-            }
-        }
-
-        if (bossType != 0)
-        {
-            bossTypeOffTime += Time.deltaTime;
-            if (bossTypeOffTime >= bossTypeOffTimeMax)
-            {
-                bossType = 0;
-                bossTypeOffTime = 0.0f;
-            }
-        }
-
-    }
-
-    private void BossTypeGanarate()
-    {
-        BossLane();
-    }
-
-    private void BossType()
-    {
-        switch (bossTypeDate)
-        {
-            case "Nomal":
-                boss = Instantiate(nomalBoss);
-                bossType = 1;
-                break;
-            case "Mini":
-                boss = Instantiate(miniBoss);
-                bossType= 2;
-                break;
-            case "Big":
-                boss = Instantiate(bigBoss);
-                bossType = 3;
-                break;
-        }
-    }
-
-    private void BossLane()
-    {
-        switch (bossLane)
-        {
-            case 1:
-                if (!isLeftLine)
+                if (bossList[i].IsFellDown)
                 {
-                    BossType();
-                    boss.transform.position = new Vector3(leftPosX, fallPosition, posZ);
-                    bossList.Add(boss.GetComponent<BossDamage>());
-                    bossMoveList.Add(boss.GetComponent<BossMove>());
-                    bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    if (opretar.Getstartflag())
+                    if (messageCount < MESSAGE_COUNT_MAX)
                     {
-                        bossCountOne++;
+                        IsKill = true;
+                        messageCount++;
                     }
-                    time = 0.0f;
-                    isLeftLine = true;
+                    bossCount.SetBossKillCount();
+                    bossMoveList.RemoveAt(i);
+                    bossList.RemoveAt(i);
                 }
-                break;
-            case 2:
-                if (!isCenterLine)
-                {
-                    BossType();
-                    boss.transform.position = new Vector3(centerPosX, fallPosition, posZ);
-                    bossList.Add(boss.GetComponent<BossDamage>());
-                    bossMoveList.Add(boss.GetComponent<BossMove>());
-                    bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    if (opretar.Getstartflag())
-                    {
-                        bossCountOne++;
-                    }
-                    time = 0.0f;
-                    
-                    isCenterLine = true;
-                }
-                break;
-            case 3:
-                if (!isRightLine)
-                {
-                    BossType();
-                    boss.transform.position = new Vector3(rightPosX, fallPosition, posZ);
-                    bossList.Add(boss.GetComponent<BossDamage>());
-                    bossMoveList.Add(boss.GetComponent<BossMove>());
-                    bossAttackList.Add(boss.GetComponent<BossAttack>());
-                    if (opretar.Getstartflag())
-                    {
-                        bossCountOne++;
-                    }
+            }
 
-                    time = 0.0f;
-                    
-                    isRightLine = true;
+            //スタートフラグ
+            if (!myOperator.GetStartFlag())
+            {
+                return;
+            }
+
+            if (bossCountOne <= bossCountMax)
+            {
+                time += Time.deltaTime;
+                if (time >= bossCSV.AppearanceTime[bossCountOne])
+                {
+                    bossTypeDate = bossCSV.BossType[bossCountOne];
+                    bossLane = bossCSV.AppearanceLane[bossCountOne];
+                    attackIntervalDate = bossCSV.AttackIntervalTime[bossCountOne];
+                    posZ = bossCSV.PositionZ[bossCountOne];
+                    bossHpDate = bossCSV.BossHp[bossCountOne];
+                    moveSpeedDate = bossCSV.BossSpeed[bossCountOne];
+
+                    BossGanarater();
                 }
-                break;
+            }
+
+
+            for (int i = 0; i < bossMoveList.Count; i++)
+            {
+                if (bossMoveList[i].IsHazard)
+                {
+                    IsDanger = true;
+                }
+            }
+
+            for (int i = 0; i < bossAttackList.Count; i++)
+            {
+                if (bossAttackList[i].IsCharge)
+                {
+                    IsCharge = true;
+                    break;
+                }
+                IsCharge = false;
+            }
+
+            for (int i = 0; i < bossMoveList.Count; i++)
+            {
+                if (bossMoveList[i].IsGameOver)
+                {
+                    IsGameOver = true;
+                    break;
+                }
+                IsGameOver = false;
+            }
+
+            MessageCancel();
+        }
+
+        /// <summary>
+        /// オペレーターが同じことを喋らないようにする
+        /// </summary>
+        private void MessageCancel()
+        {
+            if (IsKill)
+            {
+                killOffTime += Time.deltaTime;
+                if (killOffTime >= MESSAGE_OFF_TIME_MAX)
+                {
+                    messageCount = 0;
+                    IsKill = false;
+
+                    killOffTime = 0.0f;
+                }
+            }
+
+            if (IsDanger)
+            {
+                dangerOffTime += Time.deltaTime;
+                if (dangerOffTime >= MESSAGE_OFF_TIME_MAX)
+                {
+                    IsDanger = false;
+                    dangerOffTime = 0.0f;
+                }
+            }
+
+            if (bossType != (int)BOSS_TYPE.None)
+            {
+                bossTypeOffTime += Time.deltaTime;
+                if (bossTypeOffTime >= BOSS_TYPE_OFF_TIME_MAX)
+                {
+                    bossType = (int)BOSS_TYPE.None;
+                    bossTypeOffTime = 0.0f;
+                }
+            }
+
+        }
+        /// <summary>
+        /// ボスの生成
+        /// </summary>
+        private void BossGanarater()
+        {
+            switch (bossLane)
+            {
+                case (int)LANE.LEFT:
+                    if (!bossManager.IsLeftLine)
+                    {
+                        BossAppearanceDate(leftPosX);
+                    }
+                    break;
+                case (int)LANE.CENTER:
+                    if (!bossManager.IsCenterLine)
+                    {
+                        BossAppearanceDate(CENTER_POS_X);
+                    }
+                    break;
+                case (int)LANE.RIGHT:
+                    if (!bossManager.IsRightLine)
+                    {
+                        BossAppearanceDate(rightPosX);
+                    }
+                    break;
+            }
+        }
+        /// <summary>
+        /// ボスのデータを入れる
+        /// </summary>
+        /// <param name="bossPositionX">出現するX軸</param>
+        private void BossAppearanceDate(float bossPositionX)
+        {
+            BossType();
+            boss.transform.position = new Vector3(bossPositionX, FALL_POSITION, posZ);
+            bossList.Add(boss.GetComponent<BossDamage>());
+            bossMoveList.Add(boss.GetComponent<BossMove>());
+            bossAttackList.Add(boss.GetComponent<BossAttack>());
+            if (myOperator.GetStartFlag())
+            {
+                bossCountOne++;
+            }
+            time = 0.0f;
+        }
+        /// <summary>
+        /// 出現させるボスの種類
+        /// </summary>
+        private void BossType()
+        {
+            switch (bossTypeDate)
+            {
+                case "Nomal":
+                    boss = Instantiate(nomalBoss);
+                    bossType = (int)BOSS_TYPE.NOMAL;
+                    break;
+                case "Mini":
+                    boss = Instantiate(miniBoss);
+                    bossType = (int)BOSS_TYPE.MINI;
+                    break;
+                case "Big":
+                    boss = Instantiate(bigBoss);
+                    bossType = (int)BOSS_TYPE.BIG;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 攻撃する時間間隔を返す
+        /// </summary>
+        /// <returns>攻撃する時間間隔</returns>
+        public float AttackIntervalTime()
+        {
+            return attackIntervalDate;
+        }
+        /// <summary>
+        /// ボスの体力を返す
+        /// </summary>
+        /// <returns>ボスの体力</returns>
+        public int BossHP()
+        {
+            return bossHpDate;
+        }
+        /// <summary>
+        /// ボスの移動スピードを返す
+        /// </summary>
+        /// <returns>ボスの移動スピード</returns>
+        public float BossMoveSpeed()
+        {
+            return moveSpeedDate;
+        }
+        /// <summary>
+        /// ボスの種類のデータを返す
+        /// </summary>
+        /// <returns>ボスの種類のデータ</returns>
+        public int BossTypeDate()
+        {
+            return bossType;
+        }
+        /// <summary>
+        /// チュートリアル用のボス1
+        /// </summary>
+        public void FirstBossGanaretar()
+        {
+            bossTypeDate = TUTORIAL_BOSS_TYPE;
+            bossLane = FIRST_BOSS_LANE;
+            attackIntervalDate = TUTORIAL_ATTACKINTERVAL;
+            posZ = TUTORIAL_BOSS_POS_Z;
+            bossHpDate = TUTORIAL_BOSS_HP;
+            moveSpeedDate = TUTORIAL_BOSS_SPEED;
+
+            BossGanarater();
+        }
+
+        /// <summary>
+        /// チュートリアル用のボス2
+        /// </summary>
+        public void SecondBossGanaretar()
+        {
+            bossTypeDate = TUTORIAL_BOSS_TYPE;
+            bossLane = SECOND_BOSS_LANE;
+            attackIntervalDate = TUTORIAL_ATTACKINTERVAL;
+            posZ = TUTORIAL_BOSS_POS_Z;
+            bossHpDate = TUTORIAL_BOSS_HP;
+            moveSpeedDate = TUTORIAL_BOSS_SPEED;
+
+            BossGanarater();
         }
     }
-
-    public void IsCenterLineFalse()
-    {
-        isCenterLine = false;
-    }
-
-    public void IsCenterLineTrue()
-    {
-        isCenterLine = true;
-    }
-
-
-    public void IsLeftLineFalse()
-    {
-        isLeftLine = false;
-    }
-
-    public void IsLeftLineTrue()
-    {
-        isLeftLine = true;
-    }
-
-    public void IsRightLineFalse()
-    {
-        isRightLine = false;
-    }
-
-    public void IsRightLineTrue()
-    {
-        isRightLine = true;
-    }
-
-    public float AttackIntervalTime()
-    {
-        return attackIntervalDate;
-    }
-
-    public int BossHP()
-    {
-        return bossHpDate;
-    }
-
-    public float BossMoveSpeed()
-    {
-        return moveSpeedDate;
-    }
-
-    public int BossTypeDate()
-    {
-        return bossType;
-    }
-
-    public void FirstBossGanaretar()
-    {
-        bossTypeDate = "Nomal";
-        bossLane = 2;
-        attackIntervalDate = 10000.0f;
-        posZ = 345.0f;
-        bossHpDate = 3;
-        moveSpeedDate = 3;
-
-        BossTypeGanarate();
-    }
-
-    public void SecondBossGanaretar()
-    {
-        bossTypeDate = "Nomal";
-        bossLane = 3;
-        attackIntervalDate = 10000.0f;
-        posZ = 345.0f;
-        bossHpDate = 3;
-        moveSpeedDate = 3;
-
-        BossTypeGanarate();
-    }
-
 }
