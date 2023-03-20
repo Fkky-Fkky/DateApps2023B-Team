@@ -12,6 +12,12 @@ namespace Resistance
         private ParticleSystem[] energyChargeEffects = new ParticleSystem[3];
 
         [SerializeField]
+        private ParticleSystem cannonDamageEffect = null;
+
+        [SerializeField]
+        private ParticleSystem cannonDamageSmokeEffect = null;
+
+        [SerializeField]
         private SEManager seManager = null;
 
         [SerializeField]
@@ -121,16 +127,25 @@ namespace Resistance
         /// <summary>
         /// エネルギーを減らす
         /// </summary>
-        public void DisChargeEnergy()
+        /// <param name="isDamage">ダメージを受けているか</param>
+        public void DisChargeEnergy(bool isDamage)
         {
             const float COOL_TIME_MAX = 3.0f;
+            const float DAMAGE_COOL_TIME_MAX = 5.0f;
+            float addCoolTime = COOL_TIME_MAX;
+            if (isDamage)
+            {
+                addCoolTime = DAMAGE_COOL_TIME_MAX;
+                cannonDamageEffect.gameObject.SetActive(true);
+                cannonDamageSmokeEffect.gameObject.SetActive(true);
+            }
             IsEnergyCharge = false;
             if (isSetCoolTime)
             {
                 return;
             }
             isSetCoolTime = true;
-            coolTime = COOL_TIME_MAX;
+            coolTime = addCoolTime;
         }
     }
 }
