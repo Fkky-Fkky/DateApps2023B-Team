@@ -110,7 +110,7 @@ namespace Resistance
             IsNowShot = true;
             isCoolTime = true;
             Invoke(nameof(LaserEnd), laserEndTime[energyType]);
-            energyCharge.DisChargeEnergy();
+            energyCharge.DisChargeEnergy(false);
         }
 
         /// <summary>
