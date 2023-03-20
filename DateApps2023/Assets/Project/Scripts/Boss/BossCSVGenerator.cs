@@ -89,17 +89,17 @@ namespace Resistance
         /// </summary>
         public bool IsGameOver { get; private set; }
 
-        const int MESSAGE_COUNT_MAX = 1;
-        const int FIRST_BOSS_LANE = 2;
-        const int SECOND_BOSS_LANE = 3;
-        const int TUTORIAL_BOSS_HP = 3;
+        const int MESSAGE_COUNT_MAX   = 1;
+        const int FIRST_BOSS_LANE     = 2;
+        const int SECOND_BOSS_LANE    = 3;
+        const int TUTORIAL_BOSS_HP    = 3;
         const int TUTORIAL_BOSS_SPEED = 3;
-        const float CENTER_POS_X = 0.0f;
-        const float TUTORIAL_BOSS_POS_Z = 345.0f;
+        const float CENTER_POS_X            = 0.0f;
+        const float TUTORIAL_BOSS_POS_Z     = 345.0f;
         const float TUTORIAL_ATTACKINTERVAL = 10000.0f;
-        const float FALL_POSITION = 500.0f;
-        const float MESSAGE_OFF_TIME_MAX = 0.05f;
-        const float BOSS_TYPE_OFF_TIME_MAX = 0.03f;
+        const float FALL_POSITION           = 500.0f;
+        const float MESSAGE_OFF_TIME_MAX    = 0.05f;
+        const float BOSS_TYPE_OFF_TIME_MAX  = 0.03f;
 
         const string TUTORIAL_BOSS_TYPE = "Nomal";
 
@@ -141,12 +141,12 @@ namespace Resistance
                 time += Time.deltaTime;
                 if (time >= bossCSV.AppearanceTime[bossCountOne])
                 {
-                    bossTypeDate = bossCSV.BossType[bossCountOne];
-                    bossLane = bossCSV.AppearanceLane[bossCountOne];
+                    bossTypeDate       = bossCSV.BossType[bossCountOne];
+                    bossLane           = bossCSV.AppearanceLane[bossCountOne];
                     attackIntervalDate = bossCSV.AttackIntervalTime[bossCountOne];
-                    posZ = bossCSV.PositionZ[bossCountOne];
-                    bossHpDate = bossCSV.BossHp[bossCountOne];
-                    moveSpeedDate = bossCSV.BossSpeed[bossCountOne];
+                    posZ               = bossCSV.PositionZ[bossCountOne];
+                    bossHpDate         = bossCSV.BossHp[bossCountOne];
+                    moveSpeedDate      = bossCSV.BossSpeed[bossCountOne];
 
                     BossGanarater();
                 }
@@ -325,12 +325,12 @@ namespace Resistance
         /// </summary>
         public void FirstBossGanaretar()
         {
-            bossTypeDate = TUTORIAL_BOSS_TYPE;
-            bossLane = FIRST_BOSS_LANE;
+            bossTypeDate       = TUTORIAL_BOSS_TYPE;
+            bossLane           = FIRST_BOSS_LANE;
             attackIntervalDate = TUTORIAL_ATTACKINTERVAL;
-            posZ = TUTORIAL_BOSS_POS_Z;
-            bossHpDate = TUTORIAL_BOSS_HP;
-            moveSpeedDate = TUTORIAL_BOSS_SPEED;
+            posZ               = TUTORIAL_BOSS_POS_Z;
+            bossHpDate         = TUTORIAL_BOSS_HP;
+            moveSpeedDate      = TUTORIAL_BOSS_SPEED;
 
             BossGanarater();
         }
@@ -340,12 +340,12 @@ namespace Resistance
         /// </summary>
         public void SecondBossGanaretar()
         {
-            bossTypeDate = TUTORIAL_BOSS_TYPE;
-            bossLane = SECOND_BOSS_LANE;
+            bossTypeDate       = TUTORIAL_BOSS_TYPE;
+            bossLane           = SECOND_BOSS_LANE;
             attackIntervalDate = TUTORIAL_ATTACKINTERVAL;
-            posZ = TUTORIAL_BOSS_POS_Z;
-            bossHpDate = TUTORIAL_BOSS_HP;
-            moveSpeedDate = TUTORIAL_BOSS_SPEED;
+            posZ               = TUTORIAL_BOSS_POS_Z;
+            bossHpDate         = TUTORIAL_BOSS_HP;
+            moveSpeedDate      = TUTORIAL_BOSS_SPEED;
 
             BossGanarater();
         }

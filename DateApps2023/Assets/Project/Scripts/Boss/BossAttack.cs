@@ -11,43 +11,46 @@ namespace Resistance
     public class BossAttack : MonoBehaviour
     {
         [SerializeField]
-        private float chageTimeMax = 10.0f;
+        private float chageTimeMax = 7.0f;
 
         [SerializeField]
         private GameObject dmageAreaCenter = null;
         [SerializeField]
         private GameObject damageAreaRight = null;
         [SerializeField]
-        private GameObject damageAreaLeft = null;
+        private GameObject damageAreaLeft  = null;
         [SerializeField]
-        private GameObject chargeEffect = null;
+        private GameObject chargeEffect    = null;
         [SerializeField]
-        private GameObject dangerZone = null;
+        private GameObject dangerZone      = null;
         [SerializeField]
-        private Transform chargePos = null;
+        private Transform chargePos        = null;
 
         [SerializeField]
-        private BossMove bossMove = null;
+        private BossMove bossMove     = null;
         [SerializeField]
         private BossDamage bossDamage = null;
         [SerializeField]
-        private AreaControl areaControl = null;
-        [SerializeField]
-        private SEManager seManager = null;
+        private SEManager seManager   = null;
 
         private int effectStop = 0;
-        private int areaCount = 0;
-        private int seCount = 0;
+        private int areaCount  = 0;
+        private int seCount    = 0;
 
-        private float time = 0.0f;
+        private float time               = 0.0f;
         private float attackIntervalTime = 0.0f;
-        private float chargeTime = 0.0f;
-        private float beamOffTime = 0.0f;
+        private float chargeTime         = 0.0f;
+        private float beamOffTime        = 0.0f;
 
-        private List<GameObject> effectList = new List<GameObject>();
+        private Vector3 dangerCenter = new Vector3(0.0f, -1.2f, 0.0f);
+        private Vector3 dangerLeft   = new Vector3(-10.0f, -1.2f, 0.0f);
+        private Vector3 dangerRigth  = new Vector3(10.0f, -1.2f, 0.0f);
 
-        private AudioSource audioSource = null;
-        private BossCSVGenerator bossCSVGenerator = null;
+        private List<GameObject> effectList     = new List<GameObject>();
+        private List<GameObject> dangerAreaList = new List<GameObject>();
+
+        private AudioSource audioSource                 = null;
+        private BossCSVGenerator bossCSVGenerator       = null;
         private BossAnimatorControl bossAnimatorControl = null;
 
         /// <summary>
@@ -63,13 +66,15 @@ namespace Resistance
         /// </summary>
         public bool IsAttackAll { get; private set; }
 
-        const int EFFECT_STOP_MAX = 1;
-        const int AREA_COUNT_MAX = 1;
-        const int SE_COUNT_MAX = 1;
-        const float CENTER_TARGET = 0.0f;
-        const float RIGHT_TARGET = 0.1f;
-        const float LEFT_TARGET = -0.1f;
-        const float BEAM_OFF_TIME_MAX = 2.0f;
+        const int EFFECT_STOP_MAX         =      1;
+        const int AREA_COUNT_MAX          =      1;
+        const int SE_COUNT_MAX            =      1;
+        const float CENTER_TARGET         =   0.0f;
+        const float RIGHT_TARGET          =   0.1f;
+        const float LEFT_TARGET           =  -0.1f;
+        const float BEAM_OFF_TIME_MAX     =   2.0f;
+        const float DANGER_OBJECT_ANGLE_Y = 180.0f;
+
 
         private void Start()
         {
@@ -79,8 +84,8 @@ namespace Resistance
 
             attackIntervalTime = bossCSVGenerator.AttackIntervalTime();
             IsAttackAll = false;
-            IsAttack = false;
-            IsCharge = false;
+            IsAttack    = false;
+            IsCharge    = false;
         }
         void Update()
         {
@@ -97,7 +102,7 @@ namespace Resistance
                 AttackOff();
 
                 ListDestroy(effectList);
-                areaControl.DestroyDamageAreaList();
+                ListDestroy(dangerAreaList);
             }
         }
         /// <summary>
@@ -125,7 +130,7 @@ namespace Resistance
             if (effectStop < EFFECT_STOP_MAX)
             {
                 effectList.Add(Instantiate(chargeEffect, chargePos.position, Quaternion.identity));
-                areaControl.GenerateDangerZone(gameObject);
+                GenerateDangerZone();
                 IsCharge = true;
                 effectStop++;
             }
@@ -134,6 +139,25 @@ namespace Resistance
                 IsCharge = false;
             }
         }
+        /// <summary>
+        /// ビームが当たるエリアの表示
+        /// </summary>
+        private void GenerateDangerZone()
+        {
+            switch (gameObject.tag)
+            {
+                case "Center":
+                    dangerAreaList.Add(Instantiate(dangerZone, dangerCenter, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
+                    break;
+                case "Left":
+                    dangerAreaList.Add(Instantiate(dangerZone, dangerLeft, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
+                    break;
+                case "Right":
+                    dangerAreaList.Add(Instantiate(dangerZone, dangerRigth, Quaternion.Euler(0.0f, DANGER_OBJECT_ANGLE_Y, 0.0f)));
+                    break;
+            }
+        }
+
         /// <summary>
         /// ビームを発射
         /// </summary>
@@ -149,7 +173,7 @@ namespace Resistance
             {
                 AttackOff();
                 ListDestroy(effectList);
-                areaControl.DestroyDamageAreaList();
+                ListDestroy(dangerAreaList);
             }
         }
         /// <summary>
@@ -210,14 +234,14 @@ namespace Resistance
         /// </summary>
         private void AttackOff()
         {
-            IsAttack = false;
+            IsAttack    = false;
             IsAttackAll = false;
-            seCount = 0;
-            effectStop = 0;
-            areaCount = 0;
-            chargeTime = 0.0f;
+            seCount     = 0;
+            effectStop  = 0;
+            areaCount   = 0;
+            chargeTime  = 0.0f;
             beamOffTime = 0.0f;
-            time = 0.0f;
+            time        = 0.0f;
             bossAnimatorControl.SetBoolFalse("Attack");
         }
         /// <summary>

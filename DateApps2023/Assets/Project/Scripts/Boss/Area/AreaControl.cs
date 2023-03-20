@@ -8,12 +8,6 @@ using UnityEngine;
 public class AreaControl : MonoBehaviour
 {
     [SerializeField]
-    private GameObject dmageAreaCenter = null;
-    [SerializeField]
-    private GameObject damageAreaRight = null;
-    [SerializeField]
-    private GameObject damageAreaLeft  = null;
-    [SerializeField]
     private GameObject dangerZone      = null;
 
     private Vector3 dangerCenter = new Vector3(0.0f, -1.2f, 0.0f);
