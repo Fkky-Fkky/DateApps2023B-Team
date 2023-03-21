@@ -19,6 +19,7 @@ namespace Resistance
         private int itemSizeCount = 0;
         private int playerCount = 0;
         private int needCarryCount = 0;
+        private int firstPlayerNumber = 5;
 
         private float moveSpeed = 250.0f;
         private float carryOverSpeed = 0.1f;
@@ -30,12 +31,15 @@ namespace Resistance
         private float mySpeed = 1.0f;
         private float defaultCarryOverSpeed = 0.0f;
 
+        private float rotateArrow = 0.0f;
+
         private bool isControlFrag = false;
         private bool[] isGamepadFrag = { false, false, false, false };
         private Vector3 groupVec = Vector3.zero;
 
         private const int NOT_PLAYER_COUNT = 0;
         private const int MAX_PLAYER_COUNT = 4;
+        private const int NULL_FIRST_NUMBER = 5;
 
         private const int SMALL_NEED_COUNT = 1;
         private const int MIDIUM_NEED_COUNT = 2;
@@ -60,6 +64,7 @@ namespace Resistance
             itemSizeCount = 0;
             playerCount = 0;
             needCarryCount = 0;
+            firstPlayerNumber = NULL_FIRST_NUMBER;
 
             moveSpeed = carrySpeedData.MoveSpeed;
             carryOverSpeed = carrySpeedData.CarryOverSpeed;
@@ -70,6 +75,7 @@ namespace Resistance
 
             mySpeed = 1.0f;
             groupVec = Vector3.zero;
+            rotateArrow = 0.0f;
 
             isControlFrag = false;
             for (int i = 0; i < isGamepadFrag.Length; i++)
@@ -121,6 +127,11 @@ namespace Resistance
                         AnimationImage[i].SetBool("CarryMove", false);
                         before[i] = Vector2.zero;
                     }
+                    if (leftStickValue.x != 0 || leftStickValue.y != 0)
+                    {
+                        var direction = new Vector3(leftStickValue.x, rotateArrow, leftStickValue.y);
+                        groupManager.SetDirection(direction);
+                    }
 
                     float runSpeed = mySpeed * animationSpeed;
                     AnimationImage[i].SetFloat(RUN_ANIM_NAME, runSpeed);
@@ -130,6 +141,17 @@ namespace Resistance
             groupVec.x = (before[0].x + before[1].x + before[2].x + before[3].x) * carryOverSpeed;
             groupVec.z = (before[0].y + before[1].y + before[2].y + before[3].y) * carryOverSpeed;
             rb.velocity = groupVec;
+        }
+
+        /// <summary>
+        /// アイテムの重さを設定する際に呼び出す
+        /// </summary>
+        /// <param name="itemSize">アイテムの重さ</param>
+        /// <param name="rotateY">矢印の回転量</param>
+        public void SetItenSizeCount(int itemSize, float rotateY)
+        {
+            itemSizeCount = itemSize;
+            rotateArrow = rotateY;
         }
 
         /// <summary>
@@ -145,7 +167,11 @@ namespace Resistance
 
             isGamepadFrag[childNo] = true;
             playerCount++;
-            isControlFrag = true;
+            if (!isControlFrag)
+            {
+                firstPlayerNumber = childNo;
+                isControlFrag = true;
+            }
             CheckPlayerCount();
         }
 
@@ -158,6 +184,22 @@ namespace Resistance
             ChildPlayer[outChildNo] = null;
             AnimationImage[outChildNo] = null;
             isGamepadFrag[outChildNo] = false;
+            if(firstPlayerNumber == outChildNo)
+            {
+                firstPlayerNumber = outChildNo;
+                for (int i = 0; i < isGamepadFrag.Length; i++)
+                {
+                    if (isGamepadFrag[i])
+                    {
+                        firstPlayerNumber = i;
+                        break;
+                    }
+                    else
+                    {
+                        firstPlayerNumber = NULL_FIRST_NUMBER;
+                    }
+                }
+            }
             playerCount--;
             CheckPlayerCount();
         }
@@ -224,6 +266,7 @@ namespace Resistance
             if (playerCount < NOT_PLAYER_COUNT)
             {
                 playerCount = NOT_PLAYER_COUNT;
+                firstPlayerNumber = NULL_FIRST_NUMBER;
             }
             else if (playerCount > MAX_PLAYER_COUNT)
             {
@@ -248,13 +291,6 @@ namespace Resistance
             playerCount = NOT_PLAYER_COUNT;
         }
 
-        /// <summary>
-        /// アイテムの重さを設定する際に呼び出す
-        /// </summary>
-        /// <param name="itemSize">アイテムの重さ</param>
-        public void SetItenSizeCount(int itemSize)
-        {
-            itemSizeCount = itemSize;
-        }
+        
     }
 }
