@@ -9,7 +9,7 @@ namespace Resistance
     public class CannonConnect : MonoBehaviour
     {
         [SerializeField]
-        private ParticleSystem connectEffect = null;
+        private CannonEffectManager effectManager = null;
 
         [SerializeField]
         private SEManager seManager = null;
@@ -68,9 +68,9 @@ namespace Resistance
             IsConnect = true;
             standCollision.enabled = false;
             transform.rotation = standTransform.rotation;
-            if (!connectEffect.gameObject.activeSelf)
+            if (!effectManager.ConnectEffect.gameObject.activeSelf)
             {
-                connectEffect.gameObject.SetActive(true);
+                effectManager.ConnectEffect.gameObject.SetActive(true);
                 audioSource.PlayOneShot(seManager.CannonConnectSe);
             }
         }

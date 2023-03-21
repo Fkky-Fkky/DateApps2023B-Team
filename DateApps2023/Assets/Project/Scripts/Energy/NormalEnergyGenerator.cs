@@ -12,6 +12,9 @@ namespace Resistance
         [SerializeField]
         private float energyGenerateInterval = 10.0f;
 
+        [SerializeField]
+        private GameManager gameManager = null;
+
         private int generateNum = 0;
         private bool isGenerateEnergy = false;
         private List<float> generateTimeList = new List<float>();
@@ -24,6 +27,11 @@ namespace Resistance
 
         private void Update()
         {
+            if (gameManager.IsGameOver)
+            {
+                return;
+            }
+
             CalculateEnergyGenerateTime();
             if (isGenerateEnergy)
             {
