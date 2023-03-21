@@ -853,17 +853,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d81ccdefd4a36646bbc2daa86c507f3, type: 3}
---- !u!114 &636318859 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 608408024757362428, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-  m_PrefabInstance: {fileID: 608408025518527952}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b9def8cda7a374fb014909379fc5a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &649865514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1518,6 +1507,10 @@ PrefabInstance:
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
+    - target: {fileID: 6651277262534354619, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 9043751800428089512, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2460,122 +2453,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1988052381183139, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 84267649649958235, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 84267649649958235, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 84267649649958235, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 84267649649958235, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.013
-      objectReference: {fileID: 0}
-    - target: {fileID: 84267649649958235, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 198386668305673935, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: chargePos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: coolTimePos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: chargeEffect
-      value: 
-      objectReference: {fileID: 7358680883832252254, guid: e3d104564597ce94a94054a4f3fcd9b4, type: 3}
-    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: coolDownEffect
-      value: 
-      objectReference: {fileID: 6304585585383082989, guid: 89b08b50e70ad124eb0707a45dfebd7d, type: 3}
     - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
-    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: cannonDamageEffects.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: cannonDamageEffects.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025102211635, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: energyTanks.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025102211635, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: energyTanks.Array.data[0]
-      value: 
-      objectReference: {fileID: 636318859}
-    - target: {fileID: 608408025102211635, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: energyTanks.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 608408025486642117, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: bossDamage
+      propertyPath: gameManager
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 608408025486642117, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: generateEnergy
-      value: 
-      objectReference: {fileID: 1751158677}
-    - target: {fileID: 1316053233736067770, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.427
-      objectReference: {fileID: 0}
-    - target: {fileID: 1370944459765354666, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1763820090868025406, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 1914389724312435908, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 4091322567350885740}
-    - target: {fileID: 2433888748963709109, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433888748963709109, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244961312042077683, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5031780304380070229, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5035441659638480257, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5217654158581220599, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: standManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6235379894168220595, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -2620,24 +2509,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6450774645731477120, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6450774645731477120, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6627241262278720080, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.6
-      objectReference: {fileID: 0}
     - target: {fileID: 6756336597369760009, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_Name
       value: CannonA
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 608408025486642115, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
 --- !u!1001 &752636908750601429
 PrefabInstance:
@@ -2654,6 +2530,10 @@ PrefabInstance:
       propertyPath: generatePosMin
       value: 
       objectReference: {fileID: 345375994}
+    - target: {fileID: 1514505002, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 1514505002, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMax
       value: 
