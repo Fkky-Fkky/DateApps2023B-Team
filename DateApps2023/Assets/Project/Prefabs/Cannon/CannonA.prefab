@@ -241,7 +241,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 7
-  m_fontSizeBase: 4
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -718,6 +718,7 @@ MonoBehaviour:
   - {fileID: 4433492066294916312}
   energyCharge: {fileID: 608408025037340662}
   seManager: {fileID: 3986177982007044942, guid: 9990089b9d37e6540a6c7775ca05ef64, type: 3}
+  gameManager: {fileID: 0}
 --- !u!114 &1228524025749394180
 MonoBehaviour:
   m_ObjectHideFlags: 0
