@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 625377161565733850, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6235379894168220595, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_RootOrder
       value: 0
