@@ -12,15 +12,22 @@ namespace Resistance
         [SerializeField]
         private int carryTextOrderInLayer = 0;
 
+        [SerializeField]
+        private Sprite arrowSprite = null;
+
         private Rigidbody rb = null;
         private GroupMove groupMove = null;
         private TextMeshPro carryText = null;
         private Outline outline = null;
+        private SpriteRenderer directioningArrow = null;
 
         private float defaultMass = 1.0f;
 
         private const int ONLY_CHILDCOUNT = 1;
         private const float ADD_MASS = 10.0f;
+
+        private const float ENERGY_ARROW_ROTATE_Y = 90.0f;
+        private const float CANNON_ARROW_ROTATE_Y = -90.0f;
 
         private void Start()
         {
@@ -69,21 +76,34 @@ namespace Resistance
         /// アイテムがグループ配下に入る際に呼び出す
         /// </summary>
         /// <param name="itemSize">アイテムのサイズ(重さ)</param>
-        /// <param name="itemType">アイテムのタイプ　1=エネルギー物資,2=大砲</param>
         /// <param name="gameObject">アイテムのゲームオブジェクト</param>
         public void GetItemSize(int itemSize, GameObject gameObject)
         {
-            groupMove.SetItenSizeCount(itemSize);
-
+            directioningArrow = gameObject.GetComponentInChildren<SpriteRenderer>();
+            directioningArrow.sprite = arrowSprite;
             carryText = gameObject.GetComponentInChildren<TextMeshPro>();
             carryText.gameObject.GetComponent<MeshRenderer>().sortingOrder = carryTextOrderInLayer;
             outline = gameObject.GetComponentInChildren<Outline>();
             outline.enabled = false;
-            if (gameObject.CompareTag("Cannon"))
+            if (gameObject.CompareTag("item"))
+            {
+                groupMove.SetItenSizeCount(itemSize, ENERGY_ARROW_ROTATE_Y);
+            }
+            else if (gameObject.CompareTag("Cannon"))
             {
                 rb.mass *= ADD_MASS;
+                groupMove.SetItenSizeCount(itemSize, CANNON_ARROW_ROTATE_Y);
             }
             groupMove.CheckPlayerCount();
+        }
+
+        /// <summary>
+        /// 進行方向の矢印の向きを設定する
+        /// </summary>
+        /// <param name="direction">向きのベクトル</param>
+        public void SetDirection(Vector3 direction)
+        {
+            directioningArrow.gameObject.transform.localRotation = Quaternion.LookRotation(direction);
         }
 
         /// <summary>
@@ -117,10 +137,14 @@ namespace Resistance
                 {
                     if (transform.GetChild(i).gameObject.CompareTag("item"))
                     {
+                        directioningArrow.sprite = null;
+                        directioningArrow = null;
                         transform.GetChild(i).gameObject.GetComponent<CarryEnergy>().OutGroup();
                     }
                     else if (transform.GetChild(i).gameObject.CompareTag("Cannon"))
                     {
+                        directioningArrow.sprite = null;
+                        directioningArrow = null;
                         transform.GetChild(i).gameObject.GetComponent<CarryCannon>().OutGroup();
                     }
                 }

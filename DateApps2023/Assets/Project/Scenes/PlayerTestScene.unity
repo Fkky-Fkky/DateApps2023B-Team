@@ -711,6 +711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3438604394855183967, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
+      propertyPath: arrowSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ccb812ad7c7ebe047accba31ece26c4a, type: 3}
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
       value: Group2
@@ -1025,6 +1029,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3438604394855183967, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
+      propertyPath: arrowSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ccb812ad7c7ebe047accba31ece26c4a, type: 3}
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
       value: Group3
@@ -1112,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8153850905824846524, guid: 03f9061cfeda50747a48b1683240e697, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8153850905824846524, guid: 03f9061cfeda50747a48b1683240e697, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1375,6 +1383,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3438604394855183967, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
+      propertyPath: arrowSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ccb812ad7c7ebe047accba31ece26c4a, type: 3}
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
       value: Group4
@@ -2448,6 +2460,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3438604394855183967, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
+      propertyPath: arrowSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ccb812ad7c7ebe047accba31ece26c4a, type: 3}
     - target: {fileID: 6544279265657264512, guid: 8460bdd22275270469dff8d2482b57f8, type: 3}
       propertyPath: m_Name
       value: Group1
@@ -2760,6 +2776,10 @@ PrefabInstance:
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
+    - target: {fileID: 625377161565733850, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1316053233736067770, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.427
