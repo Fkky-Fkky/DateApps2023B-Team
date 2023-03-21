@@ -23,6 +23,9 @@ namespace Resistance
         [SerializeField]
         private SEManager seManager = null;
 
+        [SerializeField]
+        private GameManager gameManager = null;
+
         /// <summary>
         /// ÉrÅ[ÉÄÇ™î≠éÀíÜÇ©
         /// </summary>
@@ -37,6 +40,7 @@ namespace Resistance
         private float coolTime = 0.0f;
         private float[] laserEndTime = new float[3];
         private bool isCoolTime = false;
+        private bool isShotCancel = false;
         private AudioSource audioSource = null;
 
         private void Start()
@@ -53,6 +57,16 @@ namespace Resistance
         // Update is called once per frame
         void Update()
         {
+            if (gameManager.IsGameOver)
+            {
+                if (!isShotCancel)
+                {
+                    ShotCancel();
+                    isShotCancel = true;
+                }
+                return;
+            }
+            
             if (!isCoolTime)
             {
                 return;
@@ -145,7 +159,6 @@ namespace Resistance
             shotChargeEffects[energyType].gameObject.SetActive(false);
             CancelInvoke();
             audioSource.Stop();
-            PlayCoolDownEffects();
         }
     }
 }
