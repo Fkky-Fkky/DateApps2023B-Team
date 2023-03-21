@@ -9,13 +9,7 @@ namespace Resistance
     public class EnergyCharge : MonoBehaviour
     {
         [SerializeField]
-        private ParticleSystem[] energyChargeEffects = new ParticleSystem[3];
-
-        [SerializeField]
-        private ParticleSystem cannonDamageEffect = null;
-
-        [SerializeField]
-        private ParticleSystem cannonDamageSmokeEffect = null;
+        private CannonEffectManager effectManager = null;
 
         [SerializeField]
         private SEManager seManager = null;
@@ -117,7 +111,7 @@ namespace Resistance
         private void ChargeEnergy()
         {
             IsEnergyCharge = true;
-            energyChargeEffects[ChargeEnergyType].gameObject.SetActive(true);
+            effectManager.GetEnergyChargeEffect(ChargeEnergyType).gameObject.SetActive(true);
             audioSource.PlayOneShot(seManager.EnergyChargeSe);
             generateEnergy.GenerateEnergy();
             cannonLaser.transform.localScale = laserScale[ChargeEnergyType];
@@ -136,8 +130,8 @@ namespace Resistance
             if (isDamage)
             {
                 addCoolTime = DAMAGE_COOL_TIME_MAX;
-                cannonDamageEffect.gameObject.SetActive(true);
-                cannonDamageSmokeEffect.gameObject.SetActive(true);
+                effectManager.CannonDamageEffect.gameObject.SetActive(true);
+                effectManager.CannonDamageSmokeEffect.gameObject.SetActive(true);
             }
             IsEnergyCharge = false;
             if (isSetCoolTime)

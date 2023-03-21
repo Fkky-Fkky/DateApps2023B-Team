@@ -9,13 +9,7 @@ namespace Resistance
     public class CannonShot : MonoBehaviour
     {
         [SerializeField]
-        private ParticleSystem[] shotSmokeEffects = new ParticleSystem[3];
-
-        [SerializeField]
-        private ParticleSystem[] shotChargeEffects = new ParticleSystem[3];
-
-        [SerializeField]
-        private ParticleSystem[] coolDownEffects = new ParticleSystem[2];
+        private CannonEffectManager effectManager = null;
 
         [SerializeField]
         private EnergyCharge energyCharge = null;
@@ -110,7 +104,7 @@ namespace Resistance
         /// </summary>
         private void PlayShotChargeEffect()
         {
-            shotChargeEffects[energyType].gameObject.SetActive(true);
+            effectManager.GetShotChargeEffect(energyType).gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -119,7 +113,7 @@ namespace Resistance
         private void PlayShotSmoke()
         {
             const float MAX_COOL_TIME = 3.0f;
-            shotSmokeEffects[energyType].gameObject.SetActive(true);
+            effectManager.GetShotSmokeEffect(energyType).gameObject.SetActive(true);
             coolTime = MAX_COOL_TIME;
             IsNowShot = true;
             isCoolTime = true;
@@ -133,18 +127,15 @@ namespace Resistance
         private void LaserEnd()
         {
             IsNowShot = false;
-            PlayCoolDownEffects();
+            PlayCoolDownEffect();
         }
 
         /// <summary>
         /// クールダウンエフェクト生成
         /// </summary>
-        private void PlayCoolDownEffects()
+        private void PlayCoolDownEffect()
         {
-            for (int i = 0; i < coolDownEffects.Length; i++)
-            {
-                coolDownEffects[i].gameObject.SetActive(true);
-            }
+            effectManager.CoolDownEffect.gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -156,7 +147,7 @@ namespace Resistance
             IsShotting = false;
             isCoolTime = false;
             IsNowShot = false;
-            shotChargeEffects[energyType].gameObject.SetActive(false);
+            effectManager.GetShotChargeEffect(energyType).gameObject.SetActive(false);
             CancelInvoke();
             audioSource.Stop();
         }
