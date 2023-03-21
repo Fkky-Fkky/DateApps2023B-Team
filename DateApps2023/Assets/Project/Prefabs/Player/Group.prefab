@@ -86,3 +86,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carryTextOrderInLayer: 0
+  arrowSprite: {fileID: 21300000, guid: ccb812ad7c7ebe047accba31ece26c4a, type: 3}
