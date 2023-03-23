@@ -128,6 +128,22 @@ namespace Resistance
         {
             source.PlayOneShot(tutorialVoice[13]);
         }
+
+        /// <summary>
+        /// オペレーターのボイスのアニメーター呼び出しのトリガー
+        /// </summary>
+        void OpVice15()
+        {
+            source.PlayOneShot(tutorialVoice[14]);
+        }
+
+        /// <summary>
+        /// オペレーターのボイスのアニメーター呼び出しのトリガー
+        /// </summary>
+        void OpVice16()
+        {
+            source.PlayOneShot(tutorialVoice[15]);
+        }
         /// <summary>
         /// オペレーターのボイスのアニメーター呼び出しのトリガー
         /// </summary>
