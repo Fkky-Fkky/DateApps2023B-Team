@@ -16,10 +16,9 @@ namespace Resistance
         private float time = 0.0f;
         private float effectTime = 0.0f;
 
-        private float flashTime = 0.0f;
+        private float flashTime    = 0.0f;
+        private float maxFlashTime = 0.3f;
 
-
-        const float FLASH_TIME_MAX = 0.3f;
         const float REMAINING_SECONDS = 4.0f;
         const float HALF = 0.5f;
 
@@ -40,10 +39,12 @@ namespace Resistance
             if (time > effectTime - REMAINING_SECONDS)
             {
                 flashTime += Time.deltaTime;
+                maxFlashTime -= 0.015f * Time.deltaTime;
 
-                var repeatValue = Mathf.Repeat(flashTime, FLASH_TIME_MAX);
 
-                dangerRenderer.enabled = repeatValue >= FLASH_TIME_MAX * HALF;
+                var repeatValue = Mathf.Repeat(flashTime, maxFlashTime);
+
+                dangerRenderer.enabled = repeatValue >= maxFlashTime * HALF;
             }
         }
     }

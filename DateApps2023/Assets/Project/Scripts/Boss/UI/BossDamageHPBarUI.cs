@@ -124,6 +124,4 @@ public class BossDamageHPBarUI : MonoBehaviour
             hpBar[bossHp + i].SetActive(false);
         }
     }
-
-
 }
