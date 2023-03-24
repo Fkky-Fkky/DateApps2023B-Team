@@ -4461,7 +4461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c475a297b74f454292f7dde5ac7f426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MainScene
+  sceneName: CannonTestScene
   animationImage: {fileID: 1352511582}
   playerBackImage:
   - {fileID: 1721107811}

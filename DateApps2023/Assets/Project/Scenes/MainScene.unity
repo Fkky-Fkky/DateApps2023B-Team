@@ -1518,6 +1518,10 @@ PrefabInstance:
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
+    - target: {fileID: 6651277262534354619, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 9043751800428089512, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2517,6 +2521,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 608408025486642117, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
+    - target: {fileID: 608408025486642117, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
@@ -2630,6 +2638,10 @@ PrefabInstance:
       propertyPath: generatePosMin
       value: 
       objectReference: {fileID: 345375994}
+    - target: {fileID: 1514505002, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 1514505002, guid: 359be9c40dc02c842b4fefa4b45dde29, type: 3}
       propertyPath: generatePosMax
       value: 
