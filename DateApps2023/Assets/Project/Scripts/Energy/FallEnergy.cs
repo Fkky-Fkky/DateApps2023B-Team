@@ -13,6 +13,15 @@ namespace Resistance
 
         private const float FALL_SPEED = 15.0f;
 
+        private void OnEnable()
+        {
+            const float SRART_POSITION_Y = 20.0f;
+            isEnergyResourceLanded = false;
+            position = transform.position;
+            position.y = SRART_POSITION_Y;
+            transform.position = position;
+        }
+
         // Start is called before the first frame update
         void Start()
         {

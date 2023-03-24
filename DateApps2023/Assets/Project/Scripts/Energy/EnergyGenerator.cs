@@ -45,9 +45,13 @@ namespace Resistance
         /// </summary>
         private void ChangeEnergyGenerator()
         {
+            const int ADD_ENERGY = 2;
             normalGenerator.gameObject.SetActive(true);
             energyGenerator = normalGenerator;
-            GenerateEnergy();
+            for (int i = 0; i < ADD_ENERGY; i++)
+            {
+                GenerateEnergy();
+            }
             isChangeGenerator = true;
             tutorialGenerator.gameObject.SetActive(false);
         }

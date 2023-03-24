@@ -19,8 +19,7 @@ namespace Resistance
         private bool isGenerateEnergy = false;
         private List<float> generateTimeList = new List<float>();
 
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             base.Initialize();
         }

@@ -18,6 +18,9 @@ namespace Resistance
         private EnergyGenerator generateEnergy = null;
 
         [SerializeField]
+        private GameManager gameManager = null;
+
+        [SerializeField]
         private GameObject cannonLaser = null;
 
         private float coolTime = 0.0f;
@@ -113,7 +116,10 @@ namespace Resistance
             IsEnergyCharge = true;
             effectManager.GetEnergyChargeEffect(ChargeEnergyType).gameObject.SetActive(true);
             audioSource.PlayOneShot(seManager.EnergyChargeSe);
-            generateEnergy.GenerateEnergy();
+            if (gameManager.IsGameStart)
+            {
+                generateEnergy.GenerateEnergy();
+            }
             cannonLaser.transform.localScale = laserScale[ChargeEnergyType];
             boxCol.enabled = false;
         }
