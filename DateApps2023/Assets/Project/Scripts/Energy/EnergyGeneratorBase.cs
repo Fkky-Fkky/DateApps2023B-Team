@@ -10,7 +10,13 @@ namespace Resistance
     public abstract class EnergyGeneratorBase : MonoBehaviour
     {
         [SerializeField]
-        protected private GameObject[] energies = new GameObject[3];
+        protected private GameObject[] smallEnergies = new GameObject[4];
+
+        [SerializeField]
+        protected private GameObject[] mediumEnergies = new GameObject[4];
+
+        [SerializeField]
+        protected private GameObject[] largeEnergies = new GameObject[4];
 
         [SerializeField]
         protected private Transform generatePosMin = null;
@@ -19,6 +25,7 @@ namespace Resistance
         protected private Transform generatePosMax = null;
 
         protected float[] createArea = new float[5];
+        protected List<GameObject[]> energiesList = new List<GameObject[]>();
         protected List<int> createEnergyTypeList = new List<int>();
         protected List<Vector3> createPositionList = new List<Vector3>();
 
@@ -34,37 +41,17 @@ namespace Resistance
         /// </summary>
         protected void Initialize()
         {
-            SortEnergies();
-
             const float HALF = 0.5f;
-            halfExtent = energies[energies.Length - 1].transform.localScale * HALF;
+            halfExtent = largeEnergies[0].transform.localScale * HALF;
 
             float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
             for (int i = 0; i <= MAX_AREA; i++)
             {
                 createArea[i] = generatePosMin.position.x + (fourDivide * i);
             }
-        }
-
-        /// <summary>
-        /// エネルギー物資をサイズ順に並べ替える
-        /// </summary>
-        private void SortEnergies()
-        {
-            for (int i = 0; i < energies.Length - 1; i++)
-            {
-                int mySize = energies[i].GetComponent<CarryEnergy>().MyItemSizeCount;
-                for (int j = i + 1; j < energies.Length; j++)
-                {
-                    int nextSize = energies[j].GetComponent<CarryEnergy>().MyItemSizeCount;
-                    if (mySize > nextSize)
-                    {
-                        GameObject index = energies[i];
-                        energies[i] = energies[j];
-                        energies[j] = index;
-                    }
-                }
-            }
+            energiesList.Add(smallEnergies);
+            energiesList.Add(mediumEnergies);
+            energiesList.Add(largeEnergies);
         }
 
         /// <summary>
@@ -95,8 +82,22 @@ namespace Resistance
         /// </summary>
         protected void GenerateEnergy()
         {
+            int energyType = createEnergyTypeList[0];
+            GameObject[] generateEnergies = energiesList[energyType];
+            GameObject generateEnergy = null;
+            const int MAX_INDEX = 4;
+
+            for (int i = 0; i < MAX_INDEX; ++i) {
+                if (!generateEnergies[i].activeSelf)
+                {
+                    generateEnergy = generateEnergies[i];
+                    break;
+                }
+            }
+
             Vector3 position = new Vector3(createPositionList[0].x, GENERATE_POS_Y, createPositionList[0].z);
-            Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
+            generateEnergy.transform.position = position;
+            generateEnergy.SetActive(true);
         }
 
         /// <summary>
