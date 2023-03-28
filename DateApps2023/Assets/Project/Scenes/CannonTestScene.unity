@@ -1499,6 +1499,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2555257843712249488, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5669519291030049210, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: gameManager
       value: 
@@ -2512,6 +2516,10 @@ PrefabInstance:
     - target: {fileID: 6756336597369760009, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: m_Name
       value: CannonA
+      objectReference: {fileID: 0}
+    - target: {fileID: 8595528866253054958, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
