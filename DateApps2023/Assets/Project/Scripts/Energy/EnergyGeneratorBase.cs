@@ -118,5 +118,14 @@ namespace Resistance
         /// エネルギー物資を生成する
         /// </summary>
         public abstract void GenerateEnergyResource();
+
+        /// <summary>
+        /// エネルギー生成に使用するリストを初期化する
+        /// </summary>
+        public void ClearList()
+        {
+            createEnergyTypeList.Clear();
+            createPositionList.Clear();
+        }
     }
 }

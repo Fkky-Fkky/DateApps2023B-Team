@@ -152,6 +152,7 @@ namespace Resistance
         /// </summary>
         private void GenerateCheck()
         {
+            //エネルギー物資がフィールドに存在しているか確認
             for (int i = 0; i < energiesList[(int)generateType].Length; i++)
             {
                 if (energiesList[(int)generateType][i].activeSelf)
