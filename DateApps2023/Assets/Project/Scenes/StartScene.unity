@@ -4359,6 +4359,10 @@ PrefabInstance:
       propertyPath: firstBGM.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 56446dc0d0c003240bbba2f28a118aac, type: 3}
+    - target: {fileID: 7590760358248956567, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
+      propertyPath: secondBGM.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 56446dc0d0c003240bbba2f28a118aac, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fd66da6017232e4db4f428a27d8404c, type: 3}
 --- !u!1 &1450893419
