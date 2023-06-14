@@ -37,24 +37,6 @@ namespace Resistance
         private const int MAX_AREA = 4;
 
         /// <summary>
-        /// 継承先のStartで呼ばれる初期化処理
-        /// </summary>
-        protected void Initialize()
-        {
-            const float HALF = 0.5f;
-            halfExtent = largeEnergies[0].transform.localScale * HALF;
-
-            float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
-            for (int i = 0; i <= MAX_AREA; i++)
-            {
-                createArea[i] = generatePosMin.position.x + (fourDivide * i);
-            }
-            energiesList.Add(smallEnergies);
-            energiesList.Add(mediumEnergies);
-            energiesList.Add(largeEnergies);
-        }
-
-        /// <summary>
         /// エネルギー物資を設置する場所を作成
         /// </summary>
         protected void GeneratePosition()
@@ -118,6 +100,25 @@ namespace Resistance
         /// エネルギー物資を生成する
         /// </summary>
         public abstract void GenerateEnergyResource();
+
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        public void Initialize()
+        {
+            const float HALF = 0.5f;
+            halfExtent = largeEnergies[0].transform.localScale * HALF;
+
+            float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
+            for (int i = 0; i <= MAX_AREA; i++)
+            {
+                createArea[i] = generatePosMin.position.x + (fourDivide * i);
+            }
+            energiesList.Add(smallEnergies);
+            energiesList.Add(mediumEnergies);
+            energiesList.Add(largeEnergies);
+        }
+
 
         /// <summary>
         /// エネルギー生成に使用するリストを初期化する

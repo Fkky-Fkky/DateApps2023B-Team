@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5ac19b1a1cb2e4f81cfd5fb1faa015, type: 3}
   m_Name: CarrySpeedData
   m_EditorClassIdentifier: 
-  moveSpeed: 500
+  moveSpeed: 50
   carryOverSpeed: 0.1
   animationSpeed: 0.01
   smallCarrySpeed:

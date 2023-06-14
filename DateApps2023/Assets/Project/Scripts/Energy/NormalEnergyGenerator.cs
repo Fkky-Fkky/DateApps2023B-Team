@@ -19,11 +19,6 @@ namespace Resistance
         private bool isGenerateEnergy = false;
         private List<float> generateTimeList = new List<float>();
 
-        private void Start()
-        {
-            base.Initialize();
-        }
-
         private void Update()
         {
             if (gameManager.IsGameOver)
@@ -98,6 +93,28 @@ namespace Resistance
             GenerateEnergyType();
             GeneratePosition();
             generateTimeList.Add(energyGenerateInterval);
+        }
+
+        /// <summary>
+        /// エネルギー物資を追加で生成する数を返す
+        /// </summary>
+        /// <returns>エネルギー物資を追加で生成する数</returns>
+        public int GetNumberOfGenerateEnergy()
+        {
+            int activeEnergy = 0;
+            const int CHECK_ENERGY_TYPE = 2;
+            for (int i = 0; i < CHECK_ENERGY_TYPE; ++i)
+            {
+                for (int k = 0; k < energiesList[i].Length; ++k)
+                {
+                    if (energiesList[i][k].activeSelf)
+                    {
+                        activeEnergy++;
+                    }
+                }
+            }
+            const int MAX_ENERGY = 4;
+            return MAX_ENERGY - activeEnergy;
         }
     }
 }
