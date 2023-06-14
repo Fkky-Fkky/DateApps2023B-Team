@@ -32,9 +32,17 @@ namespace Resistance
         // Update is called once per frame
         private void Update()
         {
+            if (!isFirstGenerate)
+            {
+                return;
+            }
+
+            GenerateCheck();
+
             if (BossCount.GetKillCount() == 1)
             {
                 SetSecondGenerate();
+                return;
             }
         }
 
@@ -84,11 +92,14 @@ namespace Resistance
 
             GenerateEnergyType();
             GenerateFirstPosition();
-            const int FIRST_GENERATE_NUM = 2;
+            int energyType = createEnergyTypeList[0];
+            const int FIRST_GENERATE_NUM = 4;
+            GameObject[] generateEnergies = energiesList[energyType];
             for (int i = 0; i < FIRST_GENERATE_NUM; i++)
             {
-                Vector3 position = new Vector3(createPositionList[i + 1].x, GENERATE_POS_Y, createPositionList[i + 1].z);
-                Instantiate(energies[createEnergyTypeList[0]], position, Quaternion.Euler(0.0f, GENERATE_ROT_Y, 0.0f));
+                Vector3 position = new Vector3(createPositionList[i].x, GENERATE_POS_Y, createPositionList[i].z);
+                generateEnergies[i].transform.position = position;
+                generateEnergies[i].SetActive(true);
             }
             createPositionList.Clear();
             createEnergyTypeList.Clear();
@@ -134,6 +145,41 @@ namespace Resistance
             }
             generateType = GENERATE_TYPE.SECOND;
             isSetSecondGenerate = true;
+        }
+
+        /// <summary>
+        /// エネルギー物資を補充するかチェックする
+        /// </summary>
+        private void GenerateCheck()
+        {
+            //エネルギー物資がフィールドに存在しているか確認
+            for (int i = 0; i < energiesList[(int)generateType].Length; i++)
+            {
+                if (energiesList[(int)generateType][i].activeSelf)
+                {
+                    return;
+                }
+            }
+
+            const int FIRST_BOSS_KILL_COUNT = 1;
+            const int TUTORIAL_END_BOSS_KILL_COUNT = 4;
+            switch (generateType)
+            {
+                case GENERATE_TYPE.FIRST:
+                    if (BossCount.GetKillCount() > FIRST_BOSS_KILL_COUNT)
+                    {
+                        return;
+                    }
+                    break;
+
+                case GENERATE_TYPE.SECOND:
+                    if (BossCount.GetKillCount() > TUTORIAL_END_BOSS_KILL_COUNT)
+                    {
+                        return;
+                    }
+                    break;
+            }
+            GenerateEnergyResource();
         }
     }
 }

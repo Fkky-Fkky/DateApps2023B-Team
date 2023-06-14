@@ -1515,6 +1515,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 6651277262274826888, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
+    - target: {fileID: 6651277262274826888, guid: af39f9229e8baba4fa7f56e2670b37b8, type: 3}
       propertyPath: generateEnergy
       value: 
       objectReference: {fileID: 1751158677}
@@ -2492,6 +2496,10 @@ PrefabInstance:
       propertyPath: coolTimePos
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 4091322567350885740}
     - target: {fileID: 608408025037340662, guid: 24c9e9208aadf534dad8a4777bb04767, type: 3}
       propertyPath: chargeEffect
       value: 

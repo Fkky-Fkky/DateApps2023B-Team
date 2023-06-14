@@ -97,6 +97,15 @@ namespace Resistance
         {
             csv.SecondBossGanaretar();
         }
+
+        /// <summary>
+        /// チュートリアルでの怪獣生成　3回目
+        /// </summary>
+        private void Third()
+        {
+            csv.ThirdBossGanaretar();
+        }
+
         /// <summary>
         /// チュートリアル終了
         /// </summary>

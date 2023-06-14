@@ -61,6 +61,19 @@ namespace Resistance
             GroupNumber = 1;
         }
 
+        void OnEnable()
+        {
+            boxCol = GetComponent<BoxCollider>();
+            groupManager = null;
+            Array.Resize(ref myGrabPoint, 0);
+            Array.Resize(ref playerCarryDowns, myGrabPoint.Length);
+
+            number = 0;
+            isGroup = false;
+
+            GroupNumber = 1;
+        }
+
         /// <summary>
         /// プレイヤーが自身の運搬を開始した際に呼び出す
         /// </summary>
@@ -133,7 +146,9 @@ namespace Resistance
             groupManager.ReleaseChild();
 
             DoCarryCancel();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            gameObject.transform.parent = null;
+            gameObject.GetComponentInChildren<SpriteRenderer>().sprite = null;
         }
 
         /// <summary>
