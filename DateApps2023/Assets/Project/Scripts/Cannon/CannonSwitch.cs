@@ -22,6 +22,7 @@ namespace Resistance
 
         private Vector3 defaultScale = Vector3.zero;
         private Vector3 switchOnScale = Vector3.zero;
+        private Transform buttonTransformCache = null;
         private GameObject button = null;
         private BoxCollider boxCollider = null;
 
@@ -29,7 +30,8 @@ namespace Resistance
         void Start()
         {
             button = transform.GetChild(1).gameObject;
-            defaultScale = button.transform.localScale;
+            buttonTransformCache = button.transform;
+            defaultScale = buttonTransformCache.localScale;
             switchOnScale = new Vector3(0.0f, defaultScale.y, defaultScale.z);
             boxCollider = GetComponent<BoxCollider>();
             SwitchOn();
@@ -100,7 +102,7 @@ namespace Resistance
                 return;
             }
             boxCollider.enabled = false;
-            button.transform.localScale = switchOnScale;
+            buttonTransformCache.localScale = switchOnScale;
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace Resistance
                 return;
             }
             boxCollider.enabled = true;
-            button.transform.localScale = defaultScale;
+            buttonTransformCache.localScale = defaultScale;
         }
     }
 }
