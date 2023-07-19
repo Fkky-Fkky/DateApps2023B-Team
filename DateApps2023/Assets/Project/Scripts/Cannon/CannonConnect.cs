@@ -9,7 +9,7 @@ namespace Resistance
     public class CannonConnect : MonoBehaviour
     {
         [SerializeField]
-        private ParticleSystem connectEffect = null;
+        private CannonEffectManager effectManager = null;
 
         [SerializeField]
         private SEManager seManager = null;
@@ -24,6 +24,7 @@ namespace Resistance
         /// </summary>
         public bool IsConnect { get; private set; }
 
+        private Transform transformCache = null;
         private Transform standTransform = null;
         private AudioSource audioSource = null;
         private BoxCollider standCollision = null;
@@ -33,6 +34,7 @@ namespace Resistance
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
+            transformCache = transform;
         }
 
         private void Update()
@@ -42,7 +44,7 @@ namespace Resistance
                 return;
             }
 
-            if (CANNON_POS_Y < transform.position.y)
+            if (CANNON_POS_Y < transformCache.position.y)
             {
                 CannonCut();
             }
@@ -67,10 +69,10 @@ namespace Resistance
         {
             IsConnect = true;
             standCollision.enabled = false;
-            transform.rotation = standTransform.rotation;
-            if (!connectEffect.gameObject.activeSelf)
+            transformCache.rotation = standTransform.rotation;
+            if (!effectManager.ConnectEffect.gameObject.activeSelf)
             {
-                connectEffect.gameObject.SetActive(true);
+                effectManager.ConnectEffect.gameObject.SetActive(true);
                 audioSource.PlayOneShot(seManager.CannonConnectSe);
             }
         }
@@ -82,7 +84,7 @@ namespace Resistance
         {
             IsConnect = false;
             standCollision.enabled = true;
-            transform.rotation = Quaternion.identity;
+            transformCache.rotation = Quaternion.identity;
             standTransform = null;
             ConnectingPos = (int)CannonStand.STAND_POSITION.NONE;
         }

@@ -9,13 +9,16 @@ namespace Resistance
     public class EnergyCharge : MonoBehaviour
     {
         [SerializeField]
-        private ParticleSystem[] energyChargeEffects = new ParticleSystem[3];
+        private CannonEffectManager effectManager = null;
 
         [SerializeField]
         private SEManager seManager = null;
 
         [SerializeField]
         private EnergyGenerator generateEnergy = null;
+
+        [SerializeField]
+        private GameManager gameManager = null;
 
         [SerializeField]
         private GameObject cannonLaser = null;
@@ -111,9 +114,12 @@ namespace Resistance
         private void ChargeEnergy()
         {
             IsEnergyCharge = true;
-            energyChargeEffects[ChargeEnergyType].gameObject.SetActive(true);
+            effectManager.GetEnergyChargeEffect(ChargeEnergyType).gameObject.SetActive(true);
             audioSource.PlayOneShot(seManager.EnergyChargeSe);
-            generateEnergy.GenerateEnergy();
+            if (gameManager.IsGameStart)
+            {
+                generateEnergy.GenerateEnergy();
+            }
             cannonLaser.transform.localScale = laserScale[ChargeEnergyType];
             boxCol.enabled = false;
         }
@@ -121,16 +127,25 @@ namespace Resistance
         /// <summary>
         /// エネルギーを減らす
         /// </summary>
-        public void DisChargeEnergy()
+        /// <param name="isDamage">ダメージを受けているか</param>
+        public void DisChargeEnergy(bool isDamage)
         {
             const float COOL_TIME_MAX = 3.0f;
+            const float DAMAGE_COOL_TIME_MAX = 5.0f;
+            float addCoolTime = COOL_TIME_MAX;
+            if (isDamage)
+            {
+                addCoolTime = DAMAGE_COOL_TIME_MAX;
+                effectManager.CannonDamageEffect.gameObject.SetActive(true);
+                effectManager.CannonDamageSmokeEffect.gameObject.SetActive(true);
+            }
             IsEnergyCharge = false;
             if (isSetCoolTime)
             {
                 return;
             }
             isSetCoolTime = true;
-            coolTime = COOL_TIME_MAX;
+            coolTime = addCoolTime;
         }
     }
 }

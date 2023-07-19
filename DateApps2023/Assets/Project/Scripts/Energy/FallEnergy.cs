@@ -9,14 +9,22 @@ namespace Resistance
     public class FallEnergy : MonoBehaviour
     {
         private bool isEnergyResourceLanded = false;
-        private Vector3 position = Vector3.zero;
+        private Transform transformCache = null;
 
         private const float FALL_SPEED = 15.0f;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
-            position = transform.position;
+            transformCache = transform;
+        }
+
+        private void OnEnable()
+        {
+            const float SRART_POSITION_Y = 20.0f;
+            isEnergyResourceLanded = false;
+            Vector3 position = transformCache.position;
+            position.y = SRART_POSITION_Y;
+            transformCache.position = position;
         }
 
         // Update is called once per frame
@@ -34,9 +42,10 @@ namespace Resistance
         /// </summary>
         private void Fall()
         {
+            Vector3 position = transformCache.position;
             position.y = Mathf.Max(position.y - FALL_SPEED * Time.deltaTime, 0.0f);
-            transform.position = position;
-            if (transform.position.y <= 0.0f)
+            transformCache.position = position;
+            if (position.y <= 0.0f)
             {
                 isEnergyResourceLanded = true;
             }

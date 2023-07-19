@@ -17,7 +17,7 @@ namespace Resistance
             {
                 return;
             }
-            energyCharge.DisChargeEnergy();
+            energyCharge.DisChargeEnergy(true);
         }
     }
 }

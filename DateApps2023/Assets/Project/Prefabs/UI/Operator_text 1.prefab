@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7db3069f6dd404b9cbe990458175b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optext: {fileID: 0}
   energy: {fileID: 0}
   cannon: {fileID: 0}
   csv: {fileID: 0}
@@ -102,6 +101,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc6c8f77f44c669459dc2efe149ee5f4, type: 3}
   - {fileID: 8300000, guid: d2a3f89c22d213d46a62629a0604b35b, type: 3}
   - {fileID: 8300000, guid: a3810e83023de624ba626c60ff505756, type: 3}
+  - {fileID: 8300000, guid: c292cf0e521b1774ab8d67855af08135, type: 3}
+  - {fileID: 8300000, guid: 2818f6d1f162f4f40b07cbaa7f4e13c2, type: 3}
   gameVoice:
   - {fileID: 8300000, guid: c677db91eb2ee6c4c8530f05efeb71e2, type: 3}
   - {fileID: 8300000, guid: b91793429a8951b45b11b3f7ca180f17, type: 3}
