@@ -110,7 +110,7 @@ namespace Resistance
         /// </summary>
         private void GenerateFirstPosition()
         {
-            int miss = 0;
+            int areaSearchCount = 0;
             int generateNum = 0;
             Vector3 genaratePos = Vector3.one;
             const int MAX_GENERATE = 4;
@@ -122,12 +122,12 @@ namespace Resistance
                 {
                     createPositionList.Add(genaratePos);
                     generateNum++;
-                    miss = 0;
+                    areaSearchCount = 0;
                     continue;
                 }
 
-                miss++;
-                if (miss > MAX_MISS_COUNT)
+                areaSearchCount++;
+                if (areaSearchCount > MAX_AREA_SEARCH_COUNT)
                 {
                     break;
                 }

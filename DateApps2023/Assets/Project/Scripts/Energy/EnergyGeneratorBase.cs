@@ -10,13 +10,13 @@ namespace Resistance
     public abstract class EnergyGeneratorBase : MonoBehaviour
     {
         [SerializeField]
-        protected private GameObject[] smallEnergies = new GameObject[4];
+        protected private GameObject[] smallEnergies = new GameObject[MAX_ENERGY];
 
         [SerializeField]
-        protected private GameObject[] mediumEnergies = new GameObject[4];
+        protected private GameObject[] mediumEnergies = new GameObject[MAX_ENERGY];
 
         [SerializeField]
-        protected private GameObject[] largeEnergies = new GameObject[4];
+        protected private GameObject[] largeEnergies = new GameObject[MAX_ENERGY];
 
         [SerializeField]
         protected private Transform generatePosMin = null;
@@ -24,29 +24,30 @@ namespace Resistance
         [SerializeField]
         protected private Transform generatePosMax = null;
 
-        protected float[] createArea = new float[5];
+        protected float[] createArea = new float[MAX_AREA + 1];
         protected List<GameObject[]> energiesList = new List<GameObject[]>();
         protected List<int> createEnergyTypeList = new List<int>();
         protected List<Vector3> createPositionList = new List<Vector3>();
 
-        protected const int MAX_MISS_COUNT = 30;
+        protected const int MAX_AREA_SEARCH_COUNT = 30;
         protected const float GENERATE_POS_Y = 20.0f;
         protected const float GENERATE_ROT_Y = 180.0f;
         protected Vector3 halfExtent = Vector3.zero;
 
         private const int MAX_AREA = 4;
+        private const int MAX_ENERGY = 4;
 
         /// <summary>
         /// エネルギー物資を設置する場所を作成
         /// </summary>
         protected void GeneratePosition()
         {
-            int miss = 0;
+            int areaSearchCount = 0;
             int areaIndex = Random.Range(0, MAX_AREA);
             Vector3 genaratePos = Vector3.zero;
             const float GENERATE_POS_Y = 0.5f;
             genaratePos.y = GENERATE_POS_Y;
-            while (miss < MAX_MISS_COUNT)
+            while (areaSearchCount < MAX_AREA_SEARCH_COUNT)
             {
                 genaratePos.x = Random.Range(createArea[areaIndex], createArea[areaIndex + 1]);
                 genaratePos.z = Random.Range(generatePosMax.position.z, generatePosMin.position.z);
@@ -55,7 +56,7 @@ namespace Resistance
                     createPositionList.Add(genaratePos);
                     break;
                 }
-                miss++;
+                areaSearchCount++;
             }
         }
 
@@ -109,6 +110,7 @@ namespace Resistance
             const float HALF = 0.5f;
             halfExtent = largeEnergies[0].transform.localScale * HALF;
 
+            //エネルギー物資を設置するエリアをリストに追加
             float fourDivide = (generatePosMax.position.x - generatePosMin.position.x) / MAX_AREA;
             for (int i = 0; i <= MAX_AREA; i++)
             {
